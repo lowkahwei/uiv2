@@ -1,0 +1,127 @@
+import type {TabItemProps as BaseTabItemProps} from "./base/tab-item-base";
+import type {Node} from "@react-types/shared";
+import type {ValuesType} from "./use-tabs";
+
+import {forwardRef} from "@heroui/system";
+import {useDOMRef, filterDOMProps, mergeRefs} from "@heroui/react-utils";
+import {dataAttr, chain, mergeProps} from "@heroui/shared-utils";
+import scrollIntoView from "scroll-into-view-if-needed";
+import {useFocusRing} from "@react-aria/focus";
+import {useTab} from "@react-aria/tabs";
+import {useHover} from "@react-aria/interactions";
+import {cn} from "@heroui/theme";
+
+export interface TabItemProps<T extends object = object> extends BaseTabItemProps<T> {
+  item: Node<T>;
+  state: ValuesType["state"];
+  slots: ValuesType["slots"];
+  listRef?: ValuesType["listRef"];
+  classNames?: ValuesType["classNames"];
+  isDisabled?: ValuesType["isDisabled"];
+}
+
+/**
+ * @internal
+ */
+const Tab = forwardRef<"button", TabItemProps>((props, ref) => {
+  const {
+    className,
+    as,
+    item,
+    state,
+    classNames,
+    isDisabled: isDisabledProp,
+    listRef,
+    slots,
+    shouldSelectOnPressUp,
+    tabRef,
+    ...otherProps
+  } = props;
+
+  const {key} = item;
+
+  const domRef = useDOMRef(ref);
+
+  const Component = as || (props.href ? "a" : "button");
+  const shouldFilterDOMProps = typeof Component === "string";
+
+  const {
+    tabProps,
+    isSelected,
+    isDisabled: isDisabledItem,
+    isPressed,
+  } = useTab({key, isDisabled: isDisabledProp, shouldSelectOnPressUp}, state, domRef);
+
+  if (props.children == null) {
+    delete tabProps["aria-controls"];
+  }
+
+  const isDisabled = isDisabledProp || isDisabledItem;
+
+  const {focusProps, isFocused, isFocusVisible} = useFocusRing();
+  const {hoverProps, isHovered} = useHover({
+    isDisabled,
+  });
+
+  const tabStyles = cn(classNames?.tab, className);
+
+  const handleClick = () => {
+    if (!domRef?.current || !listRef?.current) return;
+
+    scrollIntoView(domRef.current, {
+      scrollMode: "if-needed",
+      behavior: "smooth",
+      block: "end",
+      inline: "end",
+      boundary: listRef?.current,
+    });
+  };
+
+  return (
+    <Component
+      ref={mergeRefs(domRef, tabRef)}
+      data-disabled={dataAttr(isDisabledItem)}
+      data-focus={dataAttr(isFocused)}
+      data-focus-visible={dataAttr(isFocusVisible)}
+      data-hover={dataAttr(isHovered)}
+      data-hover-unselected={dataAttr((isHovered || isPressed) && !isSelected)}
+      data-key={key}
+      data-pressed={dataAttr(isPressed)}
+      data-selected={dataAttr(isSelected)}
+      data-slot="tab"
+      {...mergeProps(
+        tabProps,
+        !isDisabled
+          ? {
+              ...focusProps,
+              ...hoverProps,
+            }
+          : {},
+        filterDOMProps(otherProps, {
+          enabled: shouldFilterDOMProps,
+          omitPropNames: new Set(["title"]),
+          // onClick is now from `tabProps`.
+          // omit it to avoid executing onClick it twice.
+          omitEventNames: new Set(["onClick"]),
+        }),
+        {onClick: chain(handleClick, tabProps.onClick)},
+      )}
+      className={slots.tab?.({class: tabStyles})}
+      title={otherProps?.titleValue}
+      type={Component === "button" ? "button" : undefined}
+    >
+      <div
+        className={slots.tabContent({
+          class: classNames?.tabContent,
+        })}
+        data-slot="tabContent"
+      >
+        {item.rendered}
+      </div>
+    </Component>
+  );
+});
+
+Tab.displayName = "HeroUI.Tab";
+
+export default Tab;

@@ -1,0 +1,728 @@
+import type {UserEvent} from "@testing-library/user-event";
+
+import * as React from "react";
+import {render, fireEvent, act} from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import {useForm} from "react-hook-form";
+import {Form} from "@heroui/form";
+import {HeroUIProvider} from "@heroui/system";
+
+import {NumberInput} from "../src";
+
+describe("NumberInput", () => {
+  let user: UserEvent;
+
+  beforeEach(() => {
+    user = userEvent.setup();
+  });
+
+  it("should render correctly", () => {
+    const wrapper = render(<NumberInput label="test number input" />);
+
+    expect(() => wrapper.unmount()).not.toThrow();
+  });
+
+  it("ref should be forwarded", () => {
+    const ref = React.createRef<HTMLInputElement>();
+
+    render(<NumberInput ref={ref} label="test number input" />);
+
+    expect(ref.current).not.toBeNull();
+  });
+
+  it("should have aria-invalid when invalid", () => {
+    const {container} = render(<NumberInput isInvalid={true} label="test number input" />);
+
+    expect(container.querySelector("input")).toHaveAttribute("aria-invalid", "true");
+  });
+
+  it("should have aria-readonly when isReadOnly", () => {
+    const {container} = render(<NumberInput isReadOnly label="test number input" />);
+
+    expect(container.querySelector("input")).toHaveAttribute("aria-readonly", "true");
+  });
+
+  it("should have disabled attribute when isDisabled", () => {
+    const {container} = render(<NumberInput isDisabled label="test number input" />);
+
+    expect(container.querySelector("input")).toHaveAttribute("disabled");
+  });
+
+  it("should disable the clear button when isDisabled", () => {
+    const {getByRole} = render(
+      <NumberInput hideStepper isClearable isDisabled label="test number input" />,
+    );
+
+    const clearButton = getByRole("button");
+
+    expect(clearButton).toBeDisabled();
+  });
+
+  it("should not allow clear button to be focusable", () => {
+    const {getByRole} = render(<NumberInput hideStepper isClearable label="test number input" />);
+
+    const clearButton = getByRole("button");
+
+    expect(clearButton).toHaveAttribute("tabIndex", "-1");
+  });
+
+  it("should have required attribute when isRequired with native validationBehavior", () => {
+    const {container} = render(
+      <NumberInput isRequired label="test number input" validationBehavior="native" />,
+    );
+
+    expect(container.querySelector("input")).toHaveAttribute("required");
+    expect(container.querySelector("input")).not.toHaveAttribute("aria-required");
+  });
+
+  it("should have aria-required attribute when isRequired with aria validationBehavior", () => {
+    const {container} = render(
+      <NumberInput isRequired label="test number input" validationBehavior="aria" />,
+    );
+
+    expect(container.querySelector("input")).not.toHaveAttribute("required");
+    expect(container.querySelector("input")).toHaveAttribute("aria-required", "true");
+  });
+
+  it("should have aria-describedby when description is provided", () => {
+    const {container} = render(<NumberInput description="description" label="test number input" />);
+
+    expect(container.querySelector("input")).toHaveAttribute("aria-describedby");
+  });
+
+  it("should have aria-describedby when errorMessage is provided", () => {
+    const {container} = render(
+      <NumberInput isInvalid errorMessage="error text" label="test number input" />,
+    );
+
+    expect(container.querySelector("input")).toHaveAttribute("aria-describedby");
+  });
+
+  it("should have the same aria-labelledby as label id", () => {
+    const {container} = render(<NumberInput label="test number input" />);
+
+    const labelId = container.querySelector("label")?.id;
+
+    const labelledBy = container.querySelector("input")?.getAttribute("aria-labelledby");
+
+    expect(labelledBy?.includes(labelId as string)).toBeTruthy();
+  });
+
+  it("should call dom event handlers only once", () => {
+    const onFocus = jest.fn();
+
+    const {container} = render(<NumberInput label="test number input" onFocus={onFocus} />);
+
+    act(() => {
+      container.querySelector("input")?.focus();
+
+      container.querySelector("input")?.blur();
+
+      expect(onFocus).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it("ref should update the value", () => {
+    const ref = React.createRef<HTMLInputElement>();
+
+    const {container} = render(<NumberInput ref={ref} label="test number input" />);
+
+    if (!ref.current) {
+      throw new Error("ref is null");
+    }
+    const value = "1234";
+
+    ref.current!.value = value;
+
+    act(() => {
+      container.querySelector("input")?.focus();
+
+      expect(ref.current?.value)?.toBe(value);
+    });
+  });
+
+  it("should clear the value and onClear is triggered", async () => {
+    const onClear = jest.fn();
+
+    const ref = React.createRef<HTMLInputElement>();
+
+    const {getByRole} = render(
+      <NumberInput
+        ref={ref}
+        hideStepper
+        isClearable
+        defaultValue={1234}
+        label="test number-input"
+        onClear={onClear}
+      />,
+    );
+
+    const clearButton = getByRole("button")!;
+
+    expect(clearButton).not.toBeNull();
+
+    const user = userEvent.setup();
+
+    await user.click(clearButton);
+
+    expect(ref.current?.value)?.toBe("");
+
+    expect(onClear).toHaveBeenCalledTimes(1);
+  });
+
+  it("should disable clear button when isReadOnly is true", async () => {
+    const onClear = jest.fn();
+
+    const ref = React.createRef<HTMLInputElement>();
+
+    const {getByRole} = render(
+      <NumberInput
+        ref={ref}
+        hideStepper
+        isClearable
+        isReadOnly
+        defaultValue={1234}
+        label="test number-input"
+        onClear={onClear}
+      />,
+    );
+
+    const clearButton = getByRole("button")!;
+
+    expect(clearButton).not.toBeNull();
+
+    const user = userEvent.setup();
+
+    await user.click(clearButton);
+
+    expect(onClear).toHaveBeenCalledTimes(0);
+  });
+
+  it("should reset to max value if the value exceeds", async () => {
+    const {container} = render(
+      <NumberInput isInvalid={true} label="test number input" maxValue={100} />,
+    );
+
+    const input = container.querySelector("input") as HTMLInputElement;
+
+    await user.click(input);
+    await user.keyboard("1024");
+    await user.tab();
+
+    expect(input).toHaveValue("100");
+  });
+
+  it("should reset to min value if the value subceed", async () => {
+    const {container} = render(
+      <NumberInput isInvalid={true} label="test number input" minValue={100} />,
+    );
+
+    const input = container.querySelector("input") as HTMLInputElement;
+
+    await user.click(input);
+    await user.keyboard("50");
+    await user.tab();
+
+    expect(input).toHaveValue("100");
+  });
+
+  it("should render stepper", async () => {
+    const {container} = render(<NumberInput isInvalid={true} label="test number input" />);
+
+    const stepperButton = container.querySelector("[data-slot='stepper-wrapper'] button")!;
+
+    expect(stepperButton).not.toBeNull();
+  });
+
+  it("should hide stepper", async () => {
+    const {container} = render(
+      <NumberInput hideStepper isInvalid={true} label="test number input" />,
+    );
+
+    const stepperButton = container.querySelector("[data-slot='stepper-wrapper'] button")!;
+
+    expect(stepperButton).toBeNull();
+  });
+
+  it("should clear value when isClearable and pressing ESC key", async () => {
+    const onClear = jest.fn();
+    const defaultValue = 12;
+
+    const {container} = render(
+      <NumberInput isClearable defaultValue={defaultValue} onClear={onClear} />,
+    );
+
+    const input = container.querySelector("input") as HTMLInputElement;
+
+    expect(input.value).toBe(defaultValue.toString());
+
+    fireEvent.keyDown(input, {key: "Escape"});
+    expect(input.value).toBe("");
+    expect(onClear).toHaveBeenCalledTimes(1);
+  });
+
+  it("should not clear value when pressing ESC key if input is empty", () => {
+    const onClear = jest.fn();
+
+    const {container} = render(<NumberInput isClearable onClear={onClear} />);
+
+    const input = container.querySelector("input") as HTMLInputElement;
+
+    fireEvent.keyDown(input, {key: "Escape"});
+    expect(onClear).not.toHaveBeenCalled();
+  });
+
+  it("should not clear value when pressing ESC key without isClearable", () => {
+    const defaultValue = 12;
+
+    const {container} = render(<NumberInput defaultValue={defaultValue} />);
+
+    const input = container.querySelector("input") as HTMLInputElement;
+
+    expect(input.value).toBe(defaultValue.toString());
+
+    fireEvent.keyDown(input, {key: "Escape"});
+    expect(input.value).toBe(defaultValue.toString());
+  });
+
+  it("should not clear value when pressing ESC key if input is readonly", () => {
+    const onClear = jest.fn();
+    const defaultValue = 42;
+
+    const {container} = render(<NumberInput isReadOnly defaultValue={defaultValue} />);
+
+    const input = container.querySelector("input") as HTMLInputElement;
+
+    expect(input.value).toBe(defaultValue.toString());
+
+    fireEvent.keyDown(input, {key: "Escape"});
+
+    expect(input.value).toBe(defaultValue.toString());
+    expect(onClear).not.toHaveBeenCalled();
+  });
+
+  it("should emit onChange", async () => {
+    const onChange = jest.fn();
+
+    const {container} = render(<NumberInput label="test number input" onChange={onChange} />);
+
+    const input = container.querySelector("input") as HTMLInputElement;
+
+    await user.click(input);
+    await user.keyboard("1024");
+
+    expect(onChange).toHaveBeenCalledTimes(4);
+  });
+
+  it("should emit onChange with keyboard up & down key", async () => {
+    const onChange = jest.fn();
+
+    const {container} = render(<NumberInput label="test number input" onChange={onChange} />);
+
+    const input = container.querySelector("input") as HTMLInputElement;
+
+    await user.click(input);
+    await user.keyboard("[ArrowUp]");
+    await user.keyboard("[ArrowUp]");
+    expect(onChange).toHaveBeenCalledTimes(2);
+    await user.keyboard("[ArrowDown]");
+    expect(onChange).toHaveBeenCalledTimes(3);
+  });
+});
+
+describe("NumberInput with React Hook Form", () => {
+  let hiddenInput1: HTMLInputElement;
+  let hiddenInput2: HTMLInputElement;
+  let hiddenInput3: HTMLInputElement;
+  let visibleInput3: HTMLInputElement;
+  let submitButton: HTMLButtonElement;
+  let onSubmit: () => void;
+
+  beforeEach(() => {
+    onSubmit = jest.fn();
+
+    function TestForm() {
+      const {
+        handleSubmit,
+        setValue,
+        watch,
+        register,
+        formState: {errors},
+      } = useForm<{
+        withDefaultValue: number;
+        withoutDefaultValue?: number;
+        requiredField?: number;
+      }>();
+
+      React.useEffect(() => {
+        register("withDefaultValue");
+        register("withoutDefaultValue");
+        register("requiredField", {required: true});
+      }, [register]);
+
+      const requiredFieldValue = watch("requiredField");
+
+      return (
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+          <NumberInput
+            isClearable
+            data-testid="input-1"
+            defaultValue={1234}
+            label="With default value"
+            name="withDefaultValue"
+            onValueChange={(value) => setValue("withDefaultValue", value)}
+          />
+          <NumberInput
+            data-testid="input-2"
+            label="Without default value"
+            name="withoutDefaultValue"
+            onValueChange={(value) => setValue("withoutDefaultValue", value)}
+          />
+          <NumberInput
+            data-testid="input-3"
+            label="Required"
+            name="requiredField"
+            value={requiredFieldValue}
+            onValueChange={(value) =>
+              setValue("requiredField", value, {shouldValidate: true, shouldDirty: true})
+            }
+          />
+          {errors.requiredField && <span className="text-danger">This field is required</span>}
+          <button type="submit">Submit</button>
+        </form>
+      );
+    }
+
+    const {getByTestId} = render(<TestForm />);
+
+    hiddenInput1 = document.querySelector("input[name=withDefaultValue][type=hidden]")!;
+    hiddenInput2 = document.querySelector("input[name=withoutDefaultValue][type=hidden]")!;
+    hiddenInput3 = document.querySelector("input[name=requiredField][type=hidden]")!;
+    visibleInput3 = getByTestId("input-3") as HTMLInputElement;
+    submitButton = document.querySelector('button[type="submit"]')!;
+  });
+
+  it("should work with defaultValues", () => {
+    expect(hiddenInput1).toHaveValue("1234");
+    expect(hiddenInput2).not.toHaveValue();
+    expect(hiddenInput3).not.toHaveValue();
+
+    expect(document.querySelectorAll('input[name="requiredField"]')).toHaveLength(1);
+    expect(visibleInput3).not.toHaveAttribute("name");
+    expect(hiddenInput3).toHaveAttribute("name", "requiredField");
+  });
+
+  it("should not submit form when required field is empty", async () => {
+    const user = userEvent.setup();
+
+    await user.click(submitButton);
+
+    expect(onSubmit).toHaveBeenCalledTimes(0);
+  });
+
+  it("should submit form when required field is not empty", async () => {
+    const user = userEvent.setup();
+
+    await user.click(visibleInput3);
+    await user.keyboard("123");
+
+    expect(hiddenInput3).toHaveValue("123");
+
+    await user.click(submitButton);
+
+    expect(onSubmit).toHaveBeenCalledTimes(1);
+  });
+
+  describe("validation", () => {
+    let user: UserEvent;
+
+    beforeEach(() => {
+      user = userEvent.setup();
+    });
+
+    describe("validationBehavior=native", () => {
+      it("supports isRequired", async () => {
+        const {getByTestId} = render(
+          <Form data-testid="form" validationBehavior="native">
+            <NumberInput isRequired data-testid="input" label="Name" />
+          </Form>,
+        );
+
+        const input = getByTestId("input") as HTMLInputElement;
+
+        expect(input).toHaveAttribute("required");
+        expect(input).not.toHaveAttribute("aria-required");
+        expect(input).not.toHaveAttribute("aria-describedby");
+        expect(input.validity.valid).toBe(false);
+
+        act(() => {
+          (getByTestId("form") as HTMLFormElement).checkValidity();
+        });
+
+        expect(document.activeElement).toBe(input);
+        expect(input).toHaveAttribute("aria-describedby");
+        expect(document.getElementById(input.getAttribute("aria-describedby")!)).toHaveTextContent(
+          "Constraints not satisfied",
+        );
+
+        await user.keyboard("1234");
+
+        expect(input).toHaveAttribute("aria-describedby");
+        expect(input.validity.valid).toBe(true);
+
+        await user.tab();
+
+        expect(input).not.toHaveAttribute("aria-describedby");
+      });
+
+      it("supports validate function", async () => {
+        const {getByTestId} = render(
+          <Form data-testid="form" validationBehavior="native">
+            <NumberInput
+              data-testid="input"
+              defaultValue={1234}
+              label="Name"
+              validate={(v) => (v === 1234 ? "Invalid amount" : null)}
+            />
+          </Form>,
+        );
+
+        const input = getByTestId("input") as HTMLInputElement;
+
+        expect(input).not.toHaveAttribute("aria-describedby");
+        expect(input.validity.valid).toBe(false);
+
+        act(() => {
+          (getByTestId("form") as HTMLFormElement).checkValidity();
+        });
+
+        expect(document.activeElement).toBe(input);
+        expect(input).toHaveAttribute("aria-describedby");
+        expect(document.getElementById(input.getAttribute("aria-describedby")!)).toHaveTextContent(
+          "Invalid amount",
+        );
+
+        await user.keyboard("4321");
+        await user.tab();
+
+        act(() => {
+          (getByTestId("form") as HTMLFormElement).checkValidity();
+        });
+
+        expect(input.validity.valid).toBe(true);
+        expect(input).not.toHaveAttribute("aria-describedby");
+      });
+
+      it("supports server validation", async () => {
+        function Test() {
+          let [serverErrors, setServerErrors] = React.useState({});
+          let onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            setServerErrors({
+              name: "Invalid amount.",
+            });
+          };
+
+          return (
+            <Form
+              data-testid="form"
+              validationBehavior="native"
+              validationErrors={serverErrors}
+              onSubmit={onSubmit}
+            >
+              <NumberInput data-testid="input" label="Name" name="name" />
+              <button data-testid="submit" type="submit">
+                Submit
+              </button>
+            </Form>
+          );
+        }
+
+        const {getByTestId} = render(<Test />);
+
+        const input = getByTestId("input") as HTMLInputElement;
+        const submitButton = getByTestId("submit");
+
+        expect(input).not.toHaveAttribute("aria-describedby");
+
+        await user.click(submitButton);
+        act(() => {
+          (getByTestId("form") as HTMLFormElement).checkValidity();
+        });
+
+        expect(input).toHaveAttribute("aria-describedby");
+        expect(document.getElementById(input.getAttribute("aria-describedby")!)).toHaveTextContent(
+          "Invalid amount.",
+        );
+        expect(input.validity.valid).toBe(false);
+
+        // Clicking twice doesn't clear server errors.
+        await user.click(submitButton);
+        act(() => {
+          (getByTestId("form") as HTMLFormElement).checkValidity();
+        });
+
+        expect(document.activeElement).toBe(input);
+        expect(input).toHaveAttribute("aria-describedby");
+        expect(document.getElementById(input.getAttribute("aria-describedby")!)).toHaveTextContent(
+          "Invalid amount.",
+        );
+        expect(input.validity.valid).toBe(false);
+
+        await user.keyboard("1234");
+        await user.tab();
+
+        expect(input).not.toHaveAttribute("aria-describedby");
+        expect(input.validity.valid).toBe(true);
+      });
+    });
+
+    describe('validationBehavior="aria"', () => {
+      it("supports validate function", async () => {
+        const {getByTestId} = render(
+          <Form data-testid="form" validationBehavior="aria">
+            <NumberInput
+              data-testid="input"
+              defaultValue={1234}
+              label="Amount"
+              validate={(v) => (v === 1234 ? "Invalid amount" : null)}
+            />
+          </Form>,
+        );
+
+        const input = getByTestId("input") as HTMLInputElement;
+
+        expect(input).toHaveAttribute("aria-describedby");
+        expect(input).toHaveAttribute("aria-invalid", "true");
+        expect(document.getElementById(input.getAttribute("aria-describedby")!)).toHaveTextContent(
+          "Invalid amount",
+        );
+        expect(input.validity.valid).toBe(true);
+
+        await user.tab();
+        await user.keyboard("1234");
+      });
+
+      it("supports server validation", async () => {
+        const {getByTestId} = render(
+          <Form validationBehavior="aria" validationErrors={{name: "Invalid amount"}}>
+            <NumberInput data-testid="input" label="Name" name="name" />
+          </Form>,
+        );
+
+        const input = getByTestId("input");
+
+        expect(input).toHaveAttribute("aria-describedby");
+        expect(input).toHaveAttribute("aria-invalid", "true");
+        expect(document.getElementById(input.getAttribute("aria-describedby")!)).toHaveTextContent(
+          "Invalid amount",
+        );
+
+        await user.tab();
+        await user.keyboard("1234");
+      });
+    });
+
+    describe("Backspace behavior with formatted numbers", () => {
+      it("should handle backspace when cursor is between first digit and comma", async () => {
+        const {container} = render(
+          <NumberInput
+            defaultValue={1234}
+            formatOptions={{
+              style: "decimal",
+              useGrouping: true,
+            }}
+            label="test number input"
+          />,
+        );
+
+        const input = container.querySelector("input[type='text']") as HTMLInputElement;
+
+        expect(input.value).toBe("1,234");
+
+        act(() => {
+          input.focus();
+          input.setSelectionRange(1, 1);
+        });
+
+        act(() => {
+          fireEvent.keyDown(input, {key: "Backspace", code: "Backspace"});
+        });
+
+        expect(input.value).toBe("234");
+      });
+
+      it("should handle backspace for other formatted number scenarios", async () => {
+        const {container} = render(
+          <NumberInput
+            defaultValue={1234567}
+            formatOptions={{
+              style: "decimal",
+              useGrouping: true,
+            }}
+            label="test number input"
+          />,
+        );
+
+        const input = container.querySelector("input[type='text']") as HTMLInputElement;
+
+        expect(input.value).toBe("1,234,567");
+
+        act(() => {
+          input.focus();
+          input.setSelectionRange(5, 5);
+        });
+
+        act(() => {
+          fireEvent.keyDown(input, {key: "Backspace", code: "Backspace"});
+        });
+
+        expect(input.value).toBe("123,567");
+      });
+    });
+  });
+
+  describe("NumberInput with HeroUIProvider context", () => {
+    it("should inherit labelPlacement from HeroUIProvider", () => {
+      const {container} = render(
+        <HeroUIProvider labelPlacement="outside">
+          <NumberInput label="Test number input" />
+        </HeroUIProvider>,
+      );
+
+      const label = container.querySelector("label");
+
+      expect(label).toBeTruthy();
+      expect(label?.className).toMatch(/translate-y.*100%/);
+    });
+
+    it("should prioritize labelPlacement prop over HeroUIProvider context", () => {
+      const {container} = render(
+        <HeroUIProvider labelPlacement="outside">
+          <NumberInput label="Test number input" labelPlacement="inside" />
+        </HeroUIProvider>,
+      );
+
+      const label = container.querySelector("label");
+
+      expect(label).toBeTruthy();
+      expect(label?.className).not.toMatch(/translate-y.*100%/);
+    });
+
+    it("should inherit labelPlacement='outside-top' from HeroUIProvider", () => {
+      const {container} = render(
+        <HeroUIProvider labelPlacement="outside-top">
+          <NumberInput label="Test number input" />
+        </HeroUIProvider>,
+      );
+
+      const label = container.querySelector("label");
+      const mainWrapper = container.querySelector("[data-slot=main-wrapper]");
+
+      expect(label).toBeTruthy();
+      // outside-top uses flex-col on mainWrapper and relative label (no translate-y)
+      expect(mainWrapper).toHaveClass("flex-col");
+      expect(label?.className).not.toMatch(/translate-y.*100%/);
+    });
+  });
+});

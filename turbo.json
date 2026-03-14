@@ -1,0 +1,46 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["tsconfig.json"],
+  "globalEnv": [
+    "IS_VERCEL_ENV",
+    "IS_PREVIEW",
+    "IS_VA_ENABLED",
+    "ENABLE_EXPERIMENTAL_COREPACK",
+    "PLAIN_USER_AUTHENTICATED"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "dist/**", "lib/**", "storybook-static/**"]
+    },
+    "build:fast": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build:fast"]
+    },
+    "typecheck": {
+      "cache": false,
+      "dependsOn": ["^typecheck"]
+    },
+    "start": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "test": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
+    "clean": {
+      "cache": false,
+      "outputs": []
+    },
+    "lint": {
+      "outputs": []
+    },
+    "dev": {
+      "cache": false
+    },
+    "sb": {
+      "cache": false
+    }
+  }
+}
