@@ -37,21 +37,6 @@ export const TimePickerUnit: React.FC<TimePickerUnitProps> = memo(({
     return selectedIndex ?? 0;
   }, []);
 
-  const carouselOptions: CarouselProps["opts"] = useMemo(() => {
-    return {
-      direction: 'vertical',
-      duration: 20,
-      isCenter: true,
-      dragFree: false,
-      skipSnaps: true,
-      slidesToShow: 5,
-      gap: 0,
-      align: 'center',
-      clickable: true,
-      startIndex: initialIndex,
-    };
-  }, [initialIndex]);
-
   const items = useMemo(() => {
     return values.map((item, index) => ({
       key: `${unit}-${item.value}`,
@@ -63,7 +48,14 @@ export const TimePickerUnit: React.FC<TimePickerUnitProps> = memo(({
 
   return (
     <Carousel
-      opts={carouselOptions}
+      direction="vertical"
+      duration={20}
+      isCenter={true}
+      slidesToShow={5}
+      gap={0}
+      align="center"
+      clickable={true}
+      startIndex={initialIndex}
       height={160}
       width={120}
       onSlideSelect={handleSlideSelect}

@@ -38,13 +38,13 @@ export interface CarouselOptions {
   dragThreshold?: number;
 }
 
-export interface UseCarouselProps {
+export interface UseCarouselProps extends CarouselOptions {
   opts?: CarouselOptions;
   plugins?: EmblaPluginType[];
   isAutoplay?: boolean;
 }
 
-export interface CarouselProps extends HTMLAttributes<HTMLDivElement> {
+export interface CarouselProps extends HTMLAttributes<HTMLDivElement>, CarouselOptions {
   opts?: CarouselOptions;
   plugins?: EmblaPluginType[];
   onSlideSelect?: (index: number, dataValue?: string) => void;

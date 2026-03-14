@@ -25,6 +25,22 @@ const meta: Meta<typeof Carousel> = {
     isAutoplay: { control: "boolean" },
     isWheelGestures: { control: "boolean" },
     fullWidth: { control: "boolean" },
+    loop: { control: "boolean" },
+    direction: { control: "select", options: ["horizontal", "vertical"] },
+    duration: { control: "number" },
+    startIndex: { control: "number" },
+    slidesToShow: { control: "object" },
+    visiblePortion: { control: "object" },
+    gap: { control: "object" },
+    enableOpacity: { control: "boolean" },
+    dragFree: { control: "boolean" },
+    clickable: { control: "boolean" },
+    isCenter: { control: "boolean" },
+    align: { control: "select", options: ["start", "center", "end"] },
+    autoDelay: { control: "number" },
+    stopOnInteraction: { control: "boolean" },
+    skipSnaps: { control: "boolean" },
+    dragThreshold: { control: "number" },
   },
 };
 
@@ -57,19 +73,17 @@ export const Default: Story = {
 export const ResponsiveBanners: Story = {
   args: {
     isAutoplay: true,
-    opts: {
-      loop: true,
-      autoDelay: 3000,
-      slidesToShow: {
-        desktop: 3,
-        tablet: 2,
-        mobile: 1,
-      },
-      gap: {
-        desktop: 1,
-        tablet: 0.75,
-        mobile: 0.5,
-      },
+    loop: true,
+    autoDelay: 3000,
+    slidesToShow: {
+      desktop: 3,
+      tablet: 2,
+      mobile: 1,
+    },
+    gap: {
+      desktop: 1,
+      tablet: 0.75,
+      mobile: 0.5,
     },
   },
   render: (args) => (
@@ -109,9 +123,7 @@ export const ResponsiveBanners: Story = {
 export const Autoplay: Story = {
   args: {
     isAutoplay: true,
-    opts: {
-      autoDelay: 2000,
-    }
+    autoDelay: 2000,
   },
   render: (args) => (
     <Carousel className="w-full max-w-xs" {...args}>
@@ -136,10 +148,8 @@ export const Autoplay: Story = {
 
 export const MultiItems: Story = {
   args: {
-    opts: {
-      slidesToShow: 3,
-      gap: 1,
-    }
+    slidesToShow: 3,
+    gap: 1,
   },
   render: (args) => (
     <Carousel className="w-full max-w-xl" {...args}>
@@ -185,11 +195,9 @@ export const WithPagination: Story = {
 
 export const PeekEffect: Story = {
   args: {
-    opts: {
-      slidesToShow: 1,
-      visiblePortion: 0.2,
-      gap: 1,
-    },
+    slidesToShow: 1,
+    visiblePortion: 0.2,
+    gap: 1,
   },
   render: (args) => (
     <div className="w-full max-w-md">
@@ -215,12 +223,10 @@ export const PeekEffect: Story = {
 
 export const VIPTiers: Story = {
   args: {
-    opts: {
-      align: "center",
-      slidesToShow: 1.5,
-      gap: 1.5,
-      enableOpacity: true,
-    },
+    align: "center",
+    slidesToShow: 1.5,
+    gap: 1.5,
+    enableOpacity: true,
   },
   render: (args) => (
     <div className="w-full max-w-2xl">
@@ -256,10 +262,8 @@ export const VIPTiers: Story = {
 export const WheelGestures: Story = {
   args: {
     isWheelGestures: true,
-    opts: {
-      slidesToShow: 3,
-      gap: 1,
-    },
+    slidesToShow: 3,
+    gap: 1,
   },
   render: (args) => (
     <div className="w-full max-w-4xl">
@@ -283,13 +287,11 @@ export const WheelGestures: Story = {
 
 export const Vertical: Story = {
   args: {
-    opts: {
-      direction: "vertical",
-      slidesToShow: 3,
-      dragFree: true,
-      align: 'center',
-      gap: 1,
-    },
+    direction: "vertical",
+    slidesToShow: 3,
+    dragFree: true,
+    align: 'center',
+    gap: 1,
     height: 400,
   },
   render: (args) => (
@@ -313,16 +315,14 @@ export const Vertical: Story = {
 
 export const TimePickerSimulator: Story = {
   args: {
-    opts: {
-      direction: "vertical",
-      duration: 20,
-      isCenter: true,
-      dragFree: true,
-      slidesToShow: 5,
-      align: 'center',
-      clickable: true,
-      startIndex: 0,
-    },
+    direction: "vertical",
+    duration: 20,
+    isCenter: true,
+    dragFree: true,
+    slidesToShow: 5,
+    align: 'center',
+    clickable: true,
+    startIndex: 0,
     height: 160,
     width: 60,
     isWheelGestures: true,
