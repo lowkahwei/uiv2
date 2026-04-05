@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/use-real-shape",
+  "name": "@heroui/use-real-shape",
   "version": "2.1.14",
   "description": "Hook that returns the real dimensions of an element",
   "keywords": [

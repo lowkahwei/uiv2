@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/use-aria-accordion-item",
+  "name": "@heroui/use-aria-accordion-item",
   "version": "2.2.20",
   "description": "Internal impl for react aria accordion item",
   "keywords": [

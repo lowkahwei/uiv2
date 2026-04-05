@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/use-media-query",
+  "name": "@heroui/use-media-query",
   "version": "2.0.0",
   "description": "A hook that manages media queries",
   "keywords": [

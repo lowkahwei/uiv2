@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/spacer",
+  "name": "@heroui/spacer",
   "version": "2.2.25",
   "description": "A flexible spacer component designed to create consistent spacing and maintain alignment in your layout.",
   "keywords": [

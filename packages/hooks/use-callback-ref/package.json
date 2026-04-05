@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/use-callback-ref",
+  "name": "@heroui/use-callback-ref",
   "version": "2.1.8",
   "description": "React hook to persist any value between renders, but keeps it up-to-date if it changes.",
   "keywords": [

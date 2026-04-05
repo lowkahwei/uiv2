@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/spinner",
+  "name": "@heroui/spinner",
   "version": "2.2.29",
   "description": "Loaders express an unspecified wait time or display the length of a process.",
   "keywords": [

@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/use-aria-modal-overlay",
+  "name": "@heroui/use-aria-modal-overlay",
   "version": "2.2.21",
   "description": "A custom implementation of react aria modal overlay, this removes the prevent scroll",
   "keywords": [

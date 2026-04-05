@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/framer-utils",
+  "name": "@heroui/framer-utils",
   "version": "2.1.28",
   "description": "A set of framer motion transitions for react",
   "keywords": [

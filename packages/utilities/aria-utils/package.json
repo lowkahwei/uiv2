@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/aria-utils",
+  "name": "@heroui/aria-utils",
   "version": "2.2.29",
   "description": "A package for managing @react-aria HeroUI utils.",
   "keywords": [

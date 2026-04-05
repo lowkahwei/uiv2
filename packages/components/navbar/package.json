@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/navbar",
+  "name": "@heroui/navbar",
   "version": "2.2.30",
   "description": "A responsive navigation header positioned on top side of your page that includes support for branding, links, navigation, collapse and more.",
   "keywords": [

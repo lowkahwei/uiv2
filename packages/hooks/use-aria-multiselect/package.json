@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/use-aria-multiselect",
+  "name": "@heroui/use-aria-multiselect",
   "version": "2.4.21",
   "description": "Provides the behavior and accessibility implementation for a multi-select component.",
   "keywords": [

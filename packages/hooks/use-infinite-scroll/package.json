@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/use-infinite-scroll",
+  "name": "@heroui/use-infinite-scroll",
   "version": "2.2.12",
   "description": "A hook for handling infinite scroll based on the IntersectionObserver API",
   "keywords": [

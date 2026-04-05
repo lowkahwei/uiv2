@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/system-rsc",
+  "name": "@heroui/system-rsc",
   "version": "2.3.24",
   "description": "HeroUI system primitives compatibles with RSC imports",
   "keywords": [

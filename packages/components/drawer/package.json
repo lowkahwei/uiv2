@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/drawer",
+  "name": "@heroui/drawer",
   "version": "2.2.29",
   "description": "Used to render a content that slides in from the side of the screen.",
   "keywords": [

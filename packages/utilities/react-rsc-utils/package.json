@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/react-rsc-utils",
+  "name": "@heroui/react-rsc-utils",
   "version": "2.1.9",
   "description": "A set of utilities for react compatible with RSC",
   "keywords": [

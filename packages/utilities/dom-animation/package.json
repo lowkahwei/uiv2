@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/dom-animation",
+  "name": "@heroui/dom-animation",
   "version": "2.1.10",
   "description": "Dom Animation from Framer Motion for dynamic import",
   "keywords": [

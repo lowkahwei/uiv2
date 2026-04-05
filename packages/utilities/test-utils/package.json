@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/test-utils",
+  "name": "@heroui/test-utils",
   "version": "2.1.10",
   "description": "A set of utilities for react testing",
   "keywords": [

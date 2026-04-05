@@ -1,5 +1,5 @@
 {
-  "name": "@sytech/modal",
+  "name": "@heroui/modal",
   "version": "2.2.29",
   "description": "Displays a dialog with a custom content that requires attention or provides additional information.",
   "keywords": [
