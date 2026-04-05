@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/date-input",
+  "name": "@sytech/date-input",
   "version": "2.3.32",
   "description": "A date input allows users to enter and edit date and time values using a keyboard.",
   "keywords": [

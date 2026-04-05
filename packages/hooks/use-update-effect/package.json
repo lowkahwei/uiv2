@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-update-effect",
+  "name": "@sytech/use-update-effect",
   "version": "2.1.8",
   "description": "React effect hook that invokes only on update",
   "keywords": [

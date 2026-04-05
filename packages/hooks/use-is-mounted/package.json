@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-is-mounted",
+  "name": "@sytech/use-is-mounted",
   "version": "2.1.8",
   "description": "This hook can be used to render client-based components or run client logic",
   "keywords": [

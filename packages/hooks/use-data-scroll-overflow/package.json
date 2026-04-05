@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-data-scroll-overflow",
+  "name": "@sytech/use-data-scroll-overflow",
   "version": "2.2.13",
   "description": "A hook to add data attributes when the element has top or bottom scroll.",
   "keywords": [

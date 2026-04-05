@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-draggable",
+  "name": "@sytech/use-draggable",
   "version": "2.1.20",
   "description": "This hook can provide drag and drop interaction",
   "keywords": [

@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/accordion",
+  "name": "@sytech/accordion",
   "version": "2.2.29",
   "description": "Collapse display a list of high-level options that can expand/collapse to reveal more information.",
   "keywords": [

@@ -10,13 +10,13 @@
   },
   "scripts": {
     "dev": "pnpm sb",
-    "build": "turbo build --filter='!@heroui/docs' --filter='!@heroui/storybook' --filter='!@heroui/stories-utils' --filter='!@heroui/test-utils'",
-    "build:fast": "turbo build:fast --filter='!@heroui/docs' --filter='!@heroui/storybook' --filter='!@heroui/stories-utils' --filter='!@heroui/test-utils'",
-    "dev:docs": "turbo dev --filter=@heroui/docs",
-    "build:docs": "turbo build --filter=@heroui/docs",
+    "build": "turbo build --filter=!@sytech/docs --filter=!@sytech/storybook --filter=!@sytech/stories-utils --filter=!@sytech/test-utils",
+    "build:fast": "turbo build:fast --filter=!@sytech/docs --filter=!@sytech/storybook --filter=!@sytech/stories-utils --filter=!@sytech/test-utils",
+    "dev:docs": "turbo dev --filter=@sytech/docs",
+    "build:docs": "turbo build --filter=@sytech/docs",
     "build:docs-meta": "node ./scripts/update-index-docs.js",
-    "start:docs": "turbo start --filter=@heroui/docs",
-    "deploy:docs": "pnpm --filter @heroui/docs deploy",
+    "start:docs": "turbo start --filter=@sytech/docs",
+    "deploy:docs": "pnpm --filter @sytech/docs deploy",
     "deploy:stage-docs": "pnpm --filter @heroui/docs deploy:stage",
     "sb": "pnpm --filter @heroui/storybook dev",
     "build:sb": "pnpm --filter @heroui/storybook build",
@@ -46,7 +46,7 @@
     "release": "changeset publish",
     "version:canary": "changeset version --snapshot canary",
     "release:canary": "changeset publish --snapshot --no-git-tag --tag canary",
-    "postinstall": "husky install && pnpm --filter @heroui/theme build"
+    "postinstall": "husky install && pnpm --filter @sytech/theme build"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",

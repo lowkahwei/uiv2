@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/listbox",
+  "name": "@sytech/listbox",
   "version": "2.3.31",
   "description": "A listbox displays a list of options and allows a user to select one or more of them.",
   "keywords": [

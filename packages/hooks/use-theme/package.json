@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-theme",
+  "name": "@sytech/use-theme",
   "version": "2.1.10",
   "description": "React hook to switch between light and dark themes",
   "keywords": [

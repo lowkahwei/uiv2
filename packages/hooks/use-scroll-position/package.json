@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-scroll-position",
+  "name": "@sytech/use-scroll-position",
   "version": "2.1.8",
   "description": "Provides the logic to control the scroll over an element",
   "keywords": [

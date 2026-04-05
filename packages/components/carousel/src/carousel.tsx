@@ -1,18 +1,21 @@
-import { useMemo, createContext, memo, useContext, useEffect, useState, Children } from "react";
-import { cn } from "@heroui/theme";
-import { useCarousel } from "./use-carousel";
-import { CarouselContextValue, CarouselProps } from "./types";
-import { useCarouselWheelGestures } from "./use-wheel-gestures";
-import { useCarouselAutoplay } from "./use-carousel-autoplay";
-import { Skeleton } from "@heroui/skeleton";
-import { useCarouselControl } from "./use-carousel-control";
+import type {CarouselContextValue, CarouselControlContextValue, CarouselProps} from "./types";
+
+import {useMemo, createContext, useContext, useEffect, useState} from "react";
+import {cn} from "@heroui/theme";
+import {Skeleton} from "@heroui/skeleton";
+
+import {useCarousel} from "./use-carousel";
+import {useCarouselWheelGestures} from "./use-wheel-gestures";
+import {useCarouselAutoplay} from "./use-carousel-autoplay";
+import {useCarouselControl} from "./use-carousel-control";
 
 export const CarouselContext = createContext<CarouselContextValue | null>(null);
-export const CarouselControlContext = createContext<React.ContextType<typeof CarouselControlContext> | any>(null);
+export const CarouselControlContext = createContext<CarouselControlContextValue | null>(null);
 
-const CarouselControlProvider = ({ children }: { children: React.ReactNode }) => {
-  const { api, onSlideSelect } = useCarouselContext();
+const CarouselControlProvider = ({children}: {children: React.ReactNode}) => {
+  const {api, onSlideSelect} = useCarouselContext();
   const controlState = useCarouselControl(api, onSlideSelect);
+
   return (
     <CarouselControlContext.Provider value={controlState}>
       {children}
@@ -50,14 +53,7 @@ export const Carousel = ({
   dragThreshold,
   ...props
 }: CarouselProps) => {
-  const {
-    carouselRef,
-    api,
-    direction,
-    styleVariables,
-    clickable,
-    enableOpacity,
-  } = useCarousel({
+  const {carouselRef, api, direction, styleVariables, clickable, enableOpacity} = useCarousel({
     opts,
     plugins,
     isAutoplay,
@@ -87,15 +83,18 @@ export const Carousel = ({
     }
   }, [api, isEmblaReady]);
 
-  const contextValue = useMemo(() => ({
-    carouselRef,
-    direction,
-    clickable,
-    enableOpacity,
-    api,
-    onSlideSelect,
-    isEmblaReady
-  }), [carouselRef, direction, clickable, enableOpacity, api, onSlideSelect, isEmblaReady]);
+  const contextValue = useMemo(
+    () => ({
+      carouselRef,
+      direction,
+      clickable,
+      enableOpacity,
+      api,
+      onSlideSelect,
+      isEmblaReady,
+    }),
+    [carouselRef, direction, clickable, enableOpacity, api, onSlideSelect, isEmblaReady],
+  );
 
   useCarouselWheelGestures({
     emblaApi: api,
@@ -108,7 +107,7 @@ export const Carousel = ({
       height: height ?? "auto",
       width: width ?? (fullWidth ? "100%" : "auto"),
     }),
-    [height, width, fullWidth]
+    [height, width, fullWidth],
   );
 
   return (
@@ -116,7 +115,7 @@ export const Carousel = ({
       <CarouselControlProvider>
         <div
           className={cn("relative mx-auto group", className)}
-          style={{ ...containerStyle, ...styleVariables }}
+          style={{...containerStyle, ...styleVariables}}
           {...props}
         >
           {!isEmblaReady && <Skeleton className="absolute h-full w-full z-10 rounded-medium" />}
@@ -131,16 +130,20 @@ export const Carousel = ({
 
 export const useCarouselContext = () => {
   const context = useContext(CarouselContext);
+
   if (!context) {
     throw new Error("useCarouselContext must be used within a Carousel component");
   }
+
   return context;
 };
 
 export const useCarouselControlContext = () => {
   const context = useContext(CarouselControlContext);
+
   if (!context) {
     throw new Error("useCarouselControlContext must be used within a Carousel component");
   }
+
   return context;
 };

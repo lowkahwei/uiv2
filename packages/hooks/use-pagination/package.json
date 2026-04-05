@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-pagination",
+  "name": "@sytech/use-pagination",
   "version": "2.2.20",
   "description": "State management hook for Pagination component, it lets you manage pagination with controlled and uncontrolled state",
   "keywords": [

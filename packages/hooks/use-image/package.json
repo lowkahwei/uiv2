@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-image",
+  "name": "@sytech/use-image",
   "version": "2.1.14",
   "description": "React hook for progressing image loading",
   "keywords": [

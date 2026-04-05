@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-aria-overlay",
+  "name": "@sytech/use-aria-overlay",
   "version": "2.0.6",
   "description": "A custom implementation of react aria overlay",
   "keywords": [

@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/ripple",
+  "name": "@sytech/ripple",
   "version": "2.2.21",
   "description": "A simple implementation to display a ripple animation when the source component is clicked",
   "keywords": [

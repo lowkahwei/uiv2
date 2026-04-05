@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-resize",
+  "name": "@sytech/use-resize",
   "version": "2.1.8",
   "description": "Hook that adds an event listener to the resize window event",
   "keywords": [

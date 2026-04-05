@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/pagination",
+  "name": "@sytech/pagination",
   "version": "2.2.27",
   "description": "The Pagination component allows you to display active page and navigate between multiple pages.",
   "keywords": [

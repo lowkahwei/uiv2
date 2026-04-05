@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-ref-state",
+  "name": "@sytech/use-ref-state",
   "version": "2.1.9",
   "description": "Hook for saving the state in a ref value",
   "keywords": [

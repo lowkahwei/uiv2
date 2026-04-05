@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/progress",
+  "name": "@sytech/progress",
   "version": "2.2.25",
   "description": "Progress bars show either determinate or indeterminate progress of an operation over time.",
   "keywords": [

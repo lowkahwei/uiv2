@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/tooltip",
+  "name": "@sytech/tooltip",
   "version": "2.2.29",
   "description": "A React Component for rendering dynamically positioned Tooltips",
   "keywords": [

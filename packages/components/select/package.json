@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/select",
+  "name": "@sytech/select",
   "version": "2.4.33",
   "description": "A select displays a collapsible list of options and allows a user to select one of them.",
   "keywords": [

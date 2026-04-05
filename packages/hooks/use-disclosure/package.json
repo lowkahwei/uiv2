@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-disclosure",
+  "name": "@sytech/use-disclosure",
   "version": "2.2.19",
   "description": "The hook in charge of managing modals",
   "keywords": [

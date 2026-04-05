@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/link",
+  "name": "@sytech/link",
   "version": "2.2.26",
   "description": "Links allow users to click their way from page to page. This component is styled to resemble a hyperlink and semantically renders an &lt;a&gt;",
   "keywords": [

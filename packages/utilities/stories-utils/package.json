@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/stories-utils",
+  "name": "@sytech/stories-utils",
   "version": "2.1.8",
   "description": "A list of utilities for storybook' stories.",
   "keywords": [
