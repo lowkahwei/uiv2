@@ -46,6 +46,8 @@
     "release": "changeset publish",
     "version:canary": "changeset version --snapshot canary",
     "release:canary": "changeset publish --snapshot --no-git-tag --tag canary",
+    "pubf": "pnpm -r publish --registry=http://localhost:4873 --no-git-checks --force",
+    "pub": "pnpm publish --registry=http://localhost:4873 --no-git-checks --force",
     "postinstall": "husky install && pnpm --filter @heroui/theme build"
   },
   "devDependencies": {

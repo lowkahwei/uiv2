@@ -197,7 +197,7 @@ const InternationalCalendarsTemplate = (args: DatePickerProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <I18nProvider locale="hi-IN-u-ca-indian">
+      <I18nProvider locale="zh-CN">
         <DatePicker
           {...args}
           className="max-w-md"

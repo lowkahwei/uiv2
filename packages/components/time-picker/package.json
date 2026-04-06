@@ -1,6 +1,6 @@
 {
   "name": "@heroui/time-picker",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "A responsive time picker component for HeroUI.",
   "keywords": [
     "time-picker",

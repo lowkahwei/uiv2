@@ -8,7 +8,7 @@
   "author": "HeroUI <support@heroui.com>",
   "homepage": "https://heroui.com",
   "license": "MIT",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "sideEffects": false,
   "files": [
     "dist"
@@ -51,19 +51,15 @@
     "@react-stately/menu": "3.9.11",
     "@react-types/menu": "3.10.7"
   },
-  "devDependencies": {
-    "@heroui/avatar": "workspace:*",
-    "@heroui/button": "workspace:*",
-    "@heroui/image": "workspace:*",
-    "@heroui/shared-icons": "workspace:*",
-    "@heroui/system": "workspace:*",
-    "@heroui/test-utils": "workspace:*",
-    "@heroui/theme": "workspace:*",
-    "@heroui/user": "workspace:*",
-    "clean-package": "2.2.0",
-    "framer-motion": "11.18.2",
-    "react": "18.3.0",
-    "react-dom": "18.3.0"
-  },
-  "clean-package": "../../../clean-package.config.json"
+  "clean-package": "../../../clean-package.config.json",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  }
 }
