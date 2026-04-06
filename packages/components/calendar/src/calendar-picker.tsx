@@ -1,6 +1,5 @@
 import type {CalendarPickerProps} from "./use-calendar-picker";
 
-import {getInertValue} from "@heroui/shared-utils";
 import {TimePicker} from "@heroui/time-picker";
 
 import {useCalendarPicker} from "./use-calendar-picker";
@@ -16,7 +15,7 @@ export function CalendarPicker(props: CalendarPickerProps) {
       data-slot="picker-wrapper"
       // makes the browser ignore the element and its children when tabbing
       // @ts-ignore
-      inert={getInertValue(!isHeaderExpanded)}
+      inert={!isHeaderExpanded ? true : undefined}
     >
       <TimePicker
         isMonth

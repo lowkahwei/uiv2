@@ -6,7 +6,7 @@ import {endOfMonth, getWeeksInMonth} from "@internationalized/date";
 import {useLocale} from "@react-aria/i18n";
 import {useCalendarGrid} from "@react-aria/calendar";
 import {m} from "framer-motion";
-import {dataAttr, getInertValue} from "@heroui/shared-utils";
+import {dataAttr} from "@heroui/shared-utils";
 
 import {CalendarCell} from "./calendar-cell";
 import {slideVariants} from "./calendar-transitions";
@@ -45,7 +45,7 @@ export function CalendarMonth(props: CalendarMonthProps) {
       data-slot="grid-body-row"
       // makes the browser ignore the element and its children when tabbing
       // @ts-ignore
-      inert={getInertValue(!!isHeaderExpanded)}
+      inert={isHeaderExpanded ? true : undefined}
     >
       {state
         .getDatesInWeek(weekIndex, startDate)
