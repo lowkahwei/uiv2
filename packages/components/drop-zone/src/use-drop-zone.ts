@@ -1,8 +1,7 @@
-import type {DropEvent, DropItem, DropOptions} from "@react-aria/dnd";
-import type {DropZoneSlots, DropZoneVariantProps, SlotsToClasses} from "@heroui/theme";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
+import type {DropEvent, DropItem} from "@react-aria/dnd";
+import type {PropGetter} from "@heroui/system";
 import type {ChangeEvent, MouseEvent, ReactNode} from "react";
-import type {ReactRef} from "@heroui/react-utils";
+import type {AcceptedFileType, DropZoneState, UploadedFileInfo, UseDropZoneProps} from "./types";
 
 import {useProviderContext, mapPropsVariants} from "@heroui/system";
 import {useDOMRef, filterDOMProps} from "@heroui/react-utils";
@@ -13,89 +12,7 @@ import {useHover} from "@react-aria/interactions";
 import {useClipboard, useDrop} from "@react-aria/dnd";
 import {useCallback, useMemo, useState} from "react";
 
-export interface UploadedFileInfo {
-  name: string;
-  size: number;
-  type: string;
-}
-
-type AcceptedFileType = string | string[];
-
-export interface DropZoneState {
-  isDropTarget: boolean;
-  isFocused: boolean;
-  isFocusVisible: boolean;
-  isHovered: boolean;
-  isDisabled: boolean;
-  isInvalid: boolean;
-  validationMessage: ReactNode;
-  uploadedFile: UploadedFileInfo | null;
-  uploadedFilesCount: number;
-}
-
-interface Props
-  extends Omit<
-    HTMLHeroUIProps<"div">,
-    keyof DropZoneVariantProps | keyof DropOptions | "children" | "title"
-  > {
-  /**
-   * Ref to the DOM node.
-   */
-  ref?: ReactRef<HTMLDivElement | null>;
-  /**
-   * The main heading content shown in the default HeroUI drop-zone layout.
-   * @default "Drop files here"
-   */
-  title?: ReactNode;
-  /**
-   * Custom icon rendered in the default HeroUI drop-zone layout.
-   */
-  icon?: ReactNode;
-  /**
-   * Whether to hide the default icon.
-   * @default false
-   */
-  hideIcon?: boolean;
-  /**
-   * Allowed file types. Supports the same values as the native input `accept` attribute.
-   * Examples: `"image/*"`, `".pdf,.docx"`, or `["image/png", ".pdf"]`.
-   * @default undefined
-   */
-  accept?: AcceptedFileType;
-  /**
-   * Maximum allowed file size in bytes.
-   * @default undefined
-   */
-  maxFileSize?: number;
-  /**
-   * Maximum number of accepted files.
-   * @default 1
-   */
-  maxFiles?: number;
-  /**
-   * Error message shown when the drop zone is invalid. Internal validation messages
-   * from file type, size, or count limits take precedence.
-   */
-  errorMessage?: ReactNode;
-  /**
-   * Whether the drop zone should be marked invalid.
-   * @default false
-   */
-  isInvalid?: boolean;
-  /**
-   * Classname or list of classes to change the classNames of the element.
-   * if `className` is passed, it will be added to the base slot.
-   */
-  classNames?: SlotsToClasses<DropZoneSlots>;
-  /**
-   * Custom children or render function. If omitted, the default HeroUI layout is rendered.
-   */
-  children?: ReactNode | ((state: DropZoneState) => ReactNode);
-}
-
-export type UseDropZoneProps = Props &
-  DropZoneVariantProps &
-  Omit<DropOptions, "ref" | "hasDropButton">;
+export type {AcceptedFileType, DropZoneState, UploadedFileInfo, UseDropZoneProps} from "./types";
 
 async function getUploadedFiles(items: DropItem[]) {
   const uploadedFiles = await Promise.all(
@@ -485,6 +402,73 @@ export function useDropZone(originalProps: UseDropZoneProps) {
     [slots, classNames?.content],
   );
 
+  const getUploadCardWrapperProps: PropGetter = useCallback(
+    (props = {}) => ({
+      ...props,
+      "data-slot": "upload-card-wrapper",
+      className: slots.uploadCardWrapper({
+        class: cn(classNames?.uploadCardWrapper, props.className),
+      }),
+    }),
+    [slots, classNames?.uploadCardWrapper],
+  );
+
+  const getUploadCardProps: PropGetter = useCallback(
+    (props = {}) => ({
+      ...props,
+      "data-slot": "upload-card",
+      className: slots.uploadCard({class: cn(classNames?.uploadCard, props.className)}),
+    }),
+    [slots, classNames?.uploadCard],
+  );
+
+  const getUploadCardOverlayProps: PropGetter = useCallback(
+    (props = {}) => ({
+      ...props,
+      "data-slot": "upload-card-overlay",
+      className: slots.uploadCardOverlay({
+        class: cn(classNames?.uploadCardOverlay, props.className),
+      }),
+    }),
+    [slots, classNames?.uploadCardOverlay],
+  );
+
+  const getUploadedContentProps: PropGetter = useCallback(
+    (props = {}) => ({
+      ...props,
+      "data-slot": "uploaded-content",
+      className: slots.uploadedContent({class: cn(classNames?.uploadedContent, props.className)}),
+    }),
+    [slots, classNames?.uploadedContent],
+  );
+
+  const getIdleContentProps: PropGetter = useCallback(
+    (props = {}) => ({
+      ...props,
+      "data-slot": "idle-content",
+      className: slots.idleContent({class: cn(classNames?.idleContent, props.className)}),
+    }),
+    [slots, classNames?.idleContent],
+  );
+
+  const getIdleCardProps: PropGetter = useCallback(
+    (props = {}) => ({
+      ...props,
+      "data-slot": "idle-card",
+      className: slots.idleCard({class: cn(classNames?.idleCard, props.className)}),
+    }),
+    [slots, classNames?.idleCard],
+  );
+
+  const getIdleLabelProps: PropGetter = useCallback(
+    (props = {}) => ({
+      ...props,
+      "data-slot": "idle-label",
+      className: slots.idleLabel({class: cn(classNames?.idleLabel, props.className)}),
+    }),
+    [slots, classNames?.idleLabel],
+  );
+
   const getIconWrapperProps: PropGetter = useCallback(
     (props = {}) => ({
       ...props,
@@ -503,6 +487,89 @@ export function useDropZone(originalProps: UseDropZoneProps) {
       className: slots.icon({class: cn(classNames?.icon, props.className)}),
     }),
     [slots, classNames?.icon],
+  );
+
+  const getDetailCardProps: PropGetter = useCallback(
+    (props = {}) => ({
+      ...props,
+      "data-slot": "detail-card",
+      className: slots.detailCard({class: cn(classNames?.detailCard, props.className)}),
+    }),
+    [slots, classNames?.detailCard],
+  );
+
+  const getClearButtonProps: PropGetter = useCallback(
+    (props = {}) => ({
+      ...props,
+      "data-slot": "clear-button",
+      className: slots.clearButton({class: cn(classNames?.clearButton, props.className)}),
+    }),
+    [slots, classNames?.clearButton],
+  );
+
+  const getClearButtonIconProps: PropGetter = useCallback(
+    (props = {}) => ({
+      ...props,
+      "data-slot": "clear-button-icon",
+      "aria-hidden": true,
+      focusable: false,
+      className: slots.clearButtonIcon({class: cn(classNames?.clearButtonIcon, props.className)}),
+    }),
+    [slots, classNames?.clearButtonIcon],
+  );
+
+  const getFileIconWrapperProps: PropGetter = useCallback(
+    (props = {}) => ({
+      ...props,
+      "data-slot": "file-icon-wrapper",
+      className: slots.fileIconWrapper({class: cn(classNames?.fileIconWrapper, props.className)}),
+    }),
+    [slots, classNames?.fileIconWrapper],
+  );
+
+  const getFileIconProps: PropGetter = useCallback(
+    (props = {}) => ({
+      ...props,
+      "data-slot": "file-icon",
+      className: slots.fileIcon({class: cn(classNames?.fileIcon, props.className)}),
+    }),
+    [slots, classNames?.fileIcon],
+  );
+
+  const getFileTypeBadgeProps: PropGetter = useCallback(
+    (props = {}) => ({
+      ...props,
+      "data-slot": "file-type-badge",
+      className: slots.fileTypeBadge({class: cn(classNames?.fileTypeBadge, props.className)}),
+    }),
+    [slots, classNames?.fileTypeBadge],
+  );
+
+  const getFileInfoProps: PropGetter = useCallback(
+    (props = {}) => ({
+      ...props,
+      "data-slot": "file-info",
+      className: slots.fileInfo({class: cn(classNames?.fileInfo, props.className)}),
+    }),
+    [slots, classNames?.fileInfo],
+  );
+
+  const getFileNameProps: PropGetter = useCallback(
+    (props = {}) => ({
+      ...props,
+      "data-slot": "file-name",
+      className: slots.fileName({class: cn(classNames?.fileName, props.className)}),
+    }),
+    [slots, classNames?.fileName],
+  );
+
+  const getFileMetaProps: PropGetter = useCallback(
+    (props = {}) => ({
+      ...props,
+      "data-slot": "file-meta",
+      className: slots.fileMeta({class: cn(classNames?.fileMeta, props.className)}),
+    }),
+    [slots, classNames?.fileMeta],
   );
 
   const getTitleProps: PropGetter = useCallback(
@@ -535,8 +602,24 @@ export function useDropZone(originalProps: UseDropZoneProps) {
     getBaseProps,
     getInputProps,
     getContentProps,
+    getUploadCardWrapperProps,
+    getUploadCardProps,
+    getUploadCardOverlayProps,
+    getUploadedContentProps,
+    getIdleContentProps,
+    getIdleCardProps,
+    getIdleLabelProps,
     getIconWrapperProps,
     getIconProps,
+    getDetailCardProps,
+    getClearButtonProps,
+    getClearButtonIconProps,
+    getFileIconWrapperProps,
+    getFileIconProps,
+    getFileTypeBadgeProps,
+    getFileInfoProps,
+    getFileNameProps,
+    getFileMetaProps,
     getTitleProps,
     getHelperTextProps,
   };
