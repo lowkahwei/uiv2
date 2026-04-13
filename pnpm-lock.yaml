@@ -1522,6 +1522,9 @@ importers:
       '@react-types/shared':
         specifier: 3.33.1
         version: 3.33.1(react@18.3.0)
+      attr-accept:
+        specifier: 2.2.5
+        version: 2.2.5
     devDependencies:
       '@heroui/system':
         specifier: workspace:*
@@ -9055,6 +9058,10 @@ packages:
     resolution: {integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==}
     engines: {node: '>= 4.5.0'}
     hasBin: true
+
+  attr-accept@2.2.5:
+    resolution: {integrity: sha512-0bDNnY/u6pPwHDMoF0FieU354oBi0a8rD9FcsLwzcGWbc8KS8KPIi7y+s13OlVY+gMWc/9xEMUgNE6Qm8ZllYQ==}
+    engines: {node: '>=4'}
 
   autolinker@0.28.1:
     resolution: {integrity: sha512-zQAFO1Dlsn69eXaO6+7YZc+v84aquQKbwpzCE3L0stj56ERn9hutFxPopViLjo9G+rWwjozRhgS5KJ25Xy19cQ==}
@@ -21659,6 +21666,8 @@ snapshots:
   async-function@1.0.0: {}
 
   atob@2.1.2: {}
+
+  attr-accept@2.2.5: {}
 
   autolinker@0.28.1:
     dependencies:

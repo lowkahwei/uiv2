@@ -1,6 +1,8 @@
 import type {DropItem} from "@react-aria/dnd";
 import type {AcceptedFileType, UploadedFileInfo} from "../types";
 
+import accept from "attr-accept";
+
 type FileDropItem = Extract<DropItem, {kind: "file"}>;
 
 export interface ResolvedAcceptedFiles {
@@ -28,24 +30,7 @@ export function normalizeAccept(accept?: AcceptedFileType) {
 function matchesAcceptedFileType(file: File, acceptedFileTypes: string[]) {
   if (acceptedFileTypes.length === 0) return true;
 
-  const mimeType = file.type.toLowerCase();
-  const fileName = file.name.toLowerCase();
-
-  return acceptedFileTypes.some((acceptedType) => {
-    const normalizedType = acceptedType.toLowerCase();
-
-    if (normalizedType.startsWith(".")) {
-      return fileName.endsWith(normalizedType);
-    }
-
-    if (normalizedType.endsWith("/*")) {
-      const mimeGroup = normalizedType.slice(0, -1);
-
-      return mimeType.startsWith(mimeGroup);
-    }
-
-    return mimeType === normalizedType;
-  });
+  return accept(file, acceptedFileTypes);
 }
 
 function formatAcceptedFileTypesLabel(acceptedFileTypes: string[]) {
