@@ -51,6 +51,34 @@ function getEmptyCardIndexes(cards: DropZoneCardState[]) {
   });
 }
 
+function partitionUploadCards(cards: DropZoneCardState[]) {
+  const uploadedCardsByFileKey = new Map<string, DropZoneCardState[]>();
+  let idleCard: DropZoneCardState | undefined;
+
+  cards.forEach((card) => {
+    const uploadedFileKey = getUploadedFileKey(card.uploadedFile);
+
+    if (!uploadedFileKey) {
+      idleCard ??= card;
+
+      return;
+    }
+
+    const matchedCards = uploadedCardsByFileKey.get(uploadedFileKey);
+
+    if (matchedCards) {
+      matchedCards.push(card);
+    } else {
+      uploadedCardsByFileKey.set(uploadedFileKey, [card]);
+    }
+  });
+
+  return {
+    idleCard,
+    uploadedCardsByFileKey,
+  };
+}
+
 function areUploadCardsEqual(left: DropZoneCardState[], right: DropZoneCardState[]) {
   return (
     left.length === right.length &&
@@ -201,38 +229,15 @@ export function useDropZoneState({
   );
   const reconcileUploadCards = useCallback(
     (files: UploadedFileInfo[], currentCards: DropZoneCardState[] = uploadCardsRef.current) => {
-      const remainingCards = [...currentCards];
-      const cardsByFileKey = new Map<string, DropZoneCardState[]>();
-
-      remainingCards.forEach((card) => {
-        const uploadedFileKey = getUploadedFileKey(card.uploadedFile);
-
-        if (!uploadedFileKey) {
-          return;
-        }
-
-        const matchedCards = cardsByFileKey.get(uploadedFileKey);
-
-        if (matchedCards) {
-          matchedCards.push(card);
-        } else {
-          cardsByFileKey.set(uploadedFileKey, [card]);
-        }
-      });
+      const {idleCard, uploadedCardsByFileKey} = partitionUploadCards(currentCards);
       const uploadedCards = files.map((uploadedFile) => {
         const uploadedFileKey = getUploadedFileKey(uploadedFile);
         const matchedCard = uploadedFileKey
-          ? cardsByFileKey.get(uploadedFileKey)?.shift()
+          ? uploadedCardsByFileKey.get(uploadedFileKey)?.shift()
           : undefined;
 
         if (!matchedCard) {
           return createUploadCard(uploadedFile);
-        }
-
-        const matchedCardIndex = remainingCards.findIndex((card) => card.id === matchedCard.id);
-
-        if (matchedCardIndex !== -1) {
-          remainingCards.splice(matchedCardIndex, 1);
         }
 
         return {
@@ -240,8 +245,7 @@ export function useDropZoneState({
           uploadedFile,
         };
       });
-      const existingIdleCard = remainingCards.find((card) => card.uploadedFile === null);
-      const orderedCards = existingIdleCard ? [existingIdleCard, ...uploadedCards] : uploadedCards;
+      const orderedCards = idleCard ? [idleCard, ...uploadedCards] : uploadedCards;
 
       return finalizeUploadCardsOrder(orderedCards);
     },
