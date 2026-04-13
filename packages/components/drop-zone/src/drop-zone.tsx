@@ -2,8 +2,10 @@ import type {DropZoneProps} from "./types";
 
 import {forwardRef} from "@heroui/system";
 import {LazyMotion, domAnimation} from "framer-motion";
+import {useMemo} from "react";
 
 import {UploadCard} from "./card/upload-card";
+import {DropZoneProvider} from "./drop-zone-context";
 import {formatFileSize, formatUploadedFileType} from "./drop-zone-utils";
 import {useDropZone} from "./use-drop-zone";
 
@@ -49,6 +51,64 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     state.uploadedFile?.name,
   );
   const uploadedFileSize = state.uploadedFile && formatFileSize(state.uploadedFile.size);
+  const contextValue = useMemo(
+    () => ({
+      clearUploadedFiles,
+      disableAnimation,
+      getClearButtonIconProps,
+      getClearButtonProps,
+      getDetailCardProps,
+      getFileIconProps,
+      getFileIconWrapperProps,
+      getFileInfoProps,
+      getFileMetaProps,
+      getFileNameProps,
+      getFileTypeBadgeProps,
+      getIconProps,
+      getIconWrapperProps,
+      getIdleCardProps,
+      getIdleContentProps,
+      getIdleLabelProps,
+      getUploadCardOverlayProps,
+      getUploadCardProps,
+      getUploadCardWrapperProps,
+      getUploadedContentProps,
+      hideIcon,
+      icon,
+      state,
+      title,
+      uploadedFileSize,
+      uploadedFileType,
+    }),
+    [
+      clearUploadedFiles,
+      disableAnimation,
+      getClearButtonIconProps,
+      getClearButtonProps,
+      getDetailCardProps,
+      getFileIconProps,
+      getFileIconWrapperProps,
+      getFileInfoProps,
+      getFileMetaProps,
+      getFileNameProps,
+      getFileTypeBadgeProps,
+      getIconProps,
+      getIconWrapperProps,
+      getIdleCardProps,
+      getIdleContentProps,
+      getIdleLabelProps,
+      getUploadCardOverlayProps,
+      getUploadCardProps,
+      getUploadCardWrapperProps,
+      getUploadedContentProps,
+      hideIcon,
+      icon,
+      state,
+      title,
+      uploadedFileSize,
+      uploadedFileType,
+    ],
+  );
 
   const content =
     typeof children === "function" ? (
@@ -56,73 +116,21 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     ) : children ? (
       children
     ) : (
-      <div {...getContentProps()}>
-        {disableAnimation ? (
-          <UploadCard
-            clearUploadedFiles={clearUploadedFiles}
-            disableAnimation={disableAnimation}
-            getClearButtonIconProps={getClearButtonIconProps}
-            getClearButtonProps={getClearButtonProps}
-            getDetailCardProps={getDetailCardProps}
-            getFileIconProps={getFileIconProps}
-            getFileIconWrapperProps={getFileIconWrapperProps}
-            getFileInfoProps={getFileInfoProps}
-            getFileMetaProps={getFileMetaProps}
-            getFileNameProps={getFileNameProps}
-            getFileTypeBadgeProps={getFileTypeBadgeProps}
-            getIconProps={getIconProps}
-            getIconWrapperProps={getIconWrapperProps}
-            getIdleCardProps={getIdleCardProps}
-            getIdleContentProps={getIdleContentProps}
-            getIdleLabelProps={getIdleLabelProps}
-            getUploadCardOverlayProps={getUploadCardOverlayProps}
-            getUploadCardProps={getUploadCardProps}
-            getUploadCardWrapperProps={getUploadCardWrapperProps}
-            getUploadedContentProps={getUploadedContentProps}
-            hideIcon={hideIcon}
-            icon={icon}
-            state={state}
-            title={title}
-            uploadedFileSize={uploadedFileSize}
-            uploadedFileType={uploadedFileType}
-          />
-        ) : (
-          <LazyMotion features={domAnimation}>
-            <UploadCard
-              clearUploadedFiles={clearUploadedFiles}
-              disableAnimation={disableAnimation}
-              getClearButtonIconProps={getClearButtonIconProps}
-              getClearButtonProps={getClearButtonProps}
-              getDetailCardProps={getDetailCardProps}
-              getFileIconProps={getFileIconProps}
-              getFileIconWrapperProps={getFileIconWrapperProps}
-              getFileInfoProps={getFileInfoProps}
-              getFileMetaProps={getFileMetaProps}
-              getFileNameProps={getFileNameProps}
-              getFileTypeBadgeProps={getFileTypeBadgeProps}
-              getIconProps={getIconProps}
-              getIconWrapperProps={getIconWrapperProps}
-              getIdleCardProps={getIdleCardProps}
-              getIdleContentProps={getIdleContentProps}
-              getIdleLabelProps={getIdleLabelProps}
-              getUploadCardOverlayProps={getUploadCardOverlayProps}
-              getUploadCardProps={getUploadCardProps}
-              getUploadCardWrapperProps={getUploadCardWrapperProps}
-              getUploadedContentProps={getUploadedContentProps}
-              hideIcon={hideIcon}
-              icon={icon}
-              state={state}
-              title={title}
-              uploadedFileSize={uploadedFileSize}
-              uploadedFileType={uploadedFileType}
-            />
-          </LazyMotion>
-        )}
-        {title ? <div {...getTitleProps()}>{title}</div> : null}
-        {state.validationMessage ? (
-          <div {...getHelperTextProps()}>{state.validationMessage}</div>
-        ) : null}
-      </div>
+      <DropZoneProvider value={contextValue}>
+        <div {...getContentProps()}>
+          {disableAnimation ? (
+            <UploadCard />
+          ) : (
+            <LazyMotion features={domAnimation}>
+              <UploadCard />
+            </LazyMotion>
+          )}
+          {title ? <div {...getTitleProps()}>{title}</div> : null}
+          {state.validationMessage ? (
+            <div {...getHelperTextProps()}>{state.validationMessage}</div>
+          ) : null}
+        </div>
+      </DropZoneProvider>
     );
 
   return (

@@ -1,6 +1,6 @@
 import type {DropOptions} from "@react-aria/dnd";
 import type {DropZoneSlots, DropZoneVariantProps, SlotsToClasses} from "@heroui/theme";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
+import type {HTMLHeroUIProps} from "@heroui/system";
 import type {ReactRef} from "@heroui/react-utils";
 import type {ReactNode} from "react";
 
@@ -89,62 +89,3 @@ export type UseDropZoneProps = DropZoneBaseProps &
   Omit<DropOptions, "ref" | "hasDropButton">;
 
 export interface DropZoneProps extends UseDropZoneProps {}
-
-export interface UploadCardProps {
-  clearUploadedFiles: () => void;
-  hideIcon: boolean;
-  icon: DropZoneProps["icon"];
-  state: DropZoneState;
-  title: DropZoneProps["title"];
-  disableAnimation: boolean;
-  uploadedFileSize?: string | null;
-  uploadedFileType: string;
-  getUploadCardWrapperProps: PropGetter;
-  getUploadCardProps: PropGetter;
-  getUploadCardOverlayProps: PropGetter;
-  getUploadedContentProps: PropGetter;
-  getIdleContentProps: PropGetter;
-  getIdleCardProps: PropGetter;
-  getIdleLabelProps: PropGetter;
-  getDetailCardProps: PropGetter;
-  getClearButtonProps: PropGetter;
-  getClearButtonIconProps: PropGetter;
-  getFileIconWrapperProps: PropGetter;
-  getFileIconProps: PropGetter;
-  getFileTypeBadgeProps: PropGetter;
-  getFileInfoProps: PropGetter;
-  getFileNameProps: PropGetter;
-  getFileMetaProps: PropGetter;
-  getIconProps: PropGetter;
-  getIconWrapperProps: PropGetter;
-}
-
-export interface IdleCardProps {
-  hideIcon: boolean;
-  icon: DropZoneProps["icon"];
-  title: DropZoneProps["title"];
-  isDropTarget: boolean;
-  getIdleCardProps: PropGetter;
-  getIdleLabelProps: PropGetter;
-  getIconProps: PropGetter;
-  getIconWrapperProps: PropGetter;
-}
-
-export interface DetailCardProps {
-  fileName?: string;
-  fileSize?: string | null;
-  fileType: string;
-  hideIcon: boolean;
-  icon: ReactNode;
-  uploadedFilesCount: number;
-  onClear: () => void;
-  getDetailCardProps: PropGetter;
-  getClearButtonProps: PropGetter;
-  getClearButtonIconProps: PropGetter;
-  getFileIconWrapperProps: PropGetter;
-  getFileIconProps: PropGetter;
-  getFileTypeBadgeProps: PropGetter;
-  getFileInfoProps: PropGetter;
-  getFileNameProps: PropGetter;
-  getFileMetaProps: PropGetter;
-}

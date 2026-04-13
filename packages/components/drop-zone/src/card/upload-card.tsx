@@ -1,78 +1,34 @@
-import type {UploadCardProps} from "../types";
-
 import {AnimatePresence, m} from "framer-motion";
 
+import {useDropZoneContext} from "../drop-zone-context";
+
+import {
+  CARD_CONTENT_TRANSITION,
+  IDLE_CONTENT_MOTION,
+  UPLOADED_CONTENT_MOTION,
+  UPLOAD_CARD_DIMENSIONS,
+  UPLOAD_CARD_SPRING_TRANSITION,
+} from "./constants";
 import {DetailCard} from "./detail-card";
 import {IdleCard} from "./idle-card";
 
-export function UploadCard({
-  disableAnimation,
-  hideIcon,
-  icon,
-  state,
-  title,
-  clearUploadedFiles,
-  uploadedFileSize,
-  uploadedFileType,
-  getUploadCardWrapperProps,
-  getUploadCardProps,
-  getUploadCardOverlayProps,
-  getUploadedContentProps,
-  getIdleContentProps,
-  getIdleCardProps,
-  getIdleLabelProps,
-  getDetailCardProps,
-  getClearButtonProps,
-  getClearButtonIconProps,
-  getFileIconWrapperProps,
-  getFileIconProps,
-  getFileTypeBadgeProps,
-  getFileInfoProps,
-  getFileNameProps,
-  getFileMetaProps,
-  getIconProps,
-  getIconWrapperProps,
-}: UploadCardProps) {
-  const uploadedWidth = 512;
-  const dropTargetSize = 90;
-  const idleSize = 80;
+export function UploadCard() {
+  const {
+    disableAnimation,
+    state,
+    getUploadCardWrapperProps,
+    getUploadCardProps,
+    getUploadCardOverlayProps,
+    getUploadedContentProps,
+    getIdleContentProps,
+  } = useDropZoneContext();
   const uploadCardWrapperProps = getUploadCardWrapperProps();
   const uploadCardProps = getUploadCardProps();
   const uploadCardOverlayProps = getUploadCardOverlayProps();
   const uploadedContentProps = getUploadedContentProps();
   const idleContentProps = getIdleContentProps();
-  const uploadedContent = (
-    <DetailCard
-      fileName={state.uploadedFile?.name}
-      fileSize={uploadedFileSize}
-      fileType={uploadedFileType}
-      getClearButtonIconProps={getClearButtonIconProps}
-      getClearButtonProps={getClearButtonProps}
-      getDetailCardProps={getDetailCardProps}
-      getFileIconProps={getFileIconProps}
-      getFileIconWrapperProps={getFileIconWrapperProps}
-      getFileInfoProps={getFileInfoProps}
-      getFileMetaProps={getFileMetaProps}
-      getFileNameProps={getFileNameProps}
-      getFileTypeBadgeProps={getFileTypeBadgeProps}
-      hideIcon={hideIcon}
-      icon={icon}
-      uploadedFilesCount={state.uploadedFilesCount}
-      onClear={clearUploadedFiles}
-    />
-  );
-  const idleContent = (
-    <IdleCard
-      getIconProps={getIconProps}
-      getIconWrapperProps={getIconWrapperProps}
-      getIdleCardProps={getIdleCardProps}
-      getIdleLabelProps={getIdleLabelProps}
-      hideIcon={hideIcon}
-      icon={icon}
-      isDropTarget={state.isDropTarget}
-      title={title}
-    />
-  );
+  const uploadedContent = <DetailCard />;
+  const idleContent = <IdleCard />;
 
   if (disableAnimation) {
     return (
@@ -82,12 +38,16 @@ export function UploadCard({
           data-slot={uploadCardProps["data-slot"]}
           style={{
             width: state.uploadedFile
-              ? uploadedWidth
+              ? UPLOAD_CARD_DIMENSIONS.uploadedWidth
               : state.isDropTarget
-                ? dropTargetSize
-                : idleSize,
-            height: state.uploadedFile ? 70 : state.isDropTarget ? dropTargetSize : idleSize,
-            borderRadius: state.uploadedFile ? 24 : 24,
+                ? UPLOAD_CARD_DIMENSIONS.dropTargetSize
+                : UPLOAD_CARD_DIMENSIONS.idleSize,
+            height: state.uploadedFile
+              ? UPLOAD_CARD_DIMENSIONS.uploadedHeight
+              : state.isDropTarget
+                ? UPLOAD_CARD_DIMENSIONS.dropTargetSize
+                : UPLOAD_CARD_DIMENSIONS.idleSize,
+            borderRadius: UPLOAD_CARD_DIMENSIONS.borderRadius,
             maxWidth: "100%",
           }}
         >
@@ -103,47 +63,46 @@ export function UploadCard({
       <m.div
         animate={{
           width: state.uploadedFile
-            ? uploadedWidth
+            ? UPLOAD_CARD_DIMENSIONS.uploadedWidth
             : state.isDropTarget
-              ? dropTargetSize
-              : idleSize,
-          height: state.uploadedFile ? 70 : state.isDropTarget ? dropTargetSize : idleSize,
-          borderRadius: state.uploadedFile ? 24 : 24,
-          scale: state.isDropTarget ? 1.03 : 1,
+              ? UPLOAD_CARD_DIMENSIONS.dropTargetSize
+              : UPLOAD_CARD_DIMENSIONS.idleSize,
+          height: state.uploadedFile
+            ? UPLOAD_CARD_DIMENSIONS.uploadedHeight
+            : state.isDropTarget
+              ? UPLOAD_CARD_DIMENSIONS.dropTargetSize
+              : UPLOAD_CARD_DIMENSIONS.idleSize,
+          borderRadius: UPLOAD_CARD_DIMENSIONS.borderRadius,
+          scale: state.isDropTarget ? UPLOAD_CARD_DIMENSIONS.dropTargetScale : 1,
         }}
         className={uploadCardProps.className}
         data-slot={uploadCardProps["data-slot"]}
         initial={false}
-        transition={{
-          type: "spring",
-          stiffness: 300,
-          damping: 24,
-          mass: 0.9,
-        }}
+        transition={UPLOAD_CARD_SPRING_TRANSITION}
       >
         <div {...uploadCardOverlayProps} />
         <AnimatePresence initial={false} mode="wait">
           {state.uploadedFile ? (
             <m.div
-              key="uploaded-file"
-              animate={{opacity: 1, x: 0, filter: "blur(0px)"}}
+              key={UPLOADED_CONTENT_MOTION.key}
+              animate={UPLOADED_CONTENT_MOTION.animate}
               className={uploadedContentProps.className}
               data-slot={uploadedContentProps["data-slot"]}
-              exit={{opacity: 0, x: -10, filter: "blur(6px)"}}
-              initial={{opacity: 0, x: 10, filter: "blur(8px)"}}
-              transition={{duration: 0.2, ease: [0.22, 1, 0.36, 1]}}
+              exit={UPLOADED_CONTENT_MOTION.exit}
+              initial={UPLOADED_CONTENT_MOTION.initial}
+              transition={CARD_CONTENT_TRANSITION}
             >
               {uploadedContent}
             </m.div>
           ) : (
             <m.div
-              key="idle-upload"
-              animate={{opacity: 1, y: 0, scale: 1}}
+              key={IDLE_CONTENT_MOTION.key}
+              animate={IDLE_CONTENT_MOTION.animate}
               className={idleContentProps.className}
               data-slot={idleContentProps["data-slot"]}
-              exit={{opacity: 0, y: -10, scale: 0.9}}
-              initial={{opacity: 0, y: 10, scale: 0.9}}
-              transition={{duration: 0.2, ease: [0.22, 1, 0.36, 1]}}
+              exit={IDLE_CONTENT_MOTION.exit}
+              initial={IDLE_CONTENT_MOTION.initial}
+              transition={CARD_CONTENT_TRANSITION}
             >
               {idleContent}
             </m.div>

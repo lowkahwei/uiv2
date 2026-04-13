@@ -1,34 +1,36 @@
-import type {DetailCardProps} from "../types";
-
 import {FileCardIcon, RemoveIcon} from "../drop-zone-icons";
+import {useDropZoneContext} from "../drop-zone-context";
 
-export function DetailCard({
-  fileName,
-  fileSize,
-  fileType,
-  hideIcon,
-  icon,
-  uploadedFilesCount,
-  onClear,
-  getDetailCardProps,
-  getClearButtonProps,
-  getClearButtonIconProps,
-  getFileIconWrapperProps,
-  getFileIconProps,
-  getFileTypeBadgeProps,
-  getFileInfoProps,
-  getFileNameProps,
-  getFileMetaProps,
-}: DetailCardProps) {
+import {DROP_ZONE_CARD_LABELS} from "./constants";
+
+export function DetailCard() {
+  const {
+    clearUploadedFiles,
+    hideIcon,
+    icon,
+    state,
+    uploadedFileSize,
+    uploadedFileType,
+    getDetailCardProps,
+    getClearButtonProps,
+    getClearButtonIconProps,
+    getFileIconWrapperProps,
+    getFileIconProps,
+    getFileTypeBadgeProps,
+    getFileInfoProps,
+    getFileNameProps,
+    getFileMetaProps,
+  } = useDropZoneContext();
+
   return (
     <div {...getDetailCardProps()}>
       <button
         {...getClearButtonProps({
-          "aria-label": "Remove uploaded file",
+          "aria-label": DROP_ZONE_CARD_LABELS.removeUploadedFile,
           type: "button",
           onClick: (event) => {
             event.stopPropagation();
-            onClear();
+            clearUploadedFiles();
           },
         })}
       >
@@ -41,14 +43,14 @@ export function DetailCard({
           ) : (
             <FileCardIcon {...getFileIconProps()} />
           )}
-          <span {...getFileTypeBadgeProps()}>{fileType}</span>
+          <span {...getFileTypeBadgeProps()}>{uploadedFileType}</span>
         </div>
       )}
       <div {...getFileInfoProps()}>
-        <div {...getFileNameProps()}>{fileName}</div>
+        <div {...getFileNameProps()}>{state.uploadedFile?.name}</div>
         <div {...getFileMetaProps()}>
-          {fileSize ? <span>{fileSize}</span> : null}
-          {uploadedFilesCount > 1 ? <span>+{uploadedFilesCount - 1} more</span> : null}
+          {uploadedFileSize ? <span>{uploadedFileSize}</span> : null}
+          {state.uploadedFilesCount > 1 ? <span>+{state.uploadedFilesCount - 1} more</span> : null}
         </div>
       </div>
     </div>

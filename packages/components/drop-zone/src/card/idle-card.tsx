@@ -1,24 +1,29 @@
-import type {IdleCardProps} from "../types";
-
 import {UploadIcon} from "../drop-zone-icons";
+import {useDropZoneContext} from "../drop-zone-context";
 
-export function IdleCard({
-  hideIcon,
-  icon,
-  title,
-  isDropTarget,
-  getIdleCardProps,
-  getIdleLabelProps,
-  getIconProps,
-  getIconWrapperProps,
-}: IdleCardProps) {
+import {DROP_ZONE_CARD_LABELS} from "./constants";
+
+export function IdleCard() {
+  const {
+    hideIcon,
+    icon,
+    title,
+    state,
+    getIdleCardProps,
+    getIdleLabelProps,
+    getIconProps,
+    getIconWrapperProps,
+  } = useDropZoneContext();
+
   return (
     <div {...getIdleCardProps()}>
       {!hideIcon && (
         <div {...getIconWrapperProps()}>{icon ?? <UploadIcon {...getIconProps()} />}</div>
       )}
       {hideIcon ? (
-        <span {...getIdleLabelProps()}>{isDropTarget ? "Release to upload" : title}</span>
+        <span {...getIdleLabelProps()}>
+          {state.isDropTarget ? DROP_ZONE_CARD_LABELS.releaseToUpload : title}
+        </span>
       ) : null}
     </div>
   );
