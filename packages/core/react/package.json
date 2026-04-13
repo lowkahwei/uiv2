@@ -66,6 +66,7 @@
     "@heroui/input-otp": "workspace:*",
     "@heroui/popover": "workspace:*",
     "@heroui/dropdown": "workspace:*",
+    "@heroui/drop-zone": "workspace:*",
     "@heroui/image": "workspace:*",
     "@heroui/modal": "workspace:*",
     "@heroui/navbar": "workspace:*",

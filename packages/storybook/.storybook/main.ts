@@ -5,7 +5,8 @@ import type {StorybookConfig} from "@storybook/react-vite";
 const config: StorybookConfig = {
   stories: [
     "./welcome.mdx",
-    "../../components/**/stories/**/*.stories.@(js|jsx|ts|tsx)",
+    // "../../components/**/stories/**/*.stories.@(js|jsx|ts|tsx)",
+    "../../components/drop-zone/stories/**/*.stories.@(js|jsx|ts|tsx)",
     "../../core/theme/stories/*.stories.@(js|jsx|ts|tsx)",
   ],
 

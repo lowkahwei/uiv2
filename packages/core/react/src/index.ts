@@ -23,6 +23,7 @@ export * from "@heroui/progress";
 export * from "@heroui/input";
 export * from "@heroui/popover";
 export * from "@heroui/dropdown";
+export * from "@heroui/drop-zone";
 export * from "@heroui/image";
 export * from "@heroui/modal";
 export * from "@heroui/navbar";
@@ -53,9 +54,9 @@ export * from "@heroui/toast";
 /**
  * React Aria - Exports
  */
-export { VisuallyHidden } from "@react-aria/visually-hidden";
+export {VisuallyHidden} from "@react-aria/visually-hidden";
 
 /**
  * Individual exports
  */
-export { ResizablePanel } from "@heroui/framer-utils";
+export {ResizablePanel} from "@heroui/framer-utils";

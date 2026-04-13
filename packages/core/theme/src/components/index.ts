@@ -19,6 +19,7 @@ export * from "./progress";
 export * from "./input-otp";
 export * from "./input";
 export * from "./dropdown";
+export * from "./drop-zone";
 export * from "./image";
 export * from "./modal";
 export * from "./navbar";
