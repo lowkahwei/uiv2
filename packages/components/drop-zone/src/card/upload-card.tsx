@@ -12,17 +12,25 @@ import {
 import {DetailCard} from "./detail-card";
 import {IdleCard} from "./idle-card";
 
-export function UploadCard() {
+interface UploadCardProps {
+  isInteractive?: boolean;
+}
+
+export function UploadCard({isInteractive = false}: UploadCardProps) {
   const {
     disableAnimation,
     state,
+    uploadedFile,
+    getUploadTriggerProps,
     getUploadCardWrapperProps,
     getUploadCardProps,
     getUploadCardOverlayProps,
     getUploadedContentProps,
     getIdleContentProps,
   } = useDropZoneContext();
-  const uploadCardWrapperProps = getUploadCardWrapperProps();
+  const uploadCardWrapperProps = getUploadCardWrapperProps(
+    isInteractive ? getUploadTriggerProps() : undefined,
+  );
   const uploadCardProps = getUploadCardProps();
   const uploadCardOverlayProps = getUploadCardOverlayProps();
   const uploadedContentProps = getUploadedContentProps();
@@ -37,12 +45,12 @@ export function UploadCard() {
           className={uploadCardProps.className}
           data-slot={uploadCardProps["data-slot"]}
           style={{
-            width: state.uploadedFile
+            width: uploadedFile
               ? UPLOAD_CARD_DIMENSIONS.uploadedWidth
               : state.isDropTarget
                 ? UPLOAD_CARD_DIMENSIONS.dropTargetSize
                 : UPLOAD_CARD_DIMENSIONS.idleSize,
-            height: state.uploadedFile
+            height: uploadedFile
               ? UPLOAD_CARD_DIMENSIONS.uploadedHeight
               : state.isDropTarget
                 ? UPLOAD_CARD_DIMENSIONS.dropTargetSize
@@ -52,7 +60,7 @@ export function UploadCard() {
           }}
         >
           <div {...uploadCardOverlayProps} />
-          {state.uploadedFile ? uploadedContent : idleContent}
+          {uploadedFile ? uploadedContent : idleContent}
         </div>
       </div>
     );
@@ -62,18 +70,18 @@ export function UploadCard() {
     <div {...uploadCardWrapperProps}>
       <m.div
         animate={{
-          width: state.uploadedFile
+          width: uploadedFile
             ? UPLOAD_CARD_DIMENSIONS.uploadedWidth
             : state.isDropTarget
               ? UPLOAD_CARD_DIMENSIONS.dropTargetSize
               : UPLOAD_CARD_DIMENSIONS.idleSize,
-          height: state.uploadedFile
+          height: uploadedFile
             ? UPLOAD_CARD_DIMENSIONS.uploadedHeight
             : state.isDropTarget
               ? UPLOAD_CARD_DIMENSIONS.dropTargetSize
               : UPLOAD_CARD_DIMENSIONS.idleSize,
           borderRadius: UPLOAD_CARD_DIMENSIONS.borderRadius,
-          scale: state.isDropTarget ? UPLOAD_CARD_DIMENSIONS.dropTargetScale : 1,
+          scale: !uploadedFile && state.isDropTarget ? UPLOAD_CARD_DIMENSIONS.dropTargetScale : 1,
         }}
         className={uploadCardProps.className}
         data-slot={uploadCardProps["data-slot"]}
@@ -82,7 +90,7 @@ export function UploadCard() {
       >
         <div {...uploadCardOverlayProps} />
         <AnimatePresence initial={false} mode="wait">
-          {state.uploadedFile ? (
+          {uploadedFile ? (
             <m.div
               key={UPLOADED_CONTENT_MOTION.key}
               animate={UPLOADED_CONTENT_MOTION.animate}

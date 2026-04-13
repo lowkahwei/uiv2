@@ -6,7 +6,13 @@ export type {
   DirectoryDropItem,
 } from "@react-aria/dnd";
 export type {DropZoneProps} from "./drop-zone";
-export type {AcceptedFileType, DropZoneState, UploadedFileInfo, UseDropZoneProps} from "./types";
+export type {
+  AcceptedFileType,
+  DropZoneCardState,
+  DropZoneState,
+  UploadedFileInfo,
+  UseDropZoneProps,
+} from "./types";
 
 export {useDropZone} from "./use-drop-zone";
 export {default as DropZone} from "./drop-zone";

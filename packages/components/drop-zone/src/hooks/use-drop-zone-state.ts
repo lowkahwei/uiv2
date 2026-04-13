@@ -1,8 +1,8 @@
 import type {DropEvent} from "@react-aria/dnd";
 import type {ChangeEvent, ReactNode} from "react";
-import type {UploadedFileInfo, UseDropZoneProps} from "../types";
+import type {DropZoneCardState, UploadedFileInfo, UseDropZoneProps} from "../types";
 
-import {useCallback, useState} from "react";
+import {useCallback, useRef, useState} from "react";
 
 import {
   createDropItemsFromFiles,
@@ -25,26 +25,122 @@ export function useDropZoneState({
   maxFiles = 1,
   onDrop,
 }: UseDropZoneStateOptions) {
-  const [uploadedFiles, setUploadedFiles] = useState<UploadedFileInfo[]>([]);
+  const nextCardIdRef = useRef(0);
+  const createUploadCard = useCallback(
+    (uploadedFile: UploadedFileInfo | null): DropZoneCardState => {
+      return {
+        id: `drop-zone-card-${nextCardIdRef.current++}`,
+        uploadedFile,
+      };
+    },
+    [],
+  );
+  const normalizeUploadCards = useCallback(
+    (cards: DropZoneCardState[]) => {
+      const limitedMaxFiles = Math.max(maxFiles, 0);
+      const nextUploadCards: DropZoneCardState[] = [];
+      let uploadedCardsCount = 0;
+      let hasEmptyCard = false;
+
+      cards.forEach((card) => {
+        if (card.uploadedFile) {
+          if (uploadedCardsCount < limitedMaxFiles) {
+            nextUploadCards.push(card);
+            uploadedCardsCount += 1;
+          }
+
+          return;
+        }
+
+        if (!hasEmptyCard && uploadedCardsCount < limitedMaxFiles) {
+          nextUploadCards.push(card);
+          hasEmptyCard = true;
+        }
+      });
+
+      if (!hasEmptyCard && uploadedCardsCount < limitedMaxFiles) {
+        nextUploadCards.push(createUploadCard(null));
+      }
+
+      return nextUploadCards;
+    },
+    [createUploadCard, maxFiles],
+  );
+  const [uploadCards, setUploadCards] = useState<DropZoneCardState[]>(() => {
+    return normalizeUploadCards([]);
+  });
   const [validationMessage, setValidationMessage] = useState<ReactNode>(null);
+  const uploadCardsRef = useRef<DropZoneCardState[]>(uploadCards);
+  const updateUploadCards = useCallback((nextUploadCards: DropZoneCardState[]) => {
+    uploadCardsRef.current = nextUploadCards;
+    setUploadCards(nextUploadCards);
+  }, []);
+  const uploadedFiles = uploadCards.flatMap((card) => {
+    return card.uploadedFile ? [card.uploadedFile] : [];
+  });
 
-  const resolveAndCommitFiles = useCallback(
+  const commitFiles = useCallback(
     (files: File[]) => {
-      const resolution = resolveAcceptedFiles(files, acceptedFileTypes, maxFileSize, maxFiles);
+      // Keep explicit card slots instead of only uploaded files so the same UploadCard
+      // instance can transition from idle -> uploaded and preserve AnimatePresence.
+      const currentUploadCards = uploadCardsRef.current;
+      const currentUploadedFiles = currentUploadCards.flatMap((card) => {
+        return card.uploadedFile ? [card.uploadedFile] : [];
+      });
+      const resolution = resolveAcceptedFiles(
+        files,
+        acceptedFileTypes,
+        maxFileSize,
+        maxFiles,
+        currentUploadedFiles.length,
+      );
+      const nextUploadCards = [...currentUploadCards];
+      const emptyCardIndexes = nextUploadCards.reduce<number[]>((indexes, card, index) => {
+        if (card.uploadedFile === null) {
+          indexes.push(index);
+        }
 
-      setUploadedFiles(resolution.acceptedFiles.map(toUploadedFileInfo));
+        return indexes;
+      }, []);
+
+      resolution.acceptedFiles.forEach((file) => {
+        const uploadedFile = toUploadedFileInfo(file);
+        const emptyCardIndex = emptyCardIndexes.shift();
+
+        // Fill an existing empty card first so its local motion state can animate
+        // from idle content into the uploaded detail card.
+        if (typeof emptyCardIndex === "number") {
+          nextUploadCards[emptyCardIndex] = {
+            ...nextUploadCards[emptyCardIndex],
+            uploadedFile,
+          };
+
+          return;
+        }
+
+        nextUploadCards.push(createUploadCard(uploadedFile));
+      });
+
+      updateUploadCards(normalizeUploadCards(nextUploadCards));
       setValidationMessage(resolution.validationMessage);
 
       return resolution;
     },
-    [acceptedFileTypes, maxFileSize, maxFiles],
+    [
+      acceptedFileTypes,
+      createUploadCard,
+      maxFileSize,
+      maxFiles,
+      normalizeUploadCards,
+      updateUploadCards,
+    ],
   );
 
   const handleDrop = useCallback(
     async (event: DropEvent) => {
       const droppedItems = getFileDropItems(event.items);
       const droppedFiles = await getFilesFromDropItems(droppedItems);
-      const {acceptedIndexes} = resolveAndCommitFiles(droppedFiles);
+      const {acceptedIndexes} = commitFiles(droppedFiles);
       const acceptedDropItems = acceptedIndexes.map((index) => droppedItems[index]).filter(Boolean);
 
       onDrop?.({
@@ -52,7 +148,7 @@ export function useDropZoneState({
         items: acceptedDropItems,
       });
     },
-    [onDrop, resolveAndCommitFiles],
+    [commitFiles, onDrop],
   );
 
   const handleFileChange = useCallback(
@@ -61,7 +157,7 @@ export function useDropZoneState({
 
       if (!files?.length) return;
 
-      const {acceptedFiles} = resolveAndCommitFiles(Array.from(files));
+      const {acceptedFiles} = commitFiles(Array.from(files));
 
       onDrop?.({
         type: "drop",
@@ -72,18 +168,44 @@ export function useDropZoneState({
       } satisfies DropEvent);
       event.target.value = "";
     },
-    [onDrop, resolveAndCommitFiles],
+    [commitFiles, onDrop],
+  );
+
+  const removeUploadedFile = useCallback(
+    (cardId: string) => {
+      // Reset the same card back to idle instead of removing it outright so
+      // UploadCard can animate uploaded -> idle before normalization trims
+      // the extra empty placeholder.
+      const nextUploadCards = normalizeUploadCards(
+        uploadCardsRef.current.map((card) => {
+          if (card.id !== cardId) {
+            return card;
+          }
+
+          return {
+            ...card,
+            uploadedFile: null,
+          };
+        }),
+      );
+
+      updateUploadCards(nextUploadCards);
+      setValidationMessage(null);
+    },
+    [normalizeUploadCards, updateUploadCards],
   );
 
   const clearUploadedFiles = useCallback(() => {
-    setUploadedFiles([]);
+    updateUploadCards(normalizeUploadCards([]));
     setValidationMessage(null);
-  }, []);
+  }, [normalizeUploadCards, updateUploadCards]);
 
   return {
+    uploadCards,
     uploadedFiles,
     validationMessage,
     clearUploadedFiles,
+    removeUploadedFile,
     handleDrop,
     handleFileChange,
   };

@@ -73,10 +73,11 @@ export function resolveAcceptedFiles(
   acceptedFileTypes: string[],
   maxFileSize?: number,
   maxFiles = 1,
+  currentFileCount = 0,
 ): ResolvedAcceptedFiles {
   const acceptedFiles: File[] = [];
   const acceptedIndexes: number[] = [];
-  const limitedMaxFiles = Math.max(maxFiles, 0);
+  const limitedMaxFiles = Math.max(maxFiles - currentFileCount, 0);
   let hasInvalidType = false;
   let hasOversizedFile = false;
 
@@ -105,7 +106,7 @@ export function resolveAcceptedFiles(
 
   let validationMessage: string | null = null;
 
-  if (files.length > maxFiles) {
+  if (files.length + currentFileCount > maxFiles) {
     validationMessage = `You can upload up to ${maxFiles} file${maxFiles === 1 ? "" : "s"}.`;
   } else if (hasInvalidType) {
     validationMessage = `Only ${formatAcceptedFileTypesLabel(acceptedFileTypes)} are allowed.`;

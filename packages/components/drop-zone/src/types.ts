@@ -12,6 +12,11 @@ export interface UploadedFileInfo {
 
 export type AcceptedFileType = string | string[];
 
+export interface DropZoneCardState {
+  id: string;
+  uploadedFile: UploadedFileInfo | null;
+}
+
 export interface DropZoneState {
   isDropTarget: boolean;
   isFocused: boolean;
@@ -20,6 +25,8 @@ export interface DropZoneState {
   isDisabled: boolean;
   isInvalid: boolean;
   validationMessage: ReactNode;
+  uploadCards: DropZoneCardState[];
+  uploadedFiles: UploadedFileInfo[];
   uploadedFile: UploadedFileInfo | null;
   uploadedFilesCount: number;
 }

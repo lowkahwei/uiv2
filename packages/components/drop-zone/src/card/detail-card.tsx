@@ -5,10 +5,10 @@ import {DROP_ZONE_CARD_LABELS} from "./constants";
 
 export function DetailCard() {
   const {
-    clearUploadedFiles,
     hideIcon,
     icon,
-    state,
+    uploadedFile,
+    removeUploadedFile,
     uploadedFileSize,
     uploadedFileType,
     getDetailCardProps,
@@ -30,7 +30,7 @@ export function DetailCard() {
           type: "button",
           onClick: (event) => {
             event.stopPropagation();
-            clearUploadedFiles();
+            removeUploadedFile?.();
           },
         })}
       >
@@ -47,10 +47,9 @@ export function DetailCard() {
         </div>
       )}
       <div {...getFileInfoProps()}>
-        <div {...getFileNameProps()}>{state.uploadedFile?.name}</div>
+        <div {...getFileNameProps()}>{uploadedFile?.name}</div>
         <div {...getFileMetaProps()}>
           {uploadedFileSize ? <span>{uploadedFileSize}</span> : null}
-          {state.uploadedFilesCount > 1 ? <span>+{state.uploadedFilesCount - 1} more</span> : null}
         </div>
       </div>
     </div>

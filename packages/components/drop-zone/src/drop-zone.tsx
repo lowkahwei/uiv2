@@ -20,9 +20,10 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     hideIcon,
     state,
     disableAnimation,
-    clearUploadedFiles,
+    removeUploadedFile,
     getBaseProps,
     getInputProps,
+    getUploadTriggerProps,
     getContentProps,
     getUploadCardWrapperProps,
     getUploadCardProps,
@@ -46,14 +47,8 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     getHelperTextProps,
   } = useDropZone({...props, ref});
 
-  const uploadedFileType = formatUploadedFileType(
-    state.uploadedFile?.type,
-    state.uploadedFile?.name,
-  );
-  const uploadedFileSize = state.uploadedFile && formatFileSize(state.uploadedFile.size);
-  const contextValue = useMemo(
+  const sharedContextValue = useMemo(
     () => ({
-      clearUploadedFiles,
       disableAnimation,
       getClearButtonIconProps,
       getClearButtonProps,
@@ -69,6 +64,7 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
       getIdleCardProps,
       getIdleContentProps,
       getIdleLabelProps,
+      getUploadTriggerProps,
       getUploadCardOverlayProps,
       getUploadCardProps,
       getUploadCardWrapperProps,
@@ -77,11 +73,8 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
       icon,
       state,
       title,
-      uploadedFileSize,
-      uploadedFileType,
     }),
     [
-      clearUploadedFiles,
       disableAnimation,
       getClearButtonIconProps,
       getClearButtonProps,
@@ -97,6 +90,7 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
       getIdleCardProps,
       getIdleContentProps,
       getIdleLabelProps,
+      getUploadTriggerProps,
       getUploadCardOverlayProps,
       getUploadCardProps,
       getUploadCardWrapperProps,
@@ -105,9 +99,29 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
       icon,
       state,
       title,
-      uploadedFileSize,
-      uploadedFileType,
     ],
+  );
+
+  const cards = (
+    <div className="flex w-full flex-col items-center gap-3">
+      {/* Keep card ids stable so each UploadCard instance can animate its own idle -> uploaded transition. */}
+      {state.uploadCards.map((card) => (
+        <DropZoneProvider
+          key={card.id}
+          value={{
+            ...sharedContextValue,
+            uploadedFile: card.uploadedFile,
+            uploadedFileSize: card.uploadedFile ? formatFileSize(card.uploadedFile.size) : null,
+            uploadedFileType: card.uploadedFile
+              ? formatUploadedFileType(card.uploadedFile.type, card.uploadedFile.name)
+              : "",
+            removeUploadedFile: card.uploadedFile ? () => removeUploadedFile(card.id) : undefined,
+          }}
+        >
+          <UploadCard isInteractive={card.uploadedFile === null} />
+        </DropZoneProvider>
+      ))}
+    </div>
   );
 
   const content =
@@ -116,21 +130,13 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     ) : children ? (
       children
     ) : (
-      <DropZoneProvider value={contextValue}>
-        <div {...getContentProps()}>
-          {disableAnimation ? (
-            <UploadCard />
-          ) : (
-            <LazyMotion features={domAnimation}>
-              <UploadCard />
-            </LazyMotion>
-          )}
-          {title ? <div {...getTitleProps()}>{title}</div> : null}
-          {state.validationMessage ? (
-            <div {...getHelperTextProps()}>{state.validationMessage}</div>
-          ) : null}
-        </div>
-      </DropZoneProvider>
+      <div {...getContentProps()}>
+        {disableAnimation ? cards : <LazyMotion features={domAnimation}>{cards}</LazyMotion>}
+        {title ? <div {...getTitleProps()}>{title}</div> : null}
+        {state.validationMessage ? (
+          <div {...getHelperTextProps()}>{state.validationMessage}</div>
+        ) : null}
+      </div>
     );
 
   return (

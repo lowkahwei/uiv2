@@ -1,18 +1,20 @@
 import type {PropGetter} from "@heroui/system";
 import type {ReactNode} from "react";
-import type {DropZoneProps, DropZoneState} from "./types";
+import type {DropZoneProps, DropZoneState, UploadedFileInfo} from "./types";
 
 import {createContext, useContext} from "react";
 
 export interface DropZoneContextValue {
-  clearUploadedFiles: () => void;
   hideIcon: boolean;
   icon: DropZoneProps["icon"];
   state: DropZoneState;
   title: DropZoneProps["title"];
   disableAnimation: boolean;
+  uploadedFile: UploadedFileInfo | null;
   uploadedFileSize?: string | null;
   uploadedFileType: string;
+  removeUploadedFile?: () => void;
+  getUploadTriggerProps: PropGetter;
   getUploadCardWrapperProps: PropGetter;
   getUploadCardProps: PropGetter;
   getUploadCardOverlayProps: PropGetter;

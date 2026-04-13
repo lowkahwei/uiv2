@@ -1,6 +1,6 @@
 import type {DropEvent, DropItem} from "@react-aria/dnd";
 import type {PropGetter} from "@heroui/system";
-import type {MouseEvent} from "react";
+import type {KeyboardEvent, MouseEvent} from "react";
 import type {DropZoneState, UseDropZoneProps} from "./types";
 
 import {useProviderContext, mapPropsVariants} from "@heroui/system";
@@ -49,13 +49,20 @@ export function useDropZone(originalProps: UseDropZoneProps) {
   const disableAnimation =
     originalProps.disableAnimation ?? globalContext?.disableAnimation ?? false;
   const acceptedFileTypes = useMemo(() => normalizeAccept(accept), [accept]);
-  const {uploadedFiles, validationMessage, clearUploadedFiles, handleDrop, handleFileChange} =
-    useDropZoneState({
-      acceptedFileTypes,
-      maxFileSize,
-      maxFiles,
-      onDrop,
-    });
+  const {
+    uploadCards,
+    uploadedFiles,
+    validationMessage,
+    clearUploadedFiles,
+    removeUploadedFile,
+    handleDrop,
+    handleFileChange,
+  } = useDropZoneState({
+    acceptedFileTypes,
+    maxFileSize,
+    maxFiles,
+    onDrop,
+  });
   const hasInvalidState = isInvalid || !!validationMessage;
 
   const openFileDialog = useCallback(() => {
@@ -112,6 +119,8 @@ export function useDropZone(originalProps: UseDropZoneProps) {
       isDisabled,
       isInvalid: hasInvalidState,
       validationMessage: validationMessage ?? (isInvalid ? (errorMessage ?? null) : null),
+      uploadCards,
+      uploadedFiles,
       uploadedFile: uploadedFiles[0] ?? null,
       uploadedFilesCount: uploadedFiles.length,
     }),
@@ -125,6 +134,7 @@ export function useDropZone(originalProps: UseDropZoneProps) {
       isInvalid,
       validationMessage,
       errorMessage,
+      uploadCards,
       uploadedFiles,
     ],
   );
@@ -132,27 +142,11 @@ export function useDropZone(originalProps: UseDropZoneProps) {
   const getBaseProps: PropGetter = useCallback(
     (props = {}) => {
       const domProps = filterDOMProps(otherProps, {enabled: shouldFilterDOMProps});
-      const mergedProps = mergeProps(
-        domProps,
-        dropProps,
-        clipboardProps,
-        hoverProps,
-        focusProps,
-        props,
-      );
+      const mergedProps = mergeProps(domProps, dropProps, props);
 
       return {
         ...mergedProps,
         ref: domRef,
-        role: mergedProps.role ?? "button",
-        tabIndex: mergedProps.tabIndex ?? (isDisabled ? -1 : 0),
-        onClick: (event: MouseEvent<HTMLDivElement>) => {
-          mergedProps.onClick?.(event);
-
-          if (!event.defaultPrevented) {
-            openFileDialog();
-          }
-        },
         "data-slot": "base",
         "data-disabled": dataAttr(isDisabled),
         "data-invalid": dataAttr(hasInvalidState),
@@ -169,9 +163,6 @@ export function useDropZone(originalProps: UseDropZoneProps) {
       otherProps,
       shouldFilterDOMProps,
       dropProps,
-      clipboardProps,
-      hoverProps,
-      focusProps,
       isDisabled,
       hasInvalidState,
       isHovered,
@@ -180,8 +171,38 @@ export function useDropZone(originalProps: UseDropZoneProps) {
       isDropTarget,
       slots,
       classNames?.base,
-      openFileDialog,
     ],
+  );
+
+  const getUploadTriggerProps: PropGetter = useCallback(
+    (props = {}) => {
+      const mergedProps = mergeProps(clipboardProps, hoverProps, focusProps, props);
+
+      return {
+        ...mergedProps,
+        role: mergedProps.role ?? "button",
+        tabIndex: mergedProps.tabIndex ?? (isDisabled ? -1 : 0),
+        onClick: (event: MouseEvent<HTMLDivElement>) => {
+          mergedProps.onClick?.(event);
+
+          if (!event.defaultPrevented) {
+            openFileDialog();
+          }
+        },
+        onKeyDown: (event: KeyboardEvent<HTMLDivElement>) => {
+          mergedProps.onKeyDown?.(event);
+
+          if (event.defaultPrevented) return;
+
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openFileDialog();
+          }
+        },
+        "aria-disabled": isDisabled || undefined,
+      };
+    },
+    [clipboardProps, hoverProps, focusProps, isDisabled, openFileDialog],
   );
 
   const getInputProps: PropGetter = useCallback(
@@ -205,10 +226,13 @@ export function useDropZone(originalProps: UseDropZoneProps) {
     title,
     icon,
     hideIcon,
+    maxFiles,
     state,
     disableAnimation,
     clearUploadedFiles,
+    removeUploadedFile,
     getBaseProps,
+    getUploadTriggerProps,
     getInputProps,
     ...slotProps,
   };
