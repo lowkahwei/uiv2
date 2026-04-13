@@ -14,9 +14,10 @@ import {IdleCard} from "./idle-card";
 
 interface UploadCardProps {
   isInteractive?: boolean;
+  onContentAnimationComplete?: () => void;
 }
 
-export function UploadCard({isInteractive = false}: UploadCardProps) {
+export function UploadCard({isInteractive = false, onContentAnimationComplete}: UploadCardProps) {
   const {
     disableAnimation,
     state,
@@ -99,6 +100,7 @@ export function UploadCard({isInteractive = false}: UploadCardProps) {
               exit={UPLOADED_CONTENT_MOTION.exit}
               initial={UPLOADED_CONTENT_MOTION.initial}
               transition={CARD_CONTENT_TRANSITION}
+              onAnimationComplete={onContentAnimationComplete}
             >
               {uploadedContent}
             </m.div>
@@ -111,6 +113,7 @@ export function UploadCard({isInteractive = false}: UploadCardProps) {
               exit={IDLE_CONTENT_MOTION.exit}
               initial={IDLE_CONTENT_MOTION.initial}
               transition={CARD_CONTENT_TRANSITION}
+              onAnimationComplete={onContentAnimationComplete}
             >
               {idleContent}
             </m.div>

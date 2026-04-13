@@ -22,6 +22,7 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     state,
     disableAnimation,
     removeUploadedFile,
+    handleUploadCardContentAnimationComplete,
     getBaseProps,
     getInputProps,
     getUploadTriggerProps,
@@ -116,7 +117,12 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
         removeUploadedFile: card.uploadedFile ? () => removeUploadedFile(card.id) : undefined,
       }}
     >
-      <UploadCard isInteractive={card.uploadedFile === null} />
+      <UploadCard
+        isInteractive={card.uploadedFile === null}
+        onContentAnimationComplete={() =>
+          handleUploadCardContentAnimationComplete(card.id, card.uploadedFile)
+        }
+      />
     </DropZoneProvider>
   );
 

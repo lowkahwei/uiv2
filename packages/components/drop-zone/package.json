@@ -49,6 +49,7 @@
     "@react-aria/dnd": "3.11.6",
     "@react-aria/focus": "3.21.5",
     "@react-aria/interactions": "3.27.1",
+    "@react-stately/utils": "3.11.0",
     "@react-types/shared": "3.33.1"
   },
   "devDependencies": {
