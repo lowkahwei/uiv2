@@ -1,3 +1,7 @@
+export function extractMimeSubtype(type: string) {
+  return type.split("/").at(-1)?.split("+").at(0)?.trim();
+}
+
 export function formatFileSize(size: number) {
   if (!Number.isFinite(size) || size <= 0) return "0 B";
 
@@ -10,7 +14,7 @@ export function formatFileSize(size: number) {
 
 export function formatUploadedFileType(type?: string, name?: string) {
   if (type) {
-    const mimeLabel = type.split("/").at(-1)?.split("+").at(0)?.trim();
+    const mimeLabel = extractMimeSubtype(type);
 
     if (mimeLabel) {
       return mimeLabel.toUpperCase();

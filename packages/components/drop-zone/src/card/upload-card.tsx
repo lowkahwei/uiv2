@@ -44,6 +44,17 @@ export function UploadCard({
   const uploadedContent = <DetailCard {...cardProps} />;
   const idleContent = <IdleCard {...cardProps} />;
 
+  const cardWidth = uploadedFile
+    ? UPLOAD_CARD_DIMENSIONS.uploadedWidth
+    : state.isDropTarget
+      ? UPLOAD_CARD_DIMENSIONS.dropTargetSize
+      : UPLOAD_CARD_DIMENSIONS.idleSize;
+  const cardHeight = uploadedFile
+    ? UPLOAD_CARD_DIMENSIONS.uploadedHeight
+    : state.isDropTarget
+      ? UPLOAD_CARD_DIMENSIONS.dropTargetSize
+      : UPLOAD_CARD_DIMENSIONS.idleSize;
+
   if (disableAnimation) {
     return (
       <div {...uploadCardWrapperProps}>
@@ -51,16 +62,8 @@ export function UploadCard({
           className={uploadCardProps.className}
           data-slot={uploadCardProps["data-slot"]}
           style={{
-            width: uploadedFile
-              ? UPLOAD_CARD_DIMENSIONS.uploadedWidth
-              : state.isDropTarget
-                ? UPLOAD_CARD_DIMENSIONS.dropTargetSize
-                : UPLOAD_CARD_DIMENSIONS.idleSize,
-            height: uploadedFile
-              ? UPLOAD_CARD_DIMENSIONS.uploadedHeight
-              : state.isDropTarget
-                ? UPLOAD_CARD_DIMENSIONS.dropTargetSize
-                : UPLOAD_CARD_DIMENSIONS.idleSize,
+            width: cardWidth,
+            height: cardHeight,
             borderRadius: UPLOAD_CARD_DIMENSIONS.borderRadius,
             maxWidth: "100%",
           }}
@@ -76,16 +79,8 @@ export function UploadCard({
     <div {...uploadCardWrapperProps}>
       <m.div
         animate={{
-          width: uploadedFile
-            ? UPLOAD_CARD_DIMENSIONS.uploadedWidth
-            : state.isDropTarget
-              ? UPLOAD_CARD_DIMENSIONS.dropTargetSize
-              : UPLOAD_CARD_DIMENSIONS.idleSize,
-          height: uploadedFile
-            ? UPLOAD_CARD_DIMENSIONS.uploadedHeight
-            : state.isDropTarget
-              ? UPLOAD_CARD_DIMENSIONS.dropTargetSize
-              : UPLOAD_CARD_DIMENSIONS.idleSize,
+          width: cardWidth,
+          height: cardHeight,
           borderRadius: UPLOAD_CARD_DIMENSIONS.borderRadius,
           scale: !uploadedFile && state.isDropTarget ? UPLOAD_CARD_DIMENSIONS.dropTargetScale : 1,
         }}

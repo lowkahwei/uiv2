@@ -3,6 +3,8 @@ import type {AcceptedFileType, UploadedFileInfo} from "../types";
 
 import accept from "attr-accept";
 
+import {extractMimeSubtype} from "../drop-zone-utils";
+
 type FileDropItem = Extract<DropItem, {kind: "file"}>;
 
 export interface ResolvedAcceptedFiles {
@@ -48,7 +50,7 @@ function formatAcceptedFileTypesLabel(acceptedFileTypes: string[]) {
         return `${normalizedType.slice(0, -2).toUpperCase()} files`;
       }
 
-      return normalizedType.split("/").at(-1)?.split("+").at(0)?.toUpperCase() || normalizedType;
+      return extractMimeSubtype(normalizedType)?.toUpperCase() || normalizedType;
     })
     .join(", ");
 }
