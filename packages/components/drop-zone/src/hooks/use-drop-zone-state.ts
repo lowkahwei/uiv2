@@ -51,6 +51,14 @@ function getEmptyCardIndexes(cards: DropZoneCardState[]) {
   });
 }
 
+function getUploadedCards(cards: DropZoneCardState[]) {
+  return cards.filter((card) => card.uploadedFile !== null);
+}
+
+function hasIdleUploadCard(cards: DropZoneCardState[]) {
+  return cards.some((card) => card.uploadedFile === null);
+}
+
 function partitionUploadCards(cards: DropZoneCardState[]) {
   const uploadedCardsByFileKey = new Map<string, DropZoneCardState[]>();
   let idleCard: DropZoneCardState | undefined;
@@ -105,6 +113,7 @@ export function useDropZoneState({
   const nextCardIdRef = useRef(0);
   const pendingUploadCardsTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isControlled = fileList !== undefined;
+  const maxFilesLimit = Math.max(maxFiles, 0);
   const createUploadCard = useCallback(
     (uploadedFile: UploadedFileInfo | null): DropZoneCardState => {
       return {
@@ -116,40 +125,22 @@ export function useDropZoneState({
   );
   const normalizeUploadCards = useCallback(
     (cards: DropZoneCardState[], includeEmptyCard = true) => {
-      const limitedMaxFiles = Math.max(maxFiles, 0);
-      const nextUploadCards: DropZoneCardState[] = [];
-      let uploadedCardsCount = 0;
-      let hasEmptyCard = false;
+      const nextUploadedCards = getUploadedCards(cards).slice(0, maxFilesLimit);
+      const existingIdleCard = cards.find((card) => card.uploadedFile === null);
 
-      cards.forEach((card) => {
-        if (card.uploadedFile) {
-          if (uploadedCardsCount < limitedMaxFiles) {
-            nextUploadCards.push(card);
-            uploadedCardsCount += 1;
-          }
-
-          return;
-        }
-
-        if (!hasEmptyCard && uploadedCardsCount < limitedMaxFiles) {
-          nextUploadCards.push(card);
-          hasEmptyCard = true;
-        }
-      });
-
-      if (includeEmptyCard && !hasEmptyCard && uploadedCardsCount < limitedMaxFiles) {
-        nextUploadCards.push(createUploadCard(null));
+      if (!includeEmptyCard || nextUploadedCards.length >= maxFilesLimit) {
+        return nextUploadedCards;
       }
 
-      return nextUploadCards;
+      return [...nextUploadedCards, existingIdleCard ?? createUploadCard(null)];
     },
-    [createUploadCard, maxFiles],
+    [createUploadCard, maxFilesLimit],
   );
   const normalizeUploadedFiles = useCallback(
     (files?: UploadedFileInfo[]) => {
-      return (files ?? []).slice(0, Math.max(maxFiles, 0));
+      return (files ?? []).slice(0, maxFilesLimit);
     },
-    [maxFiles],
+    [maxFilesLimit],
   );
   const initialUploadedFiles = normalizeUploadedFiles(isControlled ? fileList : defaultFileList);
   const [uploadCards, setUploadCards] = useState<DropZoneCardState[]>(() => {
@@ -189,11 +180,11 @@ export function useDropZoneState({
     (cards: DropZoneCardState[]) => {
       clearPendingUploadCardsTimeout();
 
-      if (cards.some((card) => card.uploadedFile === null)) {
+      if (hasIdleUploadCard(cards)) {
         return;
       }
 
-      if (cards.filter((card) => card.uploadedFile !== null).length >= Math.max(maxFiles, 0)) {
+      if (getUploadedCards(cards).length >= maxFilesLimit) {
         return;
       }
 
@@ -209,7 +200,7 @@ export function useDropZoneState({
     [
       clearPendingUploadCardsTimeout,
       createUploadCard,
-      maxFiles,
+      maxFilesLimit,
       normalizeUploadCards,
       scheduleUploadCardsUpdate,
       updateUploadCards,
