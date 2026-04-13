@@ -10,6 +10,13 @@ export interface UploadedFileInfo {
   type: string;
 }
 
+export type DropZoneChangeHandler = (uploadedFiles: UploadedFileInfo[]) => void;
+
+export type DropZoneRemoveHandler = (
+  uploadedFile: UploadedFileInfo,
+  uploadedFiles: UploadedFileInfo[],
+) => void;
+
 export type AcceptedFileType = string | string[];
 
 export interface DropZoneCardState {
@@ -34,7 +41,7 @@ export interface DropZoneState {
 export interface DropZoneBaseProps
   extends Omit<
     HTMLHeroUIProps<"div">,
-    keyof DropZoneVariantProps | keyof DropOptions | "children" | "title"
+    keyof DropZoneVariantProps | keyof DropOptions | "children" | "title" | "onChange"
   > {
   /**
    * Ref to the DOM node.
@@ -54,6 +61,23 @@ export interface DropZoneBaseProps
    * @default false
    */
   hideIcon?: boolean;
+  /**
+   * Controlled uploaded files.
+   */
+  fileList?: UploadedFileInfo[];
+  /**
+   * Initial uploaded files for uncontrolled usage.
+   * @default []
+   */
+  defaultFileList?: UploadedFileInfo[];
+  /**
+   * Called when the accepted uploaded files change.
+   */
+  onChange?: DropZoneChangeHandler;
+  /**
+   * Called after an uploaded file is removed.
+   */
+  onRemove?: DropZoneRemoveHandler;
   /**
    * Allowed file types. Supports the same values as the native input `accept` attribute.
    * Examples: `"image/*"`, `".pdf,.docx"`, or `["image/png", ".pdf"]`.

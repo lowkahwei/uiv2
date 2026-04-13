@@ -32,11 +32,15 @@ export function useDropZone(originalProps: UseDropZoneProps) {
     title = "Drop files here",
     icon,
     hideIcon = false,
+    fileList,
+    defaultFileList,
     accept,
     maxFileSize,
     maxFiles = 1,
     errorMessage,
+    onChange,
     onDrop,
+    onRemove,
     ...otherProps
   } = props;
 
@@ -59,9 +63,13 @@ export function useDropZone(originalProps: UseDropZoneProps) {
     handleFileChange,
   } = useDropZoneState({
     acceptedFileTypes,
+    fileList,
+    defaultFileList,
     maxFileSize,
     maxFiles,
+    onChange,
     onDrop,
+    onRemove,
   });
   const hasInvalidState = isInvalid || !!validationMessage;
 

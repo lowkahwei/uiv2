@@ -193,6 +193,54 @@ const CustomContentTemplate = (args: DropZoneProps) => {
   );
 };
 
+const ControlledTemplate = (args: DropZoneProps) => {
+  const [fileList, setFileList] = React.useState<NonNullable<DropZoneProps["fileList"]>>([
+    {
+      name: "brand-guidelines.pdf",
+      size: 2.4 * 1024 * 1024,
+      type: "application/pdf",
+    },
+  ]);
+  const [lastAction, setLastAction] = React.useState("Waiting for changes");
+
+  return (
+    <div className="flex max-w-md flex-col gap-4">
+      <DropZone
+        aria-label="Controlled drop zone"
+        {...args}
+        fileList={fileList}
+        onChange={(nextUploadedFiles) => {
+          setFileList(nextUploadedFiles);
+          setLastAction(`onChange: ${nextUploadedFiles.length} file(s)`);
+          args.onChange?.(nextUploadedFiles);
+        }}
+        onDrop={async (event) => {
+          setLastAction(`onDrop: accepted ${event.items.length} item(s)`);
+          args.onDrop?.(event);
+        }}
+        onRemove={(uploadedFile, nextUploadedFiles) => {
+          setLastAction(`onRemove: ${uploadedFile.name}`);
+          args.onRemove?.(uploadedFile, nextUploadedFiles);
+        }}
+      />
+      <div className="rounded-large border border-default-200 bg-content1 p-4">
+        <p className="text-small font-medium text-foreground">Controlled state</p>
+        <p className="mt-2 text-small text-default-500">{lastAction}</p>
+        <ul className="mt-3 space-y-2 text-small text-default-600">
+          {fileList.map((file) => (
+            <li
+              key={`${file.name}-${file.size}`}
+              className="rounded-medium bg-default-50 px-3 py-2"
+            >
+              {file.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
 export const Default = {
   render: PlaygroundTemplate,
   args: {
@@ -224,6 +272,16 @@ export const CustomChildren = {
     ...defaultProps,
     variant: "faded",
     color: "success",
+  },
+};
+
+export const Controlled = {
+  render: ControlledTemplate,
+  args: {
+    ...defaultProps,
+    title: "Controlled uploaded files",
+    maxFiles: 3,
+    color: "primary",
   },
 };
 

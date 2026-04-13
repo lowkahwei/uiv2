@@ -15,20 +15,49 @@ import {
 
 interface UseDropZoneStateOptions {
   acceptedFileTypes: string[];
+  fileList?: UploadedFileInfo[];
+  defaultFileList?: UploadedFileInfo[];
   maxFileSize?: number;
   maxFiles?: number;
+  onChange?: UseDropZoneProps["onChange"];
   onDrop?: UseDropZoneProps["onDrop"];
+  onRemove?: UseDropZoneProps["onRemove"];
+}
+
+function isSameUploadedFile(
+  left: UploadedFileInfo | null | undefined,
+  right: UploadedFileInfo | null | undefined,
+) {
+  return left?.name === right?.name && left?.size === right?.size && left?.type === right?.type;
+}
+
+function areUploadedFilesEqual(left: UploadedFileInfo[], right: UploadedFileInfo[]) {
+  return (
+    left.length === right.length &&
+    left.every((file, index) => isSameUploadedFile(file, right[index]))
+  );
+}
+
+function getUploadedFilesFromCards(cards: DropZoneCardState[]) {
+  return cards.flatMap((card) => {
+    return card.uploadedFile ? [card.uploadedFile] : [];
+  });
 }
 
 export function useDropZoneState({
   acceptedFileTypes,
+  fileList,
+  defaultFileList,
   maxFileSize,
   maxFiles = 1,
+  onChange,
   onDrop,
+  onRemove,
 }: UseDropZoneStateOptions) {
   const nextCardIdRef = useRef(0);
   const appendEmptyCardTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const removeUploadedFileTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isControlled = fileList !== undefined;
   const createUploadCard = useCallback(
     (uploadedFile: UploadedFileInfo | null): DropZoneCardState => {
       return {
@@ -69,8 +98,24 @@ export function useDropZoneState({
     },
     [createUploadCard, maxFiles],
   );
+  const normalizeUploadedFiles = useCallback(
+    (files?: UploadedFileInfo[]) => {
+      return (files ?? []).slice(0, Math.max(maxFiles, 0));
+    },
+    [maxFiles],
+  );
+  const [uncontrolledUploadedFiles, setUncontrolledUploadedFiles] = useState<UploadedFileInfo[]>(
+    () => normalizeUploadedFiles(defaultFileList),
+  );
+  const resolvedUploadedFiles = isControlled
+    ? normalizeUploadedFiles(fileList)
+    : uncontrolledUploadedFiles;
   const [uploadCards, setUploadCards] = useState<DropZoneCardState[]>(() => {
-    return normalizeUploadCards([]);
+    const initialCards = resolvedUploadedFiles.map((uploadedFile) =>
+      createUploadCard(uploadedFile),
+    );
+
+    return normalizeUploadCards(initialCards);
   });
   const [validationMessage, setValidationMessage] = useState<ReactNode>(null);
   const uploadCardsRef = useRef<DropZoneCardState[]>(uploadCards);
@@ -78,6 +123,16 @@ export function useDropZoneState({
     uploadCardsRef.current = nextUploadCards;
     setUploadCards(nextUploadCards);
   }, []);
+  const emitUploadedFilesChange = useCallback(
+    (nextUploadedFiles: UploadedFileInfo[]) => {
+      if (!isControlled) {
+        setUncontrolledUploadedFiles(nextUploadedFiles);
+      }
+
+      onChange?.(nextUploadedFiles);
+    },
+    [isControlled, onChange],
+  );
   const clearAppendEmptyCardTimeout = useCallback(() => {
     if (appendEmptyCardTimeoutRef.current !== null) {
       clearTimeout(appendEmptyCardTimeoutRef.current);
@@ -132,9 +187,33 @@ export function useDropZoneState({
     },
     [createUploadCard, normalizeUploadCards],
   );
-  const uploadedFiles = uploadCards.flatMap((card) => {
-    return card.uploadedFile ? [card.uploadedFile] : [];
-  });
+  const reconcileUploadCards = useCallback(
+    (files: UploadedFileInfo[], currentCards: DropZoneCardState[] = uploadCardsRef.current) => {
+      const remainingCards = [...currentCards];
+      const uploadedCards = files.map((uploadedFile) => {
+        const matchedCardIndex = remainingCards.findIndex((card) =>
+          isSameUploadedFile(card.uploadedFile, uploadedFile),
+        );
+
+        if (matchedCardIndex === -1) {
+          return createUploadCard(uploadedFile);
+        }
+
+        const matchedCard = remainingCards.splice(matchedCardIndex, 1)[0];
+
+        return {
+          ...matchedCard,
+          uploadedFile,
+        };
+      });
+      const existingIdleCard = remainingCards.find((card) => card.uploadedFile === null);
+      const orderedCards = existingIdleCard ? [existingIdleCard, ...uploadedCards] : uploadedCards;
+
+      return finalizeUploadCardsOrder(orderedCards);
+    },
+    [createUploadCard, finalizeUploadCardsOrder],
+  );
+  const uploadedFiles = getUploadedFilesFromCards(uploadCards);
 
   useEffect(() => {
     return () => {
@@ -143,14 +222,42 @@ export function useDropZoneState({
     };
   }, [clearAppendEmptyCardTimeout, clearRemoveUploadedFileTimeout]);
 
+  useEffect(() => {
+    const nextResolvedUploadedFiles = isControlled
+      ? normalizeUploadedFiles(fileList)
+      : uncontrolledUploadedFiles;
+    const currentUploadedFiles = getUploadedFilesFromCards(uploadCardsRef.current);
+
+    if (!areUploadedFilesEqual(currentUploadedFiles, nextResolvedUploadedFiles)) {
+      clearAppendEmptyCardTimeout();
+      clearRemoveUploadedFileTimeout();
+      updateUploadCards(reconcileUploadCards(nextResolvedUploadedFiles));
+      setValidationMessage(null);
+    }
+
+    if (
+      !isControlled &&
+      !areUploadedFilesEqual(uncontrolledUploadedFiles, nextResolvedUploadedFiles)
+    ) {
+      setUncontrolledUploadedFiles(nextResolvedUploadedFiles);
+    }
+  }, [
+    clearAppendEmptyCardTimeout,
+    clearRemoveUploadedFileTimeout,
+    isControlled,
+    normalizeUploadedFiles,
+    reconcileUploadCards,
+    uncontrolledUploadedFiles,
+    updateUploadCards,
+    fileList,
+  ]);
+
   const commitFiles = useCallback(
     (files: File[]) => {
       // Keep explicit card slots instead of only uploaded files so the same UploadCard
       // instance can transition from idle -> uploaded and preserve AnimatePresence.
       const currentUploadCards = uploadCardsRef.current;
-      const currentUploadedFiles = currentUploadCards.flatMap((card) => {
-        return card.uploadedFile ? [card.uploadedFile] : [];
-      });
+      const currentUploadedFiles = getUploadedFilesFromCards(currentUploadCards);
       const resolution = resolveAcceptedFiles(
         files,
         acceptedFileTypes,
@@ -186,17 +293,22 @@ export function useDropZoneState({
       });
 
       const normalizedUploadCards = normalizeUploadCards(nextUploadCards, false);
+      const nextUploadedFiles = getUploadedFilesFromCards(normalizedUploadCards);
 
       updateUploadCards(normalizedUploadCards);
       scheduleEmptyCardAfterAnimation(normalizedUploadCards);
       setValidationMessage(resolution.validationMessage);
+      emitUploadedFilesChange(nextUploadedFiles);
 
-      return resolution;
+      return {
+        ...resolution,
+        nextUploadedFiles,
+      };
     },
     [
       acceptedFileTypes,
-      clearAppendEmptyCardTimeout,
       createUploadCard,
+      emitUploadedFilesChange,
       maxFileSize,
       maxFiles,
       normalizeUploadCards,
@@ -246,16 +358,20 @@ export function useDropZoneState({
       // UploadCard can animate uploaded -> idle in-place on the card that was clicked.
       clearAppendEmptyCardTimeout();
       clearRemoveUploadedFileTimeout();
+      let removedUploadedFile: UploadedFileInfo | null = null;
       const nextUploadCards = uploadCardsRef.current.map((card) => {
         if (card.id !== cardId) {
           return card;
         }
+
+        removedUploadedFile = card.uploadedFile;
 
         return {
           ...card,
           uploadedFile: null,
         };
       });
+      const nextUploadedFiles = getUploadedFilesFromCards(nextUploadCards);
 
       updateUploadCards(nextUploadCards);
       removeUploadedFileTimeoutRef.current = setTimeout(() => {
@@ -265,11 +381,18 @@ export function useDropZoneState({
         removeUploadedFileTimeoutRef.current = null;
       }, UPLOAD_CARD_APPEND_DELAY_MS);
       setValidationMessage(null);
+      emitUploadedFilesChange(nextUploadedFiles);
+
+      if (removedUploadedFile) {
+        onRemove?.(removedUploadedFile, nextUploadedFiles);
+      }
     },
     [
       clearAppendEmptyCardTimeout,
       clearRemoveUploadedFileTimeout,
+      emitUploadedFilesChange,
       finalizeUploadCardsOrder,
+      onRemove,
       updateUploadCards,
     ],
   );
@@ -279,9 +402,11 @@ export function useDropZoneState({
     clearRemoveUploadedFileTimeout();
     updateUploadCards(normalizeUploadCards([]));
     setValidationMessage(null);
+    emitUploadedFilesChange([]);
   }, [
     clearAppendEmptyCardTimeout,
     clearRemoveUploadedFileTimeout,
+    emitUploadedFilesChange,
     normalizeUploadCards,
     updateUploadCards,
   ]);
