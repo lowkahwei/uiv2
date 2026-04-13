@@ -103,7 +103,7 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     ],
   );
 
-  const cardNodes = state.uploadCards.map((card) => (
+  const renderCard = (card: (typeof state.uploadCards)[number]) => (
     <DropZoneProvider
       key={card.id}
       value={{
@@ -118,15 +118,17 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     >
       <UploadCard isInteractive={card.uploadedFile === null} />
     </DropZoneProvider>
-  ));
+  );
 
   const cards = disableAnimation ? (
-    <div className="flex w-full flex-col items-center gap-3">{cardNodes}</div>
+    <div className="flex w-full flex-col items-center gap-3">
+      {state.uploadCards.map(renderCard)}
+    </div>
   ) : (
     <LazyMotion features={domAnimation}>
       <m.div layout className="flex w-full flex-col items-center gap-3">
         <AnimatePresence initial={false}>
-          {state.uploadCards.map((card, index) => (
+          {state.uploadCards.map((card) => (
             <m.div
               key={card.id}
               layout
@@ -136,7 +138,7 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
               initial={UPLOAD_CARD_LIST_ITEM_MOTION.initial}
               transition={CARD_CONTENT_TRANSITION}
             >
-              {cardNodes[index]}
+              {renderCard(card)}
             </m.div>
           ))}
         </AnimatePresence>

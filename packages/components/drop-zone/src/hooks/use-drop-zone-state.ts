@@ -2,7 +2,7 @@ import type {DropEvent} from "@react-aria/dnd";
 import type {ChangeEvent, ReactNode} from "react";
 import type {DropZoneCardState, UploadedFileInfo, UseDropZoneProps} from "../types";
 
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 
 import {UPLOAD_CARD_APPEND_DELAY_MS} from "../card/constants";
 import {
@@ -31,17 +31,23 @@ function isSameUploadedFile(
   return left?.name === right?.name && left?.size === right?.size && left?.type === right?.type;
 }
 
-function areUploadedFilesEqual(left: UploadedFileInfo[], right: UploadedFileInfo[]) {
-  return (
-    left.length === right.length &&
-    left.every((file, index) => isSameUploadedFile(file, right[index]))
-  );
-}
-
 function getUploadedFilesFromCards(cards: DropZoneCardState[]) {
   return cards.flatMap((card) => {
     return card.uploadedFile ? [card.uploadedFile] : [];
   });
+}
+
+function areUploadCardsEqual(left: DropZoneCardState[], right: DropZoneCardState[]) {
+  return (
+    left.length === right.length &&
+    left.every((card, index) => {
+      const nextCard = right[index];
+
+      return (
+        card.id === nextCard?.id && isSameUploadedFile(card.uploadedFile, nextCard?.uploadedFile)
+      );
+    })
+  );
 }
 
 export function useDropZoneState({
@@ -104,16 +110,9 @@ export function useDropZoneState({
     },
     [maxFiles],
   );
-  const [uncontrolledUploadedFiles, setUncontrolledUploadedFiles] = useState<UploadedFileInfo[]>(
-    () => normalizeUploadedFiles(defaultFileList),
-  );
-  const resolvedUploadedFiles = isControlled
-    ? normalizeUploadedFiles(fileList)
-    : uncontrolledUploadedFiles;
+  const initialUploadedFiles = normalizeUploadedFiles(isControlled ? fileList : defaultFileList);
   const [uploadCards, setUploadCards] = useState<DropZoneCardState[]>(() => {
-    const initialCards = resolvedUploadedFiles.map((uploadedFile) =>
-      createUploadCard(uploadedFile),
-    );
+    const initialCards = initialUploadedFiles.map((uploadedFile) => createUploadCard(uploadedFile));
 
     return normalizeUploadCards(initialCards);
   });
@@ -125,13 +124,9 @@ export function useDropZoneState({
   }, []);
   const emitUploadedFilesChange = useCallback(
     (nextUploadedFiles: UploadedFileInfo[]) => {
-      if (!isControlled) {
-        setUncontrolledUploadedFiles(nextUploadedFiles);
-      }
-
       onChange?.(nextUploadedFiles);
     },
-    [isControlled, onChange],
+    [onChange],
   );
   const clearAppendEmptyCardTimeout = useCallback(() => {
     if (appendEmptyCardTimeoutRef.current !== null) {
@@ -213,7 +208,7 @@ export function useDropZoneState({
     },
     [createUploadCard, finalizeUploadCardsOrder],
   );
-  const uploadedFiles = getUploadedFilesFromCards(uploadCards);
+  const uploadedFiles = useMemo(() => getUploadedFilesFromCards(uploadCards), [uploadCards]);
 
   useEffect(() => {
     return () => {
@@ -223,31 +218,28 @@ export function useDropZoneState({
   }, [clearAppendEmptyCardTimeout, clearRemoveUploadedFileTimeout]);
 
   useEffect(() => {
-    const nextResolvedUploadedFiles = isControlled
+    const currentUploadCards = uploadCardsRef.current;
+    const currentUploadedFiles = getUploadedFilesFromCards(currentUploadCards);
+    const nextUploadedFiles = isControlled
       ? normalizeUploadedFiles(fileList)
-      : uncontrolledUploadedFiles;
-    const currentUploadedFiles = getUploadedFilesFromCards(uploadCardsRef.current);
+      : normalizeUploadedFiles(currentUploadedFiles);
+    const nextUploadCards = isControlled
+      ? reconcileUploadCards(nextUploadedFiles, currentUploadCards)
+      : normalizeUploadCards(currentUploadCards);
 
-    if (!areUploadedFilesEqual(currentUploadedFiles, nextResolvedUploadedFiles)) {
+    if (!areUploadCardsEqual(currentUploadCards, nextUploadCards)) {
       clearAppendEmptyCardTimeout();
       clearRemoveUploadedFileTimeout();
-      updateUploadCards(reconcileUploadCards(nextResolvedUploadedFiles));
+      updateUploadCards(nextUploadCards);
       setValidationMessage(null);
-    }
-
-    if (
-      !isControlled &&
-      !areUploadedFilesEqual(uncontrolledUploadedFiles, nextResolvedUploadedFiles)
-    ) {
-      setUncontrolledUploadedFiles(nextResolvedUploadedFiles);
     }
   }, [
     clearAppendEmptyCardTimeout,
     clearRemoveUploadedFileTimeout,
     isControlled,
     normalizeUploadedFiles,
+    normalizeUploadCards,
     reconcileUploadCards,
-    uncontrolledUploadedFiles,
     updateUploadCards,
     fileList,
   ]);
