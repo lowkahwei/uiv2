@@ -1,10 +1,7 @@
 import type {PropGetter} from "@heroui/system";
-import type {ReactNode} from "react";
-import type {DropZoneProps, DropZoneState, UploadedFileInfo} from "./types";
+import type {DropZoneProps, DropZoneState, UploadedFileInfo} from "../types";
 
-import {createContext, useContext} from "react";
-
-export interface DropZoneContextValue {
+export interface DropZoneCardRenderProps {
   hideIcon: boolean;
   icon: DropZoneProps["icon"];
   state: DropZoneState;
@@ -33,26 +30,4 @@ export interface DropZoneContextValue {
   getFileMetaProps: PropGetter;
   getIconProps: PropGetter;
   getIconWrapperProps: PropGetter;
-}
-
-const DropZoneContext = createContext<DropZoneContextValue | null>(null);
-
-export function DropZoneProvider({
-  children,
-  value,
-}: {
-  children: ReactNode;
-  value: DropZoneContextValue;
-}) {
-  return <DropZoneContext.Provider value={value}>{children}</DropZoneContext.Provider>;
-}
-
-export function useDropZoneContext() {
-  const context = useContext(DropZoneContext);
-
-  if (!context) {
-    throw new Error("useDropZoneContext must be used within a DropZoneProvider.");
-  }
-
-  return context;
 }

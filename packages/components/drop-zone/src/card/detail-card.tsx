@@ -1,27 +1,43 @@
+import type {DropZoneCardRenderProps} from "./types";
+
 import {FileCardIcon, RemoveIcon} from "../drop-zone-icons";
-import {useDropZoneContext} from "../drop-zone-context";
 
 import {DROP_ZONE_CARD_LABELS} from "./constants";
 
-export function DetailCard() {
-  const {
-    hideIcon,
-    icon,
-    uploadedFile,
-    removeUploadedFile,
-    uploadedFileSize,
-    uploadedFileType,
-    getDetailCardProps,
-    getClearButtonProps,
-    getClearButtonIconProps,
-    getFileIconWrapperProps,
-    getFileIconProps,
-    getFileTypeBadgeProps,
-    getFileInfoProps,
-    getFileNameProps,
-    getFileMetaProps,
-  } = useDropZoneContext();
-
+export function DetailCard({
+  hideIcon,
+  icon,
+  uploadedFile,
+  removeUploadedFile,
+  uploadedFileSize,
+  uploadedFileType,
+  getDetailCardProps,
+  getClearButtonProps,
+  getClearButtonIconProps,
+  getFileIconWrapperProps,
+  getFileIconProps,
+  getFileTypeBadgeProps,
+  getFileInfoProps,
+  getFileNameProps,
+  getFileMetaProps,
+}: Pick<
+  DropZoneCardRenderProps,
+  | "hideIcon"
+  | "icon"
+  | "uploadedFile"
+  | "removeUploadedFile"
+  | "uploadedFileSize"
+  | "uploadedFileType"
+  | "getDetailCardProps"
+  | "getClearButtonProps"
+  | "getClearButtonIconProps"
+  | "getFileIconWrapperProps"
+  | "getFileIconProps"
+  | "getFileTypeBadgeProps"
+  | "getFileInfoProps"
+  | "getFileNameProps"
+  | "getFileMetaProps"
+>) {
   return (
     <div {...getDetailCardProps()}>
       <button

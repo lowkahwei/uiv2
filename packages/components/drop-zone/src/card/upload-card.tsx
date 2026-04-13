@@ -1,6 +1,6 @@
-import {AnimatePresence, m} from "framer-motion";
+import type {DropZoneCardRenderProps} from "./types";
 
-import {useDropZoneContext} from "../drop-zone-context";
+import {AnimatePresence, m} from "framer-motion";
 
 import {
   CARD_CONTENT_TRANSITION,
@@ -13,11 +13,16 @@ import {DetailCard} from "./detail-card";
 import {IdleCard} from "./idle-card";
 
 interface UploadCardProps {
+  cardProps: DropZoneCardRenderProps;
   isInteractive?: boolean;
   onContentAnimationComplete?: () => void;
 }
 
-export function UploadCard({isInteractive = false, onContentAnimationComplete}: UploadCardProps) {
+export function UploadCard({
+  cardProps,
+  isInteractive = false,
+  onContentAnimationComplete,
+}: UploadCardProps) {
   const {
     disableAnimation,
     state,
@@ -28,7 +33,7 @@ export function UploadCard({isInteractive = false, onContentAnimationComplete}: 
     getUploadCardOverlayProps,
     getUploadedContentProps,
     getIdleContentProps,
-  } = useDropZoneContext();
+  } = cardProps;
   const uploadCardWrapperProps = getUploadCardWrapperProps(
     isInteractive ? getUploadTriggerProps() : undefined,
   );
@@ -36,8 +41,8 @@ export function UploadCard({isInteractive = false, onContentAnimationComplete}: 
   const uploadCardOverlayProps = getUploadCardOverlayProps();
   const uploadedContentProps = getUploadedContentProps();
   const idleContentProps = getIdleContentProps();
-  const uploadedContent = <DetailCard />;
-  const idleContent = <IdleCard />;
+  const uploadedContent = <DetailCard {...cardProps} />;
+  const idleContent = <IdleCard {...cardProps} />;
 
   if (disableAnimation) {
     return (

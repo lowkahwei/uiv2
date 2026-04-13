@@ -1,20 +1,29 @@
+import type {DropZoneCardRenderProps} from "./types";
+
 import {UploadIcon} from "../drop-zone-icons";
-import {useDropZoneContext} from "../drop-zone-context";
 
 import {DROP_ZONE_CARD_LABELS} from "./constants";
 
-export function IdleCard() {
-  const {
-    hideIcon,
-    icon,
-    title,
-    state,
-    getIdleCardProps,
-    getIdleLabelProps,
-    getIconProps,
-    getIconWrapperProps,
-  } = useDropZoneContext();
-
+export function IdleCard({
+  hideIcon,
+  icon,
+  title,
+  state,
+  getIdleCardProps,
+  getIdleLabelProps,
+  getIconProps,
+  getIconWrapperProps,
+}: Pick<
+  DropZoneCardRenderProps,
+  | "hideIcon"
+  | "icon"
+  | "title"
+  | "state"
+  | "getIdleCardProps"
+  | "getIdleLabelProps"
+  | "getIconProps"
+  | "getIconWrapperProps"
+>) {
   return (
     <div {...getIdleCardProps()}>
       {!hideIcon && (

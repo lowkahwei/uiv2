@@ -1,4 +1,5 @@
 import type {DropZoneProps} from "./types";
+import type {DropZoneCardRenderProps} from "./card/types";
 
 import {forwardRef} from "@heroui/system";
 import {AnimatePresence, LazyMotion, domAnimation, m} from "framer-motion";
@@ -6,7 +7,6 @@ import {useMemo} from "react";
 
 import {CARD_CONTENT_TRANSITION, UPLOAD_CARD_LIST_ITEM_MOTION} from "./card/constants";
 import {UploadCard} from "./card/upload-card";
-import {DropZoneProvider} from "./drop-zone-context";
 import {formatFileSize, formatUploadedFileType} from "./drop-zone-utils";
 import {useDropZone} from "./use-drop-zone";
 
@@ -49,7 +49,12 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     getHelperTextProps,
   } = useDropZone({...props, ref});
 
-  const sharedContextValue = useMemo(
+  const sharedCardProps = useMemo<
+    Omit<
+      DropZoneCardRenderProps,
+      "uploadedFile" | "uploadedFileSize" | "uploadedFileType" | "removeUploadedFile"
+    >
+  >(
     () => ({
       disableAnimation,
       getClearButtonIconProps,
@@ -104,27 +109,28 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     ],
   );
 
-  const renderCard = (card: (typeof state.uploadCards)[number]) => (
-    <DropZoneProvider
-      key={card.id}
-      value={{
-        ...sharedContextValue,
-        uploadedFile: card.uploadedFile,
-        uploadedFileSize: card.uploadedFile ? formatFileSize(card.uploadedFile.size) : null,
-        uploadedFileType: card.uploadedFile
-          ? formatUploadedFileType(card.uploadedFile.type, card.uploadedFile.name)
-          : "",
-        removeUploadedFile: card.uploadedFile ? () => removeUploadedFile(card.id) : undefined,
-      }}
-    >
+  const renderCard = (card: (typeof state.uploadCards)[number]) => {
+    const cardProps: DropZoneCardRenderProps = {
+      ...sharedCardProps,
+      uploadedFile: card.uploadedFile,
+      uploadedFileSize: card.uploadedFile ? formatFileSize(card.uploadedFile.size) : null,
+      uploadedFileType: card.uploadedFile
+        ? formatUploadedFileType(card.uploadedFile.type, card.uploadedFile.name)
+        : "",
+      removeUploadedFile: card.uploadedFile ? () => removeUploadedFile(card.id) : undefined,
+    };
+
+    return (
       <UploadCard
+        key={card.id}
+        cardProps={cardProps}
         isInteractive={card.uploadedFile === null}
         onContentAnimationComplete={() =>
           handleUploadCardContentAnimationComplete(card.id, card.uploadedFile)
         }
       />
-    </DropZoneProvider>
-  );
+    );
+  };
 
   const cards = disableAnimation ? (
     <div className="flex w-full flex-col items-center gap-3">
