@@ -490,7 +490,7 @@ importers:
     devDependencies:
       '@docusaurus/utils':
         specifier: 2.0.0-beta.3
-        version: 2.0.0-beta.3(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack-cli@3.3.12(webpack@5.99.9))
+        version: 2.0.0-beta.3(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack-cli@3.3.12)
       '@react-types/calendar':
         specifier: 3.8.3
         version: 3.8.3(react@18.3.0)
@@ -1504,6 +1504,9 @@ importers:
       '@heroui/shared-utils':
         specifier: workspace:*
         version: link:../../utilities/shared-utils
+      '@heroui/use-aria-button':
+        specifier: workspace:*
+        version: link:../../hooks/use-aria-button
       '@react-aria/dnd':
         specifier: 3.11.6
         version: 3.11.6(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
@@ -17083,12 +17086,12 @@ snapshots:
 
   '@discoveryjs/json-ext@0.5.7': {}
 
-  '@docusaurus/types@2.0.0-beta.3(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack-cli@3.3.12(webpack@5.99.9))':
+  '@docusaurus/types@2.0.0-beta.3(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack-cli@3.3.12)':
     dependencies:
       commander: 5.1.0
       joi: 17.13.3
       querystring: 0.2.0
-      webpack: 5.99.9(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack-cli@3.3.12(webpack@5.99.9))
+      webpack: 5.99.9(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack-cli@3.3.12)
       webpack-merge: 5.10.0
     transitivePeerDependencies:
       - '@swc/core'
@@ -17096,9 +17099,9 @@ snapshots:
       - uglify-js
       - webpack-cli
 
-  '@docusaurus/utils@2.0.0-beta.3(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack-cli@3.3.12(webpack@5.99.9))':
+  '@docusaurus/utils@2.0.0-beta.3(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack-cli@3.3.12)':
     dependencies:
-      '@docusaurus/types': 2.0.0-beta.3(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack-cli@3.3.12(webpack@5.99.9))
+      '@docusaurus/types': 2.0.0-beta.3(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack-cli@3.3.12)
       '@types/github-slugger': 1.3.0
       chalk: 4.1.2
       escape-string-regexp: 4.0.0
@@ -28699,7 +28702,7 @@ snapshots:
       '@swc/core': 1.12.3(@swc/helpers@0.5.17)
       esbuild: 0.24.2
 
-  terser-webpack-plugin@5.3.14(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack@5.99.9(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.24.2)(webpack-cli@3.3.12)):
+  terser-webpack-plugin@5.3.14(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack@5.99.9):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
@@ -29458,7 +29461,7 @@ snapshots:
       - esbuild
       - uglify-js
 
-  webpack@5.99.9(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack-cli@3.3.12(webpack@5.99.9)):
+  webpack@5.99.9(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack-cli@3.3.12):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.8
@@ -29481,7 +29484,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.2
       tapable: 2.2.2
-      terser-webpack-plugin: 5.3.14(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack@5.99.9(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.24.2)(webpack-cli@3.3.12))
+      terser-webpack-plugin: 5.3.14(@swc/core@1.12.3(@swc/helpers@0.5.17))(esbuild@0.25.5)(webpack@5.99.9)
       watchpack: 2.4.4
       webpack-sources: 3.3.2
     optionalDependencies:

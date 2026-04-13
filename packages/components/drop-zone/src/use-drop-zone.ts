@@ -1,10 +1,10 @@
 import type {DropEvent, DropItem} from "@react-aria/dnd";
 import type {PropGetter} from "@heroui/system";
-import type {KeyboardEvent, MouseEvent} from "react";
 import type {DropZoneState, UseDropZoneProps} from "./types";
 
 import {useProviderContext, mapPropsVariants} from "@heroui/system";
 import {useDOMRef, filterDOMProps} from "@heroui/react-utils";
+import {useAriaButton} from "@heroui/use-aria-button";
 import {dataAttr, mergeProps, objectToDeps} from "@heroui/shared-utils";
 import {cn, dropZone} from "@heroui/theme";
 import {useFocusRing} from "@react-aria/focus";
@@ -47,6 +47,7 @@ export function useDropZone(originalProps: UseDropZoneProps) {
   const Component = as || "div";
   const domRef = useDOMRef(ref);
   const inputRef = useDOMRef<HTMLInputElement>(null);
+  const uploadTriggerRef = useDOMRef<HTMLDivElement>(null);
   const shouldFilterDOMProps = typeof Component === "string";
   const isDisabled = originalProps.isDisabled ?? false;
   const isInvalid = originalProps.isInvalid ?? false;
@@ -106,6 +107,14 @@ export function useDropZone(originalProps: UseDropZoneProps) {
   });
 
   const {hoverProps, isHovered} = useHover({isDisabled});
+  const {buttonProps: uploadTriggerButtonProps} = useAriaButton(
+    {
+      elementType: "div",
+      isDisabled,
+      onPress: openFileDialog,
+    },
+    uploadTriggerRef,
+  );
 
   const slots = useMemo(
     () =>
@@ -186,33 +195,20 @@ export function useDropZone(originalProps: UseDropZoneProps) {
 
   const getUploadTriggerProps: PropGetter = useCallback(
     (props = {}) => {
-      const mergedProps = mergeProps(clipboardProps, hoverProps, focusProps, props);
+      const mergedProps = mergeProps(
+        clipboardProps,
+        uploadTriggerButtonProps,
+        hoverProps,
+        focusProps,
+        props,
+      );
 
       return {
         ...mergedProps,
-        role: mergedProps.role ?? "button",
-        tabIndex: mergedProps.tabIndex ?? (isDisabled ? -1 : 0),
-        onClick: (event: MouseEvent<HTMLDivElement>) => {
-          mergedProps.onClick?.(event);
-
-          if (!event.defaultPrevented) {
-            openFileDialog();
-          }
-        },
-        onKeyDown: (event: KeyboardEvent<HTMLDivElement>) => {
-          mergedProps.onKeyDown?.(event);
-
-          if (event.defaultPrevented) return;
-
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            openFileDialog();
-          }
-        },
-        "aria-disabled": isDisabled || undefined,
+        ref: uploadTriggerRef,
       };
     },
-    [clipboardProps, hoverProps, focusProps, isDisabled, openFileDialog],
+    [clipboardProps, uploadTriggerButtonProps, hoverProps, focusProps],
   );
 
   const getInputProps: PropGetter = useCallback(
