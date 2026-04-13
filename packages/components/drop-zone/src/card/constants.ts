@@ -19,6 +19,14 @@ export const CARD_CONTENT_TRANSITION = {
   ease: [0.22, 1, 0.36, 1],
 } as const;
 
+export const UPLOAD_CARD_APPEND_DELAY_MS = CARD_CONTENT_TRANSITION.duration * 1000;
+
+export const UPLOAD_CARD_LIST_ITEM_MOTION = {
+  initial: {opacity: 0, height: 0, y: -12},
+  animate: {opacity: 1, height: "auto", y: 0},
+  exit: {opacity: 0, height: 0, y: -12},
+} as const;
+
 export const UPLOADED_CONTENT_MOTION = {
   key: "uploaded-file",
   animate: {opacity: 1, x: 0, filter: "blur(0px)"},

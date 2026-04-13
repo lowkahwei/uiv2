@@ -1,9 +1,10 @@
 import type {DropZoneProps} from "./types";
 
 import {forwardRef} from "@heroui/system";
-import {LazyMotion, domAnimation} from "framer-motion";
+import {AnimatePresence, LazyMotion, domAnimation, m} from "framer-motion";
 import {useMemo} from "react";
 
+import {CARD_CONTENT_TRANSITION, UPLOAD_CARD_LIST_ITEM_MOTION} from "./card/constants";
 import {UploadCard} from "./card/upload-card";
 import {DropZoneProvider} from "./drop-zone-context";
 import {formatFileSize, formatUploadedFileType} from "./drop-zone-utils";
@@ -102,26 +103,45 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     ],
   );
 
-  const cards = (
-    <div className="flex w-full flex-col items-center gap-3">
-      {/* Keep card ids stable so each UploadCard instance can animate its own idle -> uploaded transition. */}
-      {state.uploadCards.map((card) => (
-        <DropZoneProvider
-          key={card.id}
-          value={{
-            ...sharedContextValue,
-            uploadedFile: card.uploadedFile,
-            uploadedFileSize: card.uploadedFile ? formatFileSize(card.uploadedFile.size) : null,
-            uploadedFileType: card.uploadedFile
-              ? formatUploadedFileType(card.uploadedFile.type, card.uploadedFile.name)
-              : "",
-            removeUploadedFile: card.uploadedFile ? () => removeUploadedFile(card.id) : undefined,
-          }}
-        >
-          <UploadCard isInteractive={card.uploadedFile === null} />
-        </DropZoneProvider>
-      ))}
-    </div>
+  const cardNodes = state.uploadCards.map((card) => (
+    <DropZoneProvider
+      key={card.id}
+      value={{
+        ...sharedContextValue,
+        uploadedFile: card.uploadedFile,
+        uploadedFileSize: card.uploadedFile ? formatFileSize(card.uploadedFile.size) : null,
+        uploadedFileType: card.uploadedFile
+          ? formatUploadedFileType(card.uploadedFile.type, card.uploadedFile.name)
+          : "",
+        removeUploadedFile: card.uploadedFile ? () => removeUploadedFile(card.id) : undefined,
+      }}
+    >
+      <UploadCard isInteractive={card.uploadedFile === null} />
+    </DropZoneProvider>
+  ));
+
+  const cards = disableAnimation ? (
+    <div className="flex w-full flex-col items-center gap-3">{cardNodes}</div>
+  ) : (
+    <LazyMotion features={domAnimation}>
+      <m.div layout className="flex w-full flex-col items-center gap-3">
+        <AnimatePresence initial={false}>
+          {state.uploadCards.map((card, index) => (
+            <m.div
+              key={card.id}
+              layout
+              animate={UPLOAD_CARD_LIST_ITEM_MOTION.animate}
+              className="w-full"
+              exit={UPLOAD_CARD_LIST_ITEM_MOTION.exit}
+              initial={UPLOAD_CARD_LIST_ITEM_MOTION.initial}
+              transition={CARD_CONTENT_TRANSITION}
+            >
+              {cardNodes[index]}
+            </m.div>
+          ))}
+        </AnimatePresence>
+      </m.div>
+    </LazyMotion>
   );
 
   const content =
@@ -131,7 +151,7 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
       children
     ) : (
       <div {...getContentProps()}>
-        {disableAnimation ? cards : <LazyMotion features={domAnimation}>{cards}</LazyMotion>}
+        {cards}
         {title ? <div {...getTitleProps()}>{title}</div> : null}
         {state.validationMessage ? (
           <div {...getHelperTextProps()}>{state.validationMessage}</div>
