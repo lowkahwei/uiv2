@@ -61,8 +61,7 @@ export function useDropZoneState({
   onRemove,
 }: UseDropZoneStateOptions) {
   const nextCardIdRef = useRef(0);
-  const appendEmptyCardTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const removeUploadedFileTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pendingUploadCardsTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isControlled = fileList !== undefined;
   const createUploadCard = useCallback(
     (uploadedFile: UploadedFileInfo | null): DropZoneCardState => {
@@ -128,21 +127,25 @@ export function useDropZoneState({
     },
     [onChange],
   );
-  const clearAppendEmptyCardTimeout = useCallback(() => {
-    if (appendEmptyCardTimeoutRef.current !== null) {
-      clearTimeout(appendEmptyCardTimeoutRef.current);
-      appendEmptyCardTimeoutRef.current = null;
+  const clearPendingUploadCardsTimeout = useCallback(() => {
+    if (pendingUploadCardsTimeoutRef.current !== null) {
+      clearTimeout(pendingUploadCardsTimeoutRef.current);
+      pendingUploadCardsTimeoutRef.current = null;
     }
   }, []);
-  const clearRemoveUploadedFileTimeout = useCallback(() => {
-    if (removeUploadedFileTimeoutRef.current !== null) {
-      clearTimeout(removeUploadedFileTimeoutRef.current);
-      removeUploadedFileTimeoutRef.current = null;
-    }
-  }, []);
+  const scheduleUploadCardsUpdate = useCallback(
+    (callback: () => void) => {
+      clearPendingUploadCardsTimeout();
+      pendingUploadCardsTimeoutRef.current = setTimeout(() => {
+        callback();
+        pendingUploadCardsTimeoutRef.current = null;
+      }, UPLOAD_CARD_APPEND_DELAY_MS);
+    },
+    [clearPendingUploadCardsTimeout],
+  );
   const scheduleEmptyCardAfterAnimation = useCallback(
     (cards: DropZoneCardState[]) => {
-      clearAppendEmptyCardTimeout();
+      clearPendingUploadCardsTimeout();
 
       if (cards.some((card) => card.uploadedFile === null)) {
         return;
@@ -153,20 +156,20 @@ export function useDropZoneState({
       }
 
       // Delay the next empty slot until the current card finishes its upload animation.
-      appendEmptyCardTimeoutRef.current = setTimeout(() => {
+      scheduleUploadCardsUpdate(() => {
         // Prepend the next idle card so the visual insertion direction stays consistent:
         // the idle slot appears from the top, and the next uploaded file occupies that top slot.
         updateUploadCards(
           normalizeUploadCards([createUploadCard(null), ...uploadCardsRef.current], true),
         );
-        appendEmptyCardTimeoutRef.current = null;
-      }, UPLOAD_CARD_APPEND_DELAY_MS);
+      });
     },
     [
-      clearAppendEmptyCardTimeout,
+      clearPendingUploadCardsTimeout,
       createUploadCard,
       maxFiles,
       normalizeUploadCards,
+      scheduleUploadCardsUpdate,
       updateUploadCards,
     ],
   );
@@ -212,10 +215,9 @@ export function useDropZoneState({
 
   useEffect(() => {
     return () => {
-      clearAppendEmptyCardTimeout();
-      clearRemoveUploadedFileTimeout();
+      clearPendingUploadCardsTimeout();
     };
-  }, [clearAppendEmptyCardTimeout, clearRemoveUploadedFileTimeout]);
+  }, [clearPendingUploadCardsTimeout]);
 
   useEffect(() => {
     const currentUploadCards = uploadCardsRef.current;
@@ -228,14 +230,12 @@ export function useDropZoneState({
       : normalizeUploadCards(currentUploadCards);
 
     if (!areUploadCardsEqual(currentUploadCards, nextUploadCards)) {
-      clearAppendEmptyCardTimeout();
-      clearRemoveUploadedFileTimeout();
+      clearPendingUploadCardsTimeout();
       updateUploadCards(nextUploadCards);
       setValidationMessage(null);
     }
   }, [
-    clearAppendEmptyCardTimeout,
-    clearRemoveUploadedFileTimeout,
+    clearPendingUploadCardsTimeout,
     isControlled,
     normalizeUploadedFiles,
     normalizeUploadCards,
@@ -348,8 +348,7 @@ export function useDropZoneState({
     (cardId: string) => {
       // Reset the same card back to idle instead of removing it outright so
       // UploadCard can animate uploaded -> idle in-place on the card that was clicked.
-      clearAppendEmptyCardTimeout();
-      clearRemoveUploadedFileTimeout();
+      clearPendingUploadCardsTimeout();
       let removedUploadedFile: UploadedFileInfo | null = null;
       const nextUploadCards = uploadCardsRef.current.map((card) => {
         if (card.id !== cardId) {
@@ -366,12 +365,11 @@ export function useDropZoneState({
       const nextUploadedFiles = getUploadedFilesFromCards(nextUploadCards);
 
       updateUploadCards(nextUploadCards);
-      removeUploadedFileTimeoutRef.current = setTimeout(() => {
+      scheduleUploadCardsUpdate(() => {
         // Rebuild the final list after the card-level exit finishes so the clicked
         // card owns the disappearance animation before the idle slot moves back to the top.
         updateUploadCards(finalizeUploadCardsOrder(uploadCardsRef.current));
-        removeUploadedFileTimeoutRef.current = null;
-      }, UPLOAD_CARD_APPEND_DELAY_MS);
+      });
       setValidationMessage(null);
       emitUploadedFilesChange(nextUploadedFiles);
 
@@ -380,24 +378,22 @@ export function useDropZoneState({
       }
     },
     [
-      clearAppendEmptyCardTimeout,
-      clearRemoveUploadedFileTimeout,
+      clearPendingUploadCardsTimeout,
       emitUploadedFilesChange,
       finalizeUploadCardsOrder,
       onRemove,
+      scheduleUploadCardsUpdate,
       updateUploadCards,
     ],
   );
 
   const clearUploadedFiles = useCallback(() => {
-    clearAppendEmptyCardTimeout();
-    clearRemoveUploadedFileTimeout();
+    clearPendingUploadCardsTimeout();
     updateUploadCards(normalizeUploadCards([]));
     setValidationMessage(null);
     emitUploadedFilesChange([]);
   }, [
-    clearAppendEmptyCardTimeout,
-    clearRemoveUploadedFileTimeout,
+    clearPendingUploadCardsTimeout,
     emitUploadedFilesChange,
     normalizeUploadCards,
     updateUploadCards,
