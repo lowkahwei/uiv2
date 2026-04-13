@@ -1,5 +1,5 @@
 import type {DropEvent} from "@react-aria/dnd";
-import type {ChangeEvent, ReactNode} from "react";
+import type {ChangeEvent, ReactNode, SetStateAction} from "react";
 import type {DropZoneCardState, UploadedFileInfo, UseDropZoneProps} from "../types";
 
 import {useControlledState} from "@react-stately/utils";
@@ -29,6 +29,11 @@ type PendingAnimationAction =
   | {type: "append-idle-card"}
   | {type: "finalize-remove"; cardId: string};
 
+interface UploadCardsState {
+  cards: DropZoneCardState[];
+  pendingAnimationAction: PendingAnimationAction | null;
+}
+
 function isSameUploadedFile(
   left: UploadedFileInfo | null | undefined,
   right: UploadedFileInfo | null | undefined,
@@ -36,7 +41,7 @@ function isSameUploadedFile(
   return left?.name === right?.name && left?.size === right?.size && left?.type === right?.type;
 }
 
-function getUploadedFilesFromCards(cards: DropZoneCardState[]) {
+function getUploadedFiles(cards: DropZoneCardState[]) {
   return cards.flatMap((card) => {
     return card.uploadedFile ? [card.uploadedFile] : [];
   });
@@ -124,7 +129,6 @@ export function useDropZoneState({
   onRemove,
 }: UseDropZoneStateOptions) {
   const nextCardIdRef = useRef(0);
-  const pendingAnimationActionRef = useRef<PendingAnimationAction | null>(null);
   const skipNextUploadedFilesChangeRef = useRef(false);
   const isControlled = fileList !== undefined;
   const maxFilesLimit = Math.max(maxFiles, 0);
@@ -183,21 +187,28 @@ export function useDropZoneState({
     [normalizeUploadedFiles, setUploadedFilesState],
   );
   const normalizedUploadedFilesState = normalizeUploadedFiles(uploadedFilesState);
-  const uploadedFilesRef = useRef<UploadedFileInfo[]>(normalizedUploadedFilesState);
   const initialUploadedFiles = normalizedUploadedFilesState;
-  const [uploadCards, setUploadCards] = useState<DropZoneCardState[]>(() => {
+  const [uploadCardsState, setUploadCardsState] = useState<UploadCardsState>(() => {
     const initialCards = initialUploadedFiles.map((uploadedFile) => createUploadCard(uploadedFile));
 
-    return normalizeUploadCards(initialCards);
+    return {
+      cards: normalizeUploadCards(initialCards),
+      pendingAnimationAction: null,
+    };
   });
   const [validationMessage, setValidationMessage] = useState<ReactNode>(null);
-  const uploadCardsRef = useRef<DropZoneCardState[]>(uploadCards);
-  const updateUploadCards = useCallback((nextUploadCards: DropZoneCardState[]) => {
-    uploadCardsRef.current = nextUploadCards;
-    setUploadCards(nextUploadCards);
-  }, []);
-  const clearPendingAnimationAction = useCallback(() => {
-    pendingAnimationActionRef.current = null;
+  const uploadCardsStateRef = useRef(uploadCardsState);
+  const setUploadCards = useCallback((nextState: SetStateAction<UploadCardsState>) => {
+    setUploadCardsState((previousState) => {
+      const resolvedState =
+        typeof nextState === "function"
+          ? (nextState as (state: UploadCardsState) => UploadCardsState)(previousState)
+          : nextState;
+
+      uploadCardsStateRef.current = resolvedState;
+
+      return resolvedState;
+    });
   }, []);
   const finalizeAppendIdleCard = useCallback(
     (cards: DropZoneCardState[]) => {
@@ -211,9 +222,9 @@ export function useDropZoneState({
 
       // Prepend the next idle card so the visual insertion direction stays consistent:
       // the idle slot appears from the top, and the next uploaded file occupies that top slot.
-      updateUploadCards(normalizeUploadCards([createUploadCard(null), ...cards], true));
+      return normalizeUploadCards([createUploadCard(null), ...cards], true);
     },
-    [createUploadCard, maxFilesLimit, normalizeUploadCards, updateUploadCards],
+    [createUploadCard, maxFilesLimit, normalizeUploadCards],
   );
   const finalizeUploadCardsOrder = useCallback(
     (cards: DropZoneCardState[]) => {
@@ -228,7 +239,10 @@ export function useDropZoneState({
     [createUploadCard, normalizeUploadCards],
   );
   const reconcileUploadCards = useCallback(
-    (files: UploadedFileInfo[], currentCards: DropZoneCardState[] = uploadCardsRef.current) => {
+    (
+      files: UploadedFileInfo[],
+      currentCards: DropZoneCardState[] = uploadCardsStateRef.current.cards,
+    ) => {
       const {idleCard, uploadedCardsByFileKey} = partitionUploadCards(currentCards);
       const uploadedCards = files.map((uploadedFile) => {
         const uploadedFileKey = getUploadedFileKey(uploadedFile);
@@ -253,63 +267,56 @@ export function useDropZoneState({
   );
 
   useEffect(() => {
-    uploadedFilesRef.current = normalizedUploadedFilesState;
-  }, [normalizedUploadedFilesState]);
-
-  useEffect(() => {
     if (!isControlled) {
       return;
     }
 
-    const currentUploadCards = uploadCardsRef.current;
+    const currentUploadCards = uploadCardsStateRef.current.cards;
     const nextUploadCards = reconcileUploadCards(normalizedUploadedFilesState, currentUploadCards);
 
     if (!areUploadCardsEqual(currentUploadCards, nextUploadCards)) {
-      clearPendingAnimationAction();
-      updateUploadCards(nextUploadCards);
+      setUploadCards({
+        cards: nextUploadCards,
+        pendingAnimationAction: null,
+      });
       setValidationMessage(null);
     }
-  }, [
-    isControlled,
-    clearPendingAnimationAction,
-    normalizedUploadedFilesState,
-    reconcileUploadCards,
-    updateUploadCards,
-  ]);
+  }, [isControlled, normalizedUploadedFilesState, reconcileUploadCards, setUploadCards]);
 
   useEffect(() => {
     if (isControlled) {
       return;
     }
 
-    const currentUploadCards = uploadCardsRef.current;
+    const currentUploadCards = uploadCardsStateRef.current.cards;
     const nextUploadCards = normalizeUploadCards(currentUploadCards);
-    const nextUploadedFiles = getUploadedFilesFromCards(nextUploadCards);
+    const nextUploadedFiles = getUploadedFiles(nextUploadCards);
 
     if (!areUploadCardsEqual(currentUploadCards, nextUploadCards)) {
-      clearPendingAnimationAction();
-      updateUploadCards(nextUploadCards);
+      setUploadCards({
+        cards: nextUploadCards,
+        pendingAnimationAction: null,
+      });
       setValidationMessage(null);
     }
 
-    if (!areUploadedFilesEqual(uploadedFilesRef.current, nextUploadedFiles)) {
+    if (!areUploadedFilesEqual(normalizedUploadedFilesState, nextUploadedFiles)) {
       setUploadedFiles(nextUploadedFiles, {silent: true});
     }
   }, [
     isControlled,
-    clearPendingAnimationAction,
-    maxFilesLimit,
     normalizeUploadCards,
+    normalizedUploadedFilesState,
+    setUploadCards,
     setUploadedFiles,
-    updateUploadCards,
   ]);
 
   const commitFiles = useCallback(
     (files: File[]) => {
       // Keep explicit card slots instead of only uploaded files so the same UploadCard
       // instance can transition from idle -> uploaded and preserve AnimatePresence.
-      const currentUploadCards = uploadCardsRef.current;
-      const currentUploadedFiles = getUploadedFilesFromCards(currentUploadCards);
+      const currentUploadCards = uploadCardsStateRef.current.cards;
+      const currentUploadedFiles = getUploadedFiles(currentUploadCards);
       const resolution = resolveAcceptedFiles(
         files,
         acceptedFileTypes,
@@ -339,19 +346,18 @@ export function useDropZoneState({
       });
 
       const normalizedUploadCards = normalizeUploadCards(nextUploadCards, false);
-      const nextUploadedFiles = getUploadedFilesFromCards(normalizedUploadCards);
+      const nextUploadedFiles = getUploadedFiles(normalizedUploadCards);
+      const shouldAppendIdleCard =
+        !hasIdleUploadCard(normalizedUploadCards) && nextUploadedFiles.length < maxFilesLimit;
 
-      updateUploadCards(normalizedUploadCards);
-      if (disableAnimation) {
-        finalizeAppendIdleCard(normalizedUploadCards);
-      } else if (
-        !hasIdleUploadCard(normalizedUploadCards) &&
-        nextUploadedFiles.length < maxFilesLimit
-      ) {
-        pendingAnimationActionRef.current = {type: "append-idle-card"};
-      } else {
-        clearPendingAnimationAction();
-      }
+      setUploadCards({
+        cards:
+          disableAnimation && shouldAppendIdleCard
+            ? (finalizeAppendIdleCard(normalizedUploadCards) ?? normalizedUploadCards)
+            : normalizedUploadCards,
+        pendingAnimationAction:
+          !disableAnimation && shouldAppendIdleCard ? {type: "append-idle-card"} : null,
+      });
       setValidationMessage(resolution.validationMessage);
       setUploadedFiles(nextUploadedFiles);
 
@@ -363,7 +369,6 @@ export function useDropZoneState({
     [
       acceptedFileTypes,
       createUploadCard,
-      clearPendingAnimationAction,
       disableAnimation,
       finalizeAppendIdleCard,
       maxFileSize,
@@ -371,7 +376,7 @@ export function useDropZoneState({
       maxFilesLimit,
       normalizeUploadCards,
       setUploadedFiles,
-      updateUploadCards,
+      setUploadCards,
     ],
   );
 
@@ -414,9 +419,8 @@ export function useDropZoneState({
     (cardId: string) => {
       // Reset the same card back to idle instead of removing it outright so
       // UploadCard can animate uploaded -> idle in-place on the card that was clicked.
-      clearPendingAnimationAction();
       let removedUploadedFile: UploadedFileInfo | null = null;
-      const nextUploadCards = uploadCardsRef.current.map((card) => {
+      const nextUploadCards = uploadCardsStateRef.current.cards.map((card) => {
         if (card.id !== cardId) {
           return card;
         }
@@ -428,14 +432,12 @@ export function useDropZoneState({
           uploadedFile: null,
         };
       });
-      const nextUploadedFiles = getUploadedFilesFromCards(nextUploadCards);
+      const nextUploadedFiles = getUploadedFiles(nextUploadCards);
 
-      if (disableAnimation) {
-        updateUploadCards(finalizeUploadCardsOrder(nextUploadCards));
-      } else {
-        updateUploadCards(nextUploadCards);
-        pendingAnimationActionRef.current = {type: "finalize-remove", cardId};
-      }
+      setUploadCards({
+        cards: disableAnimation ? finalizeUploadCardsOrder(nextUploadCards) : nextUploadCards,
+        pendingAnimationAction: disableAnimation ? null : {type: "finalize-remove", cardId},
+      });
       setValidationMessage(null);
       setUploadedFiles(nextUploadedFiles);
 
@@ -443,26 +445,21 @@ export function useDropZoneState({
         onRemove?.(removedUploadedFile, nextUploadedFiles);
       }
     },
-    [
-      clearPendingAnimationAction,
-      disableAnimation,
-      finalizeUploadCardsOrder,
-      onRemove,
-      setUploadedFiles,
-      updateUploadCards,
-    ],
+    [disableAnimation, finalizeUploadCardsOrder, onRemove, setUploadedFiles, setUploadCards],
   );
 
   const clearUploadedFiles = useCallback(() => {
-    clearPendingAnimationAction();
-    updateUploadCards(normalizeUploadCards([]));
+    setUploadCards({
+      cards: normalizeUploadCards([]),
+      pendingAnimationAction: null,
+    });
     setValidationMessage(null);
     setUploadedFiles([]);
-  }, [clearPendingAnimationAction, normalizeUploadCards, setUploadedFiles, updateUploadCards]);
+  }, [normalizeUploadCards, setUploadCards, setUploadedFiles]);
 
   const handleUploadCardContentAnimationComplete = useCallback(
     (cardId: string, uploadedFile: UploadedFileInfo | null) => {
-      const pendingAnimationAction = pendingAnimationActionRef.current;
+      const {cards, pendingAnimationAction} = uploadCardsStateRef.current;
 
       if (!pendingAnimationAction) {
         return;
@@ -473,8 +470,10 @@ export function useDropZoneState({
           return;
         }
 
-        pendingAnimationActionRef.current = null;
-        finalizeAppendIdleCard(uploadCardsRef.current);
+        setUploadCards({
+          cards: finalizeAppendIdleCard(cards) ?? cards,
+          pendingAnimationAction: null,
+        });
 
         return;
       }
@@ -483,14 +482,16 @@ export function useDropZoneState({
         return;
       }
 
-      pendingAnimationActionRef.current = null;
-      updateUploadCards(finalizeUploadCardsOrder(uploadCardsRef.current));
+      setUploadCards({
+        cards: finalizeUploadCardsOrder(cards),
+        pendingAnimationAction: null,
+      });
     },
-    [finalizeAppendIdleCard, finalizeUploadCardsOrder, updateUploadCards],
+    [finalizeAppendIdleCard, finalizeUploadCardsOrder, setUploadCards],
   );
 
   return {
-    uploadCards,
+    uploadCards: uploadCardsState.cards,
     uploadedFiles: normalizedUploadedFilesState,
     validationMessage,
     clearUploadedFiles,
