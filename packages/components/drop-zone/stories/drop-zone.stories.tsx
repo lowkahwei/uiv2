@@ -56,6 +56,15 @@ const previewProgressItems = [
   {label: "100%", progress: 1},
 ] as const;
 
+const customErrorMessages: NonNullable<DropZoneProps["errorMessage"]> = {
+  tooMany: "Maximum 2 files per upload.",
+  invalidType: "Only PNG images or PDF documents are accepted1.",
+  tooLarge: "Each file must stay under 5 MB.",
+  uploadFailed: "Upload request failed. Please retry.",
+  previewFailed: "Preview could not be loaded.",
+  invalid: "This field is invalid.",
+};
+
 const readDroppedItems = async (items: DropItem[]) => {
   const values = await Promise.all(
     items.map(async (item) => {
@@ -555,7 +564,7 @@ const SupabaseControlledTemplate = (args: DropZoneProps) => {
         <p className="mt-1 text-small text-default-500">
           Success: {lastSuccess ?? "No successful upload yet."}
         </p>
-        <p className="mt-1 text-small text-danger">{lastError ?? "No preview error."}</p>
+        <p className="mt-1 text-small text-danger">{lastError ?? "No upload or preview error."}</p>
       </div>
     </div>
   );
@@ -694,15 +703,6 @@ export const InvalidState = {
   },
 };
 
-export const CustomChildren = {
-  render: CustomContentTemplate,
-  args: {
-    ...defaultProps,
-    variant: "faded",
-    color: "success",
-  },
-};
-
 export const Controlled = {
   render: ControlledTemplate,
   args: {
@@ -767,6 +767,31 @@ export const CombinedConstraints = {
   },
 };
 
+export const CustomErrorMessages = {
+  render: ConstraintTemplate,
+  args: {
+    ...defaultProps,
+    title: "Custom error messages",
+    accept: ["image/png", ".pdf"],
+    maxFileSize: 5 * 1024 * 1024,
+    maxFiles: 2,
+    color: "danger",
+    errorMessage: customErrorMessages,
+  },
+};
+
+export const ImagePreview = {
+  render: PreviewTemplate,
+  args: {
+    ...defaultProps,
+    title: "Upload image assets with preview",
+    accept: "image/*",
+    maxFiles: 1,
+    isPreview: true,
+    color: "primary",
+  },
+};
+
 export const SupabaseControlled = {
   render: SupabaseControlledTemplate,
   args: {
@@ -788,14 +813,11 @@ export const UploadProgressStates = {
   },
 };
 
-export const ImagePreview = {
-  render: PreviewTemplate,
+export const CustomChildren = {
+  render: CustomContentTemplate,
   args: {
     ...defaultProps,
-    title: "Upload image assets with preview",
-    accept: "image/*",
-    maxFiles: 1,
-    isPreview: true,
-    color: "primary",
+    variant: "faded",
+    color: "success",
   },
 };

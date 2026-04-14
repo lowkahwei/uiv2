@@ -8,6 +8,8 @@ export type {
 export type {DropZoneProps} from "./drop-zone";
 export type {
   AcceptedFileType,
+  DropZoneErrorContext,
+  DropZoneErrorMessages,
   DropZoneCardState,
   DropZoneState,
   PreviewResolver,

@@ -14,7 +14,7 @@ import {useDropZone} from "./use-drop-zone";
 export type {DropZoneProps} from "./types";
 
 const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
-  const {isPreview = false, previewResolver, onPreviewError, previewErrorMessage} = props;
+  const {isPreview = false, previewResolver, onPreviewError, errorMessage} = props;
 
   const {
     Component,
@@ -128,7 +128,7 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
       retryUpload: card.uploadedFile ? () => retryUpload(card.id) : undefined,
       uploadState: card.uploadState,
       previewError: previewState?.error,
-      previewErrorMessage,
+      errorMessage,
     };
 
     return (

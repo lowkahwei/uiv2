@@ -1,5 +1,4 @@
 import type {PropGetter} from "@heroui/system";
-import type {ReactNode} from "react";
 import type {DropZoneProps, DropZoneState, UploadCardUploadState, UploadedFileInfo} from "../types";
 
 export interface DropZoneCardSlotProps {
@@ -38,7 +37,7 @@ export interface DropZoneCardRenderProps {
   uploadState?: UploadCardUploadState;
   /** Error from previewResolver — causes the card to show an inline error state. */
   previewError?: unknown;
-  /** Custom error message to show when previewError is set. Falls back to the error's own message. */
-  previewErrorMessage?: ReactNode;
+  /** Unified error message config shared across validation, upload, and preview failures. */
+  errorMessage?: DropZoneProps["errorMessage"];
   slotProps: DropZoneCardSlotProps;
 }

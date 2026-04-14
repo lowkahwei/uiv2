@@ -1,16 +1,14 @@
 import type {DropItem} from "@react-aria/dnd";
-import type {AcceptedFileType, UploadedFileInfo} from "../types";
+import type {AcceptedFileType, DropZoneValidationErrorContext, UploadedFileInfo} from "../types";
 
 import accept from "attr-accept";
-
-import {extractMimeSubtype} from "../drop-zone-utils";
 
 type FileDropItem = Extract<DropItem, {kind: "file"}>;
 
 export interface ResolvedAcceptedFiles {
   acceptedFiles: File[];
   acceptedIndexes: number[];
-  validationMessage: string | null;
+  validationError: DropZoneValidationErrorContext | null;
 }
 
 export function toUploadedFileInfo(file: File): UploadedFileInfo {
@@ -33,26 +31,6 @@ function matchesAcceptedFileType(file: File, acceptedFileTypes: string[]) {
   if (acceptedFileTypes.length === 0) return true;
 
   return accept(file, acceptedFileTypes);
-}
-
-function formatAcceptedFileTypesLabel(acceptedFileTypes: string[]) {
-  if (acceptedFileTypes.length === 0) return "allowed file types";
-
-  return acceptedFileTypes
-    .map((type) => {
-      const normalizedType = type.trim();
-
-      if (normalizedType.startsWith(".")) {
-        return normalizedType.slice(1).toUpperCase();
-      }
-
-      if (normalizedType.endsWith("/*")) {
-        return `${normalizedType.slice(0, -2).toUpperCase()} files`;
-      }
-
-      return extractMimeSubtype(normalizedType)?.toUpperCase() || normalizedType;
-    })
-    .join(", ");
 }
 
 export function resolveAcceptedFiles(
@@ -91,20 +69,44 @@ export function resolveAcceptedFiles(
     }
   });
 
-  let validationMessage: string | null = null;
+  let validationError: DropZoneValidationErrorContext | null = null;
 
   if (files.length + currentFileCount > maxFiles) {
-    validationMessage = `You can upload up to ${maxFiles} file${maxFiles === 1 ? "" : "s"}.`;
+    validationError = {
+      kind: "validation",
+      code: "tooManyFiles",
+      acceptedFileTypes,
+      currentFileCount,
+      files,
+      maxFileSize,
+      maxFiles,
+    };
   } else if (hasInvalidType) {
-    validationMessage = `Only ${formatAcceptedFileTypesLabel(acceptedFileTypes)} are allowed.`;
+    validationError = {
+      kind: "validation",
+      code: "invalidFileType",
+      acceptedFileTypes,
+      currentFileCount,
+      files,
+      maxFileSize,
+      maxFiles,
+    };
   } else if (hasOversizedFile && typeof maxFileSize === "number") {
-    validationMessage = `Each file must be ${Math.round(maxFileSize / (1024 * 1024))} MB or smaller.`;
+    validationError = {
+      kind: "validation",
+      code: "fileTooLarge",
+      acceptedFileTypes,
+      currentFileCount,
+      files,
+      maxFileSize,
+      maxFiles,
+    };
   }
 
   return {
     acceptedFiles,
     acceptedIndexes,
-    validationMessage,
+    validationError,
   };
 }
 

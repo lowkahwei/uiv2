@@ -63,6 +63,51 @@ export type OnUploadErrorHandler = (file: UploadedFileInfo, error: unknown) => v
 
 export type OnPreviewErrorHandler = (file: UploadedFileInfo, error: unknown) => void;
 
+export type DropZoneValidationErrorCode = "tooManyFiles" | "invalidFileType" | "fileTooLarge";
+
+export interface DropZoneValidationErrorContext {
+  kind: "validation";
+  code: DropZoneValidationErrorCode;
+  acceptedFileTypes: string[];
+  currentFileCount: number;
+  files: File[];
+  maxFileSize?: number;
+  maxFiles: number;
+}
+
+export interface DropZoneUploadErrorContext {
+  kind: "upload";
+  error: unknown;
+  file: UploadedFileInfo;
+  uploadState?: UploadCardUploadState;
+}
+
+export interface DropZonePreviewErrorContext {
+  kind: "preview";
+  error: unknown;
+  file: UploadedFileInfo;
+  uploadState?: UploadCardUploadState;
+}
+
+export interface DropZoneInvalidErrorContext {
+  kind: "invalid";
+}
+
+export type DropZoneErrorContext =
+  | DropZoneValidationErrorContext
+  | DropZoneUploadErrorContext
+  | DropZonePreviewErrorContext
+  | DropZoneInvalidErrorContext;
+
+export interface DropZoneErrorMessages {
+  invalid?: ReactNode;
+  invalidType?: ReactNode;
+  previewFailed?: ReactNode;
+  tooLarge?: ReactNode;
+  tooMany?: ReactNode;
+  uploadFailed?: ReactNode;
+}
+
 export interface DropZoneCardState {
   id: string;
   uploadedFile: UploadedFileInfo | null;
@@ -125,11 +170,6 @@ export interface DropZoneBaseProps
    */
   onPreviewError?: OnPreviewErrorHandler;
   /**
-   * Custom error message shown on the card when `previewResolver` fails to load a preview.
-   * If omitted, the error's own message (or a generic fallback) is used.
-   */
-  previewErrorMessage?: ReactNode;
-  /**
    * Controlled uploaded files.
    */
   fileList?: UploadedFileInfo[];
@@ -177,10 +217,9 @@ export interface DropZoneBaseProps
    */
   maxFiles?: number;
   /**
-   * Error message shown when the drop zone is invalid. Internal validation messages
-   * from file type, size, or count limits take precedence.
+   * Override built-in error copy by error type. Any missing key falls back to the default message.
    */
-  errorMessage?: ReactNode;
+  errorMessage?: DropZoneErrorMessages;
   /**
    * Whether the drop zone should be marked invalid.
    * @default false

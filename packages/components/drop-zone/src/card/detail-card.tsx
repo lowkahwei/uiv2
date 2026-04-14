@@ -1,6 +1,7 @@
 import type {DropZoneCardRenderProps} from "./types";
 
 import {FileCardIcon, TrashIcon} from "../drop-zone-icons";
+import {resolveDropZoneErrorMessage} from "../lib/error-message";
 
 import {DROP_ZONE_CARD_LABELS} from "./constants";
 
@@ -59,7 +60,7 @@ export function DetailCard({
   uploadedFileSize,
   uploadedFileType,
   previewError,
-  previewErrorMessage,
+  errorMessage: sharedErrorMessage,
 }: Pick<
   DropZoneCardRenderProps,
   | "hideIcon"
@@ -72,17 +73,37 @@ export function DetailCard({
   | "uploadedFileSize"
   | "uploadedFileType"
   | "previewError"
-  | "previewErrorMessage"
+  | "errorMessage"
 >) {
   const isUploading = uploadState?.status === "uploading";
   const isUploadError = uploadState?.status === "error";
   const isError = isUploadError || previewError !== undefined;
   const isSuccess = uploadState?.status === "success";
   const displayName = (isSuccess && uploadState.result?.name) || uploadedFile?.name;
-  const errorMessage = isError
-    ? previewError !== undefined
-      ? (previewErrorMessage ?? getUploadErrorMessage(previewError))
-      : getUploadErrorMessage(uploadState?.error)
+  const resolvedErrorMessage = isError
+    ? previewError !== undefined && uploadedFile
+      ? resolveDropZoneErrorMessage(
+          sharedErrorMessage,
+          {
+            kind: "preview",
+            error: previewError,
+            file: uploadedFile,
+            uploadState,
+          },
+          getUploadErrorMessage(previewError),
+        )
+      : uploadedFile
+        ? resolveDropZoneErrorMessage(
+            sharedErrorMessage,
+            {
+              kind: "upload",
+              error: uploadState?.error,
+              file: uploadedFile,
+              uploadState,
+            },
+            getUploadErrorMessage(uploadState?.error),
+          )
+        : null
     : null;
   const clearButton = (
     <button
@@ -131,7 +152,7 @@ export function DetailCard({
               {uploadedFileSize ? <span>{uploadedFileSize}</span> : null}
             </>
           ) : isError ? (
-            <span className="max-w-full break-words text-danger-600">{errorMessage}</span>
+            <span className="max-w-full break-words text-danger-600">{resolvedErrorMessage}</span>
           ) : uploadedFileSize ? (
             <span>{uploadedFileSize}</span>
           ) : null}

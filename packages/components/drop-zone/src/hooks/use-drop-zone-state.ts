@@ -17,6 +17,7 @@ import {
   resolveAcceptedFiles,
   toUploadedFileInfo,
 } from "../lib/file-processing";
+import {getDefaultValidationErrorMessage, resolveDropZoneErrorMessage} from "../lib/error-message";
 
 interface UseDropZoneStateOptions {
   acceptedFileTypes: string[];
@@ -25,6 +26,7 @@ interface UseDropZoneStateOptions {
   maxFileSize?: number;
   maxFiles?: number;
   disableAnimation?: boolean;
+  errorMessage?: UseDropZoneProps["errorMessage"];
   onChange?: UseDropZoneProps["onChange"];
   onDrop?: UseDropZoneProps["onDrop"];
   onRemove?: UseDropZoneProps["onRemove"];
@@ -142,6 +144,7 @@ export function useDropZoneState({
   maxFileSize,
   maxFiles = 1,
   disableAnimation = false,
+  errorMessage,
   onChange,
   onDrop,
   onRemove,
@@ -425,7 +428,15 @@ export function useDropZoneState({
         pendingAnimationAction:
           !disableAnimation && shouldAppendIdleCard ? {type: "append-idle-card"} : null,
       });
-      setValidationMessage(resolution.validationMessage);
+      setValidationMessage(
+        resolution.validationError
+          ? resolveDropZoneErrorMessage(
+              errorMessage,
+              resolution.validationError,
+              getDefaultValidationErrorMessage(resolution.validationError),
+            )
+          : null,
+      );
       notifyUploadedFilesChange(currentUploadedFiles, nextUploadedFiles);
 
       return {
@@ -439,6 +450,7 @@ export function useDropZoneState({
       acceptedFileTypes,
       createUploadCard,
       disableAnimation,
+      errorMessage,
       finalizeAppendIdleCard,
       maxFileSize,
       maxFiles,

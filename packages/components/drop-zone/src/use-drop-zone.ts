@@ -17,7 +17,14 @@ import {useDropZoneState} from "./hooks/use-drop-zone-state";
 import {isLikelyImageFile} from "./drop-zone-utils";
 import {normalizeAccept} from "./lib/file-processing";
 
-export type {AcceptedFileType, DropZoneState, UploadedFileInfo, UseDropZoneProps} from "./types";
+export type {
+  AcceptedFileType,
+  DropZoneErrorContext,
+  DropZoneErrorMessages,
+  DropZoneState,
+  UploadedFileInfo,
+  UseDropZoneProps,
+} from "./types";
 
 export function useDropZone(originalProps: UseDropZoneProps) {
   const globalContext = useProviderContext();
@@ -77,6 +84,7 @@ export function useDropZone(originalProps: UseDropZoneProps) {
     maxFileSize,
     maxFiles: resolvedMaxFiles,
     disableAnimation,
+    errorMessage,
     onChange,
     onDrop,
     onRemove,
@@ -157,7 +165,7 @@ export function useDropZone(originalProps: UseDropZoneProps) {
       isHovered,
       isDisabled,
       isInvalid: hasInvalidState,
-      validationMessage: validationMessage ?? (isInvalid ? (errorMessage ?? null) : null),
+      validationMessage: validationMessage ?? (isInvalid ? (errorMessage?.invalid ?? null) : null),
       uploadCards,
       uploadedFiles,
       uploadedFile: uploadedFiles[0] ?? null,

@@ -15,6 +15,58 @@ function getCardNames(
 }
 
 describe("useDropZoneState", () => {
+  it("uses object errorMessage to override internal validation copy", () => {
+    const {result} = renderHook(() =>
+      useDropZoneState({
+        acceptedFileTypes: ["image/png"],
+        maxFiles: 1,
+        errorMessage: {
+          invalidType: "Custom validation message",
+        },
+      }),
+    );
+
+    act(() => {
+      result.current.handleFileChange({
+        target: {
+          files: {
+            0: new File(["pdf"], "document.pdf", {type: "application/pdf"}),
+            length: 1,
+          },
+          value: "",
+        },
+      } as never);
+    });
+
+    expect(result.current.validationMessage).toBe("Custom validation message");
+  });
+
+  it("falls back to default copy for missing errorMessage keys", () => {
+    const {result} = renderHook(() =>
+      useDropZoneState({
+        acceptedFileTypes: ["image/png"],
+        maxFiles: 1,
+        errorMessage: {
+          tooMany: "Maximum 1 file per upload.",
+        },
+      }),
+    );
+
+    act(() => {
+      result.current.handleFileChange({
+        target: {
+          files: {
+            0: new File(["pdf"], "document.pdf", {type: "application/pdf"}),
+            length: 1,
+          },
+          value: "",
+        },
+      } as never);
+    });
+
+    expect(result.current.validationMessage).toBe("Only PNG are allowed.");
+  });
+
   it("preserves the removed controlled card position until the remove animation completes", () => {
     const {result, rerender} = renderHook(
       ({fileList}: {fileList: typeof uploadedFiles}) =>
