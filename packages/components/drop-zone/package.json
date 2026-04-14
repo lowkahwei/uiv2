@@ -1,6 +1,6 @@
 {
   "name": "@heroui/drop-zone",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A HeroUI styled drop zone component built on top of React Aria drag and drop.",
   "keywords": [
     "drop-zone",

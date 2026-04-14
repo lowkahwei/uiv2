@@ -145,6 +145,8 @@ export function useDropZonePreviews({
         return;
       }
 
+      const uploadedFile = card.uploadedFile;
+
       activePreviewCardIds.add(card.id);
       const previewState = previewStateRef.current[card.id] ?? {isLoading: false};
       const nextBaseEntry = getBasePreviewEntry(card, previewState.base);
@@ -171,7 +173,7 @@ export function useDropZonePreviews({
         return;
       }
 
-      const resolveKey = `${getUploadedFileKey(card.uploadedFile)}::${getUploadStatePreviewKey(card.uploadState)}`;
+      const resolveKey = `${getUploadedFileKey(uploadedFile)}::${getUploadStatePreviewKey(card.uploadState)}`;
 
       if (previewState.resolveKey === resolveKey) {
         return;
@@ -193,7 +195,7 @@ export function useDropZonePreviews({
       void Promise.resolve()
         .then(() =>
           previewResolver({
-            uploadedFile: card.uploadedFile,
+            uploadedFile,
             uploadState: card.uploadState,
             signal: controller.signal,
           }),
@@ -220,7 +222,7 @@ export function useDropZonePreviews({
             const noSourceError = new Error("Preview resolver returned no source.");
 
             currentPreviewState.error = noSourceError;
-            onPreviewError?.(card.uploadedFile!, noSourceError);
+            onPreviewError?.(uploadedFile, noSourceError);
             publishPreviewState();
 
             return;
@@ -262,7 +264,7 @@ export function useDropZonePreviews({
           currentPreviewState.abortController = undefined;
           currentPreviewState.isLoading = false;
           currentPreviewState.error = error;
-          onPreviewError?.(card.uploadedFile!, error);
+          onPreviewError?.(uploadedFile, error);
           publishPreviewState();
         });
     });
