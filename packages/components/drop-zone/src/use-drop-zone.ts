@@ -41,6 +41,9 @@ export function useDropZone(originalProps: UseDropZoneProps) {
     onChange,
     onDrop,
     onRemove,
+    onUpload,
+    onUploadSuccess,
+    onUploadError,
     ...otherProps
   } = props;
 
@@ -60,6 +63,7 @@ export function useDropZone(originalProps: UseDropZoneProps) {
     validationMessage,
     clearUploadedFiles,
     removeUploadedFile,
+    retryUpload,
     handleDrop,
     handleFileChange,
     handleUploadCardContentAnimationComplete,
@@ -73,6 +77,9 @@ export function useDropZone(originalProps: UseDropZoneProps) {
     onChange,
     onDrop,
     onRemove,
+    onUpload,
+    onUploadSuccess,
+    onUploadError,
   });
   const hasInvalidState = isInvalid || !!validationMessage;
 
@@ -237,6 +244,7 @@ export function useDropZone(originalProps: UseDropZoneProps) {
     disableAnimation,
     clearUploadedFiles,
     removeUploadedFile,
+    retryUpload,
     handleUploadCardContentAnimationComplete,
     getBaseProps,
     getUploadTriggerProps,

@@ -1,5 +1,5 @@
 import type {PropGetter} from "@heroui/system";
-import type {DropZoneProps, DropZoneState, UploadedFileInfo} from "../types";
+import type {DropZoneProps, DropZoneState, UploadCardUploadState, UploadedFileInfo} from "../types";
 
 export interface DropZoneCardRenderProps {
   hideIcon: boolean;
@@ -11,6 +11,8 @@ export interface DropZoneCardRenderProps {
   uploadedFileSize?: string | null;
   uploadedFileType: string;
   removeUploadedFile?: () => void;
+  retryUpload?: () => void;
+  uploadState?: UploadCardUploadState;
   getUploadTriggerProps: PropGetter;
   getUploadCardWrapperProps: PropGetter;
   getUploadCardProps: PropGetter;

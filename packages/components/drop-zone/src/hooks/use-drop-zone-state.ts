@@ -1,6 +1,11 @@
 import type {DropEvent} from "@react-aria/dnd";
 import type {ChangeEvent, ReactNode, SetStateAction} from "react";
-import type {DropZoneCardState, UploadedFileInfo, UseDropZoneProps} from "../types";
+import type {
+  DropZoneCardState,
+  UploadCardUploadState,
+  UploadedFileInfo,
+  UseDropZoneProps,
+} from "../types";
 
 import {useControlledState} from "@react-stately/utils";
 import {useCallback, useEffect, useRef, useState} from "react";
@@ -23,6 +28,9 @@ interface UseDropZoneStateOptions {
   onChange?: UseDropZoneProps["onChange"];
   onDrop?: UseDropZoneProps["onDrop"];
   onRemove?: UseDropZoneProps["onRemove"];
+  onUpload?: UseDropZoneProps["onUpload"];
+  onUploadSuccess?: UseDropZoneProps["onUploadSuccess"];
+  onUploadError?: UseDropZoneProps["onUploadError"];
 }
 
 type PendingAnimationAction =
@@ -127,6 +135,9 @@ export function useDropZoneState({
   onChange,
   onDrop,
   onRemove,
+  onUpload,
+  onUploadSuccess,
+  onUploadError,
 }: UseDropZoneStateOptions) {
   const nextCardIdRef = useRef(0);
   const skipNextUploadedFilesChangeRef = useRef(false);
@@ -198,6 +209,10 @@ export function useDropZoneState({
   });
   const [validationMessage, setValidationMessage] = useState<ReactNode>(null);
   const uploadCardsStateRef = useRef(uploadCardsState);
+  // Stable ref to triggerUpload so it can be called from callbacks defined before triggerUpload
+  const triggerUploadRef = useRef<
+    (cardId: string, file: File, uploadedFile: UploadedFileInfo) => void
+  >(() => {});
   const setUploadCards = useCallback((nextState: SetStateAction<UploadCardsState>) => {
     setUploadCardsState((previousState) => {
       const resolvedState =
@@ -350,11 +365,13 @@ export function useDropZoneState({
       const shouldAppendIdleCard =
         !hasIdleUploadCard(normalizedUploadCards) && nextUploadedFiles.length < maxFilesLimit;
 
+      const finalCards =
+        disableAnimation && shouldAppendIdleCard
+          ? (finalizeAppendIdleCard(normalizedUploadCards) ?? normalizedUploadCards)
+          : normalizedUploadCards;
+
       setUploadCards({
-        cards:
-          disableAnimation && shouldAppendIdleCard
-            ? (finalizeAppendIdleCard(normalizedUploadCards) ?? normalizedUploadCards)
-            : normalizedUploadCards,
+        cards: finalCards,
         pendingAnimationAction:
           !disableAnimation && shouldAppendIdleCard ? {type: "append-idle-card"} : null,
       });
@@ -364,6 +381,7 @@ export function useDropZoneState({
       return {
         ...resolution,
         nextUploadedFiles,
+        finalCards,
       };
     },
     [
@@ -380,19 +398,40 @@ export function useDropZoneState({
     ],
   );
 
+  const dispatchUploads = useCallback(
+    (acceptedFiles: File[], finalCards: DropZoneCardState[]) => {
+      if (!onUpload) return;
+      acceptedFiles.forEach((file) => {
+        const uploadedFile = toUploadedFileInfo(file);
+        const card = finalCards.find(
+          (c) =>
+            c.uploadedFile?.name === uploadedFile.name &&
+            c.uploadedFile?.size === uploadedFile.size &&
+            c.uploadedFile?.type === uploadedFile.type,
+        );
+
+        if (card) {
+          triggerUploadRef.current(card.id, file, uploadedFile);
+        }
+      });
+    },
+    [onUpload],
+  );
+
   const handleDrop = useCallback(
     async (event: DropEvent) => {
       const droppedItems = getFileDropItems(event.items);
       const droppedFiles = await getFilesFromDropItems(droppedItems);
-      const {acceptedIndexes} = commitFiles(droppedFiles);
+      const {acceptedIndexes, acceptedFiles, finalCards} = commitFiles(droppedFiles);
       const acceptedDropItems = acceptedIndexes.map((index) => droppedItems[index]).filter(Boolean);
 
+      dispatchUploads(acceptedFiles, finalCards);
       onDrop?.({
         ...event,
         items: acceptedDropItems,
       });
     },
-    [commitFiles, onDrop],
+    [commitFiles, dispatchUploads, onDrop],
   );
 
   const handleFileChange = useCallback(
@@ -401,8 +440,9 @@ export function useDropZoneState({
 
       if (!files?.length) return;
 
-      const {acceptedFiles} = commitFiles(Array.from(files));
+      const {acceptedFiles, finalCards} = commitFiles(Array.from(files));
 
+      dispatchUploads(acceptedFiles, finalCards);
       onDrop?.({
         type: "drop",
         items: createDropItemsFromFiles(acceptedFiles),
@@ -412,7 +452,7 @@ export function useDropZoneState({
       } satisfies DropEvent);
       event.target.value = "";
     },
-    [commitFiles, onDrop],
+    [commitFiles, dispatchUploads, onDrop],
   );
 
   const removeUploadedFile = useCallback(
@@ -434,6 +474,10 @@ export function useDropZoneState({
       });
       const nextUploadedFiles = getUploadedFiles(nextUploadCards);
 
+      // Cancel any in-flight upload for this card
+      abortControllersRef.current.get(cardId)?.abort();
+      abortControllersRef.current.delete(cardId);
+
       setUploadCards({
         cards: disableAnimation ? finalizeUploadCardsOrder(nextUploadCards) : nextUploadCards,
         pendingAnimationAction: disableAnimation ? null : {type: "finalize-remove", cardId},
@@ -448,7 +492,82 @@ export function useDropZoneState({
     [disableAnimation, finalizeUploadCardsOrder, onRemove, setUploadedFiles, setUploadCards],
   );
 
+  // Map of cardId → AbortController, so we can cancel in-flight uploads on remove/clear
+  const abortControllersRef = useRef<Map<string, AbortController>>(new Map());
+
+  const updateCardUploadState = useCallback(
+    (cardId: string, patch: Partial<UploadCardUploadState>) => {
+      setUploadCards((prev) => ({
+        ...prev,
+        cards: prev.cards.map((card) => {
+          if (card.id !== cardId) return card;
+
+          return {
+            ...card,
+            uploadState: {
+              status: "idle",
+              progress: 0,
+              ...card.uploadState,
+              ...patch,
+            },
+          };
+        }),
+      }));
+    },
+    [setUploadCards],
+  );
+
+  const triggerUpload = useCallback(
+    (cardId: string, file: File, uploadedFile: UploadedFileInfo) => {
+      if (!onUpload) return;
+
+      // Cancel any previous upload for this card
+      abortControllersRef.current.get(cardId)?.abort();
+      const controller = new AbortController();
+
+      abortControllersRef.current.set(cardId, controller);
+
+      updateCardUploadState(cardId, {status: "uploading", progress: 0, file, error: undefined});
+
+      onUpload(file, {
+        onProgress: (progress) => {
+          updateCardUploadState(cardId, {progress: Math.min(Math.max(progress, 0), 1)});
+        },
+        signal: controller.signal,
+      })
+        .then((result) => {
+          abortControllersRef.current.delete(cardId);
+          updateCardUploadState(cardId, {status: "success", progress: 1, result});
+          onUploadSuccess?.(uploadedFile, result);
+        })
+        .catch((error) => {
+          if (controller.signal.aborted) return;
+          abortControllersRef.current.delete(cardId);
+          updateCardUploadState(cardId, {status: "error", error});
+          onUploadError?.(uploadedFile, error);
+        });
+    },
+    [onUpload, onUploadError, onUploadSuccess, updateCardUploadState],
+  );
+
+  // Keep the ref in sync so dispatchUploads (defined before triggerUpload) can call it
+  triggerUploadRef.current = triggerUpload;
+
+  const retryUpload = useCallback(
+    (cardId: string) => {
+      const card = uploadCardsStateRef.current.cards.find((c) => c.id === cardId);
+
+      if (!card?.uploadedFile || !card.uploadState?.file) return;
+      triggerUpload(cardId, card.uploadState.file, card.uploadedFile);
+    },
+    [triggerUpload],
+  );
+
   const clearUploadedFiles = useCallback(() => {
+    // Cancel all in-flight uploads
+    abortControllersRef.current.forEach((controller) => controller.abort());
+    abortControllersRef.current.clear();
+
     setUploadCards({
       cards: normalizeUploadCards([]),
       pendingAnimationAction: null,
@@ -496,6 +615,7 @@ export function useDropZoneState({
     validationMessage,
     clearUploadedFiles,
     removeUploadedFile,
+    retryUpload,
     handleDrop,
     handleFileChange,
     handleUploadCardContentAnimationComplete,

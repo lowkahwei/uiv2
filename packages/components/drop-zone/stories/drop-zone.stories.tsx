@@ -241,6 +241,168 @@ const ControlledTemplate = (args: DropZoneProps) => {
   );
 };
 
+const RestApiUploadTemplate = (args: DropZoneProps) => {
+  const [projectUrl, setProjectUrl] = React.useState("https://xnmgtscekecpuftjgkds.supabase.co");
+  const [bucket, setBucket] = React.useState("loan");
+  const [apiKey, setApiKey] = React.useState("sb_publishable_vfHoG_24ARSa7ku0BJhCjw_Eay72o9_");
+  const [folder, setFolder] = React.useState("pub");
+  const [lastSuccess, setLastSuccess] = React.useState<string | null>(null);
+  const [lastError, setLastError] = React.useState<string | null>(null);
+
+  const uploadWithSupabaseRest = React.useCallback(
+    (
+      file: File,
+      {onProgress, signal}: {onProgress: (progress: number) => void; signal: AbortSignal},
+    ) =>
+      new Promise<{name?: string; path?: string; fullPath?: string}>((resolve, reject) => {
+        const normalizedProjectUrl = projectUrl.trim().replace(/\/$/, "");
+        const normalizedBucket = bucket.trim();
+        const normalizedApiKey = apiKey.trim();
+        const normalizedFolder = folder.trim().replace(/^\/+|\/+$/g, "");
+
+        if (!normalizedProjectUrl || !normalizedBucket || !normalizedApiKey) {
+          reject(new Error("Project URL, bucket, and API key are required."));
+
+          return;
+        }
+
+        const objectPath = [normalizedFolder, `${Date.now()}-${file.name}`]
+          .filter(Boolean)
+          .join("/");
+        const endpoint = `${normalizedProjectUrl}/storage/v1/object/${normalizedBucket}/${objectPath}`;
+        const xhr = new XMLHttpRequest();
+
+        xhr.open("POST", endpoint);
+        xhr.responseType = "json";
+        xhr.setRequestHeader("apikey", normalizedApiKey);
+        xhr.setRequestHeader("Authorization", `Bearer ${normalizedApiKey}`);
+        xhr.setRequestHeader("x-upsert", "false");
+        xhr.setRequestHeader("content-type", file.type || "application/octet-stream");
+
+        xhr.upload.onprogress = (event) => {
+          if (!event.lengthComputable) return;
+          onProgress(event.loaded / event.total);
+        };
+
+        xhr.onload = () => {
+          const response = xhr.response ?? JSON.parse(xhr.responseText || "{}");
+
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve({
+              name: file.name,
+              path: objectPath,
+              fullPath: response?.Key ?? response?.path ?? objectPath,
+            });
+
+            return;
+          }
+
+          reject(
+            new Error(
+              response?.message ?? response?.error ?? `Upload failed with status ${xhr.status}`,
+            ),
+          );
+        };
+
+        xhr.onerror = () => {
+          reject(new Error("Network error while uploading to Supabase Storage."));
+        };
+
+        xhr.onabort = () => {
+          reject(new DOMException("Upload aborted.", "AbortError"));
+        };
+
+        signal.addEventListener(
+          "abort",
+          () => {
+            xhr.abort();
+          },
+          {once: true},
+        );
+
+        xhr.send(file);
+      }),
+    [apiKey, bucket, folder, projectUrl],
+  );
+
+  return (
+    <div className="flex max-w-2xl flex-col gap-4">
+      <div className="rounded-large border border-default-200 bg-default-50 p-4">
+        <p className="text-small font-medium text-foreground">Supabase REST upload config</p>
+        <p className="mt-2 text-small text-default-500">
+          Uses direct HTTP upload to <code>/storage/v1/object</code> with no{" "}
+          <code>@supabase/supabase-js</code> dependency.
+        </p>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          <label className="flex flex-col gap-1 text-small text-default-600">
+            Project URL
+            <input
+              className="rounded-medium border border-default-200 bg-content1 px-3 py-2 text-foreground"
+              placeholder="https://your-project-id.supabase.co"
+              value={projectUrl}
+              onChange={(event) => setProjectUrl(event.target.value)}
+            />
+          </label>
+          <label className="flex flex-col gap-1 text-small text-default-600">
+            Bucket
+            <input
+              className="rounded-medium border border-default-200 bg-content1 px-3 py-2 text-foreground"
+              placeholder="images"
+              value={bucket}
+              onChange={(event) => setBucket(event.target.value)}
+            />
+          </label>
+          <label className="flex flex-col gap-1 text-small text-default-600">
+            API key / JWT
+            <input
+              className="rounded-medium border border-default-200 bg-content1 px-3 py-2 text-foreground"
+              placeholder="anon key or signed user token"
+              type="password"
+              value={apiKey}
+              onChange={(event) => setApiKey(event.target.value)}
+            />
+          </label>
+          <label className="flex flex-col gap-1 text-small text-default-600">
+            Folder prefix
+            <input
+              className="rounded-medium border border-default-200 bg-content1 px-3 py-2 text-foreground"
+              placeholder="storybook"
+              value={folder}
+              onChange={(event) => setFolder(event.target.value)}
+            />
+          </label>
+        </div>
+        <p className="mt-3 text-tiny text-default-400">
+          Make sure the bucket and storage policies allow this key to upload objects.
+        </p>
+      </div>
+      <DropZone
+        aria-label="Supabase REST API upload drop zone"
+        {...args}
+        onUpload={uploadWithSupabaseRest}
+        onUploadError={(uploadedFile, error) => {
+          const message = error instanceof Error ? error.message : String(error);
+
+          setLastError(`${uploadedFile.name}: ${message}`);
+          args.onUploadError?.(uploadedFile, error);
+        }}
+        onUploadSuccess={(uploadedFile, result) => {
+          setLastError(null);
+          setLastSuccess(`${uploadedFile.name} -> ${String(result.fullPath ?? result.path ?? "")}`);
+          args.onUploadSuccess?.(uploadedFile, result);
+        }}
+      />
+      <div className="rounded-large border border-default-200 bg-content1 p-4">
+        <p className="text-small font-medium text-foreground">Upload callbacks</p>
+        <p className="mt-2 text-small text-default-500">
+          Success: {lastSuccess ?? "No successful upload yet."}
+        </p>
+        <p className="mt-1 text-small text-danger">{lastError ?? "No upload error."}</p>
+      </div>
+    </div>
+  );
+};
+
 export const Default = {
   render: PlaygroundTemplate,
   args: {
@@ -336,5 +498,16 @@ export const CombinedConstraints = {
     maxFileSize: 5 * 1024 * 1024,
     maxFiles: 2,
     color: "danger",
+  },
+};
+
+export const SupabaseRestUpload = {
+  render: RestApiUploadTemplate,
+  args: {
+    ...defaultProps,
+    title: "Upload images to Supabase Storage via REST API",
+    accept: "image/*",
+    maxFiles: 3,
+    color: "primary",
   },
 };

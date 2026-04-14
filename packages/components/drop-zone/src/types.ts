@@ -19,9 +19,41 @@ export type DropZoneRemoveHandler = (
 
 export type AcceptedFileType = string | string[];
 
+// Upload status machine states
+export type UploadStatus = "idle" | "uploading" | "success" | "error";
+
+// Data returned by the server after a successful upload
+export interface UploadResult {
+  name?: string;
+  url?: string;
+  [key: string]: unknown;
+}
+
+// Per-card upload state (internal, not exposed via onChange)
+export interface UploadCardUploadState {
+  status: UploadStatus;
+  progress: number; // 0 ~ 1
+  result?: UploadResult;
+  error?: unknown;
+  file?: File; // kept for retry
+}
+
+// Context passed into onUpload
+export interface UploadContext {
+  onProgress: (progress: number) => void;
+  signal: AbortSignal;
+}
+
+export type OnUploadHandler = (file: File, context: UploadContext) => Promise<UploadResult>;
+
+export type OnUploadSuccessHandler = (file: UploadedFileInfo, result: UploadResult) => void;
+
+export type OnUploadErrorHandler = (file: UploadedFileInfo, error: unknown) => void;
+
 export interface DropZoneCardState {
   id: string;
   uploadedFile: UploadedFileInfo | null;
+  uploadState?: UploadCardUploadState;
 }
 
 export interface DropZoneState {
@@ -78,6 +110,20 @@ export interface DropZoneBaseProps
    * Called after an uploaded file is removed.
    */
   onRemove?: DropZoneRemoveHandler;
+  /**
+   * Called when a file is accepted. Return a Promise that resolves with server response data.
+   * Provides `onProgress(0~1)` and an `AbortSignal` for cancellation.
+   * When omitted the component behaves as a pure file-picker (existing behaviour).
+   */
+  onUpload?: OnUploadHandler;
+  /**
+   * Called when a file upload succeeds.
+   */
+  onUploadSuccess?: OnUploadSuccessHandler;
+  /**
+   * Called when a file upload fails.
+   */
+  onUploadError?: OnUploadErrorHandler;
   /**
    * Allowed file types. Supports the same values as the native input `accept` attribute.
    * Examples: `"image/*"`, `".pdf,.docx"`, or `["image/png", ".pdf"]`.

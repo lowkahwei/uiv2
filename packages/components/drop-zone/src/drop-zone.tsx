@@ -22,6 +22,7 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     state,
     disableAnimation,
     removeUploadedFile,
+    retryUpload,
     handleUploadCardContentAnimationComplete,
     getBaseProps,
     getInputProps,
@@ -118,6 +119,8 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
         ? formatUploadedFileType(card.uploadedFile.type, card.uploadedFile.name)
         : "",
       removeUploadedFile: card.uploadedFile ? () => removeUploadedFile(card.id) : undefined,
+      retryUpload: card.uploadedFile ? () => retryUpload(card.id) : undefined,
+      uploadState: card.uploadState,
     };
 
     return (
