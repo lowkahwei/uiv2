@@ -123,6 +123,18 @@ function areUploadedFilesEqual(left: UploadedFileInfo[], right: UploadedFileInfo
   );
 }
 
+function shouldDeferControlledReconcile(
+  cards: DropZoneCardState[],
+  files: UploadedFileInfo[],
+  pendingAnimationAction: PendingAnimationAction | null,
+) {
+  if (pendingAnimationAction?.type !== "finalize-remove") {
+    return false;
+  }
+
+  return areUploadedFilesEqual(getUploadedFiles(cards), files);
+}
+
 export function useDropZoneState({
   acceptedFileTypes,
   fileList,
@@ -259,9 +271,22 @@ export function useDropZoneState({
   );
 
   useEffect(() => {
-    const currentUploadCards = uploadCardsStateRef.current.cards;
+    const {cards: currentUploadCards, pendingAnimationAction} = uploadCardsStateRef.current;
+    const nextControlledFiles = normalizeUploadedFiles(fileList);
+
+    if (
+      isControlled &&
+      shouldDeferControlledReconcile(
+        currentUploadCards,
+        nextControlledFiles,
+        pendingAnimationAction,
+      )
+    ) {
+      return;
+    }
+
     const nextUploadCards = isControlled
-      ? reconcileUploadCards(normalizeUploadedFiles(fileList), currentUploadCards)
+      ? reconcileUploadCards(nextControlledFiles, currentUploadCards)
       : normalizeUploadCards(currentUploadCards);
 
     if (!areUploadCardsEqual(currentUploadCards, nextUploadCards)) {
