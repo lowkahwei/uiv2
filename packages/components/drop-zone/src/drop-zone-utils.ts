@@ -25,3 +25,24 @@ export function formatUploadedFileType(type?: string, name?: string) {
 
   return extension ? extension.toUpperCase() : "FILE";
 }
+
+const IMAGE_EXTENSIONS = new Set([
+  "jpg",
+  "jpeg",
+  "png",
+  "gif",
+  "webp",
+  "avif",
+  "svg",
+  "bmp",
+  "ico",
+  "tiff",
+  "tif",
+]);
+
+export function isLikelyImageFile(file: {type: string; name: string}): boolean {
+  if (file.type.startsWith("image/")) return true;
+  const ext = file.name.split(".").at(-1)?.toLowerCase().trim();
+
+  return ext ? IMAGE_EXTENSIONS.has(ext) : false;
+}

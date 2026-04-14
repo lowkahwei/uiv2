@@ -80,36 +80,6 @@ const readDroppedItems = async (items: DropItem[]) => {
   return values;
 };
 
-const guessImageMimeType = (value: string) => {
-  const normalizedValue = value.split("?")[0]?.toLowerCase() ?? "";
-
-  if (normalizedValue.endsWith(".png")) return "image/png";
-  if (normalizedValue.endsWith(".webp")) return "image/webp";
-  if (normalizedValue.endsWith(".gif")) return "image/gif";
-  if (normalizedValue.endsWith(".svg")) return "image/svg+xml";
-  if (normalizedValue.endsWith(".avif")) return "image/avif";
-  if (normalizedValue.endsWith(".jpg") || normalizedValue.endsWith(".jpeg")) return "image/jpeg";
-
-  return "image/jpeg";
-};
-
-const getFileNameFromReference = (value: string) => {
-  const normalizedValue = value.trim().replace(/\/$/, "");
-  const segments = normalizedValue.split("/");
-
-  return segments[segments.length - 1] || "remote-image";
-};
-
-const getUploadedFileInfoKey = (
-  file: {name: string; size: number; type: string} | null | undefined,
-) => {
-  if (!file) {
-    return "";
-  }
-
-  return `${file.name}::${file.size}::${file.type}`;
-};
-
 const PlaygroundTemplate = (args: DropZoneProps) => {
   const [items, setItems] = React.useState<string[]>([]);
 
@@ -294,36 +264,13 @@ const SupabaseControlledTemplate = (args: DropZoneProps) => {
   const [fileReferenceInput, setFileReferenceInput] = React.useState(
     "pub/af920e44-68d1-4f8b-a79d-7619909870de.png",
   );
-  const [activeReference, setActiveReference] = React.useState(
-    "pub/af920e44-68d1-4f8b-a79d-7619909870de.png",
-  );
-  const [fileList, setFileList] = React.useState<NonNullable<DropZoneProps["fileList"]>>([]);
-  const [remoteAsset, setRemoteAsset] = React.useState<{
-    blob: Blob;
-    name: string;
-    reference: string;
-    type: string;
-  } | null>(null);
+  const [fileList, setFileList] = React.useState<NonNullable<DropZoneProps["fileList"]>>([
+    {name: "pub/af920e44-68d1-4f8b-a79d-7619909870de.png", size: 0, type: ""},
+  ]);
   const [lastSuccess, setLastSuccess] = React.useState<string | null>(null);
   const [lastError, setLastError] = React.useState<string | null>(null);
-  const normalizedReference = activeReference.trim();
-  const remoteUploadedFile = React.useMemo(() => {
-    if (!remoteAsset || !normalizedReference || remoteAsset.reference !== normalizedReference) {
-      return null;
-    }
 
-    return {
-      name: remoteAsset.name,
-      size: remoteAsset.blob.size,
-      type: remoteAsset.type,
-    };
-  }, [normalizedReference, remoteAsset]);
-  const remoteUploadedFileKey = React.useMemo(
-    () => getUploadedFileInfoKey(remoteUploadedFile),
-    [remoteUploadedFile],
-  );
-
-  const fetchRemoteAsset = React.useCallback(
+  const fetchRemoteBlob = React.useCallback(
     async (fileReference: string, signal: AbortSignal) => {
       const normalizedProjectUrl = projectUrl.trim().replace(/\/$/, "");
       const normalizedBucket = bucket.trim();
@@ -364,61 +311,9 @@ const SupabaseControlledTemplate = (args: DropZoneProps) => {
         throw new Error(`Preview fetch failed with status ${response.status}`);
       }
 
-      const blob = await response.blob();
-
-      return {
-        blob,
-        name: getFileNameFromReference(normalizedFileReference),
-        reference: normalizedFileReference,
-        type: blob.type || guessImageMimeType(normalizedFileReference),
-      };
+      return response.blob();
     },
     [apiKey, bucket, projectUrl],
-  );
-
-  const loadRemotePreview = React.useCallback(
-    async (fileReference: string) => {
-      const nextReference = fileReference.trim();
-
-      setLastError(null);
-
-      if (!nextReference) {
-        setRemoteAsset(null);
-        setActiveReference("");
-        setFileList([]);
-
-        return;
-      }
-
-      try {
-        const controller = new AbortController();
-        const asset = await fetchRemoteAsset(nextReference, controller.signal);
-
-        if (!asset) {
-          setRemoteAsset(null);
-          setActiveReference("");
-          setFileList([]);
-
-          return;
-        }
-
-        setRemoteAsset(asset);
-        setActiveReference(nextReference);
-        setFileList([
-          {
-            name: asset.name,
-            size: asset.blob.size,
-            type: asset.type,
-          },
-        ]);
-      } catch (error) {
-        setRemoteAsset(null);
-        setActiveReference("");
-        setFileList([]);
-        setLastError(error instanceof Error ? error.message : String(error));
-      }
-    },
-    [fetchRemoteAsset],
   );
 
   const uploadWithSupabaseRest = React.useCallback(
@@ -502,42 +397,20 @@ const SupabaseControlledTemplate = (args: DropZoneProps) => {
 
   const resolveRemotePreview = React.useCallback<NonNullable<DropZoneProps["previewResolver"]>>(
     async ({uploadedFile, uploadState, signal}) => {
-      const resultReference =
+      // 上传成功后优先用服务端返回的路径，否则直接用 uploadedFile.name（文件路径/链接）
+      const reference =
         typeof uploadState?.result?.fullPath === "string"
           ? uploadState.result.fullPath
           : typeof uploadState?.result?.path === "string"
             ? uploadState.result.path
             : typeof uploadState?.result?.url === "string"
               ? uploadState.result.url
-              : normalizedReference;
+              : uploadedFile.name;
 
-      if (
-        remoteAsset &&
-        normalizedReference &&
-        remoteAsset.reference === normalizedReference &&
-        getUploadedFileInfoKey(uploadedFile) === remoteUploadedFileKey
-      ) {
-        return remoteAsset.blob;
-      }
-
-      if (!resultReference) {
-        return null;
-      }
-
-      const asset = await fetchRemoteAsset(resultReference, signal);
-
-      return asset?.blob ?? null;
+      return fetchRemoteBlob(reference, signal);
     },
-    [fetchRemoteAsset, normalizedReference, remoteAsset, remoteUploadedFileKey],
+    [fetchRemoteBlob],
   );
-
-  React.useEffect(() => {
-    if (!activeReference || fileList.length > 0) {
-      return;
-    }
-
-    void loadRemotePreview(activeReference);
-  }, [activeReference, fileList.length, loadRemotePreview]);
 
   return (
     <div className="flex max-w-2xl flex-col gap-4">
@@ -600,7 +473,12 @@ const SupabaseControlledTemplate = (args: DropZoneProps) => {
             className="rounded-medium bg-primary px-3 py-2 text-small font-medium text-primary-foreground"
             type="button"
             onClick={() => {
-              void loadRemotePreview(fileReferenceInput);
+              const ref = fileReferenceInput.trim();
+
+              if (ref) {
+                setFileList([{name: ref, size: 0, type: ""}]);
+                setLastError(null);
+              }
             }}
           >
             Load default image
@@ -610,9 +488,7 @@ const SupabaseControlledTemplate = (args: DropZoneProps) => {
             type="button"
             onClick={() => {
               setLastError(null);
-              setRemoteAsset(null);
               setFileReferenceInput("");
-              setActiveReference("");
               setFileList([]);
             }}
           >
@@ -632,19 +508,16 @@ const SupabaseControlledTemplate = (args: DropZoneProps) => {
           setFileList(nextUploadedFiles);
           args.onChange?.(nextUploadedFiles);
         }}
+        onPreviewError={(uploadedFile, error) => {
+          const message = error instanceof Error ? error.message : String(error);
+
+          setLastError(`Preview failed — ${uploadedFile.name}: ${message}`);
+          args.onPreviewError?.(uploadedFile, error);
+        }}
         onRemove={(uploadedFile, nextUploadedFiles) => {
           setLastError(null);
           setLastSuccess(null);
           setFileList(nextUploadedFiles);
-
-          if (getUploadedFileInfoKey(uploadedFile) === remoteUploadedFileKey) {
-            setRemoteAsset(null);
-            setActiveReference("");
-            setFileReferenceInput("");
-          } else if (nextUploadedFiles.length === 0) {
-            setActiveReference("");
-          }
-
           args.onRemove?.(uploadedFile, nextUploadedFiles);
         }}
         onUpload={uploadWithSupabaseRest}
@@ -668,18 +541,16 @@ const SupabaseControlledTemplate = (args: DropZoneProps) => {
           );
 
           if (nextReference) {
-            setActiveReference(nextReference);
             setFileReferenceInput(nextReference);
           }
 
-          setRemoteAsset(null);
           args.onUploadSuccess?.(uploadedFile, result);
         }}
       />
       <div className="rounded-large border border-default-200 bg-content1 p-4">
         <p className="text-small font-medium text-foreground">Controlled state</p>
         <p className="mt-2 text-small text-default-500">
-          Active reference: {normalizedReference || "No file selected."}
+          Active reference: {fileList[0]?.name || "No file selected."}
         </p>
         <p className="mt-1 text-small text-default-500">
           Success: {lastSuccess ?? "No successful upload yet."}

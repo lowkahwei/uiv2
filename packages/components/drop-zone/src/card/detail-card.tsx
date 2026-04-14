@@ -57,6 +57,8 @@ export function DetailCard({
   retryUpload,
   uploadedFileSize,
   uploadedFileType,
+  previewError,
+  previewErrorMessage,
   getDetailCardProps,
   getClearButtonProps,
   getClearButtonIconProps,
@@ -76,6 +78,8 @@ export function DetailCard({
   | "retryUpload"
   | "uploadedFileSize"
   | "uploadedFileType"
+  | "previewError"
+  | "previewErrorMessage"
   | "getDetailCardProps"
   | "getClearButtonProps"
   | "getClearButtonIconProps"
@@ -87,10 +91,15 @@ export function DetailCard({
   | "getFileMetaProps"
 >) {
   const isUploading = uploadState?.status === "uploading";
-  const isError = uploadState?.status === "error";
+  const isUploadError = uploadState?.status === "error";
+  const isError = isUploadError || previewError !== undefined;
   const isSuccess = uploadState?.status === "success";
   const displayName = (isSuccess && uploadState.result?.name) || uploadedFile?.name;
-  const errorMessage = isError ? getUploadErrorMessage(uploadState?.error) : null;
+  const errorMessage = isError
+    ? previewError !== undefined
+      ? (previewErrorMessage ?? getUploadErrorMessage(previewError))
+      : getUploadErrorMessage(uploadState?.error)
+    : null;
   const clearButton = (
     <button
       {...getClearButtonProps({
@@ -146,16 +155,18 @@ export function DetailCard({
       </div>
       {isError ? (
         <div className="absolute right-0 top-1/2 z-10 flex -translate-y-1/2 items-center gap-2">
-          <button
-            className="shrink-0 cursor-pointer text-[0.8em] opacity-70 underline underline-offset-2"
-            type="button"
-            onClick={(event) => {
-              event.stopPropagation();
-              retryUpload?.();
-            }}
-          >
-            {DROP_ZONE_CARD_LABELS.retryUpload}
-          </button>
+          {isUploadError ? (
+            <button
+              className="shrink-0 cursor-pointer text-[0.8em] opacity-70 underline underline-offset-2"
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                retryUpload?.();
+              }}
+            >
+              {DROP_ZONE_CARD_LABELS.retryUpload}
+            </button>
+          ) : null}
           {clearButton}
         </div>
       ) : null}

@@ -61,6 +61,8 @@ export type OnUploadSuccessHandler = (file: UploadedFileInfo, result: UploadResu
 
 export type OnUploadErrorHandler = (file: UploadedFileInfo, error: unknown) => void;
 
+export type OnPreviewErrorHandler = (file: UploadedFileInfo, error: unknown) => void;
+
 export interface DropZoneCardState {
   id: string;
   uploadedFile: UploadedFileInfo | null;
@@ -117,6 +119,16 @@ export interface DropZoneBaseProps
    * Return a string URL, Blob, or File. Blob/File values are converted to object URLs internally.
    */
   previewResolver?: PreviewResolver;
+  /**
+   * Called when `previewResolver` throws or returns null/undefined for a file.
+   * Use this to report the error externally or to derive a custom error message.
+   */
+  onPreviewError?: OnPreviewErrorHandler;
+  /**
+   * Custom error message shown on the card when `previewResolver` fails to load a preview.
+   * If omitted, the error's own message (or a generic fallback) is used.
+   */
+  previewErrorMessage?: ReactNode;
   /**
    * Controlled uploaded files.
    */

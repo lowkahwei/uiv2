@@ -7,7 +7,7 @@ import {useEffect, useMemo, useRef, useState} from "react";
 
 import {CARD_CONTENT_TRANSITION, UPLOAD_CARD_LIST_ITEM_MOTION} from "./card/constants";
 import {UploadCard} from "./card/upload-card";
-import {formatFileSize, formatUploadedFileType} from "./drop-zone-utils";
+import {formatFileSize, formatUploadedFileType, isLikelyImageFile} from "./drop-zone-utils";
 import {useDropZone} from "./use-drop-zone";
 
 export type {DropZoneProps} from "./types";
@@ -47,7 +47,7 @@ function getUploadStatePreviewKey(uploadState: UploadCardUploadState | undefined
 }
 
 const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
-  const {isPreview = false, previewResolver} = props;
+  const {isPreview = false, previewResolver, onPreviewError, previewErrorMessage} = props;
 
   const {
     Component,
@@ -91,6 +91,11 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
   const resolvedPreviewEntriesRef = useRef<Record<string, PreviewEntry>>({});
   const [previewUrls, setPreviewUrls] = useState<Record<string, string>>({});
   const [resolvedPreviewUrls, setResolvedPreviewUrls] = useState<Record<string, string>>({});
+  const [pendingPreviewCardIds, setPendingPreviewCardIds] = useState<Set<string>>(new Set());
+  // blob size resolved by previewResolver (overrides the potentially 0-sized fileList entry)
+  const [resolvedPreviewSizes, setResolvedPreviewSizes] = useState<Record<string, number>>({});
+  // per-card preview load errors from previewResolver
+  const [previewErrors, setPreviewErrors] = useState<Record<string, unknown>>({});
 
   const sharedCardProps = useMemo<
     Omit<
@@ -153,16 +158,23 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
   );
 
   const renderCard = (card: (typeof state.uploadCards)[number]) => {
+    const resolvedSize = resolvedPreviewSizes[card.id];
+    const effectiveSize =
+      card.uploadedFile && resolvedSize !== undefined
+        ? resolvedSize
+        : (card.uploadedFile?.size ?? 0);
     const cardProps: DropZoneCardRenderProps = {
       ...sharedCardProps,
       uploadedFile: card.uploadedFile,
-      uploadedFileSize: card.uploadedFile ? formatFileSize(card.uploadedFile.size) : null,
+      uploadedFileSize: card.uploadedFile ? formatFileSize(effectiveSize) : null,
       uploadedFileType: card.uploadedFile
         ? formatUploadedFileType(card.uploadedFile.type, card.uploadedFile.name)
         : "",
       removeUploadedFile: card.uploadedFile ? () => removeUploadedFile(card.id) : undefined,
       retryUpload: card.uploadedFile ? () => retryUpload(card.id) : undefined,
       uploadState: card.uploadState,
+      previewError: previewErrors[card.id],
+      previewErrorMessage,
     };
 
     return (
@@ -213,14 +225,27 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
   );
 
   const previewCards = state.uploadCards.filter((card) => {
-    return card.uploadedFile?.type.startsWith("image/") && mergedPreviewUrls[card.id];
+    return (
+      card.uploadedFile != null &&
+      isLikelyImageFile(card.uploadedFile) &&
+      mergedPreviewUrls[card.id]
+    );
+  });
+
+  const loadingPreviewCards = state.uploadCards.filter((card) => {
+    return (
+      card.uploadedFile != null &&
+      isLikelyImageFile(card.uploadedFile) &&
+      pendingPreviewCardIds.has(card.id) &&
+      !mergedPreviewUrls[card.id]
+    );
   });
 
   useEffect(() => {
     const nextPreviewEntries: Record<string, PreviewEntry> = {};
 
     state.uploadCards.forEach((card) => {
-      if (!card.uploadedFile?.type.startsWith("image/")) {
+      if (!card.uploadedFile || !isLikelyImageFile(card.uploadedFile)) {
         return;
       }
 
@@ -239,7 +264,7 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
 
       const file = card.uploadState?.file;
 
-      if (!file?.type.startsWith("image/")) {
+      if (!file || !isLikelyImageFile(file)) {
         return;
       }
 
@@ -286,13 +311,16 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
       });
       resolvedPreviewEntriesRef.current = {};
       setResolvedPreviewUrls({});
+      setPendingPreviewCardIds(new Set());
+      setResolvedPreviewSizes({});
+      setPreviewErrors({});
 
       return;
     }
 
     const previewableCards = state.uploadCards.filter((card) => {
       return (
-        card.uploadedFile?.type.startsWith("image/") &&
+        card.uploadedFile != null &&
         (card.uploadState?.status === "success" || !card.uploadState?.file)
       );
     });
@@ -305,6 +333,42 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
         }
         delete resolvedPreviewEntriesRef.current[cardId];
       }
+    });
+
+    setPendingPreviewCardIds((prev) => {
+      let changed = false;
+      const next = new Set(prev);
+
+      for (const id of next) {
+        if (!previewableCardIds.has(id)) {
+          next.delete(id);
+          changed = true;
+        }
+      }
+
+      return changed ? next : prev;
+    });
+
+    setPreviewErrors((prev) => {
+      const keysToRemove = Object.keys(prev).filter((id) => !previewableCardIds.has(id));
+
+      if (keysToRemove.length === 0) return prev;
+      const next = {...prev};
+
+      keysToRemove.forEach((id) => delete next[id]);
+
+      return next;
+    });
+
+    setResolvedPreviewSizes((prev) => {
+      const keysToRemove = Object.keys(prev).filter((id) => !previewableCardIds.has(id));
+
+      if (keysToRemove.length === 0) return prev;
+      const next = {...prev};
+
+      keysToRemove.forEach((id) => delete next[id]);
+
+      return next;
     });
 
     setResolvedPreviewUrls(
@@ -347,6 +411,15 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
 
       const controller = new AbortController();
 
+      setPendingPreviewCardIds((prev) => {
+        if (prev.has(card.id)) return prev;
+        const next = new Set(prev);
+
+        next.add(card.id);
+
+        return next;
+      });
+
       void Promise.resolve(
         previewResolver({
           uploadedFile: card.uploadedFile,
@@ -355,7 +428,26 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
         }),
       )
         .then((previewSource) => {
-          if (controller.signal.aborted || !previewSource) {
+          if (controller.signal.aborted) {
+            return;
+          }
+
+          setPendingPreviewCardIds((prev) => {
+            if (!prev.has(card.id)) return prev;
+            const next = new Set(prev);
+
+            next.delete(card.id);
+
+            return next;
+          });
+
+          if (!previewSource) {
+            // null/undefined return is treated as a load failure
+            const noSourceError = new Error("Preview resolver returned no source.");
+
+            setPreviewErrors((prev) => ({...prev, [card.id]: noSourceError}));
+            onPreviewError?.(card.uploadedFile!, noSourceError);
+
             return;
           }
 
@@ -371,6 +463,16 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
                   source: "object-url",
                   value: URL.createObjectURL(previewSource),
                 };
+
+          // Extract resolved size from Blob/File so the card can display the real file size
+          const resolvedSize =
+            previewSource instanceof Blob && previewSource.size > 0
+              ? previewSource.size
+              : undefined;
+
+          if (resolvedSize !== undefined) {
+            setResolvedPreviewSizes((prev) => ({...prev, [card.id]: resolvedSize}));
+          }
 
           const previousEntry = resolvedPreviewEntriesRef.current[card.id];
 
@@ -391,6 +493,18 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
           ) {
             return;
           }
+
+          setPendingPreviewCardIds((prev) => {
+            if (!prev.has(card.id)) return prev;
+            const next = new Set(prev);
+
+            next.delete(card.id);
+
+            return next;
+          });
+
+          setPreviewErrors((prev) => ({...prev, [card.id]: error}));
+          onPreviewError?.(card.uploadedFile!, error);
         });
 
       return [controller];
@@ -424,7 +538,7 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     ) : (
       <div {...getContentProps()}>
         {cards}
-        {isPreview && previewCards.length > 0 ? (
+        {isPreview && (previewCards.length > 0 || loadingPreviewCards.length > 0) ? (
           <div {...getPreviewWrapperProps()}>
             {previewCards.map((card) => (
               <img
@@ -432,6 +546,16 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
                 alt={card.uploadedFile?.name ?? "Uploaded image preview"}
                 src={mergedPreviewUrls[card.id]}
                 {...getPreviewImageProps()}
+              />
+            ))}
+            {loadingPreviewCards.map((card) => (
+              <div
+                key={`${card.id}-preview-loading`}
+                aria-busy="true"
+                aria-label={`Loading preview for ${card.uploadedFile?.name ?? "image"}`}
+                className={`${getPreviewImageProps().className ?? ""} animate-pulse bg-default-100`}
+                role="img"
+                style={{minHeight: "6rem"}}
               />
             ))}
           </div>

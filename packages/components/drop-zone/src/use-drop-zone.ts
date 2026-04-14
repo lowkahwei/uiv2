@@ -14,6 +14,7 @@ import {useCallback, useMemo} from "react";
 
 import {useDropZoneSlots} from "./hooks/use-drop-zone-slots";
 import {useDropZoneState} from "./hooks/use-drop-zone-state";
+import {isLikelyImageFile} from "./drop-zone-utils";
 import {normalizeAccept} from "./lib/file-processing";
 
 export type {AcceptedFileType, DropZoneState, UploadedFileInfo, UseDropZoneProps} from "./types";
@@ -85,7 +86,7 @@ export function useDropZone(originalProps: UseDropZoneProps) {
   });
   const hasUploadError = uploadCards.some((card) => card.uploadState?.status === "error");
   const hasInvalidState = isInvalid || hasUploadError || !!validationMessage;
-  const hasPreviewImage = isPreview && uploadedFiles.some((file) => file.type.startsWith("image/"));
+  const hasPreviewImage = isPreview && uploadedFiles.some(isLikelyImageFile);
 
   const openFileDialog = useCallback(() => {
     if (isDisabled) return;
