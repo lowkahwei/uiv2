@@ -161,6 +161,8 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     </LazyMotion>
   );
 
+  const hasDetailCard = state.uploadCards.some((card) => card.uploadedFile !== null);
+
   const content =
     typeof children === "function" ? (
       children(state)
@@ -169,7 +171,7 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     ) : (
       <div {...getContentProps()}>
         {cards}
-        {title ? <div {...getTitleProps()}>{title}</div> : null}
+        {title && !hasDetailCard ? <div {...getTitleProps()}>{title}</div> : null}
         {state.validationMessage ? (
           <div {...getHelperTextProps()}>{state.validationMessage}</div>
         ) : null}

@@ -44,5 +44,7 @@ export const IDLE_CONTENT_MOTION = {
 export const DROP_ZONE_CARD_LABELS = {
   releaseToUpload: "Release to upload",
   removeUploadedFile: "Remove uploaded file",
+  uploadCompleted: "Completed",
+  uploadFailed: "Upload failed",
   retryUpload: "Try again",
 } as const;

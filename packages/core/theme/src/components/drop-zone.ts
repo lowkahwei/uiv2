@@ -27,7 +27,7 @@ const dropZone = tv({
     content: "flex w-full max-w-xl flex-col items-center justify-center gap-2",
     uploadCardWrapper: "flex w-full justify-center",
     uploadCard:
-      "relative flex max-w-full items-center justify-center overflow-hidden border border-default-200/80 bg-content1/95 px-4 py-2 shadow-[0_16px_50px_-24px_rgba(15,23,42,0.45)] backdrop-blur-md",
+      "relative flex max-w-full items-center justify-center overflow-hidden border border-default-200/80 bg-content1/95 px-4 py-2 shadow-lg backdrop-blur-md",
     uploadCardOverlay:
       "pointer-events-none absolute inset-0 bg-gradient-to-br from-default-100/80 via-transparent to-default-200/40 opacity-80",
     uploadedContent: "w-full",
@@ -38,8 +38,8 @@ const dropZone = tv({
     icon: "shrink-0",
     detailCard: "relative flex w-full items-center gap-3 text-left",
     clearButton:
-      "absolute right-0 top-0 z-10 flex items-center justify-center rounded-full bg-default-100 text-default-500 transition-colors hover:bg-danger-100 hover:text-danger",
-    clearButtonIcon: "size-4",
+      "absolute right-0 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full text-default-400 transition-colors hover:text-danger",
+    clearButtonIcon: "size-6",
     fileIconWrapper: "relative flex shrink-0 items-center justify-center text-default-500",
     fileIcon: "text-default-400",
     fileTypeBadge:
@@ -75,7 +75,7 @@ const dropZone = tv({
         base: "min-h-24 gap-3 px-4 py-6 rounded-large",
         uploadCard: "px-3 py-2",
         clearButton: "size-6",
-        clearButtonIcon: "size-3.5",
+        clearButtonIcon: "size-5",
         fileIconWrapper: "size-10",
         fileIcon: "size-10",
         iconWrapper: "size-12",
@@ -95,7 +95,7 @@ const dropZone = tv({
         base: "min-h-52 gap-5 px-8 py-10 rounded-[1.5rem]",
         uploadCard: "px-5 py-3",
         clearButton: "size-8",
-        clearButtonIcon: "size-[18px]",
+        clearButtonIcon: "size-6",
         fileIconWrapper: "size-14",
         fileIcon: "size-14",
         iconWrapper: "size-16",

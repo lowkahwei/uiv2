@@ -1,10 +1,13 @@
 import type {Meta} from "@storybook/react";
 import type {DropItem, DropZoneProps, FileDropItem, TextDropItem} from "../src";
+import type {DropZoneCardRenderProps} from "../src/card/types";
 
 import React from "react";
 import {dropZone} from "@heroui/theme";
 
 import {DropZone} from "../src";
+import {UploadCard} from "../src/card/upload-card";
+import {useDropZone} from "../src/use-drop-zone";
 
 export default {
   title: "Components/DropZone",
@@ -40,6 +43,18 @@ const defaultProps = {
   className: "max-w-2xl",
   title: "Drop project assets",
 };
+
+const previewFile = {
+  name: "hero-banner.png",
+  size: 2.4 * 1024 * 1024,
+  type: "image/png",
+} as const;
+
+const previewProgressItems = [
+  {label: "25%", progress: 0.25},
+  {label: "50%", progress: 0.5},
+  {label: "100%", progress: 1},
+] as const;
 
 const readDroppedItems = async (items: DropItem[]) => {
   const values = await Promise.all(
@@ -403,6 +418,97 @@ const RestApiUploadTemplate = (args: DropZoneProps) => {
   );
 };
 
+const ProgressPreviewCard = ({args, progress}: {args: DropZoneProps; progress: number}) => {
+  const {
+    state,
+    title,
+    icon,
+    hideIcon,
+    getUploadTriggerProps,
+    getUploadCardWrapperProps,
+    getUploadCardProps,
+    getUploadCardOverlayProps,
+    getUploadedContentProps,
+    getIdleContentProps,
+    getIdleCardProps,
+    getIdleLabelProps,
+    getIconWrapperProps,
+    getIconProps,
+    getDetailCardProps,
+    getClearButtonProps,
+    getClearButtonIconProps,
+    getFileIconWrapperProps,
+    getFileIconProps,
+    getFileTypeBadgeProps,
+    getFileInfoProps,
+    getFileNameProps,
+    getFileMetaProps,
+  } = useDropZone({
+    ...args,
+    defaultFileList: [previewFile],
+  });
+
+  const cardProps: DropZoneCardRenderProps = {
+    hideIcon: hideIcon ?? false,
+    icon,
+    state,
+    title,
+    disableAnimation: true,
+    uploadedFile: previewFile,
+    uploadedFileSize: "2.4 MB",
+    uploadedFileType: "PNG",
+    removeUploadedFile: () => undefined,
+    retryUpload: () => undefined,
+    uploadState: {
+      status: "uploading",
+      progress,
+      file: new File(["preview"], previewFile.name, {type: previewFile.type}),
+    },
+    getUploadTriggerProps,
+    getUploadCardWrapperProps,
+    getUploadCardProps,
+    getUploadCardOverlayProps,
+    getUploadedContentProps,
+    getIdleContentProps,
+    getIdleCardProps,
+    getIdleLabelProps,
+    getDetailCardProps,
+    getClearButtonProps,
+    getClearButtonIconProps,
+    getFileIconWrapperProps,
+    getFileIconProps,
+    getFileTypeBadgeProps,
+    getFileInfoProps,
+    getFileNameProps,
+    getFileMetaProps,
+    getIconProps,
+    getIconWrapperProps,
+  };
+
+  return <UploadCard cardProps={cardProps} />;
+};
+
+const UploadProgressStatesTemplate = (args: DropZoneProps) => {
+  return (
+    <div className="flex max-w-3xl flex-col gap-4">
+      <div className="rounded-large border border-default-200 bg-default-50 p-4">
+        <p className="text-small font-medium text-foreground">Upload progress preview</p>
+        <p className="mt-2 text-small text-default-500">
+          Static preview of the upload card at 25%, 50%, and 100%.
+        </p>
+      </div>
+      <div className="flex flex-col gap-4">
+        {previewProgressItems.map((item) => (
+          <div key={item.label} className="rounded-large border border-default-200 bg-content1 p-4">
+            <p className="mb-3 text-small font-medium text-foreground">{item.label}</p>
+            <ProgressPreviewCard args={args} progress={item.progress} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 export const Default = {
   render: PlaygroundTemplate,
   args: {
@@ -508,6 +614,15 @@ export const SupabaseRestUpload = {
     title: "Upload images to Supabase Storage via REST API",
     accept: "image/*",
     maxFiles: 3,
+    color: "primary",
+  },
+};
+
+export const UploadProgressStates = {
+  render: UploadProgressStatesTemplate,
+  args: {
+    ...defaultProps,
+    title: "Upload progress states",
     color: "primary",
   },
 };

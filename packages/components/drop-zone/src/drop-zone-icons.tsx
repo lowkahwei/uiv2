@@ -47,11 +47,25 @@ export function FileCardIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export function RemoveIcon(props: SVGProps<SVGSVGElement>) {
+export function TrashIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg fill="none" viewBox="0 0 24 24" {...props}>
       <path
-        d="M6.75 6.75 17.25 17.25M17.25 6.75 6.75 17.25"
+        d="M9.75 4.75h4.5a1 1 0 0 1 1 1v1h3"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+      <path
+        d="M4.5 6.75h15"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+      <path
+        d="m6.75 6.75.72 10.08A2 2 0 0 0 9.46 18.7h5.08a2 2 0 0 0 1.99-1.87l.72-10.08"
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
