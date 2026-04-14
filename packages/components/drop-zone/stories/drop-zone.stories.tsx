@@ -80,6 +80,36 @@ const readDroppedItems = async (items: DropItem[]) => {
   return values;
 };
 
+const guessImageMimeType = (value: string) => {
+  const normalizedValue = value.split("?")[0]?.toLowerCase() ?? "";
+
+  if (normalizedValue.endsWith(".png")) return "image/png";
+  if (normalizedValue.endsWith(".webp")) return "image/webp";
+  if (normalizedValue.endsWith(".gif")) return "image/gif";
+  if (normalizedValue.endsWith(".svg")) return "image/svg+xml";
+  if (normalizedValue.endsWith(".avif")) return "image/avif";
+  if (normalizedValue.endsWith(".jpg") || normalizedValue.endsWith(".jpeg")) return "image/jpeg";
+
+  return "image/jpeg";
+};
+
+const getFileNameFromReference = (value: string) => {
+  const normalizedValue = value.trim().replace(/\/$/, "");
+  const segments = normalizedValue.split("/");
+
+  return segments[segments.length - 1] || "remote-image";
+};
+
+const getUploadedFileInfoKey = (
+  file: {name: string; size: number; type: string} | null | undefined,
+) => {
+  if (!file) {
+    return "";
+  }
+
+  return `${file.name}::${file.size}::${file.type}`;
+};
+
 const PlaygroundTemplate = (args: DropZoneProps) => {
   const [items, setItems] = React.useState<string[]>([]);
 
@@ -256,97 +286,266 @@ const ControlledTemplate = (args: DropZoneProps) => {
   );
 };
 
-const RestApiUploadTemplate = (args: DropZoneProps) => {
+const SupabaseControlledTemplate = (args: DropZoneProps) => {
   const [projectUrl, setProjectUrl] = React.useState("https://xnmgtscekecpuftjgkds.supabase.co");
   const [bucket, setBucket] = React.useState("loan");
   const [apiKey, setApiKey] = React.useState("sb_publishable_vfHoG_24ARSa7ku0BJhCjw_Eay72o9_");
   const [folder, setFolder] = React.useState("pub");
+  const [fileReferenceInput, setFileReferenceInput] = React.useState(
+    "pub/af920e44-68d1-4f8b-a79d-7619909870de.png",
+  );
+  const [activeReference, setActiveReference] = React.useState(
+    "pub/af920e44-68d1-4f8b-a79d-7619909870de.png",
+  );
+  const [fileList, setFileList] = React.useState<NonNullable<DropZoneProps["fileList"]>>([]);
+  const [remoteAsset, setRemoteAsset] = React.useState<{
+    blob: Blob;
+    name: string;
+    reference: string;
+    type: string;
+  } | null>(null);
   const [lastSuccess, setLastSuccess] = React.useState<string | null>(null);
   const [lastError, setLastError] = React.useState<string | null>(null);
+  const normalizedReference = activeReference.trim();
+  const remoteUploadedFile = React.useMemo(() => {
+    if (!remoteAsset || !normalizedReference || remoteAsset.reference !== normalizedReference) {
+      return null;
+    }
+
+    return {
+      name: remoteAsset.name,
+      size: remoteAsset.blob.size,
+      type: remoteAsset.type,
+    };
+  }, [normalizedReference, remoteAsset]);
+  const remoteUploadedFileKey = React.useMemo(
+    () => getUploadedFileInfoKey(remoteUploadedFile),
+    [remoteUploadedFile],
+  );
+
+  const fetchRemoteAsset = React.useCallback(
+    async (fileReference: string, signal: AbortSignal) => {
+      const normalizedProjectUrl = projectUrl.trim().replace(/\/$/, "");
+      const normalizedBucket = bucket.trim();
+      const normalizedApiKey = apiKey.trim();
+      const normalizedFileReference = fileReference.trim();
+      const isAbsoluteUrl = /^https?:\/\//i.test(normalizedFileReference);
+
+      if (!normalizedFileReference) {
+        return null;
+      }
+
+      if (!isAbsoluteUrl && (!normalizedProjectUrl || !normalizedBucket || !normalizedApiKey)) {
+        throw new Error("Project URL, bucket, API key, and file reference are required.");
+      }
+
+      const endpoint = isAbsoluteUrl
+        ? normalizedFileReference
+        : `${normalizedProjectUrl}/storage/v1/object/authenticated/${encodeURIComponent(
+            normalizedBucket,
+          )}/${normalizedFileReference
+            .split("/")
+            .filter(Boolean)
+            .map((segment) => encodeURIComponent(segment))
+            .join("/")}`;
+
+      const response = await fetch(endpoint, {
+        cache: "no-store",
+        headers: normalizedApiKey
+          ? {
+              apikey: normalizedApiKey,
+              Authorization: `Bearer ${normalizedApiKey}`,
+            }
+          : undefined,
+        signal,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Preview fetch failed with status ${response.status}`);
+      }
+
+      const blob = await response.blob();
+
+      return {
+        blob,
+        name: getFileNameFromReference(normalizedFileReference),
+        reference: normalizedFileReference,
+        type: blob.type || guessImageMimeType(normalizedFileReference),
+      };
+    },
+    [apiKey, bucket, projectUrl],
+  );
+
+  const loadRemotePreview = React.useCallback(
+    async (fileReference: string) => {
+      const nextReference = fileReference.trim();
+
+      setLastError(null);
+
+      if (!nextReference) {
+        setRemoteAsset(null);
+        setActiveReference("");
+        setFileList([]);
+
+        return;
+      }
+
+      try {
+        const controller = new AbortController();
+        const asset = await fetchRemoteAsset(nextReference, controller.signal);
+
+        if (!asset) {
+          setRemoteAsset(null);
+          setActiveReference("");
+          setFileList([]);
+
+          return;
+        }
+
+        setRemoteAsset(asset);
+        setActiveReference(nextReference);
+        setFileList([
+          {
+            name: asset.name,
+            size: asset.blob.size,
+            type: asset.type,
+          },
+        ]);
+      } catch (error) {
+        setRemoteAsset(null);
+        setActiveReference("");
+        setFileList([]);
+        setLastError(error instanceof Error ? error.message : String(error));
+      }
+    },
+    [fetchRemoteAsset],
+  );
 
   const uploadWithSupabaseRest = React.useCallback(
     (
       file: File,
       {onProgress, signal}: {onProgress: (progress: number) => void; signal: AbortSignal},
     ) =>
-      new Promise<{name?: string; path?: string; fullPath?: string}>((resolve, reject) => {
-        const normalizedProjectUrl = projectUrl.trim().replace(/\/$/, "");
-        const normalizedBucket = bucket.trim();
-        const normalizedApiKey = apiKey.trim();
-        const normalizedFolder = folder.trim().replace(/^\/+|\/+$/g, "");
+      new Promise<{name?: string; path?: string; fullPath?: string; url?: string}>(
+        (resolve, reject) => {
+          const normalizedProjectUrl = projectUrl.trim().replace(/\/$/, "");
+          const normalizedBucket = bucket.trim();
+          const normalizedApiKey = apiKey.trim();
+          const normalizedFolder = folder.trim().replace(/^\/+|\/+$/g, "");
 
-        if (!normalizedProjectUrl || !normalizedBucket || !normalizedApiKey) {
-          reject(new Error("Project URL, bucket, and API key are required."));
-
-          return;
-        }
-
-        const objectPath = [normalizedFolder, `${Date.now()}-${file.name}`]
-          .filter(Boolean)
-          .join("/");
-        const endpoint = `${normalizedProjectUrl}/storage/v1/object/${normalizedBucket}/${objectPath}`;
-        const xhr = new XMLHttpRequest();
-
-        xhr.open("POST", endpoint);
-        xhr.responseType = "json";
-        xhr.setRequestHeader("apikey", normalizedApiKey);
-        xhr.setRequestHeader("Authorization", `Bearer ${normalizedApiKey}`);
-        xhr.setRequestHeader("x-upsert", "false");
-        xhr.setRequestHeader("content-type", file.type || "application/octet-stream");
-
-        xhr.upload.onprogress = (event) => {
-          if (!event.lengthComputable) return;
-          onProgress(event.loaded / event.total);
-        };
-
-        xhr.onload = () => {
-          const response = xhr.response ?? JSON.parse(xhr.responseText || "{}");
-
-          if (xhr.status >= 200 && xhr.status < 300) {
-            resolve({
-              name: file.name,
-              path: objectPath,
-              fullPath: response?.Key ?? response?.path ?? objectPath,
-            });
+          if (!normalizedProjectUrl || !normalizedBucket || !normalizedApiKey) {
+            reject(new Error("Project URL, bucket, and API key are required."));
 
             return;
           }
 
-          reject(
-            new Error(
-              response?.message ?? response?.error ?? `Upload failed with status ${xhr.status}`,
-            ),
+          const objectPath = [normalizedFolder, `${Date.now()}-${file.name}`]
+            .filter(Boolean)
+            .join("/");
+          const endpoint = `${normalizedProjectUrl}/storage/v1/object/${normalizedBucket}/${objectPath}`;
+          const xhr = new XMLHttpRequest();
+
+          xhr.open("POST", endpoint);
+          xhr.responseType = "json";
+          xhr.setRequestHeader("apikey", normalizedApiKey);
+          xhr.setRequestHeader("Authorization", `Bearer ${normalizedApiKey}`);
+          xhr.setRequestHeader("x-upsert", "false");
+          xhr.setRequestHeader("content-type", file.type || "application/octet-stream");
+
+          xhr.upload.onprogress = (event) => {
+            if (!event.lengthComputable) return;
+            onProgress(event.loaded / event.total);
+          };
+
+          xhr.onload = () => {
+            const response = xhr.response ?? JSON.parse(xhr.responseText || "{}");
+
+            if (xhr.status >= 200 && xhr.status < 300) {
+              resolve({
+                name: file.name,
+                path: objectPath,
+                fullPath: response?.Key ?? response?.path ?? objectPath,
+                url: typeof response?.url === "string" ? response.url : undefined,
+              });
+
+              return;
+            }
+
+            reject(
+              new Error(
+                response?.message ?? response?.error ?? `Upload failed with status ${xhr.status}`,
+              ),
+            );
+          };
+
+          xhr.onerror = () => {
+            reject(new Error("Network error while uploading to Supabase Storage."));
+          };
+
+          xhr.onabort = () => {
+            reject(new DOMException("Upload aborted.", "AbortError"));
+          };
+
+          signal.addEventListener(
+            "abort",
+            () => {
+              xhr.abort();
+            },
+            {once: true},
           );
-        };
 
-        xhr.onerror = () => {
-          reject(new Error("Network error while uploading to Supabase Storage."));
-        };
-
-        xhr.onabort = () => {
-          reject(new DOMException("Upload aborted.", "AbortError"));
-        };
-
-        signal.addEventListener(
-          "abort",
-          () => {
-            xhr.abort();
-          },
-          {once: true},
-        );
-
-        xhr.send(file);
-      }),
+          xhr.send(file);
+        },
+      ),
     [apiKey, bucket, folder, projectUrl],
   );
+
+  const resolveRemotePreview = React.useCallback<NonNullable<DropZoneProps["previewResolver"]>>(
+    async ({uploadedFile, uploadState, signal}) => {
+      const resultReference =
+        typeof uploadState?.result?.fullPath === "string"
+          ? uploadState.result.fullPath
+          : typeof uploadState?.result?.path === "string"
+            ? uploadState.result.path
+            : typeof uploadState?.result?.url === "string"
+              ? uploadState.result.url
+              : normalizedReference;
+
+      if (
+        remoteAsset &&
+        normalizedReference &&
+        remoteAsset.reference === normalizedReference &&
+        getUploadedFileInfoKey(uploadedFile) === remoteUploadedFileKey
+      ) {
+        return remoteAsset.blob;
+      }
+
+      if (!resultReference) {
+        return null;
+      }
+
+      const asset = await fetchRemoteAsset(resultReference, signal);
+
+      return asset?.blob ?? null;
+    },
+    [fetchRemoteAsset, normalizedReference, remoteAsset, remoteUploadedFileKey],
+  );
+
+  React.useEffect(() => {
+    if (!activeReference || fileList.length > 0) {
+      return;
+    }
+
+    void loadRemotePreview(activeReference);
+  }, [activeReference, fileList.length, loadRemotePreview]);
 
   return (
     <div className="flex max-w-2xl flex-col gap-4">
       <div className="rounded-large border border-default-200 bg-default-50 p-4">
-        <p className="text-small font-medium text-foreground">Supabase REST upload config</p>
+        <p className="text-small font-medium text-foreground">Supabase controlled image picker</p>
         <p className="mt-2 text-small text-default-500">
-          Uses direct HTTP upload to <code>/storage/v1/object</code> with no{" "}
-          <code>@supabase/supabase-js</code> dependency.
+          Starts with a remote Supabase image, keeps the drop zone controlled through{" "}
+          <code>fileList</code>, and lets users remove or replace it with a new upload.
         </p>
         <div className="mt-4 grid gap-3 md:grid-cols-2">
           <label className="flex flex-col gap-1 text-small text-default-600">
@@ -386,14 +585,68 @@ const RestApiUploadTemplate = (args: DropZoneProps) => {
               onChange={(event) => setFolder(event.target.value)}
             />
           </label>
+          <label className="flex flex-col gap-1 text-small text-default-600 md:col-span-2">
+            Default image URL or object path
+            <input
+              className="rounded-medium border border-default-200 bg-content1 px-3 py-2 text-foreground"
+              placeholder="pub/demo-image.png or https://..."
+              value={fileReferenceInput}
+              onChange={(event) => setFileReferenceInput(event.target.value)}
+            />
+          </label>
+        </div>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <button
+            className="rounded-medium bg-primary px-3 py-2 text-small font-medium text-primary-foreground"
+            type="button"
+            onClick={() => {
+              void loadRemotePreview(fileReferenceInput);
+            }}
+          >
+            Load default image
+          </button>
+          <button
+            className="rounded-medium border border-default-200 bg-content1 px-3 py-2 text-small text-default-600"
+            type="button"
+            onClick={() => {
+              setLastError(null);
+              setRemoteAsset(null);
+              setFileReferenceInput("");
+              setActiveReference("");
+              setFileList([]);
+            }}
+          >
+            Clear
+          </button>
         </div>
         <p className="mt-3 text-tiny text-default-400">
-          Make sure the bucket and storage policies allow this key to upload objects.
+          Make sure the bucket and storage policies allow this key to upload and read objects.
         </p>
       </div>
       <DropZone
-        aria-label="Supabase REST API upload drop zone"
+        aria-label="Supabase controlled image picker"
         {...args}
+        fileList={fileList}
+        previewResolver={resolveRemotePreview}
+        onChange={(nextUploadedFiles) => {
+          setFileList(nextUploadedFiles);
+          args.onChange?.(nextUploadedFiles);
+        }}
+        onRemove={(uploadedFile, nextUploadedFiles) => {
+          setLastError(null);
+          setLastSuccess(null);
+          setFileList(nextUploadedFiles);
+
+          if (getUploadedFileInfoKey(uploadedFile) === remoteUploadedFileKey) {
+            setRemoteAsset(null);
+            setActiveReference("");
+            setFileReferenceInput("");
+          } else if (nextUploadedFiles.length === 0) {
+            setActiveReference("");
+          }
+
+          args.onRemove?.(uploadedFile, nextUploadedFiles);
+        }}
         onUpload={uploadWithSupabaseRest}
         onUploadError={(uploadedFile, error) => {
           const message = error instanceof Error ? error.message : String(error);
@@ -402,17 +655,36 @@ const RestApiUploadTemplate = (args: DropZoneProps) => {
           args.onUploadError?.(uploadedFile, error);
         }}
         onUploadSuccess={(uploadedFile, result) => {
+          const nextReference =
+            typeof result.fullPath === "string"
+              ? result.fullPath
+              : typeof result.path === "string"
+                ? result.path
+                : "";
+
           setLastError(null);
-          setLastSuccess(`${uploadedFile.name} -> ${String(result.fullPath ?? result.path ?? "")}`);
+          setLastSuccess(
+            `${uploadedFile.name} -> ${String(result.fullPath ?? result.path ?? result.url ?? "")}`,
+          );
+
+          if (nextReference) {
+            setActiveReference(nextReference);
+            setFileReferenceInput(nextReference);
+          }
+
+          setRemoteAsset(null);
           args.onUploadSuccess?.(uploadedFile, result);
         }}
       />
       <div className="rounded-large border border-default-200 bg-content1 p-4">
-        <p className="text-small font-medium text-foreground">Upload callbacks</p>
+        <p className="text-small font-medium text-foreground">Controlled state</p>
         <p className="mt-2 text-small text-default-500">
+          Active reference: {normalizedReference || "No file selected."}
+        </p>
+        <p className="mt-1 text-small text-default-500">
           Success: {lastSuccess ?? "No successful upload yet."}
         </p>
-        <p className="mt-1 text-small text-danger">{lastError ?? "No upload error."}</p>
+        <p className="mt-1 text-small text-danger">{lastError ?? "No preview error."}</p>
       </div>
     </div>
   );
@@ -621,13 +893,13 @@ export const CombinedConstraints = {
   },
 };
 
-export const SupabaseRestUpload = {
-  render: RestApiUploadTemplate,
+export const SupabaseControlled = {
+  render: SupabaseControlledTemplate,
   args: {
     ...defaultProps,
-    title: "Upload images to Supabase Storage via REST API",
+    title: "Controlled Supabase image picker",
     accept: "image/*",
-    maxFiles: 3,
+    maxFiles: 1,
     isPreview: true,
     color: "primary",
   },

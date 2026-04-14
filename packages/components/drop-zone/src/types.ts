@@ -29,6 +29,8 @@ export interface UploadResult {
   [key: string]: unknown;
 }
 
+export type PreviewSource = string | Blob | File | null | undefined;
+
 // Per-card upload state (internal, not exposed via onChange)
 export interface UploadCardUploadState {
   status: UploadStatus;
@@ -44,7 +46,16 @@ export interface UploadContext {
   signal: AbortSignal;
 }
 
+export interface PreviewResolverContext {
+  uploadedFile: UploadedFileInfo;
+  uploadState?: UploadCardUploadState;
+  signal: AbortSignal;
+}
+
 export type OnUploadHandler = (file: File, context: UploadContext) => Promise<UploadResult>;
+export type PreviewResolver = (
+  context: PreviewResolverContext,
+) => Promise<PreviewSource> | PreviewSource;
 
 export type OnUploadSuccessHandler = (file: UploadedFileInfo, result: UploadResult) => void;
 
@@ -96,10 +107,16 @@ export interface DropZoneBaseProps
   /**
    * Whether to render image previews below uploaded cards in the default layout.
    * Only files with an image MIME type and an available local File object or upload result URL
-   * can be previewed.
+   * can be previewed. For private remote assets, use `previewResolver` to resolve an
+   * authenticated preview source.
    * @default false
    */
   isPreview?: boolean;
+  /**
+   * Optionally resolves image previews for uploaded files that are not directly public.
+   * Return a string URL, Blob, or File. Blob/File values are converted to object URLs internally.
+   */
+  previewResolver?: PreviewResolver;
   /**
    * Controlled uploaded files.
    */

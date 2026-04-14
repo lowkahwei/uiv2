@@ -1,4 +1,4 @@
-import type {DropZoneProps} from "./types";
+import type {DropZoneProps, UploadCardUploadState, UploadedFileInfo} from "./types";
 import type {DropZoneCardRenderProps} from "./card/types";
 
 import {forwardRef} from "@heroui/system";
@@ -14,12 +14,40 @@ export type {DropZoneProps} from "./types";
 
 interface PreviewEntry {
   file?: File;
+  key: string;
   source: "object-url" | "remote-url";
   value: string;
 }
 
+function getUploadedFilePreviewKey(uploadedFile: UploadedFileInfo | null | undefined) {
+  if (!uploadedFile) {
+    return "";
+  }
+
+  return `${uploadedFile.name}::${uploadedFile.size}::${uploadedFile.type}`;
+}
+
+function getUploadStatePreviewKey(uploadState: UploadCardUploadState | undefined) {
+  const file = uploadState?.file;
+  const result = uploadState?.result;
+  const resultKey =
+    result && typeof result === "object"
+      ? JSON.stringify(
+          Object.keys(result)
+            .sort()
+            .reduce<Record<string, unknown>>((acc, key) => {
+              acc[key] = result[key];
+
+              return acc;
+            }, {}),
+        )
+      : "";
+
+  return `${file?.name ?? ""}::${file?.size ?? ""}::${file?.type ?? ""}::${file?.lastModified ?? ""}::${resultKey}`;
+}
+
 const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
-  const {isPreview = false} = props;
+  const {isPreview = false, previewResolver} = props;
 
   const {
     Component,
@@ -60,7 +88,9 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     getHelperTextProps,
   } = useDropZone({...props, ref});
   const previewEntriesRef = useRef<Record<string, PreviewEntry>>({});
+  const resolvedPreviewEntriesRef = useRef<Record<string, PreviewEntry>>({});
   const [previewUrls, setPreviewUrls] = useState<Record<string, string>>({});
+  const [resolvedPreviewUrls, setResolvedPreviewUrls] = useState<Record<string, string>>({});
 
   const sharedCardProps = useMemo<
     Omit<
@@ -174,8 +204,16 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
   );
 
   const hasDetailCard = state.uploadCards.some((card) => card.uploadedFile !== null);
+  const mergedPreviewUrls = useMemo(
+    () => ({
+      ...previewUrls,
+      ...resolvedPreviewUrls,
+    }),
+    [previewUrls, resolvedPreviewUrls],
+  );
+
   const previewCards = state.uploadCards.filter((card) => {
-    return card.uploadedFile?.type.startsWith("image/") && previewUrls[card.id];
+    return card.uploadedFile?.type.startsWith("image/") && mergedPreviewUrls[card.id];
   });
 
   useEffect(() => {
@@ -191,6 +229,7 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
 
       if (resultUrl) {
         nextPreviewEntries[card.id] = {
+          key: `${getUploadedFilePreviewKey(card.uploadedFile)}::${resultUrl}`,
           source: "remote-url",
           value: resultUrl,
         };
@@ -218,6 +257,7 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
 
       nextPreviewEntries[card.id] = {
         file,
+        key: `${getUploadedFilePreviewKey(card.uploadedFile)}::${getUploadStatePreviewKey(card.uploadState)}`,
         source: "object-url",
         value: URL.createObjectURL(file),
       };
@@ -238,8 +278,137 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
   }, [state.uploadCards]);
 
   useEffect(() => {
+    if (!previewResolver) {
+      Object.values(resolvedPreviewEntriesRef.current).forEach((entry) => {
+        if (entry.source === "object-url") {
+          URL.revokeObjectURL(entry.value);
+        }
+      });
+      resolvedPreviewEntriesRef.current = {};
+      setResolvedPreviewUrls({});
+
+      return;
+    }
+
+    const previewableCards = state.uploadCards.filter((card) => {
+      return (
+        card.uploadedFile?.type.startsWith("image/") &&
+        (card.uploadState?.status === "success" || !card.uploadState?.file)
+      );
+    });
+    const previewableCardIds = new Set(previewableCards.map((card) => card.id));
+
+    Object.entries(resolvedPreviewEntriesRef.current).forEach(([cardId, entry]) => {
+      if (!previewableCardIds.has(cardId)) {
+        if (entry.source === "object-url") {
+          URL.revokeObjectURL(entry.value);
+        }
+        delete resolvedPreviewEntriesRef.current[cardId];
+      }
+    });
+
+    setResolvedPreviewUrls(
+      Object.fromEntries(
+        Object.entries(resolvedPreviewEntriesRef.current).map(([cardId, entry]) => [
+          cardId,
+          entry.value,
+        ]),
+      ),
+    );
+
+    const abortControllers = previewableCards.flatMap((card) => {
+      if (!card.uploadedFile) {
+        return [];
+      }
+
+      const key = `${getUploadedFilePreviewKey(card.uploadedFile)}::${getUploadStatePreviewKey(card.uploadState)}`;
+      const existingEntry = resolvedPreviewEntriesRef.current[card.id];
+
+      if (existingEntry?.key === key) {
+        return [];
+      }
+
+      if (existingEntry?.source === "object-url") {
+        URL.revokeObjectURL(existingEntry.value);
+      }
+
+      delete resolvedPreviewEntriesRef.current[card.id];
+      setResolvedPreviewUrls((currentUrls) => {
+        if (!(card.id in currentUrls)) {
+          return currentUrls;
+        }
+
+        const nextUrls = {...currentUrls};
+
+        delete nextUrls[card.id];
+
+        return nextUrls;
+      });
+
+      const controller = new AbortController();
+
+      void Promise.resolve(
+        previewResolver({
+          uploadedFile: card.uploadedFile,
+          uploadState: card.uploadState,
+          signal: controller.signal,
+        }),
+      )
+        .then((previewSource) => {
+          if (controller.signal.aborted || !previewSource) {
+            return;
+          }
+
+          const nextEntry: PreviewEntry =
+            typeof previewSource === "string"
+              ? {
+                  key,
+                  source: "remote-url",
+                  value: previewSource,
+                }
+              : {
+                  key,
+                  source: "object-url",
+                  value: URL.createObjectURL(previewSource),
+                };
+
+          const previousEntry = resolvedPreviewEntriesRef.current[card.id];
+
+          if (previousEntry?.source === "object-url" && previousEntry.value !== nextEntry.value) {
+            URL.revokeObjectURL(previousEntry.value);
+          }
+
+          resolvedPreviewEntriesRef.current[card.id] = nextEntry;
+          setResolvedPreviewUrls((currentUrls) => ({
+            ...currentUrls,
+            [card.id]: nextEntry.value,
+          }));
+        })
+        .catch((error) => {
+          if (
+            controller.signal.aborted ||
+            (error instanceof DOMException && error.name === "AbortError")
+          ) {
+            return;
+          }
+        });
+
+      return [controller];
+    });
+
+    return () => {
+      abortControllers.forEach((controller) => controller.abort());
+    };
+  }, [previewResolver, state.uploadCards]);
+
+  useEffect(() => {
     return () => {
       Object.values(previewEntriesRef.current).forEach((entry) => {
+        if (entry.source === "object-url") {
+          URL.revokeObjectURL(entry.value);
+        }
+      });
+      Object.values(resolvedPreviewEntriesRef.current).forEach((entry) => {
         if (entry.source === "object-url") {
           URL.revokeObjectURL(entry.value);
         }
@@ -261,7 +430,7 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
               <img
                 key={`${card.id}-preview`}
                 alt={card.uploadedFile?.name ?? "Uploaded image preview"}
-                src={previewUrls[card.id]}
+                src={mergedPreviewUrls[card.id]}
                 {...getPreviewImageProps()}
               />
             ))}

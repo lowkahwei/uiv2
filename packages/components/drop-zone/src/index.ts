@@ -10,6 +10,9 @@ export type {
   AcceptedFileType,
   DropZoneCardState,
   DropZoneState,
+  PreviewResolver,
+  PreviewResolverContext,
+  PreviewSource,
   UploadedFileInfo,
   UseDropZoneProps,
 } from "./types";
