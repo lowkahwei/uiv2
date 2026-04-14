@@ -32,6 +32,7 @@ export function useDropZone(originalProps: UseDropZoneProps) {
     title = "Drop files here",
     icon,
     hideIcon = false,
+    isPreview = false,
     fileList,
     defaultFileList,
     accept,
@@ -54,6 +55,7 @@ export function useDropZone(originalProps: UseDropZoneProps) {
   const shouldFilterDOMProps = typeof Component === "string";
   const isDisabled = originalProps.isDisabled ?? false;
   const isInvalid = originalProps.isInvalid ?? false;
+  const resolvedMaxFiles = isPreview ? 1 : maxFiles;
   const disableAnimation =
     originalProps.disableAnimation ?? globalContext?.disableAnimation ?? false;
   const acceptedFileTypes = useMemo(() => normalizeAccept(accept), [accept]);
@@ -72,7 +74,7 @@ export function useDropZone(originalProps: UseDropZoneProps) {
     fileList,
     defaultFileList,
     maxFileSize,
-    maxFiles,
+    maxFiles: resolvedMaxFiles,
     disableAnimation,
     onChange,
     onDrop,
@@ -81,7 +83,8 @@ export function useDropZone(originalProps: UseDropZoneProps) {
     onUploadSuccess,
     onUploadError,
   });
-  const hasInvalidState = isInvalid || !!validationMessage;
+  const hasUploadError = uploadCards.some((card) => card.uploadState?.status === "error");
+  const hasInvalidState = isInvalid || hasUploadError || !!validationMessage;
 
   const openFileDialog = useCallback(() => {
     if (isDisabled) return;
@@ -158,6 +161,7 @@ export function useDropZone(originalProps: UseDropZoneProps) {
       isDisabled,
       hasInvalidState,
       isInvalid,
+      hasUploadError,
       validationMessage,
       errorMessage,
       uploadCards,
@@ -227,10 +231,10 @@ export function useDropZone(originalProps: UseDropZoneProps) {
       className: "hidden",
       accept: acceptedFileTypes.length > 0 ? acceptedFileTypes.join(",") : undefined,
       disabled: isDisabled,
-      multiple: maxFiles > 1,
+      multiple: resolvedMaxFiles > 1,
       onChange: handleFileChange,
     }),
-    [inputRef, acceptedFileTypes, isDisabled, maxFiles, handleFileChange],
+    [inputRef, acceptedFileTypes, isDisabled, resolvedMaxFiles, handleFileChange],
   );
 
   return {
@@ -239,7 +243,7 @@ export function useDropZone(originalProps: UseDropZoneProps) {
     title,
     icon,
     hideIcon,
-    maxFiles,
+    maxFiles: resolvedMaxFiles,
     state,
     disableAnimation,
     clearUploadedFiles,

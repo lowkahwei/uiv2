@@ -352,12 +352,26 @@ export function useDropZoneState({
           nextUploadCards[emptyCardIndex] = {
             ...nextUploadCards[emptyCardIndex],
             uploadedFile,
+            uploadState: {
+              ...nextUploadCards[emptyCardIndex].uploadState,
+              status: "idle",
+              progress: 0,
+              file,
+              error: undefined,
+            },
           };
 
           return;
         }
 
-        nextUploadCards.push(createUploadCard(uploadedFile));
+        nextUploadCards.push({
+          ...createUploadCard(uploadedFile),
+          uploadState: {
+            status: "idle",
+            progress: 0,
+            file,
+          },
+        });
       });
 
       const normalizedUploadCards = normalizeUploadCards(nextUploadCards, false);
@@ -470,6 +484,7 @@ export function useDropZoneState({
         return {
           ...card,
           uploadedFile: null,
+          uploadState: undefined,
         };
       });
       const nextUploadedFiles = getUploadedFiles(nextUploadCards);

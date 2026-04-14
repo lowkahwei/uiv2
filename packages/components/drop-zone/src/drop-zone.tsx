@@ -3,7 +3,7 @@ import type {DropZoneCardRenderProps} from "./card/types";
 
 import {forwardRef} from "@heroui/system";
 import {AnimatePresence, LazyMotion, domAnimation, m} from "framer-motion";
-import {useMemo} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 
 import {CARD_CONTENT_TRANSITION, UPLOAD_CARD_LIST_ITEM_MOTION} from "./card/constants";
 import {UploadCard} from "./card/upload-card";
@@ -12,7 +12,15 @@ import {useDropZone} from "./use-drop-zone";
 
 export type {DropZoneProps} from "./types";
 
+interface PreviewEntry {
+  file?: File;
+  source: "object-url" | "remote-url";
+  value: string;
+}
+
 const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
+  const {isPreview = false} = props;
+
   const {
     Component,
     children,
@@ -46,9 +54,13 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     getFileInfoProps,
     getFileNameProps,
     getFileMetaProps,
+    getPreviewWrapperProps,
+    getPreviewImageProps,
     getTitleProps,
     getHelperTextProps,
   } = useDropZone({...props, ref});
+  const previewEntriesRef = useRef<Record<string, PreviewEntry>>({});
+  const [previewUrls, setPreviewUrls] = useState<Record<string, string>>({});
 
   const sharedCardProps = useMemo<
     Omit<
@@ -162,6 +174,78 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
   );
 
   const hasDetailCard = state.uploadCards.some((card) => card.uploadedFile !== null);
+  const previewCards = state.uploadCards.filter((card) => {
+    return card.uploadedFile?.type.startsWith("image/") && previewUrls[card.id];
+  });
+
+  useEffect(() => {
+    const nextPreviewEntries: Record<string, PreviewEntry> = {};
+
+    state.uploadCards.forEach((card) => {
+      if (!card.uploadedFile?.type.startsWith("image/")) {
+        return;
+      }
+
+      const resultUrl =
+        typeof card.uploadState?.result?.url === "string" ? card.uploadState.result.url : null;
+
+      if (resultUrl) {
+        nextPreviewEntries[card.id] = {
+          source: "remote-url",
+          value: resultUrl,
+        };
+
+        return;
+      }
+
+      const file = card.uploadState?.file;
+
+      if (!file?.type.startsWith("image/")) {
+        return;
+      }
+
+      const previousEntry = previewEntriesRef.current[card.id];
+
+      if (
+        previousEntry?.source === "object-url" &&
+        previousEntry.file === file &&
+        previousEntry.value
+      ) {
+        nextPreviewEntries[card.id] = previousEntry;
+
+        return;
+      }
+
+      nextPreviewEntries[card.id] = {
+        file,
+        source: "object-url",
+        value: URL.createObjectURL(file),
+      };
+    });
+
+    Object.entries(previewEntriesRef.current).forEach(([cardId, entry]) => {
+      if (entry.source === "object-url" && nextPreviewEntries[cardId] !== entry) {
+        URL.revokeObjectURL(entry.value);
+      }
+    });
+
+    previewEntriesRef.current = nextPreviewEntries;
+    setPreviewUrls(
+      Object.fromEntries(
+        Object.entries(nextPreviewEntries).map(([cardId, entry]) => [cardId, entry.value]),
+      ),
+    );
+  }, [state.uploadCards]);
+
+  useEffect(() => {
+    return () => {
+      Object.values(previewEntriesRef.current).forEach((entry) => {
+        if (entry.source === "object-url") {
+          URL.revokeObjectURL(entry.value);
+        }
+      });
+    };
+  }, []);
 
   const content =
     typeof children === "function" ? (
@@ -171,6 +255,18 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     ) : (
       <div {...getContentProps()}>
         {cards}
+        {isPreview && previewCards.length > 0 ? (
+          <div {...getPreviewWrapperProps()}>
+            {previewCards.map((card) => (
+              <img
+                key={`${card.id}-preview`}
+                alt={card.uploadedFile?.name ?? "Uploaded image preview"}
+                src={previewUrls[card.id]}
+                {...getPreviewImageProps()}
+              />
+            ))}
+          </div>
+        ) : null}
         {title && !hasDetailCard ? <div {...getTitleProps()}>{title}</div> : null}
         {state.validationMessage ? (
           <div {...getHelperTextProps()}>{state.validationMessage}</div>

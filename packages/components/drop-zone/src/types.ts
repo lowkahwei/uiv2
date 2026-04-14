@@ -94,6 +94,13 @@ export interface DropZoneBaseProps
    */
   hideIcon?: boolean;
   /**
+   * Whether to render image previews below uploaded cards in the default layout.
+   * Only files with an image MIME type and an available local File object or upload result URL
+   * can be previewed.
+   * @default false
+   */
+  isPreview?: boolean;
+  /**
    * Controlled uploaded files.
    */
   fileList?: UploadedFileInfo[];

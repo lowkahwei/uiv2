@@ -509,6 +509,20 @@ const UploadProgressStatesTemplate = (args: DropZoneProps) => {
   );
 };
 
+const PreviewTemplate = (args: DropZoneProps) => {
+  return (
+    <div className="flex max-w-2xl flex-col gap-4">
+      <div className="rounded-large border border-default-200 bg-default-50 p-4">
+        <p className="text-small font-medium text-foreground">Image preview</p>
+        <p className="mt-2 text-small text-default-500">
+          Select or drop image files to render responsive previews below the upload cards.
+        </p>
+      </div>
+      <DropZone aria-label="Image preview drop zone" {...args} />
+    </div>
+  );
+};
+
 export const Default = {
   render: PlaygroundTemplate,
   args: {
@@ -614,6 +628,7 @@ export const SupabaseRestUpload = {
     title: "Upload images to Supabase Storage via REST API",
     accept: "image/*",
     maxFiles: 3,
+    isPreview: true,
     color: "primary",
   },
 };
@@ -623,6 +638,18 @@ export const UploadProgressStates = {
   args: {
     ...defaultProps,
     title: "Upload progress states",
+    color: "primary",
+  },
+};
+
+export const ImagePreview = {
+  render: PreviewTemplate,
+  args: {
+    ...defaultProps,
+    title: "Upload image assets with preview",
+    accept: "image/*",
+    maxFiles: 1,
+    isPreview: true,
     color: "primary",
   },
 };

@@ -47,6 +47,9 @@ const dropZone = tv({
     fileInfo: "min-w-0 flex-1",
     fileName: "truncate text-small font-semibold text-foreground",
     fileMeta: "mt-1 flex flex-wrap items-center gap-2 text-tiny text-default-500",
+    previewWrapper: "flex w-full flex-col gap-3",
+    previewImage:
+      "block h-auto max-h-[24rem] w-full rounded-large border border-default-200 bg-default-50 object-contain",
     title: "text-medium font-semibold leading-6 text-foreground",
     helperText: "text-tiny leading-5 text-default-400",
   },
@@ -102,6 +105,7 @@ const dropZone = tv({
         icon: "size-8",
         fileName: "text-medium",
         fileMeta: "text-small",
+        previewImage: "max-h-[28rem]",
         title: "text-large",
       },
     },

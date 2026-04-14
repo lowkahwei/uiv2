@@ -3,7 +3,7 @@ export const UPLOAD_CARD_DIMENSIONS = {
   dropTargetSize: 90,
   idleSize: 80,
   uploadedHeight: 70,
-  borderRadius: 24,
+  borderRadius: 18,
   dropTargetScale: 1.03,
 } as const;
 

@@ -60,6 +60,8 @@ export function useDropZoneSlots({
       getFileInfoProps: createSlotPropGetter("fileInfo"),
       getFileNameProps: createSlotPropGetter("fileName"),
       getFileMetaProps: createSlotPropGetter("fileMeta"),
+      getPreviewWrapperProps: createSlotPropGetter("previewWrapper"),
+      getPreviewImageProps: createSlotPropGetter("previewImage"),
       getTitleProps: createSlotPropGetter("title"),
       getHelperTextProps: createSlotPropGetter("helperText"),
     };
