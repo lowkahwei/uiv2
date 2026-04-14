@@ -174,6 +174,9 @@ const dropZone = tv({
         iconWrapper: "transition-[background-color,color,transform] duration-200 ease-out",
       },
     },
+    hasPreviewImage: {
+      true: {},
+    },
   },
   defaultVariants: {
     variant: "bordered",
@@ -183,6 +186,27 @@ const dropZone = tv({
     disableAnimation: false,
   },
   compoundVariants: [
+    {
+      size: "sm",
+      hasPreviewImage: true,
+      class: {
+        base: "min-h-20 gap-2.5 px-2 py-2 border-none",
+      },
+    },
+    {
+      size: "md",
+      hasPreviewImage: true,
+      class: {
+        base: "min-h-32 gap-3 px-2 py-2 border-none",
+      },
+    },
+    {
+      size: "lg",
+      hasPreviewImage: true,
+      class: {
+        base: "min-h-40 gap-4 px-2 py-2 border-none",
+      },
+    },
     {
       color: "default",
       isInvalid: false,

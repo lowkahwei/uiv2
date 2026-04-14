@@ -85,6 +85,7 @@ export function useDropZone(originalProps: UseDropZoneProps) {
   });
   const hasUploadError = uploadCards.some((card) => card.uploadState?.status === "error");
   const hasInvalidState = isInvalid || hasUploadError || !!validationMessage;
+  const hasPreviewImage = isPreview && uploadedFiles.some((file) => file.type.startsWith("image/"));
 
   const openFileDialog = useCallback(() => {
     if (isDisabled) return;
@@ -133,9 +134,17 @@ export function useDropZone(originalProps: UseDropZoneProps) {
         isDisabled,
         isInvalid: hasInvalidState,
         disableAnimation,
+        hasPreviewImage,
         className,
       }),
-    [objectToDeps(variantProps), isDisabled, hasInvalidState, disableAnimation, className],
+    [
+      objectToDeps(variantProps),
+      isDisabled,
+      hasInvalidState,
+      disableAnimation,
+      hasPreviewImage,
+      className,
+    ],
   );
   const slotProps = useDropZoneSlots({slots, classNames});
 
