@@ -1,6 +1,6 @@
 import type {Meta} from "@storybook/react";
 import type {DropItem, DropZoneProps, FileDropItem, TextDropItem} from "../src";
-import type {DropZoneCardRenderProps} from "../src/card/types";
+import type {DropZoneCardRenderProps, DropZoneCardSlotProps} from "../src/card/types";
 
 import React from "react";
 import {dropZone} from "@heroui/theme";
@@ -590,23 +590,7 @@ const ProgressPreviewCard = ({args, progress}: {args: DropZoneProps; progress: n
     ...args,
     defaultFileList: [previewFile],
   });
-
-  const cardProps: DropZoneCardRenderProps = {
-    hideIcon: hideIcon ?? false,
-    icon,
-    state,
-    title,
-    disableAnimation: true,
-    uploadedFile: previewFile,
-    uploadedFileSize: "2.4 MB",
-    uploadedFileType: "PNG",
-    removeUploadedFile: () => undefined,
-    retryUpload: () => undefined,
-    uploadState: {
-      status: "uploading",
-      progress,
-      file: new File(["preview"], previewFile.name, {type: previewFile.type}),
-    },
+  const slotProps: DropZoneCardSlotProps = {
     getUploadTriggerProps,
     getUploadCardWrapperProps,
     getUploadCardProps,
@@ -626,6 +610,25 @@ const ProgressPreviewCard = ({args, progress}: {args: DropZoneProps; progress: n
     getFileMetaProps,
     getIconProps,
     getIconWrapperProps,
+  };
+
+  const cardProps: DropZoneCardRenderProps = {
+    hideIcon: hideIcon ?? false,
+    icon,
+    state,
+    title,
+    disableAnimation: true,
+    slotProps,
+    uploadedFile: previewFile,
+    uploadedFileSize: "2.4 MB",
+    uploadedFileType: "PNG",
+    removeUploadedFile: () => undefined,
+    retryUpload: () => undefined,
+    uploadState: {
+      status: "uploading",
+      progress,
+      file: new File(["preview"], previewFile.name, {type: previewFile.type}),
+    },
   };
 
   return <UploadCard cardProps={cardProps} />;

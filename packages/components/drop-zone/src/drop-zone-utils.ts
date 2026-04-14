@@ -2,6 +2,20 @@ export function extractMimeSubtype(type: string) {
   return type.split("/").at(-1)?.split("+").at(0)?.trim();
 }
 
+export function getUploadedFileKey(
+  file: {name: string; size: number; type: string} | null | undefined,
+) {
+  if (!file) return "";
+
+  return `${file.name}::${file.size}::${file.type}`;
+}
+
+export function getLocalFilePreviewKey(file: File | null | undefined) {
+  if (!file) return "";
+
+  return `${file.name}::${file.size}::${file.type}::${file.lastModified}`;
+}
+
 export function formatFileSize(size: number) {
   if (!Number.isFinite(size) || size <= 0) return "0 B";
 

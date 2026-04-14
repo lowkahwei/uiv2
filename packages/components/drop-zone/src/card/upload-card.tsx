@@ -23,24 +23,14 @@ export function UploadCard({
   isInteractive = false,
   onContentAnimationComplete,
 }: UploadCardProps) {
-  const {
-    disableAnimation,
-    state,
-    uploadedFile,
-    getUploadTriggerProps,
-    getUploadCardWrapperProps,
-    getUploadCardProps,
-    getUploadCardOverlayProps,
-    getUploadedContentProps,
-    getIdleContentProps,
-  } = cardProps;
-  const uploadCardWrapperProps = getUploadCardWrapperProps(
-    isInteractive ? getUploadTriggerProps() : undefined,
+  const {disableAnimation, slotProps, state, uploadedFile} = cardProps;
+  const uploadCardWrapperProps = slotProps.getUploadCardWrapperProps(
+    isInteractive ? slotProps.getUploadTriggerProps() : undefined,
   );
-  const uploadCardProps = getUploadCardProps();
-  const uploadCardOverlayProps = getUploadCardOverlayProps();
-  const uploadedContentProps = getUploadedContentProps();
-  const idleContentProps = getIdleContentProps();
+  const uploadCardProps = slotProps.getUploadCardProps();
+  const uploadCardOverlayProps = slotProps.getUploadCardOverlayProps();
+  const uploadedContentProps = slotProps.getUploadedContentProps();
+  const idleContentProps = slotProps.getIdleContentProps();
   const uploadedContent = <DetailCard {...cardProps} />;
   const idleContent = <IdleCard {...cardProps} />;
 

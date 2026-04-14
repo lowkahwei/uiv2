@@ -51,6 +51,7 @@ function getUploadErrorMessage(error: unknown) {
 export function DetailCard({
   hideIcon,
   icon,
+  slotProps,
   uploadedFile,
   uploadState,
   removeUploadedFile,
@@ -59,19 +60,11 @@ export function DetailCard({
   uploadedFileType,
   previewError,
   previewErrorMessage,
-  getDetailCardProps,
-  getClearButtonProps,
-  getClearButtonIconProps,
-  getFileIconWrapperProps,
-  getFileIconProps,
-  getFileTypeBadgeProps,
-  getFileInfoProps,
-  getFileNameProps,
-  getFileMetaProps,
 }: Pick<
   DropZoneCardRenderProps,
   | "hideIcon"
   | "icon"
+  | "slotProps"
   | "uploadedFile"
   | "uploadState"
   | "removeUploadedFile"
@@ -80,15 +73,6 @@ export function DetailCard({
   | "uploadedFileType"
   | "previewError"
   | "previewErrorMessage"
-  | "getDetailCardProps"
-  | "getClearButtonProps"
-  | "getClearButtonIconProps"
-  | "getFileIconWrapperProps"
-  | "getFileIconProps"
-  | "getFileTypeBadgeProps"
-  | "getFileInfoProps"
-  | "getFileNameProps"
-  | "getFileMetaProps"
 >) {
   const isUploading = uploadState?.status === "uploading";
   const isUploadError = uploadState?.status === "error";
@@ -102,7 +86,7 @@ export function DetailCard({
     : null;
   const clearButton = (
     <button
-      {...getClearButtonProps({
+      {...slotProps.getClearButtonProps({
         "aria-label": DROP_ZONE_CARD_LABELS.removeUploadedFile,
         className: isError ? "!static shrink-0 !translate-y-0" : undefined,
         type: "button",
@@ -113,27 +97,27 @@ export function DetailCard({
         },
       })}
     >
-      <TrashIcon {...getClearButtonIconProps()} />
+      <TrashIcon {...slotProps.getClearButtonIconProps()} />
     </button>
   );
 
   return (
-    <div {...getDetailCardProps()}>
+    <div {...slotProps.getDetailCardProps()}>
       {!isError ? clearButton : null}
       {!hideIcon && (
-        <div {...getFileIconWrapperProps()}>
+        <div {...slotProps.getFileIconWrapperProps()}>
           {icon ? (
-            <span {...getFileIconProps()}>{icon}</span>
+            <span {...slotProps.getFileIconProps()}>{icon}</span>
           ) : (
-            <FileCardIcon {...getFileIconProps()} />
+            <FileCardIcon {...slotProps.getFileIconProps()} />
           )}
-          <span {...getFileTypeBadgeProps()}>{uploadedFileType}</span>
+          <span {...slotProps.getFileTypeBadgeProps()}>{uploadedFileType}</span>
         </div>
       )}
-      <div {...getFileInfoProps({className: isError ? "pr-28" : "pr-10"})}>
-        <div {...getFileNameProps()}>{displayName}</div>
+      <div {...slotProps.getFileInfoProps({className: isError ? "pr-28" : "pr-10"})}>
+        <div {...slotProps.getFileNameProps()}>{displayName}</div>
         <div
-          {...getFileMetaProps({
+          {...slotProps.getFileMetaProps({
             className: isError ? "max-w-full" : undefined,
           })}
         >

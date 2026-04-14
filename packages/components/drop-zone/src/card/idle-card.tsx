@@ -7,30 +7,19 @@ import {DROP_ZONE_CARD_LABELS} from "./constants";
 export function IdleCard({
   hideIcon,
   icon,
+  slotProps,
   title,
   state,
-  getIdleCardProps,
-  getIdleLabelProps,
-  getIconProps,
-  getIconWrapperProps,
-}: Pick<
-  DropZoneCardRenderProps,
-  | "hideIcon"
-  | "icon"
-  | "title"
-  | "state"
-  | "getIdleCardProps"
-  | "getIdleLabelProps"
-  | "getIconProps"
-  | "getIconWrapperProps"
->) {
+}: Pick<DropZoneCardRenderProps, "hideIcon" | "icon" | "slotProps" | "title" | "state">) {
   return (
-    <div {...getIdleCardProps()}>
+    <div {...slotProps.getIdleCardProps()}>
       {!hideIcon && (
-        <div {...getIconWrapperProps()}>{icon ?? <UploadIcon {...getIconProps()} />}</div>
+        <div {...slotProps.getIconWrapperProps()}>
+          {icon ?? <UploadIcon {...slotProps.getIconProps()} />}
+        </div>
       )}
       {hideIcon ? (
-        <span {...getIdleLabelProps()}>
+        <span {...slotProps.getIdleLabelProps()}>
           {state.isDropTarget ? DROP_ZONE_CARD_LABELS.releaseToUpload : title}
         </span>
       ) : null}
