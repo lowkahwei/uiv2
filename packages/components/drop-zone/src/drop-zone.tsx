@@ -2,7 +2,7 @@ import type {DropZoneProps} from "./types";
 import type {DropZoneCardRenderProps, DropZoneCardSlotProps} from "./card/types";
 
 import {forwardRef} from "@heroui/system";
-import {AnimatePresence, LazyMotion, domAnimation, m} from "framer-motion";
+import {LazyMotion, domAnimation, m} from "framer-motion";
 import {useMemo} from "react";
 
 import {CARD_CONTENT_TRANSITION, UPLOAD_CARD_LIST_ITEM_MOTION} from "./card/constants";
@@ -149,22 +149,18 @@ const DropZone = forwardRef<"div", DropZoneProps>((props, ref) => {
     </div>
   ) : (
     <LazyMotion features={domAnimation}>
-      <m.div layout className="flex w-full flex-col items-center gap-3">
-        <AnimatePresence initial={false}>
-          {state.uploadCards.map((card) => (
-            <m.div
-              key={card.id}
-              layout
-              animate={UPLOAD_CARD_LIST_ITEM_MOTION.animate}
-              className="w-full"
-              exit={UPLOAD_CARD_LIST_ITEM_MOTION.exit}
-              initial={UPLOAD_CARD_LIST_ITEM_MOTION.initial}
-              transition={CARD_CONTENT_TRANSITION}
-            >
-              {renderCard(card)}
-            </m.div>
-          ))}
-        </AnimatePresence>
+      <m.div className="flex w-full flex-col items-center gap-3">
+        {state.uploadCards.map((card) => (
+          <m.div
+            key={card.id}
+            animate={UPLOAD_CARD_LIST_ITEM_MOTION.animate}
+            className="w-full"
+            initial={UPLOAD_CARD_LIST_ITEM_MOTION.initial}
+            transition={CARD_CONTENT_TRANSITION}
+          >
+            {renderCard(card)}
+          </m.div>
+        ))}
       </m.div>
     </LazyMotion>
   );

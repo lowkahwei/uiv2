@@ -1,6 +1,6 @@
 import type {DropZoneCardRenderProps} from "./types";
 
-import {AnimatePresence, m} from "framer-motion";
+import {m} from "framer-motion";
 
 import {
   CARD_CONTENT_TRANSITION,
@@ -80,35 +80,31 @@ export function UploadCard({
         transition={UPLOAD_CARD_SPRING_TRANSITION}
       >
         <div {...uploadCardOverlayProps} />
-        <AnimatePresence initial={false} mode="wait">
-          {uploadedFile ? (
-            <m.div
-              key={UPLOADED_CONTENT_MOTION.key}
-              animate={UPLOADED_CONTENT_MOTION.animate}
-              className={uploadedContentProps.className}
-              data-slot={uploadedContentProps["data-slot"]}
-              exit={UPLOADED_CONTENT_MOTION.exit}
-              initial={UPLOADED_CONTENT_MOTION.initial}
-              transition={CARD_CONTENT_TRANSITION}
-              onAnimationComplete={onContentAnimationComplete}
-            >
-              {uploadedContent}
-            </m.div>
-          ) : (
-            <m.div
-              key={IDLE_CONTENT_MOTION.key}
-              animate={IDLE_CONTENT_MOTION.animate}
-              className={idleContentProps.className}
-              data-slot={idleContentProps["data-slot"]}
-              exit={IDLE_CONTENT_MOTION.exit}
-              initial={IDLE_CONTENT_MOTION.initial}
-              transition={CARD_CONTENT_TRANSITION}
-              onAnimationComplete={onContentAnimationComplete}
-            >
-              {idleContent}
-            </m.div>
-          )}
-        </AnimatePresence>
+        {uploadedFile ? (
+          <m.div
+            key={UPLOADED_CONTENT_MOTION.key}
+            animate={UPLOADED_CONTENT_MOTION.animate}
+            className={uploadedContentProps.className}
+            data-slot={uploadedContentProps["data-slot"]}
+            initial={UPLOADED_CONTENT_MOTION.initial}
+            transition={CARD_CONTENT_TRANSITION}
+            onAnimationComplete={onContentAnimationComplete}
+          >
+            {uploadedContent}
+          </m.div>
+        ) : (
+          <m.div
+            key={IDLE_CONTENT_MOTION.key}
+            animate={IDLE_CONTENT_MOTION.animate}
+            className={idleContentProps.className}
+            data-slot={idleContentProps["data-slot"]}
+            initial={IDLE_CONTENT_MOTION.initial}
+            transition={CARD_CONTENT_TRANSITION}
+            onAnimationComplete={onContentAnimationComplete}
+          >
+            {idleContent}
+          </m.div>
+        )}
       </m.div>
     </div>
   );
