@@ -156,8 +156,7 @@ export function useDropZonePreviews({
       previewState.base = nextBaseEntry;
       previewStateRef.current[card.id] = previewState;
 
-      const shouldResolvePreview =
-        !!previewResolver && (card.uploadState?.status === "success" || !card.uploadState?.file);
+      const shouldResolvePreview = !!previewResolver && !nextBaseEntry;
 
       if (!shouldResolvePreview) {
         previewState.abortController?.abort();
@@ -191,13 +190,14 @@ export function useDropZonePreviews({
 
       previewState.abortController = controller;
 
-      void Promise.resolve(
-        previewResolver({
-          uploadedFile: card.uploadedFile,
-          uploadState: card.uploadState,
-          signal: controller.signal,
-        }),
-      )
+      void Promise.resolve()
+        .then(() =>
+          previewResolver({
+            uploadedFile: card.uploadedFile,
+            uploadState: card.uploadState,
+            signal: controller.signal,
+          }),
+        )
         .then((previewSource) => {
           if (controller.signal.aborted) {
             return;

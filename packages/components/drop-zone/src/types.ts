@@ -161,6 +161,8 @@ export interface DropZoneBaseProps
   isPreview?: boolean;
   /**
    * Optionally resolves image previews for uploaded files that are not directly public.
+   * This is only used when the component does not already have a directly previewable source,
+   * such as a local File object or a public upload result URL.
    * Return a string URL, Blob, or File. Blob/File values are converted to object URLs internally.
    */
   previewResolver?: PreviewResolver;
