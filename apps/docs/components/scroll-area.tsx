@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {ScrollArea as HeroUIScrollArea, ScrollBar as HeroUIScrollBar, cn} from "@heroui/react";
+import {ScrollArea as HeroUIScrollArea, cn} from "@heroui/react";
 
 const ScrollArea = React.forwardRef<
   HTMLDivElement,
@@ -20,11 +20,4 @@ const ScrollArea = React.forwardRef<
 
 ScrollArea.displayName = "DocsScrollArea";
 
-const ScrollBar = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentPropsWithoutRef<typeof HeroUIScrollBar>
->((props, ref) => <HeroUIScrollBar ref={ref} {...props} />);
-
-ScrollBar.displayName = "DocsScrollBar";
-
-export {ScrollArea, ScrollBar};
+export {ScrollArea};

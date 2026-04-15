@@ -5,10 +5,11 @@ import {ScrollArea, Tab, Tabs} from "@heroui/react";
 export default function BlocksTabs() {
   return (
     <ScrollArea
-      hideScrollBar
+      // hideScrollBar
       shadow
       className="max-w-full"
       orientation="horizontal"
+      scrollBehavior="outside"
       scrollbarProps={{
         className: "md:flex",
       }}

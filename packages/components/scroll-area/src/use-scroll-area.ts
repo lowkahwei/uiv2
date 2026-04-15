@@ -24,6 +24,7 @@ type ScrollbarProps = React.ComponentPropsWithoutRef<
 >;
 type ThumbProps = React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.ScrollAreaThumb>;
 type CornerProps = React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Corner>;
+export type ScrollBarBehavior = "inside" | "outside";
 
 interface Props extends Omit<RootProps, "children">, Omit<UseDataScrollOverflowProps, "domRef"> {
   /**
@@ -73,6 +74,11 @@ interface Props extends Omit<RootProps, "children">, Omit<UseDataScrollOverflowP
    * @default "vertical"
    */
   orientation?: ScrollOverflowCheck;
+  /**
+   * Controls whether the scrollbar is positioned inside or outside the root.
+   * @default "inside"
+   */
+  scrollBehavior?: ScrollBarBehavior;
 }
 
 export type UseScrollAreaProps = Props & ScrollAreaVariantProps;
@@ -93,6 +99,7 @@ export function useScrollArea(originalProps: UseScrollAreaProps) {
     scrollbarProps,
     thumbProps,
     cornerProps,
+    scrollBehavior = "inside",
     offset = 0,
     visibility = "auto",
     isEnabled = true,
@@ -135,6 +142,30 @@ export function useScrollArea(originalProps: UseScrollAreaProps) {
     [shadow, orientation],
   );
 
+  const outsideBaseStyles = useMemo(() => {
+    if (scrollBehavior !== "outside") return "";
+    if (orientation === "horizontal") return "flex flex-col";
+    if (orientation === "vertical") return "flex flex-row";
+
+    return "";
+  }, [scrollBehavior, orientation]);
+
+  const outsideViewportStyles = useMemo(() => {
+    if (scrollBehavior !== "outside") return "";
+    if (orientation === "horizontal") return "min-h-0 flex-1";
+    if (orientation === "vertical") return "min-w-0 flex-1";
+
+    return "";
+  }, [scrollBehavior, orientation]);
+
+  const outsideScrollbarStyles = useMemo(() => {
+    if (scrollBehavior !== "outside") return "";
+    if (orientation === "horizontal") return "w-full shrink-0";
+    if (orientation === "vertical") return "shrink-0";
+
+    return "";
+  }, [scrollBehavior, orientation]);
+
   const getBaseProps = useCallback<PropGetter>(
     (props = {}) => {
       const mergedProps = mergeProps(otherProps, props);
@@ -143,10 +174,12 @@ export function useScrollArea(originalProps: UseScrollAreaProps) {
         ...mergedProps,
         ref: domRef,
         "data-slot": "base",
-        className: slots.base({class: cn(classNames?.base, className, mergedProps.className)}),
+        className: slots.base({
+          class: cn(classNames?.base, outsideBaseStyles, className, mergedProps.className),
+        }),
       };
     },
-    [domRef, slots, classNames?.base, className, otherProps],
+    [domRef, slots, classNames?.base, outsideBaseStyles, className, otherProps],
   );
 
   const getViewportProps = useCallback(
@@ -166,6 +199,7 @@ export function useScrollArea(originalProps: UseScrollAreaProps) {
         className: slots.viewport({
           class: cn(
             classNames?.viewport,
+            outsideViewportStyles,
             viewportShadowStyles,
             viewportProps?.className,
             props.className,
@@ -189,6 +223,7 @@ export function useScrollArea(originalProps: UseScrollAreaProps) {
       shadowSize,
       scrollViewPortRef,
       orientation,
+      outsideViewportStyles,
     ],
   );
 
@@ -202,12 +237,19 @@ export function useScrollArea(originalProps: UseScrollAreaProps) {
         "data-orientation": scrollbarOrientation,
         forceMount: mergedProps.forceMount ?? true,
         orientation: scrollbarOrientation,
+        style:
+          scrollBehavior === "outside"
+            ? {
+                ...mergedProps.style,
+                position: undefined,
+              }
+            : mergedProps.style,
         className: slots.scrollbar({
-          class: cn(classNames?.scrollbar, mergedProps.className),
+          class: cn(classNames?.scrollbar, outsideScrollbarStyles, mergedProps.className),
         }),
       };
     },
-    [slots, classNames?.scrollbar, scrollbarProps],
+    [slots, classNames?.scrollbar, scrollbarProps, scrollBehavior, outsideScrollbarStyles],
   );
 
   const getThumbProps = useCallback(
