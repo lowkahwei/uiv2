@@ -3,7 +3,6 @@ import type {PropGetter} from "@heroui/system";
 import type {ReactRef} from "@heroui/react-utils";
 import type {
   ScrollOverflowCheck,
-  ScrollOverflowVisibility,
   UseDataScrollOverflowProps,
 } from "@heroui/use-data-scroll-overflow";
 import type * as React from "react";
@@ -25,6 +24,26 @@ type ScrollbarProps = React.ComponentPropsWithoutRef<
 type ThumbProps = React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.ScrollAreaThumb>;
 type CornerProps = React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Corner>;
 export type ScrollBarBehavior = "inside" | "outside";
+
+const emptyOutsideStyles = {
+  base: "",
+  viewport: "",
+  scrollbar: "",
+} as const;
+
+const outsideStylesByOrientation = {
+  horizontal: {
+    base: "flex flex-col",
+    viewport: "min-h-0 flex-1",
+    scrollbar: "w-full shrink-0",
+  },
+  vertical: {
+    base: "flex flex-row",
+    viewport: "min-w-0 flex-1",
+    scrollbar: "shrink-0",
+  },
+  both: emptyOutsideStyles,
+} as const;
 
 interface Props extends Omit<RootProps, "children">, Omit<UseDataScrollOverflowProps, "domRef"> {
   /**
@@ -99,6 +118,7 @@ export function useScrollArea(originalProps: UseScrollAreaProps) {
     scrollbarProps,
     thumbProps,
     cornerProps,
+    orientation = "vertical",
     scrollBehavior = "inside",
     offset = 0,
     visibility = "auto",
@@ -110,7 +130,8 @@ export function useScrollArea(originalProps: UseScrollAreaProps) {
 
   const domRef = useDOMRef<HTMLDivElement>(ref);
   const viewportRef = useRef<HTMLDivElement>(null);
-  const orientation = originalProps.orientation ?? "vertical";
+  const outsideStyles =
+    scrollBehavior === "outside" ? outsideStylesByOrientation[orientation] : emptyOutsideStyles;
 
   useDataScrollOverflow({
     domRef: viewportRef,
@@ -118,18 +139,11 @@ export function useScrollArea(originalProps: UseScrollAreaProps) {
     visibility,
     isEnabled: shadow && isEnabled,
     onVisibilityChange,
-    updateDeps: [children, onScroll, ...updateDeps],
+    updateDeps,
     overflowCheck: orientation,
   });
 
-  const slots = useMemo(
-    () =>
-      scrollArea({
-        ...variantProps,
-        orientation,
-      }),
-    [objectToDeps(variantProps), orientation],
-  );
+  const slots = useMemo(() => scrollArea(variantProps), [objectToDeps(variantProps)]);
 
   const viewportShadowStyles = useMemo(
     () =>
@@ -142,30 +156,6 @@ export function useScrollArea(originalProps: UseScrollAreaProps) {
     [shadow, orientation],
   );
 
-  const outsideBaseStyles = useMemo(() => {
-    if (scrollBehavior !== "outside") return "";
-    if (orientation === "horizontal") return "flex flex-col";
-    if (orientation === "vertical") return "flex flex-row";
-
-    return "";
-  }, [scrollBehavior, orientation]);
-
-  const outsideViewportStyles = useMemo(() => {
-    if (scrollBehavior !== "outside") return "";
-    if (orientation === "horizontal") return "min-h-0 flex-1";
-    if (orientation === "vertical") return "min-w-0 flex-1";
-
-    return "";
-  }, [scrollBehavior, orientation]);
-
-  const outsideScrollbarStyles = useMemo(() => {
-    if (scrollBehavior !== "outside") return "";
-    if (orientation === "horizontal") return "w-full shrink-0";
-    if (orientation === "vertical") return "shrink-0";
-
-    return "";
-  }, [scrollBehavior, orientation]);
-
   const getBaseProps = useCallback<PropGetter>(
     (props = {}) => {
       const mergedProps = mergeProps(otherProps, props);
@@ -175,11 +165,11 @@ export function useScrollArea(originalProps: UseScrollAreaProps) {
         ref: domRef,
         "data-slot": "base",
         className: slots.base({
-          class: cn(classNames?.base, outsideBaseStyles, className, mergedProps.className),
+          class: cn(classNames?.base, outsideStyles.base, className, mergedProps.className),
         }),
       };
     },
-    [domRef, slots, classNames?.base, outsideBaseStyles, className, otherProps],
+    [domRef, slots, classNames?.base, outsideStyles.base, className, otherProps],
   );
 
   const getViewportProps = useCallback(
@@ -199,7 +189,7 @@ export function useScrollArea(originalProps: UseScrollAreaProps) {
         className: slots.viewport({
           class: cn(
             classNames?.viewport,
-            outsideViewportStyles,
+            outsideStyles.viewport,
             viewportShadowStyles,
             viewportProps?.className,
             props.className,
@@ -223,7 +213,7 @@ export function useScrollArea(originalProps: UseScrollAreaProps) {
       shadowSize,
       scrollViewPortRef,
       orientation,
-      outsideViewportStyles,
+      outsideStyles.viewport,
     ],
   );
 
@@ -235,7 +225,6 @@ export function useScrollArea(originalProps: UseScrollAreaProps) {
         ...mergedProps,
         "data-slot": "scrollbar" as const,
         "data-orientation": scrollbarOrientation,
-        forceMount: mergedProps.forceMount ?? true,
         orientation: scrollbarOrientation,
         style:
           scrollBehavior === "outside"
@@ -245,11 +234,11 @@ export function useScrollArea(originalProps: UseScrollAreaProps) {
               }
             : mergedProps.style,
         className: slots.scrollbar({
-          class: cn(classNames?.scrollbar, outsideScrollbarStyles, mergedProps.className),
+          class: cn(classNames?.scrollbar, outsideStyles.scrollbar, mergedProps.className),
         }),
       };
     },
-    [slots, classNames?.scrollbar, scrollbarProps, scrollBehavior, outsideScrollbarStyles],
+    [slots, classNames?.scrollbar, scrollbarProps, scrollBehavior, outsideStyles.scrollbar],
   );
 
   const getThumbProps = useCallback(
@@ -288,7 +277,6 @@ export function useScrollArea(originalProps: UseScrollAreaProps) {
     domRef,
     viewportRef,
     orientation,
-    visibility: visibility as ScrollOverflowVisibility,
     showVerticalScrollbar: orientation === "vertical" || orientation === "both",
     showHorizontalScrollbar: orientation === "horizontal" || orientation === "both",
     getBaseProps,

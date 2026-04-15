@@ -45,11 +45,6 @@ const scrollArea = tv({
     corner: ["bg-transparent"],
   },
   variants: {
-    orientation: {
-      vertical: {},
-      horizontal: {},
-      both: {},
-    },
     size: {
       sm: {
         scrollbar: [
@@ -83,7 +78,6 @@ const scrollArea = tv({
     },
   },
   defaultVariants: {
-    orientation: "vertical",
     size: "md",
     hideScrollBar: false,
     hideScrollBarOnMobile: false,

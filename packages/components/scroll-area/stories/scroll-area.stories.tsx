@@ -232,7 +232,6 @@ export const OutsideScrollbar: Story = {
     ...defaultProps,
     orientation: "horizontal",
     scrollBehavior: "outside",
-    className: "w-[520px] rounded-2xl border border-default-200 bg-content1 p-3",
   },
 };
 
