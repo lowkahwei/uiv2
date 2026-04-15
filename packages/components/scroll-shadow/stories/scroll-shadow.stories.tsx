@@ -13,7 +13,7 @@ export default {
   argTypes: {
     orientation: {
       control: {type: "select"},
-      options: ["horizontal", "vertical"],
+      options: ["horizontal", "vertical", "both"],
     },
     offset: {
       control: {type: "number"},
@@ -39,7 +39,7 @@ export default {
 
 const defaultProps = {
   ...scrollShadow.defaultVariants,
-  visible: "auto",
+  visibility: "auto",
   className: "w-[300px] h-[400px]",
   children: <Lorem count={10} />,
 };
@@ -53,19 +53,28 @@ const ControlledTemplate = ({children, ...args}: ScrollShadowProps) => {
   const states: Record<ScrollShadowOrientation, ScrollShadowVisibility[]> = {
     ["vertical"]: ["top", "bottom", "both"],
     ["horizontal"]: ["left", "right", "both"],
+    ["both"]: ["top", "bottom", "left", "right", "both"],
   };
 
-  const orientationStates: ScrollShadowOrientation[] = ["vertical", "horizontal"];
+  const orientationStates: ScrollShadowOrientation[] = ["vertical", "horizontal", "both"];
 
   return (
     <div className="flex flex-col gap-3">
       <ScrollShadow
         {...args}
-        className={orientation === "horizontal" ? "max-w-[300px] max-h-[400px]" : args.className}
+        className={
+          orientation === "horizontal" || orientation === "both"
+            ? "max-w-[300px] max-h-[400px]"
+            : args.className
+        }
         orientation={orientation}
-        visible={visible}
+        visibility={visible}
       >
-        {orientation === "horizontal" ? <div className="w-[800px]">{children}</div> : children}
+        {orientation === "horizontal" || orientation === "both" ? (
+          <div className="w-[800px]">{children}</div>
+        ) : (
+          children
+        )}
       </ScrollShadow>
       <p className="text-default-500">Orientation: {orientation}</p>
       <p className="text-default-500">Visible state: {visible}</p>
@@ -79,6 +88,8 @@ const ControlledTemplate = ({children, ...args}: ScrollShadowProps) => {
             onClick={() => {
               if (o === "horizontal") {
                 setVisible("left");
+              } else if (o === "both") {
+                setVisible("both");
               } else {
                 setVisible("top");
               }

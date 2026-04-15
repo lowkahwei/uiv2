@@ -27,6 +27,7 @@ export * from "@heroui/table";
 export * from "@heroui/tabs";
 export * from "@heroui/skeleton";
 export * from "@heroui/scroll-shadow";
+export * from "@heroui/scroll-area";
 export * from "@heroui/select";
 export * from "@heroui/listbox";
 export * from "@heroui/menu";

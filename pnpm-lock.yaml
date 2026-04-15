@@ -2428,6 +2428,37 @@ importers:
         specifier: 18.3.0
         version: 18.3.0(react@18.3.0)
 
+  packages/components/scroll-area:
+    dependencies:
+      '@heroui/react-utils':
+        specifier: workspace:*
+        version: link:../../utilities/react-utils
+      '@heroui/shared-utils':
+        specifier: workspace:*
+        version: link:../../utilities/shared-utils
+      '@heroui/use-data-scroll-overflow':
+        specifier: workspace:*
+        version: link:../../hooks/use-data-scroll-overflow
+      '@radix-ui/react-scroll-area':
+        specifier: ^1.0.5
+        version: 1.2.9(@types/react-dom@18.2.4)(@types/react@18.2.8)(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+    devDependencies:
+      '@heroui/system':
+        specifier: workspace:*
+        version: link:../../core/system
+      '@heroui/theme':
+        specifier: workspace:*
+        version: link:../../core/theme
+      clean-package:
+        specifier: 2.2.0
+        version: 2.2.0
+      react:
+        specifier: 18.3.0
+        version: 18.3.0
+      react-dom:
+        specifier: 18.3.0
+        version: 18.3.0(react@18.3.0)
+
   packages/components/scroll-shadow:
     dependencies:
       '@heroui/react-utils':
@@ -3242,6 +3273,9 @@ importers:
       '@heroui/ripple':
         specifier: workspace:*
         version: link:../../components/ripple
+      '@heroui/scroll-area':
+        specifier: workspace:*
+        version: link:../../components/scroll-area
       '@heroui/scroll-shadow':
         specifier: workspace:*
         version: link:../../components/scroll-shadow

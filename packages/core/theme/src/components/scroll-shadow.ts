@@ -31,6 +31,7 @@ const scrollShadow = tv({
     orientation: {
       vertical: ["overflow-y-auto", ...verticalShadow],
       horizontal: ["overflow-x-auto", ...horizontalShadow],
+      both: ["overflow-auto", ...verticalShadow, ...horizontalShadow],
     },
     hideScrollBar: {
       true: "scrollbar-hide",

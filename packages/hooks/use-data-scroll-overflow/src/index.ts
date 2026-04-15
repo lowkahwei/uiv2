@@ -76,6 +76,9 @@ export function useDataScrollOverflow(props: UseDataScrollOverflowProps = {}) {
 
     if (!el || !isEnabled) return;
 
+    let resizeObserver: ResizeObserver | undefined;
+    let mutationObserver: MutationObserver | undefined;
+
     const setAttributes = (
       direction: string,
       hasBefore: boolean,
@@ -145,12 +148,42 @@ export function useDataScrollOverflow(props: UseDataScrollOverflowProps = {}) {
     checkOverflow();
     el.addEventListener("scroll", checkOverflow, true);
 
+    if (typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(checkOverflow);
+      resizeObserver.observe(el);
+
+      const listbox = el.querySelector('ul[data-slot="list"]');
+
+      if (listbox instanceof HTMLElement) {
+        resizeObserver.observe(listbox);
+      }
+    }
+
+    if (typeof MutationObserver !== "undefined") {
+      mutationObserver = new MutationObserver(checkOverflow);
+      mutationObserver.observe(el, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: [
+          "data-virtual-scroll-height",
+          "data-virtual-scroll-top",
+          "style",
+          "class",
+        ],
+      });
+    }
+
     // controlled
     if (visibility !== "auto") {
       clearOverflow();
       if (visibility === "both") {
-        el.dataset.topBottomScroll = String(overflowCheck === "vertical");
-        el.dataset.leftRightScroll = String(overflowCheck === "horizontal");
+        el.dataset.topBottomScroll = String(
+          overflowCheck === "vertical" || overflowCheck === "both",
+        );
+        el.dataset.leftRightScroll = String(
+          overflowCheck === "horizontal" || overflowCheck === "both",
+        );
       } else {
         el.dataset.topBottomScroll = "false";
         el.dataset.leftRightScroll = "false";
@@ -163,6 +196,8 @@ export function useDataScrollOverflow(props: UseDataScrollOverflowProps = {}) {
 
     return () => {
       el.removeEventListener("scroll", checkOverflow, true);
+      resizeObserver?.disconnect();
+      mutationObserver?.disconnect();
       clearOverflow();
     };
   }, [...updateDeps, isEnabled, visibility, overflowCheck, onVisibilityChange, domRef]);
