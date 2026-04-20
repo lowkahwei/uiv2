@@ -21,7 +21,7 @@ import {colorVariants, dataFocusVisibleClasses} from "../utils";
  */
 const pagination = tv({
   slots: {
-    base: ["p-2.5", "-m-2.5", "overflow-x-scroll", "scrollbar-hide"],
+    base: ["overflow-x-scroll", "scrollbar-hide"],
     wrapper: [
       "flex",
       "flex-nowrap",
