@@ -15,6 +15,30 @@ export default {
     heroui({
       addCommonColors: true,
       themes: {
+        "light": {
+          "colors": {
+            "default": {
+              "50": "#fdfdfd",
+              "100": "#ecebeb",
+              "200": "#e2e1e1",
+              "300": "#d6d5d5",
+              "400": "#c8c7c7",
+              "500": "#b8b7b7",
+              "600": "#999999",
+              "700": "#767676",
+              "800": "#545454",
+              "900": "#2f2f2f",
+              "foreground": "#111111",
+              "DEFAULT": "#ecebeb"
+            },
+            "background": "#f5f5f5"
+          }
+        },
+        "dark": {
+          "colors": {
+            "background": "#111111",
+          }
+        }
         // "dark": {
         //   extend: "dark", // <- inherit default values from dark theme
         //   colors: {

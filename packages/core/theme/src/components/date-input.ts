@@ -45,8 +45,8 @@ const dateInput = tv({
     variant: {
       flat: {
         inputWrapper: [
-          "bg-default-100",
-          "hover:bg-default-200",
+          "bg-default-50 border border-default-100",
+          "hover:bg-default-100",
           "focus-within:hover:bg-default-100",
           // isInvalid=true
           "group-data-[invalid=true]:bg-danger-50",

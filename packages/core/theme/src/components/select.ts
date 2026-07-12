@@ -68,7 +68,7 @@ const select = tv({
       faded: {
         trigger: [
           "bg-default-100",
-          "border-medium",
+          "border",
           "border-default-200",
           "data-[hover=true]:border-default-400 data-[focus=true]:border-default-400 data-[open=true]:border-default-400",
         ],
@@ -275,7 +275,12 @@ const select = tv({
       color: "default",
       class: {
         value: "group-data-[has-value=true]:text-default-foreground",
-        trigger: ["bg-default-100", "data-[hover=true]:bg-default-200"],
+        trigger: [
+          "bg-default-50",
+          "data-[hover=true]:bg-default-100",
+          "border",
+          "border-default-200",
+        ],
       },
     },
     {

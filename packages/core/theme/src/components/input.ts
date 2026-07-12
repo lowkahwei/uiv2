@@ -39,7 +39,7 @@ const input = tv({
     ],
     mainWrapper: "h-full",
     inputWrapper:
-      "relative w-full inline-flex tap-highlight-transparent flex-row items-center shadow-xs px-3 gap-3",
+      "relative w-full inline-flex tap-highlight-transparent flex-row items-center shadow-xs border border-default-100 px-3 gap-3",
     innerWrapper: "inline-flex w-full items-center h-full box-border",
     input: [
       "w-full font-normal bg-transparent !outline-solid outline-transparent placeholder:text-foreground-500 focus-visible:outline-solid outline-transparent",
@@ -78,14 +78,14 @@ const input = tv({
     variant: {
       flat: {
         inputWrapper: [
-          "bg-default-100",
-          "data-[hover=true]:bg-default-200",
+          "bg-default-50",
+          "data-[hover=true]:bg-default-100",
           "group-data-[focus=true]:bg-default-100",
         ],
       },
       faded: {
         inputWrapper: [
-          "bg-default-100",
+          "bg-default-50",
           "border-medium",
           "border-default-200",
           "data-[hover=true]:border-default-400 focus-within:border-default-400",
@@ -97,8 +97,8 @@ const input = tv({
           "border-medium",
           "border-default-200",
           "data-[hover=true]:border-default-400",
-          "group-data-[focus=true]:border-default-foreground",
-          "group-data-[focus=true]:data-[hover=true]:border-default-foreground",
+          "group-data-[focus=true]:border-default-400",
+          "group-data-[focus=true]:data-[hover=true]:border-default-400",
         ],
       },
       underlined: {
