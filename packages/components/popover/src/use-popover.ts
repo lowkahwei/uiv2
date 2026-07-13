@@ -1,22 +1,22 @@
-import type {PopoverVariantProps, SlotsToClasses, PopoverSlots} from "@heroui/theme";
+import type {PopoverVariantProps, SlotsToClasses, PopoverSlots} from "@sytechui/theme";
 import type {HTMLMotionProps} from "framer-motion";
 import type {PressEvent} from "@react-types/shared";
 import type {RefObject, Ref} from "react";
-import type {ReactRef} from "@heroui/react-utils";
+import type {ReactRef} from "@sytechui/react-utils";
 import type {OverlayTriggerState} from "@react-stately/overlays";
 import type {OverlayTriggerProps} from "@react-types/overlays";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
 import type {AriaDialogProps} from "@react-aria/dialog";
 import type {ReactAriaPopoverProps} from "./use-aria-popover";
 
-import {useDOMRef} from "@heroui/react-utils";
+import {useDOMRef} from "@sytechui/react-utils";
 import {useOverlayTriggerState} from "@react-stately/overlays";
 import {useFocusRing} from "@react-aria/focus";
 import {useOverlayTrigger, usePreventScroll} from "@react-aria/overlays";
-import {getShouldUseAxisPlacement, getArrowPlacement} from "@heroui/aria-utils";
-import {mapPropsVariants, useProviderContext} from "@heroui/system";
-import {popover, cn} from "@heroui/theme";
-import {dataAttr, objectToDeps, mergeProps, mergeRefs} from "@heroui/shared-utils";
+import {getShouldUseAxisPlacement, getArrowPlacement} from "@sytechui/aria-utils";
+import {mapPropsVariants, useProviderContext} from "@sytechui/system";
+import {popover, cn} from "@sytechui/theme";
+import {dataAttr, objectToDeps, mergeProps, mergeRefs} from "@sytechui/shared-utils";
 import {useMemo, useCallback, useRef} from "react";
 
 import {useReactAriaPopover} from "./use-aria-popover";

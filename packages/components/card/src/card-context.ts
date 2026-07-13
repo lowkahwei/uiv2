@@ -1,6 +1,6 @@
 import type {ContextType} from "./use-card";
 
-import {createContext} from "@heroui/react-utils";
+import {createContext} from "@sytechui/react-utils";
 
 export const [CardProvider, useCardContext] = createContext<ContextType>({
   name: "CardContext",

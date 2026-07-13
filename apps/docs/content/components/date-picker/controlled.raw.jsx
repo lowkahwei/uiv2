@@ -1,4 +1,4 @@
-import {DatePicker} from "@heroui/react";
+import {DatePicker} from "@sytechui/react";
 import {parseDate, getLocalTimeZone} from "@internationalized/date";
 import {useDateFormatter} from "@react-aria/i18n";
 

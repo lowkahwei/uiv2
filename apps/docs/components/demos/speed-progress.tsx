@@ -1,7 +1,7 @@
-import type {VariantProps, CircularProgressProps} from "@heroui/react";
+import type {VariantProps, CircularProgressProps} from "@sytechui/react";
 import type {FC} from "react";
 
-import {tv, CircularProgress, circularProgress} from "@heroui/react";
+import {tv, CircularProgress, circularProgress} from "@sytechui/react";
 
 const speedProgress = tv({
   extend: circularProgress,

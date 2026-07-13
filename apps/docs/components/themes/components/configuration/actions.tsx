@@ -1,6 +1,6 @@
 import type {ThemeType} from "../../types";
 
-import {Button, Tooltip} from "@heroui/react";
+import {Button, Tooltip} from "@sytechui/react";
 import {Icon} from "@iconify/react/dist/offline";
 import SunIcon from "@iconify/icons-solar/sun-linear";
 import MoonIcon from "@iconify/icons-solar/moon-linear";

@@ -1,4 +1,4 @@
-# @heroui/calendar
+# @sytechui/calendar
 
 A calendar displays one or more date grids and allows users to select a single date.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/docs/components/calendar)
 ## Installation
 
 ```sh
-yarn add @heroui/calendar
+yarn add @sytechui/calendar
 # or
-npm i @heroui/calendar
+npm i @sytechui/calendar
 ```
 
 ## Contribution

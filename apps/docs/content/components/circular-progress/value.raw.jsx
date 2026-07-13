@@ -1,4 +1,4 @@
-import {CircularProgress} from "@heroui/react";
+import {CircularProgress} from "@sytechui/react";
 
 export default function App() {
   const [value, setValue] = React.useState(0);

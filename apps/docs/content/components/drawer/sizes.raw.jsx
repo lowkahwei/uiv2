@@ -6,7 +6,7 @@ import {
   DrawerFooter,
   Button,
   useDisclosure,
-} from "@heroui/react";
+} from "@sytechui/react";
 
 export default function App() {
   const {isOpen, onOpen, onClose} = useDisclosure();

@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/date-input",
+  "name": "@sytechui/date-input",
   "version": "2.3.32",
   "description": "A date input allows users to enter and edit date and time values using a keyboard.",
   "keywords": [
@@ -34,15 +34,15 @@
     "postpack": "clean-package restore"
   },
   "peerDependencies": {
-    "@heroui/system": ">=2.4.18",
-    "@heroui/theme": ">=2.4.24",
+    "@sytechui/system": ">=2.4.18",
+    "@sytechui/theme": ">=2.4.24",
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0"
   },
   "dependencies": {
-    "@heroui/form": "workspace:*",
-    "@heroui/react-utils": "workspace:*",
-    "@heroui/shared-utils": "workspace:*",
+    "@sytechui/form": "workspace:*",
+    "@sytechui/react-utils": "workspace:*",
+    "@sytechui/shared-utils": "workspace:*",
     "@internationalized/date": "3.12.0",
     "@react-aria/datepicker": "3.16.1",
     "@react-aria/i18n": "3.12.16",
@@ -51,10 +51,10 @@
     "@react-types/shared": "3.33.1"
   },
   "devDependencies": {
-    "@heroui/system": "workspace:*",
-    "@heroui/theme": "workspace:*",
-    "@heroui/shared-icons": "workspace:*",
-    "@heroui/test-utils": "workspace:*",
+    "@sytechui/system": "workspace:*",
+    "@sytechui/theme": "workspace:*",
+    "@sytechui/shared-icons": "workspace:*",
+    "@sytechui/test-utils": "workspace:*",
     "clean-package": "2.2.0",
     "react": "18.3.0",
     "react-dom": "18.3.0"

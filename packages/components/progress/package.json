@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/progress",
+  "name": "@sytechui/progress",
   "version": "2.2.25",
   "description": "Progress bars show either determinate or indeterminate progress of an operation over time.",
   "keywords": [
@@ -36,21 +36,21 @@
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0",
-    "@heroui/theme": ">=2.4.24",
-    "@heroui/system": ">=2.4.18"
+    "@sytechui/theme": ">=2.4.24",
+    "@sytechui/system": ">=2.4.18"
   },
   "dependencies": {
-    "@heroui/shared-utils": "workspace:*",
-    "@heroui/react-utils": "workspace:*",
-    "@heroui/use-is-mounted": "workspace:*",
+    "@sytechui/shared-utils": "workspace:*",
+    "@sytechui/react-utils": "workspace:*",
+    "@sytechui/use-is-mounted": "workspace:*",
     "@react-aria/progress": "3.4.30",
     "@react-types/progress": "3.5.18"
   },
   "devDependencies": {
-    "@heroui/theme": "workspace:*",
-    "@heroui/system": "workspace:*",
-    "@heroui/card": "workspace:*",
-    "@heroui/chip": "workspace:*",
+    "@sytechui/theme": "workspace:*",
+    "@sytechui/system": "workspace:*",
+    "@sytechui/card": "workspace:*",
+    "@sytechui/chip": "workspace:*",
     "clean-package": "2.2.0",
     "react": "18.3.0",
     "react-dom": "18.3.0"

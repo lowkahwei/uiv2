@@ -7,8 +7,8 @@ import {
   TableCell,
   Spinner,
   getKeyValue,
-} from "@heroui/react";
-import {useInfiniteScroll} from "@heroui/use-infinite-scroll";
+} from "@sytechui/react";
+import {useInfiniteScroll} from "@sytechui/use-infinite-scroll";
 import {useAsyncList} from "@react-stately/data";
 
 export default function App() {

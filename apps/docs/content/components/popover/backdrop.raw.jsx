@@ -1,4 +1,4 @@
-import {Popover, PopoverTrigger, PopoverContent, Button, Input} from "@heroui/react";
+import {Popover, PopoverTrigger, PopoverContent, Button, Input} from "@sytechui/react";
 
 export default function App() {
   const backdrops = ["opaque", "blur", "transparent"];

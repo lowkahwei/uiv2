@@ -9,8 +9,8 @@ import {
   Switch,
   Spinner,
   Pagination,
-} from "@heroui/react";
-import {MoonFilledIcon, SunFilledIcon} from "@heroui/shared-icons";
+} from "@sytechui/react";
+import {MoonFilledIcon, SunFilledIcon} from "@sytechui/shared-icons";
 import {useTheme} from "next-themes";
 import NextImage from "next/image";
 

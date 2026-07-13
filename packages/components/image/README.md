@@ -1,4 +1,4 @@
-# @heroui/image
+# @sytechui/image
 
 The Image component is used to display images with support for fallback.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/docs/components/image) fo
 ## Installation
 
 ```sh
-yarn add @heroui/image
+yarn add @sytechui/image
 # or
-npm i @heroui/image
+npm i @sytechui/image
 ```
 
 ## Contribution

@@ -1,7 +1,7 @@
-import type {TimeInputValue} from "@heroui/react";
+import type {TimeInputValue} from "@sytechui/react";
 
 import React from "react";
-import {TimeInput} from "@heroui/react";
+import {TimeInput} from "@sytechui/react";
 import {parseAbsoluteToLocal, Time, ZonedDateTime} from "@internationalized/date";
 import {useDateFormatter} from "@react-aria/i18n";
 

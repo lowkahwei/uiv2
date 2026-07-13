@@ -2,19 +2,19 @@ import type {ValidationResult} from "@react-types/shared";
 import type {ChangeEvent} from "react";
 import type {Meta} from "@storybook/react";
 import type {Selection} from "@react-types/shared";
-import type {Pokemon, Animal, User} from "@heroui/stories-utils";
+import type {Pokemon, Animal, User} from "@sytechui/stories-utils";
 import type {SelectedItems, SelectProps} from "../src";
 
 import React from "react";
 import {useForm} from "react-hook-form";
-import {select, button} from "@heroui/theme";
-import {PetBoldIcon, SelectorIcon} from "@heroui/shared-icons";
-import {Avatar} from "@heroui/avatar";
-import {Chip} from "@heroui/chip";
-import {Button} from "@heroui/button";
-import {useInfiniteScroll} from "@heroui/use-infinite-scroll";
-import {usePokemonList, animalsData, usersData} from "@heroui/stories-utils";
-import {Form} from "@heroui/form";
+import {select, button} from "@sytechui/theme";
+import {PetBoldIcon, SelectorIcon} from "@sytechui/shared-icons";
+import {Avatar} from "@sytechui/avatar";
+import {Chip} from "@sytechui/chip";
+import {Button} from "@sytechui/button";
+import {useInfiniteScroll} from "@sytechui/use-infinite-scroll";
+import {usePokemonList, animalsData, usersData} from "@sytechui/stories-utils";
+import {Form} from "@sytechui/form";
 
 import {Select, SelectItem, SelectSection} from "../src";
 

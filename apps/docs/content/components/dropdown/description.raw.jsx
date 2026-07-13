@@ -1,4 +1,4 @@
-import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, cn} from "@heroui/react";
+import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, cn} from "@sytechui/react";
 
 export const AddNoteIcon = (props) => {
   return (

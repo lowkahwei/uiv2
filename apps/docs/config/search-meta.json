@@ -10802,14 +10802,14 @@
     }
   },
   {
-    "content": "Install @heroui/use-theme",
+    "content": "Install @sytechui/use-theme",
     "objectID": "23078088-4677-4e4a-906d-2a1d561d3462",
     "type": "lvl3",
     "url": "/docs/customization/dark-mode#install-herouiuse-theme",
     "hierarchy": {
       "lvl1": "Dark mode",
       "lvl2": "Using use-theme hook",
-      "lvl3": "Install @heroui/use-theme"
+      "lvl3": "Install @sytechui/use-theme"
     }
   },
   {
@@ -10819,7 +10819,7 @@
     "url": "/docs/customization/dark-mode#add-the-theme-switcher-2",
     "hierarchy": {
       "lvl1": "Dark mode",
-      "lvl2": "Install @heroui/use-theme",
+      "lvl2": "Install @sytechui/use-theme",
       "lvl3": "Add the theme switcher"
     }
   },

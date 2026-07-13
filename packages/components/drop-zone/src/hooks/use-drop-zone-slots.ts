@@ -1,8 +1,8 @@
-import type {PropGetter} from "@heroui/system";
+import type {PropGetter} from "@sytechui/system";
 import type {UseDropZoneProps} from "../types";
-import type {dropZone} from "@heroui/theme";
+import type {dropZone} from "@sytechui/theme";
 
-import {cn} from "@heroui/theme";
+import {cn} from "@sytechui/theme";
 import {useMemo} from "react";
 
 type DropZoneSlotFns = ReturnType<typeof dropZone>;

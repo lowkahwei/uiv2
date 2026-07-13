@@ -1,6 +1,6 @@
 import type {ComponentProps, FC} from "react";
 
-import {cn, table} from "@heroui/theme";
+import {cn, table} from "@sytechui/theme";
 
 const tableSlots = table();
 

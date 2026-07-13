@@ -2,7 +2,7 @@ import type {Meta} from "@storybook/react";
 import type {CalendarProps, DateValue} from "../src";
 
 import React from "react";
-import {calendar} from "@heroui/theme";
+import {calendar} from "@sytechui/theme";
 import {
   today,
   parseDate,
@@ -12,10 +12,10 @@ import {
   startOfMonth,
 } from "@internationalized/date";
 import {I18nProvider, useLocale} from "@react-aria/i18n";
-import {Button, ButtonGroup} from "@heroui/button";
-import {Radio, RadioGroup} from "@heroui/radio";
-import {cn} from "@heroui/theme";
-import {HeroUIProvider} from "@heroui/system";
+import {Button, ButtonGroup} from "@sytechui/button";
+import {Radio, RadioGroup} from "@sytechui/radio";
+import {cn} from "@sytechui/theme";
+import {HeroUIProvider} from "@sytechui/system";
 
 import {Calendar} from "../src";
 

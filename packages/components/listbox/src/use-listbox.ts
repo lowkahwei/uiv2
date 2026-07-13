@@ -1,19 +1,19 @@
 import type {KeyboardDelegate} from "@react-types/shared";
 import type {AriaListBoxProps} from "@react-aria/listbox";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
-import type {ListboxVariantProps, ListboxSlots, SlotsToClasses} from "@heroui/theme";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
+import type {ListboxVariantProps, ListboxSlots, SlotsToClasses} from "@sytechui/theme";
 import type {ListState} from "@react-stately/list";
-import type {ReactRef} from "@heroui/react-utils";
+import type {ReactRef} from "@sytechui/react-utils";
 import type {ReactNode} from "react";
 import type {ListboxItemProps} from "./listbox-item";
 
 import {useListBox as useAriaListbox} from "@react-aria/listbox";
-import {useProviderContext} from "@heroui/system";
-import {listbox} from "@heroui/theme";
+import {useProviderContext} from "@sytechui/system";
+import {listbox} from "@sytechui/theme";
 import {useListState} from "@react-stately/list";
-import {filterDOMProps, useDOMRef} from "@heroui/react-utils";
+import {filterDOMProps, useDOMRef} from "@sytechui/react-utils";
 import {useMemo} from "react";
-import {cn} from "@heroui/theme";
+import {cn} from "@sytechui/theme";
 
 interface AriaListBoxOptions<T> extends AriaListBoxProps<T> {
   /** Whether the listbox uses virtual scrolling. */

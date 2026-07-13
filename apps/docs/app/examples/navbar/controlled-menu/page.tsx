@@ -10,7 +10,7 @@ import {
   NavbarMenuToggle,
   Button,
   Link,
-} from "@heroui/react";
+} from "@sytechui/react";
 import React from "react";
 
 const AcmeLogo = () => (

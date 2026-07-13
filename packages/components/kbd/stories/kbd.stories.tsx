@@ -1,6 +1,6 @@
 import type {Meta} from "@storybook/react";
 
-import {kbd} from "@heroui/theme";
+import {kbd} from "@sytechui/theme";
 
 import {Kbd} from "../src";
 

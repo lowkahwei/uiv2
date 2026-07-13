@@ -31,7 +31,7 @@ export function useStackblitz(props: UseSandpackProps) {
   });
 
   // in stackblitz, npm will be used to install dependencies
-  // it doesn't need `public-hoist-pattern[]=*@heroui/*`
+  // it doesn't need `public-hoist-pattern[]=*@sytechui/*`
   const filteredFilesData = Object.keys(filesData).reduce((o, k) => {
     o[k] = filesData[k];
 

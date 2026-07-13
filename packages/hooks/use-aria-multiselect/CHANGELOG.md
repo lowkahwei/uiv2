@@ -1,4 +1,4 @@
-# @heroui/use-aria-multiselect
+# @sytechui/use-aria-multiselect
 
 ## 2.4.21
 
@@ -100,7 +100,7 @@
   #### System & Core
 
   - add useInputLabelPlacement
-  - remove `@heroui/aria-utils` dependency
+  - remove `@sytechui/aria-utils` dependency
 
   #### Hooks & Utilities
 

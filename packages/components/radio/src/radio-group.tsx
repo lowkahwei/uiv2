@@ -1,6 +1,6 @@
 import type {UseRadioGroupProps} from "./use-radio-group";
 
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 
 import {RadioGroupProvider} from "./radio-group-context";
 import {useRadioGroup} from "./use-radio-group";

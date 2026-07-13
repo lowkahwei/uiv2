@@ -5,9 +5,9 @@ import type {TimeInputProps} from "../src";
 import * as React from "react";
 import {fireEvent, render} from "@testing-library/react";
 import {Time, ZonedDateTime} from "@internationalized/date";
-import {pointerMap, triggerPress} from "@heroui/test-utils";
+import {pointerMap, triggerPress} from "@sytechui/test-utils";
 import userEvent from "@testing-library/user-event";
-import {HeroUIProvider} from "@heroui/system";
+import {HeroUIProvider} from "@sytechui/system";
 
 import {TimeInput as TimeInputBase} from "../src";
 

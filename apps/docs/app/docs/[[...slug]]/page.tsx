@@ -3,7 +3,7 @@ import type {Route} from "@/libs/docs/page";
 
 import {notFound} from "next/navigation";
 import {allDocs} from "contentlayer2/generated";
-import {Link, ToastProvider} from "@heroui/react";
+import {Link, ToastProvider} from "@sytechui/react";
 
 import {MDXContent} from "@/components/mdx-content";
 import {siteConfig} from "@/config/site";

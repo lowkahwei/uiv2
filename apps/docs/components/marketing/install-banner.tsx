@@ -1,10 +1,10 @@
 "use client";
 
-import {Button, Link} from "@heroui/react";
-import {ArrowRightIcon} from "@heroui/shared-icons";
-import {cn} from "@heroui/theme";
+import {Button, Link} from "@sytechui/react";
+import {ArrowRightIcon} from "@sytechui/shared-icons";
+import {cn} from "@sytechui/theme";
 import NextLink from "next/link";
-import {Code} from "@heroui/react";
+import {Code} from "@sytechui/react";
 import {usePostHog} from "posthog-js/react";
 
 import {FeaturesGrid} from "./features-grid";

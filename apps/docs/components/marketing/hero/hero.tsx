@@ -1,8 +1,8 @@
 "use client";
 
 import NextLink from "next/link";
-import {Button, Link, Snippet} from "@heroui/react";
-import {ArrowRightIcon} from "@heroui/shared-icons";
+import {Button, Link, Snippet} from "@sytechui/react";
+import {ArrowRightIcon} from "@sytechui/shared-icons";
 import dynamic from "next/dynamic";
 import {usePostHog} from "posthog-js/react";
 

@@ -1,4 +1,4 @@
-# @heroui/card
+# @sytechui/card
 
 Card is a container for text, photos, and actions in the context of a single subject.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/docs/components/card) for
 ## Installation
 
 ```sh
-yarn add @heroui/card
+yarn add @sytechui/card
 # or
-npm i @heroui/card
+npm i @sytechui/card
 ```
 
 ## Contribution

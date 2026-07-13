@@ -1,4 +1,4 @@
-# @heroui/use-pagination
+# @sytechui/use-pagination
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @heroui/use-pagination
+yarn add @sytechui/use-pagination
 # or
-npm i @heroui/use-pagination
+npm i @sytechui/use-pagination
 ```
 
 ## Contribution

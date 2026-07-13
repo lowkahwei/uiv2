@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { cn } from '@heroui/theme';
+import { cn } from '@sytechui/theme';
 import { TimePickerProps } from './types';
 import { useTimePicker } from './use-time-picker';
 import { TimePickerUnit } from './time-picker-unit';

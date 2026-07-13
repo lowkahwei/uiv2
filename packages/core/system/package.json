@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/system",
+  "name": "@sytechui/system",
   "version": "2.4.28",
   "description": "HeroUI system primitives",
   "keywords": [
@@ -54,8 +54,8 @@
     ]
   },
   "dependencies": {
-    "@heroui/react-utils": "workspace:*",
-    "@heroui/system-rsc": "workspace:*",
+    "@sytechui/react-utils": "workspace:*",
+    "@sytechui/system-rsc": "workspace:*",
     "@react-aria/i18n": "3.12.16",
     "@react-aria/overlays": "3.31.2",
     "@react-aria/utils": "3.33.1"

@@ -1,4 +1,4 @@
-import {Kbd} from "@heroui/react";
+import {Kbd} from "@sytechui/react";
 
 export default function App() {
   return (

@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-is-mobile",
+  "name": "@sytechui/use-is-mobile",
   "version": "2.2.12",
   "description": "A hook that returns whether the device is mobile or not",
   "keywords": [

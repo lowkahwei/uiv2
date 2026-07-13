@@ -1,7 +1,7 @@
 export const rootFile = `
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { HeroUIProvider } from "@heroui/react";
+import { HeroUIProvider } from "@sytechui/react";
 import App from "./App";
 import "./styles.css";
 
@@ -28,14 +28,14 @@ export const getHtmlFile = (theme: string, entryFile: string) => `<!DOCTYPE html
   </body>
 </html>`;
 
-export const tailwindConfig = `const { heroui } = require("@heroui/react");
+export const tailwindConfig = `const { heroui } = require("@sytechui/react");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./index.html",
     "./*.{js,ts,jsx,tsx}",
-    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@sytechui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {},
@@ -53,7 +53,7 @@ export const postcssConfig = `module.exports = {
 export const stylesConfig = `@import "tailwindcss";
 @config "./tailwind.config.js";`;
 
-export const npmrcConfig = `public-hoist-pattern[]=*@heroui/*`;
+export const npmrcConfig = `public-hoist-pattern[]=*@sytechui/*`;
 
 export const viteConfig = `import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";

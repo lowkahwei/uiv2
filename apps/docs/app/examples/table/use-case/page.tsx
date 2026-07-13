@@ -1,6 +1,6 @@
 "use client";
 
-import type {Selection, ChipProps, SortDescriptor} from "@heroui/react";
+import type {Selection, ChipProps, SortDescriptor} from "@sytechui/react";
 
 import {
   Table,
@@ -18,10 +18,10 @@ import {
   Chip,
   User,
   Pagination,
-} from "@heroui/react";
-import {ChevronDownIcon, SearchIcon} from "@heroui/shared-icons";
+} from "@sytechui/react";
+import {ChevronDownIcon, SearchIcon} from "@sytechui/shared-icons";
 import {useCallback, useMemo, useState} from "react";
-import {capitalize} from "@heroui/shared-utils";
+import {capitalize} from "@sytechui/shared-utils";
 
 import {PlusLinearIcon} from "@/components/icons";
 import {VerticalDotsIcon} from "@/components/icons/vertical-dots";

@@ -1,8 +1,8 @@
 import type {Meta} from "@storybook/react";
 
 import React from "react";
-import {Activity, Camera} from "@heroui/shared-icons";
-import {avatar} from "@heroui/theme";
+import {Activity, Camera} from "@sytechui/shared-icons";
+import {avatar} from "@sytechui/theme";
 
 import {Avatar} from "../src";
 

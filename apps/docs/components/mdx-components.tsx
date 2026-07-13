@@ -1,7 +1,7 @@
 import type {Language} from "prism-react-renderer";
 
-import {cn} from "@heroui/theme";
-import * as Components from "@heroui/react";
+import {cn} from "@sytechui/theme";
+import * as Components from "@sytechui/react";
 import NextImage from "next/image";
 import {usePostHog} from "posthog-js/react";
 

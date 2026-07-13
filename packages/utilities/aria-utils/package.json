@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/aria-utils",
+  "name": "@sytechui/aria-utils",
   "version": "2.2.29",
   "description": "A package for managing @react-aria HeroUI utils.",
   "keywords": [
@@ -38,7 +38,7 @@
     "react-dom": ">=18 || >=19.0.0-rc.0"
   },
   "dependencies": {
-    "@heroui/system": "workspace:*",
+    "@sytechui/system": "workspace:*",
     "@react-aria/utils": "3.33.1",
     "@react-stately/collections": "3.12.10",
     "@react-types/overlays": "3.9.4",

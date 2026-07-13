@@ -1,8 +1,8 @@
 import type {UseInputProps} from "./use-input";
 
-import {CloseFilledIcon} from "@heroui/shared-icons";
+import {CloseFilledIcon} from "@sytechui/shared-icons";
 import {useMemo} from "react";
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 
 import {useInput} from "./use-input";
 

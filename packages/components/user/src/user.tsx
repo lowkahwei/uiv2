@@ -1,7 +1,7 @@
 import type {UseUserProps} from "./use-user";
 
-import {forwardRef} from "@heroui/system";
-import {Avatar} from "@heroui/avatar";
+import {forwardRef} from "@sytechui/system";
+import {Avatar} from "@sytechui/avatar";
 
 import {useUser} from "./use-user";
 

@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-media-query",
+  "name": "@sytechui/use-media-query",
   "version": "2.0.0",
   "description": "A hook that manages media queries",
   "keywords": [
@@ -36,7 +36,7 @@
     "postpack": "clean-package restore"
   },
   "dependencies": {
-    "@heroui/use-safe-layout-effect": "workspace:*",
+    "@sytechui/use-safe-layout-effect": "workspace:*",
     "@react-aria/ssr": "3.9.10"
   },
   "peerDependencies": {

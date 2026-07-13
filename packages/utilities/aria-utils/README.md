@@ -1,4 +1,4 @@
-# @heroui/aria-utils
+# @sytechui/aria-utils
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @heroui/aria-utils
+yarn add @sytechui/aria-utils
 # or
-npm i @heroui/aria-utils
+npm i @sytechui/aria-utils
 ```
 
 ## Contribution

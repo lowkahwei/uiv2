@@ -1,4 +1,4 @@
-# @heroui/shared-icons
+# @sytechui/shared-icons
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @heroui/shared-icons
+yarn add @sytechui/shared-icons
 # or
-npm i @heroui/shared-icons
+npm i @sytechui/shared-icons
 ```
 
 ## Contribution

@@ -1,12 +1,12 @@
 import type {GridNode} from "@react-types/grid";
-import type {HTMLHeroUIProps} from "@heroui/system";
+import type {HTMLHeroUIProps} from "@sytechui/system";
 import type {ValuesType} from "./use-table";
 
-import {forwardRef} from "@heroui/system";
-import {useDOMRef, filterDOMProps} from "@heroui/react-utils";
-import {mergeProps} from "@heroui/shared-utils";
+import {forwardRef} from "@sytechui/system";
+import {useDOMRef, filterDOMProps} from "@sytechui/react-utils";
+import {mergeProps} from "@sytechui/shared-utils";
 import {useTableHeaderRow} from "@react-aria/table";
-import {cn} from "@heroui/theme";
+import {cn} from "@sytechui/theme";
 
 // @internal
 export interface TableHeaderRowProps<T = object> extends HTMLHeroUIProps<"tr"> {

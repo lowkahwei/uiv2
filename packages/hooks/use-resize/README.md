@@ -1,4 +1,4 @@
-# @heroui/use-resize
+# @sytechui/use-resize
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @heroui/use-resize
+yarn add @sytechui/use-resize
 # or
-npm i @heroui/use-resize
+npm i @sytechui/use-resize
 ```
 
 ## Contribution

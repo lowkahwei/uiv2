@@ -1,26 +1,26 @@
-import type {PopoverVariantProps, SlotsToClasses} from "@heroui/theme";
+import type {PopoverVariantProps, SlotsToClasses} from "@sytechui/theme";
 import type {AriaTooltipProps} from "@react-types/tooltip";
 import type {OverlayTriggerProps} from "@react-types/overlays";
 import type {AriaOverlayProps} from "@react-aria/overlays";
 import type {HTMLMotionProps} from "framer-motion";
-import type {OverlayOptions} from "@heroui/aria-utils";
+import type {OverlayOptions} from "@sytechui/aria-utils";
 import type {ReactNode, Ref} from "react";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
-import type {ReactRef} from "@heroui/react-utils";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
+import type {ReactRef} from "@sytechui/react-utils";
 
 import {useId, useImperativeHandle} from "react";
 import {useTooltipTriggerState} from "@react-stately/tooltip";
 import {useTooltip as useReactAriaTooltip, useTooltipTrigger} from "@react-aria/tooltip";
 import {useOverlayPosition} from "@react-aria/overlays";
-import {mapPropsVariants, useProviderContext} from "@heroui/system";
-import {popover, cn} from "@heroui/theme";
-import {dataAttr, objectToDeps, mergeProps} from "@heroui/shared-utils";
-import {mergeRefs} from "@heroui/react-utils";
-import {createDOMRef} from "@heroui/react-utils";
+import {mapPropsVariants, useProviderContext} from "@sytechui/system";
+import {popover, cn} from "@sytechui/theme";
+import {dataAttr, objectToDeps, mergeProps} from "@sytechui/shared-utils";
+import {mergeRefs} from "@sytechui/react-utils";
+import {createDOMRef} from "@sytechui/react-utils";
 import {useMemo, useRef, useCallback} from "react";
-import {toReactAriaPlacement, getArrowPlacement} from "@heroui/aria-utils";
-import {useSafeLayoutEffect} from "@heroui/use-safe-layout-effect";
-import {useAriaOverlay} from "@heroui/use-aria-overlay";
+import {toReactAriaPlacement, getArrowPlacement} from "@sytechui/aria-utils";
+import {useSafeLayoutEffect} from "@sytechui/use-safe-layout-effect";
+import {useAriaOverlay} from "@sytechui/use-aria-overlay";
 
 interface Props extends Omit<HTMLHeroUIProps, "content"> {
   /**

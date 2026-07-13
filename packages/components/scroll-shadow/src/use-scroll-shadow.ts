@@ -1,14 +1,14 @@
-import type {ScrollShadowVariantProps} from "@heroui/theme";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
-import type {ReactRef} from "@heroui/react-utils";
-import type {UseDataScrollOverflowProps} from "@heroui/use-data-scroll-overflow";
+import type {ScrollShadowVariantProps} from "@sytechui/theme";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
+import type {ReactRef} from "@sytechui/react-utils";
+import type {UseDataScrollOverflowProps} from "@sytechui/use-data-scroll-overflow";
 
-import {mapPropsVariants} from "@heroui/system";
-import {scrollShadow} from "@heroui/theme";
-import {useDOMRef} from "@heroui/react-utils";
-import {useDataScrollOverflow} from "@heroui/use-data-scroll-overflow";
+import {mapPropsVariants} from "@sytechui/system";
+import {scrollShadow} from "@sytechui/theme";
+import {useDOMRef} from "@sytechui/react-utils";
+import {useDataScrollOverflow} from "@sytechui/use-data-scroll-overflow";
 import {useMemo} from "react";
-import {objectToDeps} from "@heroui/shared-utils";
+import {objectToDeps} from "@sytechui/shared-utils";
 
 interface Props extends HTMLHeroUIProps<"div">, Omit<UseDataScrollOverflowProps, "domRef"> {
   /**

@@ -1,5 +1,5 @@
 import {forwardRef} from "react";
-import {Avatar, useAvatarGroup, AvatarGroupProvider} from "@heroui/react";
+import {Avatar, useAvatarGroup, AvatarGroupProvider} from "@sytechui/react";
 
 const AvatarGroup = forwardRef((props, ref) => {
   const {

@@ -1,7 +1,7 @@
 import type {CalendarState, RangeCalendarState} from "@react-stately/calendar";
-import type {CalendarSlots, SlotsToClasses, CalendarReturnType} from "@heroui/theme";
+import type {CalendarSlots, SlotsToClasses, CalendarReturnType} from "@sytechui/theme";
 import type {AriaCalendarCellProps} from "@react-aria/calendar";
-import type {HTMLHeroUIProps} from "@heroui/system";
+import type {HTMLHeroUIProps} from "@sytechui/system";
 import type {CalendarDate} from "@internationalized/date";
 
 import {getDayOfWeek, isSameDay, isSameMonth, isToday} from "@internationalized/date";
@@ -10,7 +10,7 @@ import {useLocale} from "@react-aria/i18n";
 import {useFocusRing} from "@react-aria/focus";
 import {useHover} from "@react-aria/interactions";
 import {useRef} from "react";
-import {dataAttr, mergeProps} from "@heroui/shared-utils";
+import {dataAttr, mergeProps} from "@sytechui/shared-utils";
 
 export interface CalendarCellProps extends HTMLHeroUIProps<"td">, AriaCalendarCellProps {
   state: CalendarState | RangeCalendarState;

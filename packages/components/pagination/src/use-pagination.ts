@@ -1,23 +1,23 @@
-import type {PaginationSlots, PaginationVariantProps, SlotsToClasses} from "@heroui/theme";
+import type {PaginationSlots, PaginationVariantProps, SlotsToClasses} from "@sytechui/theme";
 import type {Key, ReactNode, Ref} from "react";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
-import type {Timer} from "@heroui/shared-utils";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
+import type {Timer} from "@sytechui/shared-utils";
 import type {
   UsePaginationProps as UseBasePaginationProps,
   PaginationItemValue,
-} from "@heroui/use-pagination";
+} from "@sytechui/use-pagination";
 import type {PressEvent} from "@react-types/shared";
 
-import {objectToDeps} from "@heroui/shared-utils";
-import {PaginationItemType} from "@heroui/use-pagination";
+import {objectToDeps} from "@sytechui/shared-utils";
+import {PaginationItemType} from "@sytechui/use-pagination";
 import {useEffect, useRef, useMemo} from "react";
-import {mapPropsVariants, useProviderContext} from "@heroui/system";
-import {usePagination as useBasePagination} from "@heroui/use-pagination";
+import {mapPropsVariants, useProviderContext} from "@sytechui/system";
+import {usePagination as useBasePagination} from "@sytechui/use-pagination";
 import scrollIntoView from "scroll-into-view-if-needed";
-import {pagination, cn} from "@heroui/theme";
-import {useDOMRef} from "@heroui/react-utils";
-import {dataAttr} from "@heroui/shared-utils";
-import {useIntersectionObserver} from "@heroui/use-intersection-observer";
+import {pagination, cn} from "@sytechui/theme";
+import {useDOMRef} from "@sytechui/react-utils";
+import {dataAttr} from "@sytechui/shared-utils";
+import {useIntersectionObserver} from "@sytechui/use-intersection-observer";
 
 export type PaginationItemRenderProps = {
   /**

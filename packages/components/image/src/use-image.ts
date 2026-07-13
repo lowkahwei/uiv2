@@ -1,14 +1,14 @@
-import type {ImageVariantProps, SlotsToClasses, ImageSlots} from "@heroui/theme";
+import type {ImageVariantProps, SlotsToClasses, ImageSlots} from "@sytechui/theme";
 import type {ImgHTMLAttributes} from "react";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
-import type {ReactRef} from "@heroui/react-utils";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
+import type {ReactRef} from "@sytechui/react-utils";
 
 import {useCallback} from "react";
-import {mapPropsVariants, useProviderContext} from "@heroui/system";
-import {image, cn} from "@heroui/theme";
-import {useDOMRef} from "@heroui/react-utils";
-import {dataAttr, objectToDeps} from "@heroui/shared-utils";
-import {useImage as useImageBase} from "@heroui/use-image";
+import {mapPropsVariants, useProviderContext} from "@sytechui/system";
+import {image, cn} from "@sytechui/theme";
+import {useDOMRef} from "@sytechui/react-utils";
+import {dataAttr, objectToDeps} from "@sytechui/shared-utils";
+import {useImage as useImageBase} from "@sytechui/use-image";
 import {useMemo} from "react";
 type NativeImageProps = ImgHTMLAttributes<HTMLImageElement>;
 

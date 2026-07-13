@@ -1,9 +1,9 @@
-import type {AvatarProps} from "@heroui/react";
+import type {AvatarProps} from "@sytechui/react";
 import type {Border, HeroUIScaling} from "../../types";
 
 import {cloneElement} from "react";
-import {Avatar as HeroUIAvatar} from "@heroui/react";
-import {cn} from "@heroui/theme";
+import {Avatar as HeroUIAvatar} from "@sytechui/react";
+import {cn} from "@sytechui/theme";
 
 import {ShowcaseComponent} from "../showcase-component";
 import {useThemeBuilder} from "../../provider";

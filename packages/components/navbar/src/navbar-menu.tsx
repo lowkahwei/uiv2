@@ -1,13 +1,13 @@
-import type {HTMLHeroUIProps} from "@heroui/system";
+import type {HTMLHeroUIProps} from "@sytechui/system";
 import type {HTMLMotionProps} from "framer-motion";
 
-import {forwardRef} from "@heroui/system";
-import {useDOMRef} from "@heroui/react-utils";
-import {dataAttr, mergeProps} from "@heroui/shared-utils";
+import {forwardRef} from "@sytechui/system";
+import {useDOMRef} from "@sytechui/react-utils";
+import {dataAttr, mergeProps} from "@sytechui/shared-utils";
 import {AnimatePresence, LazyMotion, m} from "framer-motion";
 import {Overlay} from "@react-aria/overlays";
 import React from "react";
-import {cn} from "@heroui/theme";
+import {cn} from "@sytechui/theme";
 
 import {menuVariants} from "./navbar-menu-transitions";
 import {useNavbarContext} from "./navbar-context";
@@ -25,7 +25,7 @@ export interface NavbarMenuProps extends HTMLHeroUIProps<"ul"> {
   motionProps?: Omit<HTMLMotionProps<"ul">, "ref">;
 }
 
-const domAnimation = () => import("@heroui/dom-animation").then((res) => res.default);
+const domAnimation = () => import("@sytechui/dom-animation").then((res) => res.default);
 
 const NavbarMenu = forwardRef<"ul", NavbarMenuProps>((props, ref) => {
   const {className, children, portalContainer, motionProps, style, ...otherProps} = props;

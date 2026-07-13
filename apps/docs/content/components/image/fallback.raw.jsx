@@ -1,4 +1,4 @@
-import {Image} from "@heroui/react";
+import {Image} from "@sytechui/react";
 
 export default function App() {
   return (

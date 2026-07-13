@@ -8,7 +8,7 @@ import {
   getKeyValue,
   Spinner,
   Button,
-} from "@heroui/react";
+} from "@sytechui/react";
 import {useAsyncList} from "@react-stately/data";
 
 export default function App() {

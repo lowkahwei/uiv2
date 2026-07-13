@@ -1,7 +1,7 @@
 import type {Meta} from "@storybook/react";
 
 import React from "react";
-import {snippet} from "@heroui/theme";
+import {snippet} from "@sytechui/theme";
 
 import {Snippet} from "../src";
 
@@ -74,7 +74,7 @@ export default {
 } as Meta<typeof Snippet>;
 
 const defaultProps = {
-  children: "npm install @heroui/react",
+  children: "npm install @sytechui/react",
   symbol: "$",
   disableCopy: false,
   disableTooltip: false,
@@ -92,6 +92,6 @@ export const Default = {
 export const MultiLine = {
   args: {
     ...defaultProps,
-    children: ["npm install @heroui/react", "yarn add @heroui/react", "pnpm add @heroui/react"],
+    children: ["npm install @sytechui/react", "yarn add @sytechui/react", "pnpm add @sytechui/react"],
   },
 };

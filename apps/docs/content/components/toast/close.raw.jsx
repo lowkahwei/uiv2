@@ -1,4 +1,4 @@
-import {addToast, Button, closeToast, closeAll, ToastProvider} from "@heroui/react";
+import {addToast, Button, closeToast, closeAll, ToastProvider} from "@sytechui/react";
 import React from "react";
 
 export default function App() {

@@ -1,4 +1,4 @@
-import type {HTMLHeroUIProps} from "@heroui/system";
+import type {HTMLHeroUIProps} from "@sytechui/system";
 import type {TableHeaderProps as TableHeaderBaseProps} from "@react-types/table";
 
 import {TableHeader as TableHeaderBase} from "@react-stately/table";

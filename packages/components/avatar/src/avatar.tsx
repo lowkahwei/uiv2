@@ -1,7 +1,7 @@
 import type {UseAvatarProps} from "./use-avatar";
 
 import {useMemo} from "react";
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 
 import {AvatarIcon} from "./avatar-icon";
 import {useAvatar} from "./use-avatar";

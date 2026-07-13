@@ -2,7 +2,7 @@ import type {TimePickerValue, UseTimePickerOptions, TimePickerItem, TimeUnit} fr
 import type {DateValue} from "@internationalized/date";
 
 import {useState, useCallback, useMemo, useEffect, useRef} from "react";
-import {debounce} from "@heroui/shared-utils";
+import {debounce} from "@sytechui/shared-utils";
 import {CalendarDate, CalendarDateTime, getLocalTimeZone} from "@internationalized/date";
 import {useDateFormatter} from "@react-aria/i18n";
 

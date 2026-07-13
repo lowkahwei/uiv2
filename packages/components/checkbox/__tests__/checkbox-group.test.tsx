@@ -2,7 +2,7 @@ import type {UserEvent} from "@testing-library/user-event";
 
 import * as React from "react";
 import {act, render} from "@testing-library/react";
-import {Form} from "@heroui/form";
+import {Form} from "@sytechui/form";
 import userEvent from "@testing-library/user-event";
 
 import {CheckboxGroup, Checkbox} from "../src";

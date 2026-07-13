@@ -7,8 +7,8 @@ import {
   TableCell,
   getKeyValue,
   Spinner,
-} from "@heroui/react";
-import {SortIcon} from "@heroui/shared-icons";
+} from "@sytechui/react";
+import {SortIcon} from "@sytechui/shared-icons";
 import {useAsyncList} from "@react-stately/data";
 
 export default function App() {

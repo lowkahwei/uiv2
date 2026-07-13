@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/system-rsc",
+  "name": "@sytechui/system-rsc",
   "version": "2.3.24",
   "description": "HeroUI system primitives compatibles with RSC imports",
   "keywords": [
@@ -35,12 +35,12 @@
   },
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0",
-    "@heroui/theme": ">=2.4.24"
+    "@sytechui/theme": ">=2.4.24"
   },
   "devDependencies": {
-    "@heroui/theme": "workspace:*",
-    "@heroui/react-utils": "workspace:*",
-    "@heroui/shared-utils": "workspace:*",
+    "@sytechui/theme": "workspace:*",
+    "@sytechui/react-utils": "workspace:*",
+    "@sytechui/shared-utils": "workspace:*",
     "react": "18.3.0",
     "tailwind-variants": "3.2.2",
     "tailwind-merge": "3.4.0",

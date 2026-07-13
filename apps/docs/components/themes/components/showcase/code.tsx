@@ -1,7 +1,7 @@
-import type {CodeProps} from "@heroui/react";
+import type {CodeProps} from "@sytechui/react";
 import type {HeroUIScaling} from "../../types";
 
-import {Code as HeroUICode} from "@heroui/react";
+import {Code as HeroUICode} from "@sytechui/react";
 
 import {ShowcaseComponent} from "../showcase-component";
 import {useThemeBuilder} from "../../provider";
@@ -20,7 +20,7 @@ const SectionBase = ({
 }) => {
   return (
     <HeroUICode key={radius} className={className} color={color} radius={radius}>
-      npm install @heroui/react
+      npm install @sytechui/react
     </HeroUICode>
   );
 };

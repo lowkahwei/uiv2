@@ -1,4 +1,4 @@
-import {DatePicker} from "@heroui/react";
+import {DatePicker} from "@sytechui/react";
 
 export default function App() {
   const variants = ["flat", "bordered", "underlined", "faded"];

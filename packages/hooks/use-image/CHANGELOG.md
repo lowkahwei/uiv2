@@ -1,4 +1,4 @@
-# @heroui/use-image
+# @sytechui/use-image
 
 ## 2.1.14
 
@@ -24,14 +24,14 @@
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/react-utils@2.1.14
+  - @sytechui/react-utils@2.1.14
 
 ## 2.1.12
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/react-utils@2.1.13
+  - @sytechui/react-utils@2.1.13
 
 ## 2.1.11
 
@@ -101,7 +101,7 @@
   #### System & Core
 
   - add useInputLabelPlacement
-  - remove `@heroui/aria-utils` dependency
+  - remove `@sytechui/aria-utils` dependency
 
   #### Hooks & Utilities
 
@@ -112,8 +112,8 @@
   - refactor: overlay & interactOutside
 
 - Updated dependencies [[`e489af8`](https://github.com/heroui-inc/heroui/commit/e489af83c189d0b42dca1b0afca1f5d003cd6033)]:
-  - @heroui/use-safe-layout-effect@2.1.8
-  - @heroui/react-utils@2.1.12
+  - @sytechui/use-safe-layout-effect@2.1.8
+  - @sytechui/react-utils@2.1.12
 
 ## 2.1.11-beta.6
 
@@ -122,8 +122,8 @@
 - [#5466](https://github.com/heroui-inc/heroui/pull/5466) [`87f8a12`](https://github.com/heroui-inc/heroui/commit/87f8a12c279e06cab23d0b60ae35c96ee6d29f32) Thanks [@wingkwong](https://github.com/wingkwong)! - add back RA deps (overlays & utils)
 
 - Updated dependencies [[`87f8a12`](https://github.com/heroui-inc/heroui/commit/87f8a12c279e06cab23d0b60ae35c96ee6d29f32)]:
-  - @heroui/use-safe-layout-effect@2.1.8-beta.7
-  - @heroui/react-utils@2.1.12-beta.5
+  - @sytechui/use-safe-layout-effect@2.1.8-beta.7
+  - @sytechui/react-utils@2.1.12-beta.5
 
 ## 2.1.11-beta.5
 
@@ -132,8 +132,8 @@
 - [`3275e8c`](https://github.com/heroui-inc/heroui/commit/3275e8ca01e65a207e6a431dd40b949a22c1f1f8) Thanks [@wingkwong](https://github.com/wingkwong)! - trigger beta release
 
 - Updated dependencies [[`3275e8c`](https://github.com/heroui-inc/heroui/commit/3275e8ca01e65a207e6a431dd40b949a22c1f1f8)]:
-  - @heroui/use-safe-layout-effect@2.1.8-beta.6
-  - @heroui/react-utils@2.1.12-beta.4
+  - @sytechui/use-safe-layout-effect@2.1.8-beta.6
+  - @sytechui/react-utils@2.1.12-beta.4
 
 ## 2.1.11-beta.4
 
@@ -148,18 +148,18 @@
 - [`1bca3f9`](https://github.com/heroui-inc/heroui/commit/1bca3f994655081f04714843047185aacdd481c0) Thanks [@wingkwong](https://github.com/wingkwong)! - sync 2.7.11 release
 
 - Updated dependencies [[`1bca3f9`](https://github.com/heroui-inc/heroui/commit/1bca3f994655081f04714843047185aacdd481c0)]:
-  - @heroui/use-safe-layout-effect@2.1.8-beta.5
-  - @heroui/react-utils@2.1.12-beta.3
+  - @sytechui/use-safe-layout-effect@2.1.8-beta.5
+  - @sytechui/react-utils@2.1.12-beta.3
 
 ## 2.1.11-beta.2
 
 ### Patch Changes
 
-- [#5401](https://github.com/heroui-inc/heroui/pull/5401) [`a2c4745`](https://github.com/heroui-inc/heroui/commit/a2c4745f078b2fe30890149d336b1a19a09d394d) Thanks [@wingkwong](https://github.com/wingkwong)! - remove `@heroui/aria-utils` dependency
+- [#5401](https://github.com/heroui-inc/heroui/pull/5401) [`a2c4745`](https://github.com/heroui-inc/heroui/commit/a2c4745f078b2fe30890149d336b1a19a09d394d) Thanks [@wingkwong](https://github.com/wingkwong)! - remove `@sytechui/aria-utils` dependency
 
 - Updated dependencies [[`a2c4745`](https://github.com/heroui-inc/heroui/commit/a2c4745f078b2fe30890149d336b1a19a09d394d)]:
-  - @heroui/use-safe-layout-effect@2.1.8-beta.4
-  - @heroui/react-utils@2.1.12-beta.2
+  - @sytechui/use-safe-layout-effect@2.1.8-beta.4
+  - @sytechui/react-utils@2.1.12-beta.2
 
 ## 2.1.11-beta.1
 
@@ -168,8 +168,8 @@
 - [#5398](https://github.com/heroui-inc/heroui/pull/5398) [`9c3e4d9`](https://github.com/heroui-inc/heroui/commit/9c3e4d97377706162a5e3145a1429fdb2e5db3be) Thanks [@wingkwong](https://github.com/wingkwong)! - remove RA dependencies (overlays & utils)
 
 - Updated dependencies [[`9c3e4d9`](https://github.com/heroui-inc/heroui/commit/9c3e4d97377706162a5e3145a1429fdb2e5db3be)]:
-  - @heroui/use-safe-layout-effect@2.1.8-beta.3
-  - @heroui/react-utils@2.1.12-beta.1
+  - @sytechui/use-safe-layout-effect@2.1.8-beta.3
+  - @sytechui/react-utils@2.1.12-beta.1
 
 ## 2.1.11-beta.0
 
@@ -180,15 +180,15 @@
 - [#5274](https://github.com/heroui-inc/heroui/pull/5274) [`a8ef824`](https://github.com/heroui-inc/heroui/commit/a8ef8241faf896ce980998e563d805fcf7132a7a) Thanks [@winchesHe](https://github.com/winchesHe)! - Fix skeleton animate
 
 - Updated dependencies [[`0001ab7`](https://github.com/heroui-inc/heroui/commit/0001ab794bd83f141d82d91d205f8391f5d98d9b), [`a8ef824`](https://github.com/heroui-inc/heroui/commit/a8ef8241faf896ce980998e563d805fcf7132a7a), [`a8ef824`](https://github.com/heroui-inc/heroui/commit/a8ef8241faf896ce980998e563d805fcf7132a7a)]:
-  - @heroui/use-safe-layout-effect@2.1.8-beta.2
-  - @heroui/react-utils@2.1.12-beta.0
+  - @sytechui/use-safe-layout-effect@2.1.8-beta.2
+  - @sytechui/react-utils@2.1.12-beta.0
 
 ## 2.1.10
 
 ### Patch Changes
 
 - Updated dependencies [[`0d217e4`](https://github.com/heroui-inc/heroui/commit/0d217e466f3af30c85edc7d53638e031c8458c56)]:
-  - @heroui/react-utils@2.1.11
+  - @sytechui/react-utils@2.1.11
 
 ## 2.1.9
 
@@ -199,8 +199,8 @@
   v2.7.7
 
 - Updated dependencies [[`b9e94a2`](https://github.com/heroui-inc/heroui/commit/b9e94a21518ba18447603680055c3a7dad8372bf)]:
-  - @heroui/use-safe-layout-effect@2.1.7
-  - @heroui/react-utils@2.1.10
+  - @sytechui/use-safe-layout-effect@2.1.7
+  - @sytechui/react-utils@2.1.10
 
 ## 2.1.8
 
@@ -209,7 +209,7 @@
 - [#5186](https://github.com/heroui-inc/heroui/pull/5186) [`500ed77`](https://github.com/heroui-inc/heroui/commit/500ed771e25b08038fdc0d9401bfac31a2d68c3e) Thanks [@wingkwong](https://github.com/wingkwong)! - RA version bump (#5186)
 
 - Updated dependencies []:
-  - @heroui/react-utils@2.1.9
+  - @sytechui/react-utils@2.1.9
 
 ## 2.1.7
 
@@ -218,8 +218,8 @@
 - v2.7.4
 
 - Updated dependencies []:
-  - @heroui/use-safe-layout-effect@2.1.6
-  - @heroui/react-utils@2.1.8
+  - @sytechui/use-safe-layout-effect@2.1.6
+  - @sytechui/react-utils@2.1.8
 
 ## 2.1.6
 
@@ -228,8 +228,8 @@
 - Fix v2.7.0 release
 
 - Updated dependencies []:
-  - @heroui/use-safe-layout-effect@2.1.5
-  - @heroui/react-utils@2.1.7
+  - @sytechui/use-safe-layout-effect@2.1.5
+  - @sytechui/react-utils@2.1.7
 
 ## 2.1.5
 
@@ -238,8 +238,8 @@
 - Fix v2.7.0 release
 
 - Updated dependencies []:
-  - @heroui/use-safe-layout-effect@2.1.4
-  - @heroui/react-utils@2.1.6
+  - @sytechui/use-safe-layout-effect@2.1.4
+  - @sytechui/react-utils@2.1.6
 
 ## 2.1.4
 
@@ -264,8 +264,8 @@
     - RTL support improvements
     - Better type safety and prop validation
 - Updated dependencies [[`4ff87ca`](https://github.com/heroui-inc/heroui/commit/4ff87ca7afccd2c3db0b145156a8357b2b51e7b5)]:
-  - @heroui/use-safe-layout-effect@2.1.3
-  - @heroui/react-utils@2.1.5
+  - @sytechui/use-safe-layout-effect@2.1.3
+  - @sytechui/react-utils@2.1.5
 
 ## 2.1.3
 
@@ -274,8 +274,8 @@
 - [#4594](https://github.com/heroui-inc/heroui/pull/4594) [`7ebe0e6`](https://github.com/heroui-inc/heroui/commit/7ebe0e664feb777fe0cad311312d0e02b899319e) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Org name changed
 
 - Updated dependencies [[`7ebe0e6`](https://github.com/heroui-inc/heroui/commit/7ebe0e664feb777fe0cad311312d0e02b899319e)]:
-  - @heroui/use-safe-layout-effect@2.1.2
-  - @heroui/react-utils@2.1.4
+  - @sytechui/use-safe-layout-effect@2.1.2
+  - @sytechui/react-utils@2.1.4
 
 ## 2.1.2
 
@@ -288,7 +288,7 @@
 - [#4442](https://github.com/heroui-inc/heroui/pull/4442) [`e7ff673`](https://github.com/heroui-inc/heroui/commit/e7ff6730d7e891f1e9e3ca232b1faaebc5aedef2) Thanks [@wingkwong](https://github.com/wingkwong)! - fix cached image flickering issue (#4271)
 
 - Updated dependencies [[`e7ff673`](https://github.com/heroui-inc/heroui/commit/e7ff6730d7e891f1e9e3ca232b1faaebc5aedef2)]:
-  - @heroui/react-utils@2.1.3
+  - @sytechui/react-utils@2.1.3
 
 ## 2.1.1
 
@@ -297,7 +297,7 @@
 - [`d6eee4a`](https://github.com/heroui-inc/heroui/commit/d6eee4a8767556152f47f06dcf04940951abc5af) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - v2.6.2
 
 - Updated dependencies [[`d6eee4a`](https://github.com/heroui-inc/heroui/commit/d6eee4a8767556152f47f06dcf04940951abc5af)]:
-  - @heroui/use-safe-layout-effect@2.1.1
+  - @sytechui/use-safe-layout-effect@2.1.1
 
 ## 2.1.0
 
@@ -330,7 +330,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`5786897`](https://github.com/heroui-inc/heroui/commit/5786897b9950d95c12351dacd2fb41bb1e298201)]:
-  - @heroui/use-safe-layout-effect@2.1.0
+  - @sytechui/use-safe-layout-effect@2.1.0
 
 ## 2.0.7-beta.10
 
@@ -339,7 +339,7 @@
 - [`9869f2b91`](https://github.com/heroui-inc/heroui/commit/9869f2b91d0829f9c7f0500ba05745707820bf27) Thanks [@wingkwong](https://github.com/wingkwong)! - bump version
 
 - Updated dependencies [[`9869f2b91`](https://github.com/heroui-inc/heroui/commit/9869f2b91d0829f9c7f0500ba05745707820bf27)]:
-  - @heroui/use-safe-layout-effect@2.0.7-beta.5
+  - @sytechui/use-safe-layout-effect@2.0.7-beta.5
 
 ## 2.0.7-beta.9
 
@@ -348,7 +348,7 @@
 - [#4092](https://github.com/heroui-inc/heroui/pull/4092) [`528668db8`](https://github.com/heroui-inc/heroui/commit/528668db85b98b46473cb1e214780b7468cdadba) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Test new runner
 
 - Updated dependencies [[`528668db8`](https://github.com/heroui-inc/heroui/commit/528668db85b98b46473cb1e214780b7468cdadba)]:
-  - @heroui/use-safe-layout-effect@2.0.7-beta.4
+  - @sytechui/use-safe-layout-effect@2.0.7-beta.4
 
 ## 2.0.7-beta.8
 
@@ -357,7 +357,7 @@
 - [#4086](https://github.com/heroui-inc/heroui/pull/4086) [`f69fe47b5`](https://github.com/heroui-inc/heroui/commit/f69fe47b5b8f6f3a77a7a8c20d8715263fa32acb) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Pnpm clean
 
 - Updated dependencies [[`f69fe47b5`](https://github.com/heroui-inc/heroui/commit/f69fe47b5b8f6f3a77a7a8c20d8715263fa32acb)]:
-  - @heroui/use-safe-layout-effect@2.0.7-beta.3
+  - @sytechui/use-safe-layout-effect@2.0.7-beta.3
 
 ## 2.0.7-beta.7
 
@@ -366,7 +366,7 @@
 - [#4083](https://github.com/heroui-inc/heroui/pull/4083) [`35058262c`](https://github.com/heroui-inc/heroui/commit/35058262c61628fb42907f529c4417886aa12bb2) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Fix build
 
 - Updated dependencies [[`35058262c`](https://github.com/heroui-inc/heroui/commit/35058262c61628fb42907f529c4417886aa12bb2)]:
-  - @heroui/use-safe-layout-effect@2.0.7-beta.2
+  - @sytechui/use-safe-layout-effect@2.0.7-beta.2
 
 ## 2.0.7-beta.6
 
@@ -375,7 +375,7 @@
 - [#4010](https://github.com/heroui-inc/heroui/pull/4010) [`ef432eb53`](https://github.com/heroui-inc/heroui/commit/ef432eb539714fded6cab86a2185956fb103e0df) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - framer-motion alpha version added
 
 - Updated dependencies [[`ef432eb53`](https://github.com/heroui-inc/heroui/commit/ef432eb539714fded6cab86a2185956fb103e0df)]:
-  - @heroui/use-safe-layout-effect@2.0.7-beta.1
+  - @sytechui/use-safe-layout-effect@2.0.7-beta.1
 
 ## 2.0.7-beta.5
 
@@ -384,7 +384,7 @@
 - [#4008](https://github.com/heroui-inc/heroui/pull/4008) [`7c1c0dd8f`](https://github.com/heroui-inc/heroui/commit/7c1c0dd8fef3ea72996c1095b919574c4b7f9b89) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - React 19 added to peerDeps
 
 - Updated dependencies [[`7c1c0dd8f`](https://github.com/heroui-inc/heroui/commit/7c1c0dd8fef3ea72996c1095b919574c4b7f9b89)]:
-  - @heroui/use-safe-layout-effect@2.0.7-beta.0
+  - @sytechui/use-safe-layout-effect@2.0.7-beta.0
 
 ## 2.0.7-beta.4
 
@@ -423,7 +423,7 @@
 - [#3512](https://github.com/heroui-inc/heroui/pull/3512) [`2d2d300a1`](https://github.com/heroui-inc/heroui/commit/2d2d300a12dbe20ca7ebd125daf3dce74efcbf34) Thanks [@wingkwong](https://github.com/wingkwong)! - fix conflicting versions in npm
 
 - Updated dependencies [[`2d2d300a1`](https://github.com/heroui-inc/heroui/commit/2d2d300a12dbe20ca7ebd125daf3dce74efcbf34)]:
-  - @heroui/use-safe-layout-effect@2.0.6
+  - @sytechui/use-safe-layout-effect@2.0.6
 
 ## 2.0.5
 
@@ -437,7 +437,7 @@
   - `ResizablePanel` component added to `framer-utils`
   - `test-utils` updated
 - Updated dependencies [[`dc0bcf13a`](https://github.com/heroui-inc/heroui/commit/dc0bcf13a5e9aa0450938bcca47cd4c696066f14)]:
-  - @heroui/use-safe-layout-effect@2.0.5
+  - @sytechui/use-safe-layout-effect@2.0.5
 
 ## 2.0.4
 
@@ -446,7 +446,7 @@
 - [`25e86fb41`](https://github.com/heroui-inc/heroui/commit/25e86fb41770d3cdae6dfdb79306b78fa02d8187) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - New version v2.2.0
 
 - Updated dependencies [[`25e86fb41`](https://github.com/heroui-inc/heroui/commit/25e86fb41770d3cdae6dfdb79306b78fa02d8187)]:
-  - @heroui/use-safe-layout-effect@2.0.4
+  - @sytechui/use-safe-layout-effect@2.0.4
 
 ## 2.0.3
 
@@ -455,7 +455,7 @@
 - [#1600](https://github.com/heroui-inc/heroui/pull/1600) [`b1b30b797`](https://github.com/heroui-inc/heroui/commit/b1b30b7976f1d6652808fbf12ffde044f0861572) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Fix npm deploy
 
 - Updated dependencies [[`b1b30b797`](https://github.com/heroui-inc/heroui/commit/b1b30b7976f1d6652808fbf12ffde044f0861572)]:
-  - @heroui/use-safe-layout-effect@2.0.3
+  - @sytechui/use-safe-layout-effect@2.0.3
 
 ## 2.0.2
 
@@ -464,7 +464,7 @@
 - [`e3e13a09`](https://github.com/heroui-inc/heroui/commit/e3e13a095f2347ff279c85e6a5d3798f36c6533f) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - New package created to exports system RSC-compatible functions
   Component exports changed to named exports
 - Updated dependencies [[`e3e13a09`](https://github.com/heroui-inc/heroui/commit/e3e13a095f2347ff279c85e6a5d3798f36c6533f)]:
-  - @heroui/use-safe-layout-effect@2.0.2
+  - @sytechui/use-safe-layout-effect@2.0.2
 
 ## 2.0.1
 
@@ -475,4 +475,4 @@
 - [`e940ec06`](https://github.com/heroui-inc/heroui/commit/e940ec06ac5e46340d5956fb7c455a6ab3de3140) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Introducing v2 - Readmes updated
 
 - Updated dependencies [[`e940ec06`](https://github.com/heroui-inc/heroui/commit/e940ec06ac5e46340d5956fb7c455a6ab3de3140), [`e940ec06`](https://github.com/heroui-inc/heroui/commit/e940ec06ac5e46340d5956fb7c455a6ab3de3140)]:
-  - @heroui/use-safe-layout-effect@2.0.1
+  - @sytechui/use-safe-layout-effect@2.0.1

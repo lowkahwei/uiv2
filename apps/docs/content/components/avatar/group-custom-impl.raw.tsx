@@ -1,7 +1,7 @@
-import type {AvatarGroupProps as BaseAvatarGroupProps} from "@heroui/react";
+import type {AvatarGroupProps as BaseAvatarGroupProps} from "@sytechui/react";
 
 import {forwardRef} from "react";
-import {Avatar, useAvatarGroup, AvatarGroupProvider} from "@heroui/react";
+import {Avatar, useAvatarGroup, AvatarGroupProvider} from "@sytechui/react";
 
 export interface AvatarGroupProps extends BaseAvatarGroupProps {}
 

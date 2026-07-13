@@ -1,4 +1,4 @@
-import {Tabs, Tab} from "@heroui/react";
+import {Tabs, Tab} from "@sytechui/react";
 
 export default function App() {
   const sizes = ["sm", "md", "lg"];

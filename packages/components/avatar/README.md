@@ -1,4 +1,4 @@
-# @heroui/avatar
+# @sytechui/avatar
 
 The Avatar component is used to represent a user, and displays the profile picture, initials or fallback icon.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/docs/components/avatar) f
 ## Installation
 
 ```sh
-yarn add @heroui/avatar
+yarn add @sytechui/avatar
 # or
-npm i @heroui/avatar
+npm i @sytechui/avatar
 ```
 
 ## Contribution

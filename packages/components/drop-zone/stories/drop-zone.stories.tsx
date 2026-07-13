@@ -3,7 +3,7 @@ import type {DropItem, DropZoneProps, FileDropItem, TextDropItem} from "../src";
 import type {DropZoneCardRenderProps, DropZoneCardSlotProps} from "../src/card/types";
 
 import React from "react";
-import {dropZone} from "@heroui/theme";
+import {dropZone} from "@sytechui/theme";
 
 import {DropZone} from "../src";
 import {UploadCard} from "../src/card/upload-card";

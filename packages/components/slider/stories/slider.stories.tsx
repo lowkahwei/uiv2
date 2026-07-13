@@ -2,10 +2,10 @@ import type {Meta} from "@storybook/react";
 import type {SliderProps, SliderValue} from "../src";
 
 import React from "react";
-import {slider} from "@heroui/theme";
-import {InfoIcon, VolumeHighBoldIcon, VolumeLowBoldIcon} from "@heroui/shared-icons";
-import {Tooltip} from "@heroui/tooltip";
-import {cn} from "@heroui/theme";
+import {slider} from "@sytechui/theme";
+import {InfoIcon, VolumeHighBoldIcon, VolumeLowBoldIcon} from "@sytechui/shared-icons";
+import {Tooltip} from "@sytechui/tooltip";
+import {cn} from "@sytechui/theme";
 
 import {Slider} from "../src";
 

@@ -1,4 +1,4 @@
-# @heroui/number-input
+# @sytechui/number-input
 
 NumberInput is a component that allows users to enter number. It can be used to get user inputs in forms, search fields, and more.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/docs/components/number-in
 ## Installation
 
 ```sh
-yarn add @heroui/number-input
+yarn add @sytechui/number-input
 # or
-npm i @heroui/number-input
+npm i @sytechui/number-input
 ```
 
 ## Contribution

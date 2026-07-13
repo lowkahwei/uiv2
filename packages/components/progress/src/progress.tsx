@@ -1,6 +1,6 @@
 import type {UseProgressProps} from "./use-progress";
 
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 
 import {useProgress} from "./use-progress";
 

@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import type {Meta} from "@storybook/react";
-import type {ButtonVariantProps} from "@heroui/theme";
+import type {ButtonVariantProps} from "@sytechui/theme";
 import type {PopoverProps} from "../src";
 
 import React from "react";
-import {popover} from "@heroui/theme";
-import {Button} from "@heroui/button";
-import {Input} from "@heroui/input";
-import {Card, CardHeader, CardFooter} from "@heroui/card";
+import {popover} from "@sytechui/theme";
+import {Button} from "@sytechui/button";
+import {Input} from "@sytechui/input";
+import {Card, CardHeader, CardFooter} from "@sytechui/card";
 
 import {Popover, PopoverTrigger, PopoverContent} from "../src";
 

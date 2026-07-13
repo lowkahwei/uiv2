@@ -4,7 +4,7 @@ import type {ValidationResult} from "@react-types/shared";
 import type {DateInputProps} from "../src";
 
 import React from "react";
-import {dateInput, button} from "@heroui/theme";
+import {dateInput, button} from "@sytechui/theme";
 import {
   CalendarDate,
   getLocalTimeZone,
@@ -14,7 +14,7 @@ import {
   parseZonedDateTime,
   today,
 } from "@internationalized/date";
-import {CalendarBoldIcon} from "@heroui/shared-icons";
+import {CalendarBoldIcon} from "@sytechui/shared-icons";
 import {useDateFormatter, I18nProvider} from "@react-aria/i18n";
 
 import {DateInput} from "../src";

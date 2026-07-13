@@ -1,4 +1,4 @@
-# @heroui/table
+# @sytechui/table
 
 Tables are used to display tabular data using rows and columns. They allow users to quickly scan, sort, compare, and take action on large amounts of data.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/docs/components/table) fo
 ## Installation
 
 ```sh
-yarn add @heroui/table
+yarn add @sytechui/table
 # or
-npm i @heroui/table
+npm i @sytechui/table
 ```
 
 ## Contribution

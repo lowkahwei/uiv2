@@ -1,8 +1,8 @@
 import type {UseButtonProps} from "./use-button";
 
-import {Spinner} from "@heroui/spinner";
-import {Ripple} from "@heroui/ripple";
-import {forwardRef} from "@heroui/system";
+import {Spinner} from "@sytechui/spinner";
+import {Ripple} from "@sytechui/ripple";
+import {forwardRef} from "@sytechui/system";
 
 import {useButton} from "./use-button";
 

@@ -1,5 +1,5 @@
-import {Code} from "@heroui/react";
+import {Code} from "@sytechui/react";
 
 export default function App() {
-  return <Code>npm install @heroui/react</Code>;
+  return <Code>npm install @sytechui/react</Code>;
 }

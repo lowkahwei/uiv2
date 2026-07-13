@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/drawer",
+  "name": "@sytechui/drawer",
   "version": "2.2.29",
   "description": "Used to render a content that slides in from the side of the screen.",
   "keywords": [
@@ -36,28 +36,28 @@
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0",
-    "@heroui/theme": ">=2.4.24",
-    "@heroui/system": ">=2.4.18"
+    "@sytechui/theme": ">=2.4.24",
+    "@sytechui/system": ">=2.4.18"
   },
   "dependencies": {
-    "@heroui/shared-utils": "workspace:*",
-    "@heroui/react-utils": "workspace:*",
-    "@heroui/framer-utils": "workspace:*",
-    "@heroui/modal": "workspace:*"
+    "@sytechui/shared-utils": "workspace:*",
+    "@sytechui/react-utils": "workspace:*",
+    "@sytechui/framer-utils": "workspace:*",
+    "@sytechui/modal": "workspace:*"
   },
   "devDependencies": {
-    "@heroui/theme": "workspace:*",
-    "@heroui/system": "workspace:*",
-    "@heroui/input": "workspace:*",
-    "@heroui/checkbox": "workspace:*",
-    "@heroui/tooltip": "workspace:*",
-    "@heroui/image": "workspace:*",
-    "@heroui/button": "workspace:*",
-    "@heroui/avatar": "workspace:*",
-    "@heroui/link": "workspace:*",
-    "@heroui/shared-icons": "workspace:*",
-    "@heroui/use-disclosure": "workspace:*",
-    "@heroui/test-utils": "workspace:*",
+    "@sytechui/theme": "workspace:*",
+    "@sytechui/system": "workspace:*",
+    "@sytechui/input": "workspace:*",
+    "@sytechui/checkbox": "workspace:*",
+    "@sytechui/tooltip": "workspace:*",
+    "@sytechui/image": "workspace:*",
+    "@sytechui/button": "workspace:*",
+    "@sytechui/avatar": "workspace:*",
+    "@sytechui/link": "workspace:*",
+    "@sytechui/shared-icons": "workspace:*",
+    "@sytechui/use-disclosure": "workspace:*",
+    "@sytechui/test-utils": "workspace:*",
     "clean-package": "2.2.0",
     "react": "18.3.0",
     "react-dom": "18.3.0"

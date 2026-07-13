@@ -1,4 +1,4 @@
-import {Divider} from "@heroui/react";
+import {Divider} from "@sytechui/react";
 
 export default function App() {
   return (

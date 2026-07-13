@@ -1,4 +1,4 @@
-# @heroui/scroll-area
+# @sytechui/scroll-area
 
 A complete scroll area component with optional scroll shadows and custom scrollbars.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com) for more information.
 ## Installation
 
 ```sh
-yarn add @heroui/scroll-area
+yarn add @sytechui/scroll-area
 # or
-npm i @heroui/scroll-area
+npm i @sytechui/scroll-area
 ```
 
 ## License

@@ -2,14 +2,14 @@ import type {TabItemProps as BaseTabItemProps} from "./base/tab-item-base";
 import type {Node} from "@react-types/shared";
 import type {ValuesType} from "./use-tabs";
 
-import {forwardRef} from "@heroui/system";
-import {useDOMRef, filterDOMProps, mergeRefs} from "@heroui/react-utils";
-import {dataAttr, chain, mergeProps} from "@heroui/shared-utils";
+import {forwardRef} from "@sytechui/system";
+import {useDOMRef, filterDOMProps, mergeRefs} from "@sytechui/react-utils";
+import {dataAttr, chain, mergeProps} from "@sytechui/shared-utils";
 import scrollIntoView from "scroll-into-view-if-needed";
 import {useFocusRing} from "@react-aria/focus";
 import {useTab} from "@react-aria/tabs";
 import {useHover} from "@react-aria/interactions";
-import {cn} from "@heroui/theme";
+import {cn} from "@sytechui/theme";
 
 export interface TabItemProps<T extends object = object> extends BaseTabItemProps<T> {
   item: Node<T>;

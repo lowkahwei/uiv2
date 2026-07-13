@@ -2,7 +2,7 @@ import type {Meta} from "@storybook/react";
 import type {ImageProps} from "../src";
 
 import React from "react";
-import {image} from "@heroui/theme";
+import {image} from "@sytechui/theme";
 
 import {Image} from "../src";
 

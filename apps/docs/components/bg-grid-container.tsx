@@ -1,6 +1,6 @@
 import type {ReactNode, FC} from "react";
 
-import {cn} from "@heroui/theme";
+import {cn} from "@sytechui/theme";
 export interface BgGridContainerProps {
   showGradient?: boolean;
   children?: ReactNode;

@@ -9,7 +9,7 @@ import Color from "color";
 // @ts-ignore
 import plugin from "tailwindcss/plugin.js";
 import deepMerge from "deepmerge";
-import {omit, kebabCase, mapKeys} from "@heroui/shared-utils";
+import {omit, kebabCase, mapKeys} from "@sytechui/shared-utils";
 
 import {semanticColors, commonColors} from "./colors";
 import {animations} from "./animations";

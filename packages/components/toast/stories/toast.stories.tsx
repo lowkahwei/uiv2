@@ -2,8 +2,8 @@ import type {Meta} from "@storybook/react";
 import type {ToastProps} from "../src";
 
 import {useEffect, useState} from "react";
-import {cn, toast} from "@heroui/theme";
-import {Button} from "@heroui/button";
+import {cn, toast} from "@sytechui/theme";
+import {Button} from "@sytechui/button";
 import {
   Modal,
   ModalBody,
@@ -11,10 +11,10 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure,
-} from "@heroui/modal";
-import {Drawer, DrawerContent} from "@heroui/drawer";
-import {Spinner} from "@heroui/spinner";
-import {AvatarIcon, CloseIcon} from "@heroui/shared-icons";
+} from "@sytechui/modal";
+import {Drawer, DrawerContent} from "@sytechui/drawer";
+import {Spinner} from "@sytechui/spinner";
+import {AvatarIcon, CloseIcon} from "@sytechui/shared-icons";
 
 import {Toast, ToastProvider, addToast, closeToast, closeAll} from "../src";
 

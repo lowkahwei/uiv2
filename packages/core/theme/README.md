@@ -1,4 +1,4 @@
-# @heroui/theme
+# @sytechui/theme
 
 HeroUI theme primitives, here you can find the TailwindCSS `plugin`, `colors`, `layout`, `spacing`, `typography` and some other utilities.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/theme) for more informati
 ## Installation
 
 ```sh
-yarn add @heroui/theme
+yarn add @sytechui/theme
 # or
-npm i @heroui/theme
+npm i @sytechui/theme
 ```
 
 ## Contribution

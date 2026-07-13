@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/storybook",
+  "name": "@sytechui/storybook",
   "version": "2.0.0",
   "description": "The HeroUI react components storybook ",
   "keywords": [
@@ -31,8 +31,8 @@
     "start": "pnpm dlx http-server storybook-static"
   },
   "dependencies": {
-    "@heroui/system": "workspace:*",
-    "@heroui/theme": "workspace:*",
+    "@sytechui/system": "workspace:*",
+    "@sytechui/theme": "workspace:*",
     "react": "18.3.0",
     "react-dom": "18.3.0"
   },

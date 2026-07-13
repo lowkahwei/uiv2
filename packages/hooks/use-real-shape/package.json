@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-real-shape",
+  "name": "@sytechui/use-real-shape",
   "version": "2.1.14",
   "description": "Hook that returns the real dimensions of an element",
   "keywords": [
@@ -34,7 +34,7 @@
     "postpack": "clean-package restore"
   },
   "dependencies": {
-    "@heroui/react-utils": "workspace:*"
+    "@sytechui/react-utils": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0"

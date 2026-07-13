@@ -4,7 +4,7 @@ import type {RangeCalendarProps} from "../src";
 import * as React from "react";
 import {render, act, fireEvent} from "@testing-library/react";
 import {CalendarDate} from "@internationalized/date";
-import {keyCodes, triggerPress, pointerMap, type} from "@heroui/test-utils";
+import {keyCodes, triggerPress, pointerMap, type} from "@sytechui/test-utils";
 import userEvent from "@testing-library/user-event";
 
 import {RangeCalendar as RangeCalendarCalendarBase} from "../src";

@@ -2,7 +2,7 @@ import type {FC, ReactNode} from "react";
 
 import {useMemo} from "react";
 import {parseToRgba} from "color2k";
-import {cn} from "@heroui/theme";
+import {cn} from "@sytechui/theme";
 import {useIsSSR} from "@react-aria/ssr";
 export interface SonarPulseProps {
   children: ReactNode;

@@ -1,8 +1,8 @@
-import type {InputProps} from "@heroui/react";
+import type {InputProps} from "@sytechui/react";
 import type {Border, HeroUIScaling} from "../../types";
 
-import {Input} from "@heroui/react";
-import {cn} from "@heroui/theme";
+import {Input} from "@sytechui/react";
+import {cn} from "@sytechui/theme";
 
 import {ShowcaseComponent} from "../showcase-component";
 import {useThemeBuilder} from "../../provider";

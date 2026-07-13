@@ -1,8 +1,8 @@
 import type {UseLinkProps} from "./use-link";
 
-import {forwardRef} from "@heroui/system";
-import {LinkIcon} from "@heroui/shared-icons";
-import {linkAnchorClasses} from "@heroui/theme";
+import {forwardRef} from "@sytechui/system";
+import {LinkIcon} from "@sytechui/shared-icons";
+import {linkAnchorClasses} from "@sytechui/theme";
 
 import {useLink} from "./use-link";
 

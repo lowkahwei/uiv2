@@ -1,4 +1,4 @@
-import {Tabs, Tab, Card, CardBody, Switch} from "@heroui/react";
+import {Tabs, Tab, Card, CardBody, Switch} from "@sytechui/react";
 
 export default function App() {
   const [isVertical, setIsVertical] = React.useState(true);

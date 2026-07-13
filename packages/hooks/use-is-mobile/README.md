@@ -1,4 +1,4 @@
-# @heroui/use-is-mobile
+# @sytechui/use-is-mobile
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @heroui/use-is-mobile
+yarn add @sytechui/use-is-mobile
 # or
-npm i @heroui/use-is-mobile
+npm i @sytechui/use-is-mobile
 ```
 
 ## Contribution

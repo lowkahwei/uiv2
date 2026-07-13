@@ -1,15 +1,15 @@
-import type {BreadcrumbItemVariantProps, SlotsToClasses, BreadcrumbItemSlots} from "@heroui/theme";
+import type {BreadcrumbItemVariantProps, SlotsToClasses, BreadcrumbItemSlots} from "@sytechui/theme";
 import type {ReactNode} from "react";
 import type {BreadcrumbItemProps as AriaBreadcrumbItemProps} from "@react-types/breadcrumbs";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
-import type {ReactRef} from "@heroui/react-utils";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
+import type {ReactRef} from "@sytechui/react-utils";
 
-import {mapPropsVariants} from "@heroui/system";
+import {mapPropsVariants} from "@sytechui/system";
 import {useFocusRing} from "@react-aria/focus";
-import {breadcrumbItem, cn} from "@heroui/theme";
-import {filterDOMProps, useDOMRef} from "@heroui/react-utils";
+import {breadcrumbItem, cn} from "@sytechui/theme";
+import {filterDOMProps, useDOMRef} from "@sytechui/react-utils";
 import {useBreadcrumbItem as useAriaBreadcrumbItem} from "@react-aria/breadcrumbs";
-import {dataAttr, objectToDeps, mergeProps} from "@heroui/shared-utils";
+import {dataAttr, objectToDeps, mergeProps} from "@sytechui/shared-utils";
 import {useMemo} from "react";
 
 interface Props

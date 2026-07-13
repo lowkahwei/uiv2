@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/number-input",
+  "name": "@sytechui/number-input",
   "version": "2.0.23",
   "description": "The numeric input component is designed for users to enter a number, and increase or decrease the value using stepper buttons",
   "keywords": [
@@ -38,16 +38,16 @@
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0",
-    "@heroui/system": ">=2.4.18",
-    "@heroui/theme": ">=2.4.24"
+    "@sytechui/system": ">=2.4.18",
+    "@sytechui/theme": ">=2.4.24"
   },
   "dependencies": {
-    "@heroui/form": "workspace:*",
-    "@heroui/button": "workspace:*",
-    "@heroui/react-utils": "workspace:*",
-    "@heroui/shared-icons": "workspace:*",
-    "@heroui/shared-utils": "workspace:*",
-    "@heroui/use-safe-layout-effect": "workspace:*",
+    "@sytechui/form": "workspace:*",
+    "@sytechui/button": "workspace:*",
+    "@sytechui/react-utils": "workspace:*",
+    "@sytechui/shared-icons": "workspace:*",
+    "@sytechui/shared-utils": "workspace:*",
+    "@sytechui/use-safe-layout-effect": "workspace:*",
     "@react-aria/focus": "3.21.5",
     "@react-aria/i18n": "3.12.16",
     "@react-aria/interactions": "3.27.1",
@@ -58,8 +58,8 @@
     "@react-types/button": "3.15.1"
   },
   "devDependencies": {
-    "@heroui/system": "workspace:*",
-    "@heroui/theme": "workspace:*",
+    "@sytechui/system": "workspace:*",
+    "@sytechui/theme": "workspace:*",
     "clean-package": "2.2.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

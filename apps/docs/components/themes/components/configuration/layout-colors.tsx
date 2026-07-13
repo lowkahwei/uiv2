@@ -1,6 +1,6 @@
 import type {Config, ThemeType} from "../../types";
 
-import {Tooltip} from "@heroui/react";
+import {Tooltip} from "@sytechui/react";
 
 import {otherColorsId} from "../../constants";
 import {useThemeBuilder} from "../../provider";

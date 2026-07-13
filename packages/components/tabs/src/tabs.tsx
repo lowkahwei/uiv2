@@ -2,7 +2,7 @@ import type {ForwardedRef, ReactElement} from "react";
 import type {UseTabsProps} from "./use-tabs";
 
 import {useEffect, useCallback, useRef, useMemo} from "react";
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 
 import {useTabs} from "./use-tabs";
 import Tab from "./tab";

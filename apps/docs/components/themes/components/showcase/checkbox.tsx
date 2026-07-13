@@ -1,8 +1,8 @@
-import type {CheckboxProps} from "@heroui/react";
+import type {CheckboxProps} from "@sytechui/react";
 import type {HeroUIScaling} from "../../types";
 
 import {cloneElement} from "react";
-import {Checkbox as HeroUICheckbox} from "@heroui/react";
+import {Checkbox as HeroUICheckbox} from "@sytechui/react";
 
 import {ShowcaseComponent} from "../showcase-component";
 import {useThemeBuilder} from "../../provider";

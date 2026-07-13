@@ -1,4 +1,4 @@
-# @heroui/drop-zone
+# @sytechui/drop-zone
 
 HeroUI styled drag-and-drop target built on top of React Aria's `useDrop` and `useClipboard`.
 
@@ -7,9 +7,9 @@ The component supports pointer drag and drop, keyboard focus, and clipboard past
 ## Installation
 
 ```sh
-yarn add @heroui/drop-zone
+yarn add @sytechui/drop-zone
 # or
-npm i @heroui/drop-zone
+npm i @sytechui/drop-zone
 ```
 
 ## Contribution

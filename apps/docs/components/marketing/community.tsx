@@ -1,4 +1,4 @@
-import {Spacer} from "@heroui/react";
+import {Spacer} from "@sytechui/react";
 
 import {sectionWrapper, titleWrapper, title, subtitle} from "../primitives";
 

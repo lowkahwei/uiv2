@@ -1,4 +1,4 @@
-import {CircularProgress, Card, CardBody, CardFooter, Chip} from "@heroui/react";
+import {CircularProgress, Card, CardBody, CardFooter, Chip} from "@sytechui/react";
 
 export default function App() {
   return (

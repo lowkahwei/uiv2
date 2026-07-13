@@ -1,8 +1,8 @@
 import type {SlotProps} from "input-otp";
 
 import {useMemo} from "react";
-import {dataAttr} from "@heroui/shared-utils";
-import {cn} from "@heroui/theme";
+import {dataAttr} from "@sytechui/shared-utils";
+import {cn} from "@sytechui/theme";
 
 import {useInputOtpContext} from "./input-otp-context";
 

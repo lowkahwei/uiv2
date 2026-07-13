@@ -4,8 +4,8 @@ import type {UserEvent} from "@testing-library/user-event";
 import * as React from "react";
 import {render, fireEvent, act} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {Button} from "@heroui/button";
-import {spy, shouldIgnoreReactWarning} from "@heroui/test-utils";
+import {Button} from "@sytechui/button";
+import {spy, shouldIgnoreReactWarning} from "@sytechui/test-utils";
 
 import {Popover, PopoverContent, PopoverTrigger} from "../src";
 import {Select, SelectItem} from "../../select/src";

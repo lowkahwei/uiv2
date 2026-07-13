@@ -2,7 +2,7 @@ import type {Meta} from "@storybook/react";
 import type {ScrollShadowProps, ScrollShadowOrientation, ScrollShadowVisibility} from "../src";
 
 import React from "react";
-import {scrollShadow, button} from "@heroui/theme";
+import {scrollShadow, button} from "@sytechui/theme";
 import Lorem from "react-lorem-component";
 
 import {ScrollShadow} from "../src";

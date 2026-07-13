@@ -1,6 +1,6 @@
 import type {UseDropdownReturn} from "./use-dropdown";
 
-import {createContext} from "@heroui/react-utils";
+import {createContext} from "@sytechui/react-utils";
 
 export const [DropdownProvider, useDropdownContext] = createContext<UseDropdownReturn>({
   name: "DropdownContext",

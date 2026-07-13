@@ -1,6 +1,6 @@
 import * as React from "react";
 import {render} from "@testing-library/react";
-import {Link} from "@heroui/link";
+import {Link} from "@sytechui/link";
 
 import {User} from "../src";
 import {AvatarIcon} from "../../avatar/src";

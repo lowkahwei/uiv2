@@ -1,5 +1,5 @@
 import type {SVGProps} from "react";
-import type {Selection, ChipProps, SortDescriptor} from "@heroui/react";
+import type {Selection, ChipProps, SortDescriptor} from "@sytechui/react";
 
 import React from "react";
 import {
@@ -18,7 +18,7 @@ import {
   Chip,
   User,
   Pagination,
-} from "@heroui/react";
+} from "@sytechui/react";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;

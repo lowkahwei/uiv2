@@ -1,20 +1,20 @@
-import type {SliderSlots, SliderVariantProps, SlotsToClasses} from "@heroui/theme";
-import type {DOMAttributes, HTMLHeroUIProps, PropGetter} from "@heroui/system";
-import type {ReactRef} from "@heroui/react-utils";
+import type {SliderSlots, SliderVariantProps, SlotsToClasses} from "@sytechui/theme";
+import type {DOMAttributes, HTMLHeroUIProps, PropGetter} from "@sytechui/system";
+import type {ReactRef} from "@sytechui/react-utils";
 import type {ReactNode} from "react";
 import type {AriaSliderProps} from "@react-aria/slider";
-import type {TooltipProps} from "@heroui/tooltip";
+import type {TooltipProps} from "@sytechui/tooltip";
 import type {ValueBase} from "@react-types/shared";
 import type {SliderThumbProps} from "./slider-thumb";
 
-import {mapPropsVariants, useProviderContext} from "@heroui/system";
-import {slider, cn} from "@heroui/theme";
-import {useDOMRef, filterDOMProps} from "@heroui/react-utils";
+import {mapPropsVariants, useProviderContext} from "@sytechui/system";
+import {slider, cn} from "@sytechui/theme";
+import {useDOMRef, filterDOMProps} from "@sytechui/react-utils";
 import {useSliderState} from "@react-stately/slider";
 import {useCallback, useMemo, useRef} from "react";
 import {useNumberFormatter, useLocale} from "@react-aria/i18n";
 import {useSlider as useAriaSlider} from "@react-aria/slider";
-import {mergeProps, objectToDeps, warn} from "@heroui/shared-utils";
+import {mergeProps, objectToDeps, warn} from "@sytechui/shared-utils";
 import {useHover} from "@react-aria/interactions";
 
 export type SliderValue = number | number[];

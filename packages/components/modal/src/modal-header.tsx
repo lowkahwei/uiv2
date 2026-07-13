@@ -1,10 +1,10 @@
-import type {HTMLHeroUIProps} from "@heroui/system";
-import type {ReactRef} from "@heroui/react-utils";
+import type {HTMLHeroUIProps} from "@sytechui/system";
+import type {ReactRef} from "@sytechui/react-utils";
 
 import {useEffect} from "react";
-import {forwardRef} from "@heroui/system";
-import {useDOMRef} from "@heroui/react-utils";
-import {cn} from "@heroui/theme";
+import {forwardRef} from "@sytechui/system";
+import {useDOMRef} from "@sytechui/react-utils";
+import {cn} from "@sytechui/theme";
 
 import {useModalContext} from "./modal-context";
 

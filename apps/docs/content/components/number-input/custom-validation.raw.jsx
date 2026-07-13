@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Form, NumberInput} from "@heroui/react";
+import {Button, Form, NumberInput} from "@sytechui/react";
 
 export default function App() {
   const [submitted, setSubmitted] = React.useState(null);

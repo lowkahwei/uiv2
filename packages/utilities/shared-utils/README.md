@@ -1,4 +1,4 @@
-# @heroui/shared-utils
+# @sytechui/shared-utils
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @heroui/shared-utils
+yarn add @sytechui/shared-utils
 # or
-npm i @heroui/shared-utils
+npm i @sytechui/shared-utils
 ```
 
 ## Contribution

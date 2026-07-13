@@ -1,4 +1,4 @@
-import {User} from "@heroui/react";
+import {User} from "@sytechui/react";
 
 export default function App() {
   return (

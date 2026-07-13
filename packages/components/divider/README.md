@@ -1,4 +1,4 @@
-# @heroui/divider
+# @sytechui/divider
 
 Divider is a component that separates content in a page.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/docs/components/divider) 
 ## Installation
 
 ```sh
-yarn add @heroui/divider
+yarn add @sytechui/divider
 # or
-npm i @heroui/divider
+npm i @sytechui/divider
 ```
 
 ## Contribution

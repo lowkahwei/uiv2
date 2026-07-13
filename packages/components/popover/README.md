@@ -1,4 +1,4 @@
-# @heroui/popover
+# @sytechui/popover
 
 Popover is a non-modal dialog that floats around its disclosure. It's commonly used for displaying additional rich content on top of something.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/docs/components/popover) 
 ## Installation
 
 ```sh
-yarn add @heroui/popover
+yarn add @sytechui/popover
 # or
-npm i @heroui/popover
+npm i @sytechui/popover
 ```
 
 ## Contribution

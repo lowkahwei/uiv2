@@ -1,6 +1,6 @@
 import type {UseSpacerProps} from "./use-spacer";
 
-import {forwardRef} from "@heroui/system-rsc";
+import {forwardRef} from "@sytechui/system-rsc";
 
 import {useSpacer} from "./use-spacer";
 

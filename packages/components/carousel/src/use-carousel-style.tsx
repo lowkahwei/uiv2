@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useMemo, useRef } from "react";
 import { ResponsiveValue } from "./types";
-import { useView } from "@heroui/use-media-query";
+import { useView } from "@sytechui/use-media-query";
 
 function resolveResponsive<T>(
   value: ResponsiveValue<T> | undefined,

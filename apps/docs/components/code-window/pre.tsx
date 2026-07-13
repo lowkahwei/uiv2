@@ -1,5 +1,5 @@
 import {forwardRef} from "react";
-import {cn} from "@heroui/theme";
+import {cn} from "@sytechui/theme";
 
 export interface PreProps {
   className?: string;

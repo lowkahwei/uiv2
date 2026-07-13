@@ -5,10 +5,10 @@ import type {AutocompleteProps} from "../src";
 import * as React from "react";
 import {within, render, renderHook, act, waitFor} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {spy, shouldIgnoreReactWarning} from "@heroui/test-utils";
+import {spy, shouldIgnoreReactWarning} from "@sytechui/test-utils";
 import {useForm} from "react-hook-form";
-import {Form} from "@heroui/form";
-import {HeroUIProvider} from "@heroui/system";
+import {Form} from "@sytechui/form";
+import {HeroUIProvider} from "@sytechui/system";
 
 import {Autocomplete, AutocompleteItem, AutocompleteSection} from "../src";
 import {Modal, ModalContent, ModalBody, ModalHeader, ModalFooter} from "../../modal/src";

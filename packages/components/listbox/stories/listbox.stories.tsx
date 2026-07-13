@@ -4,19 +4,19 @@ import type {Meta} from "@storybook/react";
 import type {ListboxProps} from "../src";
 
 import React from "react";
-import {menuItem} from "@heroui/theme";
+import {menuItem} from "@sytechui/theme";
 import {
   AddNoteBulkIcon,
   CopyDocumentBulkIcon,
   EditDocumentBulkIcon,
   DeleteDocumentBulkIcon,
   ChevronRightIcon,
-} from "@heroui/shared-icons";
-import {usersData} from "@heroui/stories-utils";
-import {Avatar} from "@heroui/avatar";
-import {Chip} from "@heroui/chip";
-import {cn} from "@heroui/theme";
-import {ScrollShadow} from "@heroui/scroll-shadow";
+} from "@sytechui/shared-icons";
+import {usersData} from "@sytechui/stories-utils";
+import {Avatar} from "@sytechui/avatar";
+import {Chip} from "@sytechui/chip";
+import {cn} from "@sytechui/theme";
+import {ScrollShadow} from "@sytechui/scroll-shadow";
 
 import {Listbox, ListboxItem, ListboxSection} from "../src";
 
@@ -638,7 +638,7 @@ const CustomWithClassNamesTemplate = ({color, variant, disableAnimation, ...args
         <div className="flex flex-col gap-1">
           <span>Releases</span>
           <div className="px-2 py-1 rounded-small bg-default-100 group-data-[hover=true]:bg-default-200">
-            <span className="text-tiny text-default-600">@heroui/react@2.0.10</span>
+            <span className="text-tiny text-default-600">@sytechui/react@2.0.10</span>
             <div className="flex gap-2 text-tiny">
               <span className="text-default-500">49 minutes ago</span>
               <span className="text-success">Latest</span>

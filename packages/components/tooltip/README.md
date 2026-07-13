@@ -1,4 +1,4 @@
-# @heroui/tooltip
+# @sytechui/tooltip
 
 Tooltips display a brief, informative message that appears when a user interacts with an element.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/docs/components/tooltip) 
 ## Installation
 
 ```sh
-yarn add @heroui/tooltip
+yarn add @sytechui/tooltip
 # or
-npm i @heroui/tooltip
+npm i @sytechui/tooltip
 ```
 
 ## Contribution

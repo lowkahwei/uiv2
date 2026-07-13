@@ -21,10 +21,10 @@ Toasts are temporary notifications that provide concise feedback about an action
   showGlobalInstallWarning
   commands={{
     cli: "npx heroui-cli@latest add toast",
-    npm: "npm install @heroui/toast",
-    yarn: "yarn add @heroui/toast",
-    pnpm: "pnpm add @heroui/toast",
-    bun: "bun add @heroui/toast",
+    npm: "npm install @sytechui/toast",
+    yarn: "yarn add @sytechui/toast",
+    pnpm: "pnpm add @sytechui/toast",
+    bun: "bun add @sytechui/toast",
   }}
 />
 
@@ -32,8 +32,8 @@ Toasts are temporary notifications that provide concise feedback about an action
 
 <ImportTabs
   commands={{
-    main: 'import {addToast, ToastProvider} from "@heroui/react";',
-    individual: 'import {addToast, ToastProvider} from "@heroui/toast";',
+    main: 'import {addToast, ToastProvider} from "@sytechui/react";',
+    individual: 'import {addToast, ToastProvider} from "@sytechui/toast";',
   }}
 />
 
@@ -44,8 +44,8 @@ The `ToastProvider` must be added to the application before using the `addToast`
 ```jsx {4,9}
 // app/providers.tsx
 
-import {HeroUIProvider} from '@heroui/react'
-import {ToastProvider} from "@heroui/toast";
+import {HeroUIProvider} from '@sytechui/react'
+import {ToastProvider} from "@sytechui/toast";
 
 export function Providers({children}) {
   return (

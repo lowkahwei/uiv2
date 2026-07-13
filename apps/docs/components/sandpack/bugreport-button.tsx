@@ -1,7 +1,7 @@
 import React from "react";
 import {usePathname} from "next/navigation";
-import {Tooltip, Button} from "@heroui/react";
-import {capitalize} from "@heroui/shared-utils";
+import {Tooltip, Button} from "@sytechui/react";
+import {capitalize} from "@sytechui/shared-utils";
 
 import {BugIcon} from "@/components/icons";
 import {ISSUE_REPORT_URL} from "@/libs/github/constants";

@@ -1,4 +1,4 @@
-import {Slider, Tooltip} from "@heroui/react";
+import {Slider, Tooltip} from "@sytechui/react";
 
 export const InfoIcon = (props) => {
   return (

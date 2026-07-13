@@ -3,7 +3,7 @@ import type {Meta} from "@storybook/react";
 import type {RangeCalendarProps} from "../src";
 
 import React from "react";
-import {calendar} from "@heroui/theme";
+import {calendar} from "@sytechui/theme";
 import {
   today,
   getLocalTimeZone,
@@ -15,9 +15,9 @@ import {
   endOfWeek,
 } from "@internationalized/date";
 import {I18nProvider, useLocale} from "@react-aria/i18n";
-import {Button, ButtonGroup} from "@heroui/button";
-import {Radio, RadioGroup} from "@heroui/radio";
-import {cn} from "@heroui/theme";
+import {Button, ButtonGroup} from "@sytechui/button";
+import {Radio, RadioGroup} from "@sytechui/radio";
+import {cn} from "@sytechui/theme";
 
 import {RangeCalendar} from "../src";
 

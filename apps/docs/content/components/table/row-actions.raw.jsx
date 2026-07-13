@@ -8,7 +8,7 @@ import {
   getKeyValue,
   Radio,
   RadioGroup,
-} from "@heroui/react";
+} from "@sytechui/react";
 
 const rows = [
   {

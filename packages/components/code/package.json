@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/code",
+  "name": "@sytechui/code",
   "version": "2.2.25",
   "description": "Code is a component used to display inline code.",
   "keywords": [
@@ -36,16 +36,16 @@
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0",
-    "@heroui/theme": ">=2.4.24"
+    "@sytechui/theme": ">=2.4.24"
   },
   "dependencies": {
-    "@heroui/system-rsc": "workspace:*",
-    "@heroui/shared-utils": "workspace:*",
-    "@heroui/react-utils": "workspace:*"
+    "@sytechui/system-rsc": "workspace:*",
+    "@sytechui/shared-utils": "workspace:*",
+    "@sytechui/react-utils": "workspace:*"
   },
   "devDependencies": {
-    "@heroui/theme": "workspace:*",
-    "@heroui/test-utils": "workspace:*",
+    "@sytechui/theme": "workspace:*",
+    "@sytechui/test-utils": "workspace:*",
     "clean-package": "2.2.0",
     "react": "18.3.0",
     "react-dom": "18.3.0"

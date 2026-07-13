@@ -1,4 +1,4 @@
-# @heroui/toast
+# @sytechui/toast
 
 ## 2.0.22
 
@@ -7,21 +7,21 @@
 - [#6281](https://github.com/heroui-inc/heroui/pull/6281) [`7437888`](https://github.com/heroui-inc/heroui/commit/74378881829204b94173ee2d713f81df5e9e9784) Thanks [@wingkwong](https://github.com/wingkwong)! - react-aria versions (release v1.16.0)
 
 - Updated dependencies []:
-  - @heroui/spinner@2.2.29
+  - @sytechui/spinner@2.2.29
 
 ## 2.0.21
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/spinner@2.2.28
+  - @sytechui/spinner@2.2.28
 
 ## 2.0.20
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/spinner@2.2.27
+  - @sytechui/spinner@2.2.27
 
 ## 2.0.19
 
@@ -30,7 +30,7 @@
 - [#5996](https://github.com/heroui-inc/heroui/pull/5996) [`e07c969`](https://github.com/heroui-inc/heroui/commit/e07c969c4c6c1711ab153c273c2cacd0a79eef4b) Thanks [@wingkwong](https://github.com/wingkwong)! - upgrade react-aria (v1.14.0)
 
 - Updated dependencies []:
-  - @heroui/spinner@2.2.26
+  - @sytechui/spinner@2.2.26
 
 ## 2.0.18
 
@@ -41,7 +41,7 @@
 - [#5930](https://github.com/heroui-inc/heroui/pull/5930) [`ecf2857`](https://github.com/heroui-inc/heroui/commit/ecf2857c90824409088130d12747fef3d47d9e99) Thanks [@wingkwong](https://github.com/wingkwong)! - bump tailwind-variants & tailwind-merge and use latest tv functions
 
 - Updated dependencies [[`1782961`](https://github.com/heroui-inc/heroui/commit/17829618591d723beea665a7c56d9c45a112e24c), [`0825f88`](https://github.com/heroui-inc/heroui/commit/0825f88cd2bfd1b6638a23b8d21f8812576f84a7), [`ecf2857`](https://github.com/heroui-inc/heroui/commit/ecf2857c90824409088130d12747fef3d47d9e99)]:
-  - @heroui/spinner@2.2.25
+  - @sytechui/spinner@2.2.25
 
 ## 2.0.17
 
@@ -52,16 +52,16 @@
 - [#5771](https://github.com/heroui-inc/heroui/pull/5771) [`ed76faa`](https://github.com/heroui-inc/heroui/commit/ed76faacd49a731f4be38b987690e0c7a8f3bd91) Thanks [@wingkwong](https://github.com/wingkwong)! - trigger onClose after toast timeout (#5609)
 
 - Updated dependencies [[`0d95d7f`](https://github.com/heroui-inc/heroui/commit/0d95d7faa0604ee41213ab637ca7ac4daa16cbcc)]:
-  - @heroui/shared-utils@2.1.12
-  - @heroui/spinner@2.2.24
-  - @heroui/react-utils@2.1.14
+  - @sytechui/shared-utils@2.1.12
+  - @sytechui/spinner@2.2.24
+  - @sytechui/react-utils@2.1.14
 
 ## 2.0.16
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/spinner@2.2.23
+  - @sytechui/spinner@2.2.23
 
 ## 2.0.15
 
@@ -74,9 +74,9 @@
 - [#5637](https://github.com/heroui-inc/heroui/pull/5637) [`afe2f97`](https://github.com/heroui-inc/heroui/commit/afe2f977fcebc84a616a251fd3be301ac81da7ac) Thanks [@anshumandev2025](https://github.com/anshumandev2025)! - show animation when closing all modals (#5620)
 
 - Updated dependencies [[`e2aed2e`](https://github.com/heroui-inc/heroui/commit/e2aed2e9467c09fd8e32d8f4706289e4dc61bf2c)]:
-  - @heroui/shared-utils@2.1.11
-  - @heroui/spinner@2.2.22
-  - @heroui/react-utils@2.1.13
+  - @sytechui/shared-utils@2.1.11
+  - @sytechui/spinner@2.2.22
+  - @sytechui/react-utils@2.1.13
 
 ## 2.0.14
 
@@ -87,8 +87,8 @@
 - [#5508](https://github.com/heroui-inc/heroui/pull/5508) [`6011837`](https://github.com/heroui-inc/heroui/commit/60118379f587a97675ca7dcc347f0b00ecc7d058) Thanks [@wingkwong](https://github.com/wingkwong)! - fixed toastRegion leftover in DOM (#5502)
 
 - Updated dependencies [[`36eb421`](https://github.com/heroui-inc/heroui/commit/36eb421c66846d4fe6fb102c662ff6bf6149249b)]:
-  - @heroui/use-is-mobile@2.2.12
-  - @heroui/spinner@2.2.21
+  - @sytechui/use-is-mobile@2.2.12
+  - @sytechui/spinner@2.2.21
 
 ## 2.0.13
 
@@ -158,7 +158,7 @@
   #### System & Core
 
   - add useInputLabelPlacement
-  - remove `@heroui/aria-utils` dependency
+  - remove `@sytechui/aria-utils` dependency
 
   #### Hooks & Utilities
 
@@ -169,11 +169,11 @@
   - refactor: overlay & interactOutside
 
 - Updated dependencies [[`e489af8`](https://github.com/heroui-inc/heroui/commit/e489af83c189d0b42dca1b0afca1f5d003cd6033)]:
-  - @heroui/shared-icons@2.1.10
-  - @heroui/shared-utils@2.1.10
-  - @heroui/react-utils@2.1.12
-  - @heroui/use-is-mobile@2.2.11
-  - @heroui/spinner@2.2.20
+  - @sytechui/shared-icons@2.1.10
+  - @sytechui/shared-utils@2.1.10
+  - @sytechui/react-utils@2.1.12
+  - @sytechui/use-is-mobile@2.2.11
+  - @sytechui/spinner@2.2.20
 
 ## 2.0.13-beta.3
 
@@ -182,11 +182,11 @@
 - [#5466](https://github.com/heroui-inc/heroui/pull/5466) [`87f8a12`](https://github.com/heroui-inc/heroui/commit/87f8a12c279e06cab23d0b60ae35c96ee6d29f32) Thanks [@wingkwong](https://github.com/wingkwong)! - add back RA deps (overlays & utils)
 
 - Updated dependencies [[`87f8a12`](https://github.com/heroui-inc/heroui/commit/87f8a12c279e06cab23d0b60ae35c96ee6d29f32)]:
-  - @heroui/shared-icons@2.1.10-beta.6
-  - @heroui/shared-utils@2.1.10-beta.7
-  - @heroui/react-utils@2.1.12-beta.5
-  - @heroui/use-is-mobile@2.2.11-beta.5
-  - @heroui/spinner@2.2.20-beta.2
+  - @sytechui/shared-icons@2.1.10-beta.6
+  - @sytechui/shared-utils@2.1.10-beta.7
+  - @sytechui/react-utils@2.1.12-beta.5
+  - @sytechui/use-is-mobile@2.2.11-beta.5
+  - @sytechui/spinner@2.2.20-beta.2
 
 ## 2.0.13-beta.2
 
@@ -195,11 +195,11 @@
 - [`3275e8c`](https://github.com/heroui-inc/heroui/commit/3275e8ca01e65a207e6a431dd40b949a22c1f1f8) Thanks [@wingkwong](https://github.com/wingkwong)! - trigger beta release
 
 - Updated dependencies [[`3275e8c`](https://github.com/heroui-inc/heroui/commit/3275e8ca01e65a207e6a431dd40b949a22c1f1f8)]:
-  - @heroui/shared-icons@2.1.10-beta.5
-  - @heroui/shared-utils@2.1.10-beta.6
-  - @heroui/react-utils@2.1.12-beta.4
-  - @heroui/use-is-mobile@2.2.11-beta.4
-  - @heroui/spinner@2.2.20-beta.1
+  - @sytechui/shared-icons@2.1.10-beta.5
+  - @sytechui/shared-utils@2.1.10-beta.6
+  - @sytechui/react-utils@2.1.12-beta.4
+  - @sytechui/use-is-mobile@2.2.11-beta.4
+  - @sytechui/spinner@2.2.20-beta.1
 
 ## 2.0.13-beta.1
 
@@ -210,8 +210,8 @@
 - [#5245](https://github.com/heroui-inc/heroui/pull/5245) [`e1a0d9d`](https://github.com/heroui-inc/heroui/commit/e1a0d9d53d34cdb59a1aaf3f553f7d54fbf6f60d) Thanks [@Vishvsalvi](https://github.com/Vishvsalvi)! - Remove the bottom extenstion of the toast (#5231)
 
 - Updated dependencies [[`a95feca`](https://github.com/heroui-inc/heroui/commit/a95feca4586ca0a61e13ad03c16fab112160a02b)]:
-  - @heroui/shared-icons@2.1.10-beta.4
-  - @heroui/spinner@2.2.20-beta.0
+  - @sytechui/shared-icons@2.1.10-beta.4
+  - @sytechui/spinner@2.2.20-beta.0
 
 ## 2.0.13-beta.0
 
@@ -222,12 +222,12 @@
 - [`1bca3f9`](https://github.com/heroui-inc/heroui/commit/1bca3f994655081f04714843047185aacdd481c0) Thanks [@wingkwong](https://github.com/wingkwong)! - sync 2.7.11 release
 
 - Updated dependencies [[`1bca3f9`](https://github.com/heroui-inc/heroui/commit/1bca3f994655081f04714843047185aacdd481c0)]:
-  - @heroui/shared-icons@2.1.10-beta.3
-  - @heroui/shared-utils@2.1.10-beta.5
-  - @heroui/react-utils@2.1.12-beta.3
-  - @heroui/use-is-mobile@2.2.11-beta.3
-  - @heroui/spinner@2.2.20-beta.0
-  - @heroui/system@2.4.19-beta.0
+  - @sytechui/shared-icons@2.1.10-beta.3
+  - @sytechui/shared-utils@2.1.10-beta.5
+  - @sytechui/react-utils@2.1.12-beta.3
+  - @sytechui/use-is-mobile@2.2.11-beta.3
+  - @sytechui/spinner@2.2.20-beta.0
+  - @sytechui/system@2.4.19-beta.0
 
 ## 2.0.12
 
@@ -238,7 +238,7 @@
 - [#5374](https://github.com/heroui-inc/heroui/pull/5374) [`be6a1db`](https://github.com/heroui-inc/heroui/commit/be6a1dbf40507af164ebdbe085eda6cceb98aeed) Thanks [@wingkwong](https://github.com/wingkwong)! - bump system peer dependencies
 
 - Updated dependencies []:
-  - @heroui/spinner@2.2.19
+  - @sytechui/spinner@2.2.19
 
 ## 2.0.11
 
@@ -251,10 +251,10 @@
 - [#5362](https://github.com/heroui-inc/heroui/pull/5362) [`0d217e4`](https://github.com/heroui-inc/heroui/commit/0d217e466f3af30c85edc7d53638e031c8458c56) Thanks [@wingkwong](https://github.com/wingkwong)! - remove unused dependencies
 
 - Updated dependencies [[`1e23994`](https://github.com/heroui-inc/heroui/commit/1e2399434578827987aedc8ff3cc9cf6ccc99c5f), [`0d217e4`](https://github.com/heroui-inc/heroui/commit/0d217e466f3af30c85edc7d53638e031c8458c56), [`0d217e4`](https://github.com/heroui-inc/heroui/commit/0d217e466f3af30c85edc7d53638e031c8458c56)]:
-  - @heroui/use-is-mobile@2.2.10
-  - @heroui/shared-icons@2.1.9
-  - @heroui/react-utils@2.1.11
-  - @heroui/spinner@2.2.18
+  - @sytechui/use-is-mobile@2.2.10
+  - @sytechui/shared-icons@2.1.9
+  - @sytechui/react-utils@2.1.11
+  - @sytechui/spinner@2.2.18
 
 ## 2.0.10
 
@@ -265,8 +265,8 @@
 - [#5310](https://github.com/heroui-inc/heroui/pull/5310) [`1d62208`](https://github.com/heroui-inc/heroui/commit/1d62208642d06f7896724b2702ecb5a17931eb88) Thanks [@wingkwong](https://github.com/wingkwong)! - bump RA versions
 
 - Updated dependencies [[`8df9716`](https://github.com/heroui-inc/heroui/commit/8df9716dfa29926237682b73df59e8018843e9c0)]:
-  - @heroui/shared-icons@2.1.8
-  - @heroui/spinner@2.2.17
+  - @sytechui/shared-icons@2.1.8
+  - @sytechui/spinner@2.2.17
 
 ## 2.0.9
 
@@ -277,11 +277,11 @@
   v2.7.7
 
 - Updated dependencies [[`b9e94a2`](https://github.com/heroui-inc/heroui/commit/b9e94a21518ba18447603680055c3a7dad8372bf)]:
-  - @heroui/spinner@2.2.16
-  - @heroui/use-is-mobile@2.2.9
-  - @heroui/react-utils@2.1.10
-  - @heroui/shared-icons@2.1.7
-  - @heroui/shared-utils@2.1.9
+  - @sytechui/spinner@2.2.16
+  - @sytechui/use-is-mobile@2.2.9
+  - @sytechui/react-utils@2.1.10
+  - @sytechui/shared-icons@2.1.7
+  - @sytechui/shared-utils@2.1.9
 
 ## 2.0.8
 
@@ -290,10 +290,10 @@
 - [#5186](https://github.com/heroui-inc/heroui/pull/5186) [`500ed77`](https://github.com/heroui-inc/heroui/commit/500ed771e25b08038fdc0d9401bfac31a2d68c3e) Thanks [@wingkwong](https://github.com/wingkwong)! - RA version bump (#5186)
 
 - Updated dependencies [[`500ed77`](https://github.com/heroui-inc/heroui/commit/500ed771e25b08038fdc0d9401bfac31a2d68c3e)]:
-  - @heroui/shared-utils@2.1.8
-  - @heroui/use-is-mobile@2.2.8
-  - @heroui/spinner@2.2.15
-  - @heroui/react-utils@2.1.9
+  - @sytechui/shared-utils@2.1.8
+  - @sytechui/use-is-mobile@2.2.8
+  - @sytechui/spinner@2.2.15
+  - @sytechui/react-utils@2.1.9
 
 ## 2.0.7
 
@@ -306,7 +306,7 @@
 - [#5034](https://github.com/heroui-inc/heroui/pull/5034) [`afdd892`](https://github.com/heroui-inc/heroui/commit/afdd892690f8ab166f3c5f35a1c1a3f2446831b8) Thanks [@macci001](https://github.com/macci001)! - Making toast compatible with RA upgrade.
   Changing the type of description prop to ReactNode(#5033).
 - Updated dependencies []:
-  - @heroui/spinner@2.2.14
+  - @sytechui/spinner@2.2.14
 
 ## 2.0.6
 
@@ -319,7 +319,7 @@
 - [#4998](https://github.com/heroui-inc/heroui/pull/4998) [`88f1641`](https://github.com/heroui-inc/heroui/commit/88f164116c2be75cd2de0a076f5ba0942a43e3de) Thanks [@wingkwong](https://github.com/wingkwong)! - bump RA versions
 
 - Updated dependencies []:
-  - @heroui/spinner@2.2.13
+  - @sytechui/spinner@2.2.13
 
 ## 2.0.5
 
@@ -328,11 +328,11 @@
 - v2.7.4
 
 - Updated dependencies []:
-  - @heroui/spinner@2.2.12
-  - @heroui/use-is-mobile@2.2.7
-  - @heroui/react-utils@2.1.8
-  - @heroui/shared-icons@2.1.6
-  - @heroui/shared-utils@2.1.7
+  - @sytechui/spinner@2.2.12
+  - @sytechui/use-is-mobile@2.2.7
+  - @sytechui/react-utils@2.1.8
+  - @sytechui/shared-icons@2.1.6
+  - @sytechui/shared-utils@2.1.7
 
 ## 2.0.4
 
@@ -346,7 +346,7 @@
 - [#4858](https://github.com/heroui-inc/heroui/pull/4858) [`fd446da`](https://github.com/heroui-inc/heroui/commit/fd446dac2ac2af56f287a6b23c5baaea79ec3979) Thanks [@wingkwong](https://github.com/wingkwong)! - fix shouldShowTimeoutProgess typo (#4856)
 
 - Updated dependencies [[`2186f6d`](https://github.com/heroui-inc/heroui/commit/2186f6da23679c5cf63ea03c9c6df9ca6df92ad9)]:
-  - @heroui/spinner@2.2.11
+  - @sytechui/spinner@2.2.11
 
 ## 2.0.3
 
@@ -355,11 +355,11 @@
 - Fix v2.7.0 release
 
 - Updated dependencies []:
-  - @heroui/shared-icons@2.1.5
-  - @heroui/shared-utils@2.1.6
-  - @heroui/react-utils@2.1.7
-  - @heroui/use-is-mobile@2.2.6
-  - @heroui/spinner@2.2.10
+  - @sytechui/shared-icons@2.1.5
+  - @sytechui/shared-utils@2.1.6
+  - @sytechui/react-utils@2.1.7
+  - @sytechui/use-is-mobile@2.2.6
+  - @sytechui/spinner@2.2.10
 
 ## 2.0.2
 
@@ -368,11 +368,11 @@
 - Fix v2.7.0 release
 
 - Updated dependencies []:
-  - @heroui/spinner@2.2.9
-  - @heroui/use-is-mobile@2.2.5
-  - @heroui/react-utils@2.1.6
-  - @heroui/shared-icons@2.1.4
-  - @heroui/shared-utils@2.1.5
+  - @sytechui/spinner@2.2.9
+  - @sytechui/use-is-mobile@2.2.5
+  - @sytechui/react-utils@2.1.6
+  - @sytechui/shared-icons@2.1.4
+  - @sytechui/shared-utils@2.1.5
 
 ## 2.0.1
 
@@ -401,8 +401,8 @@
     - RTL support improvements
     - Better type safety and prop validation
 - Updated dependencies [[`f51d645`](https://github.com/heroui-inc/heroui/commit/f51d645d3d98ca2cc9ebcc89627959766fecc234), [`4ff87ca`](https://github.com/heroui-inc/heroui/commit/4ff87ca7afccd2c3db0b145156a8357b2b51e7b5)]:
-  - @heroui/spinner@2.2.8
-  - @heroui/use-is-mobile@2.2.4
-  - @heroui/react-utils@2.1.5
-  - @heroui/shared-icons@2.1.3
-  - @heroui/shared-utils@2.1.4
+  - @sytechui/spinner@2.2.8
+  - @sytechui/use-is-mobile@2.2.4
+  - @sytechui/react-utils@2.1.5
+  - @sytechui/shared-icons@2.1.3
+  - @sytechui/shared-utils@2.1.4

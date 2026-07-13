@@ -1,7 +1,7 @@
 import type {DropZoneProps} from "./types";
 import type {DropZoneCardRenderProps, DropZoneCardSlotProps} from "./card/types";
 
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 import {LazyMotion, domAnimation, m} from "framer-motion";
 import {useMemo} from "react";
 

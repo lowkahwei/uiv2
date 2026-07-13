@@ -1,12 +1,12 @@
 import type {CalendarDate} from "@internationalized/date";
 import type {CalendarPropsBase} from "@react-types/calendar";
-import type {HTMLHeroUIProps} from "@heroui/system";
+import type {HTMLHeroUIProps} from "@sytechui/system";
 
 import {endOfMonth, getWeeksInMonth} from "@internationalized/date";
 import {useLocale} from "@react-aria/i18n";
 import {useCalendarGrid} from "@react-aria/calendar";
 import {m} from "framer-motion";
-import {dataAttr} from "@heroui/shared-utils";
+import {dataAttr} from "@sytechui/shared-utils";
 
 import {CalendarCell} from "./calendar-cell";
 import {slideVariants} from "./calendar-transitions";

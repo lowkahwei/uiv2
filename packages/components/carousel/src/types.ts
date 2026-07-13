@@ -1,6 +1,6 @@
 import { EmblaPluginType, EmblaCarouselType } from "embla-carousel";
 import { HTMLAttributes, ReactNode } from "react";
-import { ButtonProps } from "@heroui/button";
+import { ButtonProps } from "@sytechui/button";
 
 export type ResponsiveValue<T> = {
   desktop?: T;

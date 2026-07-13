@@ -1,6 +1,6 @@
 import type {Sponsor} from "@/libs/docs/sponsors";
 
-import {uniqBy} from "@heroui/shared-utils";
+import {uniqBy} from "@sytechui/shared-utils";
 import fetch from "node-fetch";
 
 import {__PROD__} from "./env";

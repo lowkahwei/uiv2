@@ -1,4 +1,4 @@
-# @heroui/navbar
+# @sytechui/navbar
 
 A responsive navigation header positioned on top side of your page that includes support for branding, links, navigation, collapse menu and more.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/docs/components/navbar) f
 ## Installation
 
 ```sh
-yarn add @heroui/navbar
+yarn add @sytechui/navbar
 # or
-npm i @heroui/navbar
+npm i @sytechui/navbar
 ```
 
 ## Contribution

@@ -1,4 +1,4 @@
-import {Listbox, ListboxItem} from "@heroui/react";
+import {Listbox, ListboxItem} from "@sytechui/react";
 
 const generateItems = (n) => {
   const items = [

@@ -1,4 +1,4 @@
-# @heroui/drop-zone
+# @sytechui/drop-zone
 
 ## Unreleased
 

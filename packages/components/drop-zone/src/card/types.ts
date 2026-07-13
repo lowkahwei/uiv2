@@ -1,4 +1,4 @@
-import type {PropGetter} from "@heroui/system";
+import type {PropGetter} from "@sytechui/system";
 import type {DropZoneProps, DropZoneState, UploadCardUploadState, UploadedFileInfo} from "../types";
 
 export interface DropZoneCardSlotProps {

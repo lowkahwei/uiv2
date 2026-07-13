@@ -1,6 +1,6 @@
 import type {UseSpinnerProps} from "./use-spinner";
 
-import {forwardRef} from "@heroui/system-rsc";
+import {forwardRef} from "@sytechui/system-rsc";
 
 import {useSpinner} from "./use-spinner";
 

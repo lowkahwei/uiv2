@@ -1,5 +1,5 @@
 import React from "react";
-import {NumberInput} from "@heroui/react";
+import {NumberInput} from "@sytechui/react";
 
 export default function App() {
   const [value, setValue] = React.useState();

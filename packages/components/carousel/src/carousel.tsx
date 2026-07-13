@@ -1,8 +1,8 @@
 import type {CarouselContextValue, CarouselControlContextValue, CarouselProps} from "./types";
 
 import {useMemo, createContext, useContext, useEffect, useState} from "react";
-import {cn} from "@heroui/theme";
-import {Skeleton} from "@heroui/skeleton";
+import {cn} from "@sytechui/theme";
+import {Skeleton} from "@sytechui/skeleton";
 
 import {useCarousel} from "./use-carousel";
 import {useCarouselWheelGestures} from "./use-wheel-gestures";

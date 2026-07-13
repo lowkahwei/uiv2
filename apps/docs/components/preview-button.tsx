@@ -1,8 +1,8 @@
-import type {ButtonProps} from "@heroui/react";
+import type {ButtonProps} from "@sytechui/react";
 
 import {forwardRef} from "react";
-import {Button} from "@heroui/react";
-import {cn} from "@heroui/theme";
+import {Button} from "@sytechui/react";
+import {cn} from "@sytechui/theme";
 
 export interface PreviewButtonProps extends ButtonProps {
   icon: React.ReactNode;

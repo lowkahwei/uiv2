@@ -4,10 +4,10 @@
  */
 import type {FocusableElement} from "@react-types/shared";
 import type {ReactNode, RefObject} from "react";
-import type {MultiSelectProps, MultiSelectState} from "@heroui/use-aria-multiselect";
+import type {MultiSelectProps, MultiSelectState} from "@sytechui/use-aria-multiselect";
 
 import React from "react";
-import {useFormReset} from "@heroui/use-form-reset";
+import {useFormReset} from "@sytechui/use-form-reset";
 import {useVisuallyHidden} from "@react-aria/visually-hidden";
 import {useFormValidation} from "@react-aria/form";
 

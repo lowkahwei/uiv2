@@ -1,12 +1,12 @@
 import type {ColorPickerType, ThemeType} from "../types";
 
 import {useEffect, useState} from "react";
-import {Button, Popover, PopoverContent, PopoverTrigger} from "@heroui/react";
+import {Button, Popover, PopoverContent, PopoverTrigger} from "@sytechui/react";
 import {HexColorInput, HexColorPicker} from "react-colorful";
 import Values from "values.js";
 import {readableColor} from "color2k";
 import {useTheme} from "next-themes";
-import {cn} from "@heroui/theme";
+import {cn} from "@sytechui/theme";
 
 import {colorValuesToRgb, getColorWeight} from "../utils/colors";
 

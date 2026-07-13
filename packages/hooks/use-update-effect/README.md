@@ -1,4 +1,4 @@
-# @heroui/use-update-effect
+# @sytechui/use-update-effect
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @heroui/use-update-effect
+yarn add @sytechui/use-update-effect
 # or
-npm i @heroui/use-update-effect
+npm i @sytechui/use-update-effect
 ```
 
 ## Contribution

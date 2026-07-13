@@ -2,8 +2,8 @@ import type {Meta} from "@storybook/react";
 import type {ButtonProps} from "../src";
 
 import React from "react";
-import {button} from "@heroui/theme";
-import {Camera, HeadphonesIcon, Notification} from "@heroui/shared-icons";
+import {button} from "@sytechui/theme";
+import {Camera, HeadphonesIcon, Notification} from "@sytechui/shared-icons";
 
 import {Button} from "../src";
 

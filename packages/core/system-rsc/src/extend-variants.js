@@ -1,5 +1,5 @@
 import * as React from "react";
-import {tv, cn} from "@heroui/theme";
+import {tv, cn} from "@sytechui/theme";
 
 import {mapPropsVariants} from "./utils";
 

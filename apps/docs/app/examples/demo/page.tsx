@@ -1,6 +1,6 @@
 "use client";
 
-import {Card, CardBody, CircularProgress} from "@heroui/react";
+import {Card, CardBody, CircularProgress} from "@sytechui/react";
 
 export default function ButtonDemo() {
   return (

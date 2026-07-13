@@ -1,25 +1,25 @@
-# @heroui/alert
+# @sytechui/alert
 
 ## 2.2.32
 
 ### Patch Changes
 
 - Updated dependencies [[`7437888`](https://github.com/heroui-inc/heroui/commit/74378881829204b94173ee2d713f81df5e9e9784)]:
-  - @heroui/button@2.2.32
+  - @sytechui/button@2.2.32
 
 ## 2.2.31
 
 ### Patch Changes
 
 - Updated dependencies [[`c92543b`](https://github.com/heroui-inc/heroui/commit/c92543ba7984eff3e0946da46bacc7532af614e8)]:
-  - @heroui/button@2.2.31
+  - @sytechui/button@2.2.31
 
 ## 2.2.30
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/button@2.2.30
+  - @sytechui/button@2.2.30
 
 ## 2.2.29
 
@@ -28,7 +28,7 @@
 - [#5996](https://github.com/heroui-inc/heroui/pull/5996) [`e07c969`](https://github.com/heroui-inc/heroui/commit/e07c969c4c6c1711ab153c273c2cacd0a79eef4b) Thanks [@wingkwong](https://github.com/wingkwong)! - upgrade react-aria (v1.14.0)
 
 - Updated dependencies [[`e07c969`](https://github.com/heroui-inc/heroui/commit/e07c969c4c6c1711ab153c273c2cacd0a79eef4b)]:
-  - @heroui/button@2.2.29
+  - @sytechui/button@2.2.29
 
 ## 2.2.28
 
@@ -37,32 +37,32 @@
 - [#5930](https://github.com/heroui-inc/heroui/pull/5930) [`ecf2857`](https://github.com/heroui-inc/heroui/commit/ecf2857c90824409088130d12747fef3d47d9e99) Thanks [@wingkwong](https://github.com/wingkwong)! - bump tailwind-variants & tailwind-merge and use latest tv functions
 
 - Updated dependencies [[`fd9dd2a`](https://github.com/heroui-inc/heroui/commit/fd9dd2a20c30beb4f46a8a6ab5d654ec7b9dbec1), [`ecf2857`](https://github.com/heroui-inc/heroui/commit/ecf2857c90824409088130d12747fef3d47d9e99)]:
-  - @heroui/button@2.2.28
+  - @sytechui/button@2.2.28
 
 ## 2.2.27
 
 ### Patch Changes
 
 - Updated dependencies [[`136bdf6`](https://github.com/heroui-inc/heroui/commit/136bdf66b1c2ab108d8d2903d986a76cec205ac9), [`0d95d7f`](https://github.com/heroui-inc/heroui/commit/0d95d7faa0604ee41213ab637ca7ac4daa16cbcc)]:
-  - @heroui/button@2.2.27
-  - @heroui/shared-utils@2.1.12
-  - @heroui/react-utils@2.1.14
+  - @sytechui/button@2.2.27
+  - @sytechui/shared-utils@2.1.12
+  - @sytechui/react-utils@2.1.14
 
 ## 2.2.26
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/button@2.2.26
+  - @sytechui/button@2.2.26
 
 ## 2.2.25
 
 ### Patch Changes
 
 - Updated dependencies [[`d90ac57`](https://github.com/heroui-inc/heroui/commit/d90ac57bc537e8999b21d4ad3f7e4894e6106fd1), [`e2aed2e`](https://github.com/heroui-inc/heroui/commit/e2aed2e9467c09fd8e32d8f4706289e4dc61bf2c)]:
-  - @heroui/button@2.2.25
-  - @heroui/shared-utils@2.1.11
-  - @heroui/react-utils@2.1.13
+  - @sytechui/button@2.2.25
+  - @sytechui/shared-utils@2.1.11
+  - @sytechui/react-utils@2.1.13
 
 ## 2.2.24
 
@@ -73,7 +73,7 @@
 - [#5512](https://github.com/heroui-inc/heroui/pull/5512) [`a83e3fb`](https://github.com/heroui-inc/heroui/commit/a83e3fb5a01c3ba25c309ee1f67b836c2f299dfb) Thanks [@wingkwong](https://github.com/wingkwong)! - vertically center alert icon / endContent (#2678)
 
 - Updated dependencies [[`36eb421`](https://github.com/heroui-inc/heroui/commit/36eb421c66846d4fe6fb102c662ff6bf6149249b)]:
-  - @heroui/button@2.2.24
+  - @sytechui/button@2.2.24
 
 ## 2.2.23
 
@@ -143,7 +143,7 @@
   #### System & Core
 
   - add useInputLabelPlacement
-  - remove `@heroui/aria-utils` dependency
+  - remove `@sytechui/aria-utils` dependency
 
   #### Hooks & Utilities
 
@@ -154,10 +154,10 @@
   - refactor: overlay & interactOutside
 
 - Updated dependencies [[`e489af8`](https://github.com/heroui-inc/heroui/commit/e489af83c189d0b42dca1b0afca1f5d003cd6033)]:
-  - @heroui/shared-icons@2.1.10
-  - @heroui/shared-utils@2.1.10
-  - @heroui/react-utils@2.1.12
-  - @heroui/button@2.2.23
+  - @sytechui/shared-icons@2.1.10
+  - @sytechui/shared-utils@2.1.10
+  - @sytechui/react-utils@2.1.12
+  - @sytechui/button@2.2.23
 
 ## 2.2.23-beta.3
 
@@ -166,10 +166,10 @@
 - [#5466](https://github.com/heroui-inc/heroui/pull/5466) [`87f8a12`](https://github.com/heroui-inc/heroui/commit/87f8a12c279e06cab23d0b60ae35c96ee6d29f32) Thanks [@wingkwong](https://github.com/wingkwong)! - add back RA deps (overlays & utils)
 
 - Updated dependencies [[`87f8a12`](https://github.com/heroui-inc/heroui/commit/87f8a12c279e06cab23d0b60ae35c96ee6d29f32)]:
-  - @heroui/shared-icons@2.1.10-beta.6
-  - @heroui/shared-utils@2.1.10-beta.7
-  - @heroui/react-utils@2.1.12-beta.5
-  - @heroui/button@2.2.23-beta.2
+  - @sytechui/shared-icons@2.1.10-beta.6
+  - @sytechui/shared-utils@2.1.10-beta.7
+  - @sytechui/react-utils@2.1.12-beta.5
+  - @sytechui/button@2.2.23-beta.2
 
 ## 2.2.23-beta.2
 
@@ -178,18 +178,18 @@
 - [`3275e8c`](https://github.com/heroui-inc/heroui/commit/3275e8ca01e65a207e6a431dd40b949a22c1f1f8) Thanks [@wingkwong](https://github.com/wingkwong)! - trigger beta release
 
 - Updated dependencies [[`3275e8c`](https://github.com/heroui-inc/heroui/commit/3275e8ca01e65a207e6a431dd40b949a22c1f1f8)]:
-  - @heroui/shared-icons@2.1.10-beta.5
-  - @heroui/shared-utils@2.1.10-beta.6
-  - @heroui/react-utils@2.1.12-beta.4
-  - @heroui/button@2.2.23-beta.1
+  - @sytechui/shared-icons@2.1.10-beta.5
+  - @sytechui/shared-utils@2.1.10-beta.6
+  - @sytechui/react-utils@2.1.12-beta.4
+  - @sytechui/button@2.2.23-beta.1
 
 ## 2.2.23-beta.1
 
 ### Patch Changes
 
 - Updated dependencies [[`a95feca`](https://github.com/heroui-inc/heroui/commit/a95feca4586ca0a61e13ad03c16fab112160a02b)]:
-  - @heroui/shared-icons@2.1.10-beta.4
-  - @heroui/button@2.2.23-beta.0
+  - @sytechui/shared-icons@2.1.10-beta.4
+  - @sytechui/button@2.2.23-beta.0
 
 ## 2.2.23-beta.0
 
@@ -198,11 +198,11 @@
 - [`1bca3f9`](https://github.com/heroui-inc/heroui/commit/1bca3f994655081f04714843047185aacdd481c0) Thanks [@wingkwong](https://github.com/wingkwong)! - sync 2.7.11 release
 
 - Updated dependencies [[`1bca3f9`](https://github.com/heroui-inc/heroui/commit/1bca3f994655081f04714843047185aacdd481c0)]:
-  - @heroui/shared-icons@2.1.10-beta.3
-  - @heroui/shared-utils@2.1.10-beta.5
-  - @heroui/react-utils@2.1.12-beta.3
-  - @heroui/button@2.2.23-beta.0
-  - @heroui/system@2.4.19-beta.0
+  - @sytechui/shared-icons@2.1.10-beta.3
+  - @sytechui/shared-utils@2.1.10-beta.5
+  - @sytechui/react-utils@2.1.12-beta.3
+  - @sytechui/button@2.2.23-beta.0
+  - @sytechui/system@2.4.19-beta.0
 
 ## 2.2.22
 
@@ -211,7 +211,7 @@
 - [#5374](https://github.com/heroui-inc/heroui/pull/5374) [`be6a1db`](https://github.com/heroui-inc/heroui/commit/be6a1dbf40507af164ebdbe085eda6cceb98aeed) Thanks [@wingkwong](https://github.com/wingkwong)! - bump system peer dependencies
 
 - Updated dependencies [[`7dff993`](https://github.com/heroui-inc/heroui/commit/7dff993e1d11e8f915d1e9c1201396e9b5b53dbf), [`be6a1db`](https://github.com/heroui-inc/heroui/commit/be6a1dbf40507af164ebdbe085eda6cceb98aeed)]:
-  - @heroui/button@2.2.22
+  - @sytechui/button@2.2.22
 
 ## 2.2.21
 
@@ -222,9 +222,9 @@
 - [#5362](https://github.com/heroui-inc/heroui/pull/5362) [`0d217e4`](https://github.com/heroui-inc/heroui/commit/0d217e466f3af30c85edc7d53638e031c8458c56) Thanks [@wingkwong](https://github.com/wingkwong)! - consistent type imports
 
 - Updated dependencies [[`1e23994`](https://github.com/heroui-inc/heroui/commit/1e2399434578827987aedc8ff3cc9cf6ccc99c5f), [`0d217e4`](https://github.com/heroui-inc/heroui/commit/0d217e466f3af30c85edc7d53638e031c8458c56), [`0d217e4`](https://github.com/heroui-inc/heroui/commit/0d217e466f3af30c85edc7d53638e031c8458c56)]:
-  - @heroui/button@2.2.21
-  - @heroui/shared-icons@2.1.9
-  - @heroui/react-utils@2.1.11
+  - @sytechui/button@2.2.21
+  - @sytechui/shared-icons@2.1.9
+  - @sytechui/react-utils@2.1.11
 
 ## 2.2.20
 
@@ -233,8 +233,8 @@
 - [#5310](https://github.com/heroui-inc/heroui/pull/5310) [`1d62208`](https://github.com/heroui-inc/heroui/commit/1d62208642d06f7896724b2702ecb5a17931eb88) Thanks [@wingkwong](https://github.com/wingkwong)! - bump RA versions
 
 - Updated dependencies [[`8df9716`](https://github.com/heroui-inc/heroui/commit/8df9716dfa29926237682b73df59e8018843e9c0), [`1d62208`](https://github.com/heroui-inc/heroui/commit/1d62208642d06f7896724b2702ecb5a17931eb88), [`06fe3a3`](https://github.com/heroui-inc/heroui/commit/06fe3a3c4e7f2fdfb5fcbb2255c907280c892de9)]:
-  - @heroui/shared-icons@2.1.8
-  - @heroui/button@2.2.20
+  - @sytechui/shared-icons@2.1.8
+  - @sytechui/button@2.2.20
 
 ## 2.2.19
 
@@ -245,10 +245,10 @@
   v2.7.7
 
 - Updated dependencies [[`b9e94a2`](https://github.com/heroui-inc/heroui/commit/b9e94a21518ba18447603680055c3a7dad8372bf)]:
-  - @heroui/button@2.2.19
-  - @heroui/react-utils@2.1.10
-  - @heroui/shared-icons@2.1.7
-  - @heroui/shared-utils@2.1.9
+  - @sytechui/button@2.2.19
+  - @sytechui/react-utils@2.1.10
+  - @sytechui/shared-icons@2.1.7
+  - @sytechui/shared-utils@2.1.9
 
 ## 2.2.18
 
@@ -257,9 +257,9 @@
 - [#5186](https://github.com/heroui-inc/heroui/pull/5186) [`500ed77`](https://github.com/heroui-inc/heroui/commit/500ed771e25b08038fdc0d9401bfac31a2d68c3e) Thanks [@wingkwong](https://github.com/wingkwong)! - RA version bump (#5186)
 
 - Updated dependencies [[`53295ca`](https://github.com/heroui-inc/heroui/commit/53295ca9dc7a1310485e1574fd28110b6cbf5ebd), [`500ed77`](https://github.com/heroui-inc/heroui/commit/500ed771e25b08038fdc0d9401bfac31a2d68c3e)]:
-  - @heroui/button@2.2.18
-  - @heroui/shared-utils@2.1.8
-  - @heroui/react-utils@2.1.9
+  - @sytechui/button@2.2.18
+  - @sytechui/shared-utils@2.1.8
+  - @sytechui/react-utils@2.1.9
 
 ## 2.2.17
 
@@ -268,7 +268,7 @@
 - [#5060](https://github.com/heroui-inc/heroui/pull/5060) [`3944e1a`](https://github.com/heroui-inc/heroui/commit/3944e1af4ad58e45e49c4f54c3562474092505b1) Thanks [@wingkwong](https://github.com/wingkwong)! - RA version bump
 
 - Updated dependencies [[`3944e1a`](https://github.com/heroui-inc/heroui/commit/3944e1af4ad58e45e49c4f54c3562474092505b1), [`9247f74`](https://github.com/heroui-inc/heroui/commit/9247f7423334b8db4194f31488119efddc28961f)]:
-  - @heroui/button@2.2.17
+  - @sytechui/button@2.2.17
 
 ## 2.2.16
 
@@ -277,7 +277,7 @@
 - [#4998](https://github.com/heroui-inc/heroui/pull/4998) [`88f1641`](https://github.com/heroui-inc/heroui/commit/88f164116c2be75cd2de0a076f5ba0942a43e3de) Thanks [@wingkwong](https://github.com/wingkwong)! - bump RA versions
 
 - Updated dependencies [[`88f1641`](https://github.com/heroui-inc/heroui/commit/88f164116c2be75cd2de0a076f5ba0942a43e3de)]:
-  - @heroui/button@2.2.16
+  - @sytechui/button@2.2.16
 
 ## 2.2.15
 
@@ -286,17 +286,17 @@
 - v2.7.4
 
 - Updated dependencies []:
-  - @heroui/button@2.2.15
-  - @heroui/react-utils@2.1.8
-  - @heroui/shared-icons@2.1.6
-  - @heroui/shared-utils@2.1.7
+  - @sytechui/button@2.2.15
+  - @sytechui/react-utils@2.1.8
+  - @sytechui/shared-icons@2.1.6
+  - @sytechui/shared-utils@2.1.7
 
 ## 2.2.14
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/button@2.2.14
+  - @sytechui/button@2.2.14
 
 ## 2.2.13
 
@@ -305,10 +305,10 @@
 - Fix v2.7.0 release
 
 - Updated dependencies []:
-  - @heroui/shared-icons@2.1.5
-  - @heroui/shared-utils@2.1.6
-  - @heroui/react-utils@2.1.7
-  - @heroui/button@2.2.13
+  - @sytechui/shared-icons@2.1.5
+  - @sytechui/shared-utils@2.1.6
+  - @sytechui/react-utils@2.1.7
+  - @sytechui/button@2.2.13
 
 ## 2.2.12
 
@@ -317,10 +317,10 @@
 - Fix v2.7.0 release
 
 - Updated dependencies []:
-  - @heroui/button@2.2.12
-  - @heroui/react-utils@2.1.6
-  - @heroui/shared-icons@2.1.4
-  - @heroui/shared-utils@2.1.5
+  - @sytechui/button@2.2.12
+  - @sytechui/react-utils@2.1.6
+  - @sytechui/shared-icons@2.1.4
+  - @sytechui/shared-utils@2.1.5
 
 ## 2.2.11
 
@@ -345,10 +345,10 @@
     - RTL support improvements
     - Better type safety and prop validation
 - Updated dependencies [[`4ff87ca`](https://github.com/heroui-inc/heroui/commit/4ff87ca7afccd2c3db0b145156a8357b2b51e7b5)]:
-  - @heroui/button@2.2.11
-  - @heroui/react-utils@2.1.5
-  - @heroui/shared-icons@2.1.3
-  - @heroui/shared-utils@2.1.4
+  - @sytechui/button@2.2.11
+  - @sytechui/react-utils@2.1.5
+  - @sytechui/shared-icons@2.1.3
+  - @sytechui/shared-utils@2.1.4
 
 ## 2.2.10
 
@@ -357,10 +357,10 @@
 - [#4594](https://github.com/heroui-inc/heroui/pull/4594) [`7ebe0e6`](https://github.com/heroui-inc/heroui/commit/7ebe0e664feb777fe0cad311312d0e02b899319e) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Org name changed
 
 - Updated dependencies [[`7ebe0e6`](https://github.com/heroui-inc/heroui/commit/7ebe0e664feb777fe0cad311312d0e02b899319e)]:
-  - @heroui/shared-icons@2.1.2
-  - @heroui/shared-utils@2.1.3
-  - @heroui/react-utils@2.1.4
-  - @heroui/button@2.2.10
+  - @sytechui/shared-icons@2.1.2
+  - @sytechui/shared-utils@2.1.3
+  - @sytechui/react-utils@2.1.4
+  - @sytechui/button@2.2.10
 
 ## 2.2.9
 
@@ -369,8 +369,8 @@
 - [#4447](https://github.com/heroui-inc/heroui/pull/4447) [`a83388a`](https://github.com/heroui-inc/heroui/commit/a83388aaf4521f0ed8dfed99a54998156df1868b) Thanks [@wingkwong](https://github.com/wingkwong)! - mark description prop as optional (#4445)
 
 - Updated dependencies [[`e7ff673`](https://github.com/heroui-inc/heroui/commit/e7ff6730d7e891f1e9e3ca232b1faaebc5aedef2)]:
-  - @heroui/react-utils@2.1.3
-  - @heroui/button@2.2.9
+  - @sytechui/react-utils@2.1.3
+  - @sytechui/button@2.2.9
 
 ## 2.2.8
 
@@ -383,30 +383,30 @@
 - [#4354](https://github.com/heroui-inc/heroui/pull/4354) [`fa38828`](https://github.com/heroui-inc/heroui/commit/fa388283458602cd8e128486323472498a145fa2) Thanks [@wingkwong](https://github.com/wingkwong)! - replace decrepate onClick in Alert
 
 - Updated dependencies [[`77206bc`](https://github.com/heroui-inc/heroui/commit/77206bc62596894d038b9715e40b361fec286c10), [`5f388fc`](https://github.com/heroui-inc/heroui/commit/5f388fc68c7db7f852432e73386686d919d44d31)]:
-  - @heroui/shared-utils@2.1.2
-  - @heroui/button@2.2.8
-  - @heroui/react-utils@2.1.2
+  - @sytechui/shared-utils@2.1.2
+  - @sytechui/button@2.2.8
+  - @sytechui/react-utils@2.1.2
 
 ## 2.2.7
 
 ### Patch Changes
 
 - Updated dependencies [[`78c0928`](https://github.com/heroui-inc/heroui/commit/78c09280e30113bd648057ad64ad6198d1e5d58f)]:
-  - @heroui/button@2.2.7
+  - @sytechui/button@2.2.7
 
 ## 2.2.6
 
 ### Patch Changes
 
 - Updated dependencies [[`5598806`](https://github.com/heroui-inc/heroui/commit/5598806216166dc9fff36cafd9112412486b747f)]:
-  - @heroui/button@2.2.6
+  - @sytechui/button@2.2.6
 
 ## 2.2.5
 
 ### Patch Changes
 
 - Updated dependencies [[`dfefdd6`](https://github.com/heroui-inc/heroui/commit/dfefdd6250eb81ae653e611a8dff12b2ae29a09c)]:
-  - @heroui/button@2.2.5
+  - @sytechui/button@2.2.5
 
 ## 2.2.4
 
@@ -415,7 +415,7 @@
 - [#4258](https://github.com/heroui-inc/heroui/pull/4258) [`1031e98`](https://github.com/heroui-inc/heroui/commit/1031e985b71e69b8a7189ea049b9616257f820b3) Thanks [@wingkwong](https://github.com/wingkwong)! - sync with upstream RA versions
 
 - Updated dependencies [[`1031e98`](https://github.com/heroui-inc/heroui/commit/1031e985b71e69b8a7189ea049b9616257f820b3)]:
-  - @heroui/button@2.2.4
+  - @sytechui/button@2.2.4
 
 ## 2.2.3
 
@@ -424,7 +424,7 @@
 - [#4255](https://github.com/heroui-inc/heroui/pull/4255) [`6a94a12`](https://github.com/heroui-inc/heroui/commit/6a94a125d4836b0a18d9cd2cb521c85a6bfa9050) Thanks [@wingkwong](https://github.com/wingkwong)! - fixed incorrect peerDependencies for theme and system package (#4254)
 
 - Updated dependencies [[`6a94a12`](https://github.com/heroui-inc/heroui/commit/6a94a125d4836b0a18d9cd2cb521c85a6bfa9050)]:
-  - @heroui/button@2.2.3
+  - @sytechui/button@2.2.3
 
 ## 2.2.2
 
@@ -433,7 +433,7 @@
 - [#4247](https://github.com/heroui-inc/heroui/pull/4247) [`551ab18`](https://github.com/heroui-inc/heroui/commit/551ab184060b24b2c3a89598f84d4c18599649d0) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Fix peerDeps & core package client on export \*
 
 - Updated dependencies [[`551ab18`](https://github.com/heroui-inc/heroui/commit/551ab184060b24b2c3a89598f84d4c18599649d0)]:
-  - @heroui/button@2.2.2
+  - @sytechui/button@2.2.2
 
 ## 2.2.1
 
@@ -442,10 +442,10 @@
 - [`d6eee4a`](https://github.com/heroui-inc/heroui/commit/d6eee4a8767556152f47f06dcf04940951abc5af) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - v2.6.2
 
 - Updated dependencies [[`d6eee4a`](https://github.com/heroui-inc/heroui/commit/d6eee4a8767556152f47f06dcf04940951abc5af)]:
-  - @heroui/button@2.2.1
-  - @heroui/react-utils@2.1.1
-  - @heroui/shared-icons@2.1.1
-  - @heroui/shared-utils@2.1.1
+  - @sytechui/button@2.2.1
+  - @sytechui/react-utils@2.1.1
+  - @sytechui/shared-icons@2.1.1
+  - @sytechui/shared-utils@2.1.1
 
 ## 2.2.0
 
@@ -480,25 +480,25 @@
 - [#4226](https://github.com/heroui-inc/heroui/pull/4226) [`6c0213d`](https://github.com/heroui-inc/heroui/commit/6c0213dfc805aa3c793763c0b25f53b2b80c24dc) Thanks [@wingkwong](https://github.com/wingkwong)! - bump `@react-aria/utils` version (#4212)
 
 - Updated dependencies [[`6c0213d`](https://github.com/heroui-inc/heroui/commit/6c0213dfc805aa3c793763c0b25f53b2b80c24dc), [`5786897`](https://github.com/heroui-inc/heroui/commit/5786897b9950d95c12351dacd2fb41bb1e298201)]:
-  - @heroui/button@2.2.0
-  - @heroui/react-utils@2.1.0
-  - @heroui/shared-icons@2.1.0
-  - @heroui/shared-utils@2.1.0
+  - @sytechui/button@2.2.0
+  - @sytechui/react-utils@2.1.0
+  - @sytechui/shared-icons@2.1.0
+  - @sytechui/shared-utils@2.1.0
 
 ## 2.1.0-beta.14
 
 ### Patch Changes
 
 - Updated dependencies [[`004c4a4b3`](https://github.com/heroui-inc/heroui/commit/004c4a4b3e44477f148937b12bb542e4b27fd322)]:
-  - @heroui/shared-icons@2.0.10-beta.8
-  - @heroui/button@2.1.0-beta.10
+  - @sytechui/shared-icons@2.0.10-beta.8
+  - @sytechui/button@2.1.0-beta.10
 
 ## 2.1.0-beta.13
 
 ### Patch Changes
 
 - Updated dependencies [[`17bf65799`](https://github.com/heroui-inc/heroui/commit/17bf65799c39c2ee44ea9c0b23aa80315b2a5083)]:
-  - @heroui/button@2.1.0-beta.10
+  - @sytechui/button@2.1.0-beta.10
 
 ## 2.1.0-beta.12
 
@@ -507,17 +507,17 @@
 - [`9869f2b91`](https://github.com/heroui-inc/heroui/commit/9869f2b91d0829f9c7f0500ba05745707820bf27) Thanks [@wingkwong](https://github.com/wingkwong)! - bump version
 
 - Updated dependencies [[`9869f2b91`](https://github.com/heroui-inc/heroui/commit/9869f2b91d0829f9c7f0500ba05745707820bf27)]:
-  - @heroui/button@2.1.0-beta.9
-  - @heroui/react-utils@2.0.18-beta.8
-  - @heroui/shared-icons@2.0.10-beta.7
-  - @heroui/shared-utils@2.0.9-beta.8
+  - @sytechui/button@2.1.0-beta.9
+  - @sytechui/react-utils@2.0.18-beta.8
+  - @sytechui/shared-icons@2.0.10-beta.7
+  - @sytechui/shared-utils@2.0.9-beta.8
 
 ## 2.1.0-beta.11
 
 ### Patch Changes
 
 - Updated dependencies [[`eafdb7d47`](https://github.com/heroui-inc/heroui/commit/eafdb7d475a7fcaa7671af77e86fcdf62f14ae00)]:
-  - @heroui/button@2.1.0-beta.8
+  - @sytechui/button@2.1.0-beta.8
 
 ## 2.1.0-beta.10
 
@@ -526,10 +526,10 @@
 - [#4092](https://github.com/heroui-inc/heroui/pull/4092) [`528668db8`](https://github.com/heroui-inc/heroui/commit/528668db85b98b46473cb1e214780b7468cdadba) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Test new runner
 
 - Updated dependencies [[`528668db8`](https://github.com/heroui-inc/heroui/commit/528668db85b98b46473cb1e214780b7468cdadba)]:
-  - @heroui/button@2.1.0-beta.7
-  - @heroui/react-utils@2.0.18-beta.7
-  - @heroui/shared-icons@2.0.10-beta.6
-  - @heroui/shared-utils@2.0.9-beta.7
+  - @sytechui/button@2.1.0-beta.7
+  - @sytechui/react-utils@2.0.18-beta.7
+  - @sytechui/shared-icons@2.0.10-beta.6
+  - @sytechui/shared-utils@2.0.9-beta.7
 
 ## 2.1.0-beta.9
 
@@ -538,10 +538,10 @@
 - [#4086](https://github.com/heroui-inc/heroui/pull/4086) [`f69fe47b5`](https://github.com/heroui-inc/heroui/commit/f69fe47b5b8f6f3a77a7a8c20d8715263fa32acb) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Pnpm clean
 
 - Updated dependencies [[`f69fe47b5`](https://github.com/heroui-inc/heroui/commit/f69fe47b5b8f6f3a77a7a8c20d8715263fa32acb)]:
-  - @heroui/button@2.1.0-beta.6
-  - @heroui/react-utils@2.0.18-beta.6
-  - @heroui/shared-icons@2.0.10-beta.5
-  - @heroui/shared-utils@2.0.9-beta.6
+  - @sytechui/button@2.1.0-beta.6
+  - @sytechui/react-utils@2.0.18-beta.6
+  - @sytechui/shared-icons@2.0.10-beta.5
+  - @sytechui/shared-utils@2.0.9-beta.6
 
 ## 2.1.0-beta.8
 
@@ -550,10 +550,10 @@
 - [#4083](https://github.com/heroui-inc/heroui/pull/4083) [`35058262c`](https://github.com/heroui-inc/heroui/commit/35058262c61628fb42907f529c4417886aa12bb2) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Fix build
 
 - Updated dependencies [[`35058262c`](https://github.com/heroui-inc/heroui/commit/35058262c61628fb42907f529c4417886aa12bb2)]:
-  - @heroui/button@2.1.0-beta.5
-  - @heroui/react-utils@2.0.18-beta.5
-  - @heroui/shared-icons@2.0.10-beta.4
-  - @heroui/shared-utils@2.0.9-beta.5
+  - @sytechui/button@2.1.0-beta.5
+  - @sytechui/react-utils@2.0.18-beta.5
+  - @sytechui/shared-icons@2.0.10-beta.4
+  - @sytechui/shared-utils@2.0.9-beta.5
 
 ## 2.1.0-beta.7
 
@@ -562,7 +562,7 @@
 - [#4073](https://github.com/heroui-inc/heroui/pull/4073) [`70dc75983`](https://github.com/heroui-inc/heroui/commit/70dc7598388022fca04255c3c1623468a38a3803) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Alert compoentn styles improved
 
 - Updated dependencies []:
-  - @heroui/button@2.1.0-beta.4
+  - @sytechui/button@2.1.0-beta.4
 
 ## 2.1.0-beta.6
 
@@ -571,7 +571,7 @@
 - [#4071](https://github.com/heroui-inc/heroui/pull/4071) [`31349c178`](https://github.com/heroui-inc/heroui/commit/31349c178b9b2bd0be9856bc09126a37be68901a) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Alert styles improved
 
 - Updated dependencies []:
-  - @heroui/button@2.1.0-beta.4
+  - @sytechui/button@2.1.0-beta.4
 
 ## 2.1.0-beta.5
 
@@ -580,17 +580,17 @@
 - [#4054](https://github.com/heroui-inc/heroui/pull/4054) [`0f55c491b`](https://github.com/heroui-inc/heroui/commit/0f55c491b73da8944f9b38f2ad7486d1b89f8b7a) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Alert design improved
 
 - Updated dependencies [[`0f55c491b`](https://github.com/heroui-inc/heroui/commit/0f55c491b73da8944f9b38f2ad7486d1b89f8b7a)]:
-  - @heroui/shared-icons@2.0.10-beta.3
-  - @heroui/button@2.1.0-beta.4
+  - @sytechui/shared-icons@2.0.10-beta.3
+  - @sytechui/button@2.1.0-beta.4
 
 ## 2.1.0-beta.4
 
 ### Patch Changes
 
 - Updated dependencies [[`5339b2571`](https://github.com/heroui-inc/heroui/commit/5339b2571e6d73ca6efe2acd34d88669419db9f7)]:
-  - @heroui/shared-utils@2.0.9-beta.4
-  - @heroui/button@2.1.0-beta.4
-  - @heroui/react-utils@2.0.18-beta.4
+  - @sytechui/shared-utils@2.0.9-beta.4
+  - @sytechui/button@2.1.0-beta.4
+  - @sytechui/react-utils@2.0.18-beta.4
 
 ## 2.1.0-beta.3
 
@@ -599,10 +599,10 @@
 - [#4010](https://github.com/heroui-inc/heroui/pull/4010) [`ef432eb53`](https://github.com/heroui-inc/heroui/commit/ef432eb539714fded6cab86a2185956fb103e0df) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - framer-motion alpha version added
 
 - Updated dependencies [[`ef432eb53`](https://github.com/heroui-inc/heroui/commit/ef432eb539714fded6cab86a2185956fb103e0df)]:
-  - @heroui/button@2.1.0-beta.3
-  - @heroui/react-utils@2.0.18-beta.3
-  - @heroui/shared-icons@2.0.10-beta.2
-  - @heroui/shared-utils@2.0.9-beta.3
+  - @sytechui/button@2.1.0-beta.3
+  - @sytechui/react-utils@2.0.18-beta.3
+  - @sytechui/shared-icons@2.0.10-beta.2
+  - @sytechui/shared-utils@2.0.9-beta.3
 
 ## 2.1.0-beta.2
 
@@ -611,10 +611,10 @@
 - [#4008](https://github.com/heroui-inc/heroui/pull/4008) [`7c1c0dd8f`](https://github.com/heroui-inc/heroui/commit/7c1c0dd8fef3ea72996c1095b919574c4b7f9b89) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - React 19 added to peerDeps
 
 - Updated dependencies [[`7c1c0dd8f`](https://github.com/heroui-inc/heroui/commit/7c1c0dd8fef3ea72996c1095b919574c4b7f9b89)]:
-  - @heroui/button@2.1.0-beta.2
-  - @heroui/react-utils@2.0.18-beta.2
-  - @heroui/shared-icons@2.0.10-beta.1
-  - @heroui/shared-utils@2.0.9-beta.2
+  - @sytechui/button@2.1.0-beta.2
+  - @sytechui/react-utils@2.0.18-beta.2
+  - @sytechui/shared-icons@2.0.10-beta.1
+  - @sytechui/shared-utils@2.0.9-beta.2
 
 ## 2.1.0-beta.1
 
@@ -623,10 +623,10 @@
 - [#3990](https://github.com/heroui-inc/heroui/pull/3990) [`cb5bc4c74`](https://github.com/heroui-inc/heroui/commit/cb5bc4c74f00caaee80dca89c1f02038db315b85) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Beta 1
 
 - Updated dependencies [[`cb5bc4c74`](https://github.com/heroui-inc/heroui/commit/cb5bc4c74f00caaee80dca89c1f02038db315b85)]:
-  - @heroui/button@2.1.0-beta.1
-  - @heroui/react-utils@2.0.18-beta.1
-  - @heroui/shared-icons@2.0.10-beta.0
-  - @heroui/shared-utils@2.0.9-beta.1
+  - @sytechui/button@2.1.0-beta.1
+  - @sytechui/react-utils@2.0.18-beta.1
+  - @sytechui/shared-icons@2.0.10-beta.0
+  - @sytechui/shared-utils@2.0.9-beta.1
 
 ## 2.1.0-beta.0
 
@@ -639,8 +639,8 @@
 - [#3982](https://github.com/heroui-inc/heroui/pull/3982) [`d90ad05b1`](https://github.com/heroui-inc/heroui/commit/d90ad05b13b36617009cb0e5f57f299aa7bb7bd0) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - introduced Alert component (#2250)
 
 - Updated dependencies [[`0cf91395c`](https://github.com/heroui-inc/heroui/commit/0cf91395c7c66a69fb05c7fca4a30cbad9e1e0f8), [`781b85566`](https://github.com/heroui-inc/heroui/commit/781b85566ee5eac3f505625462c4f5f14e36ed3a), [`67ea2f65e`](https://github.com/heroui-inc/heroui/commit/67ea2f65e17f913bdffae4690586a6ae202c8f7d), [`38a54ab49`](https://github.com/heroui-inc/heroui/commit/38a54ab497781e17799b37f0061ba50f2dc44e09), [`af3c4f706`](https://github.com/heroui-inc/heroui/commit/af3c4f706bb88eae02eee594a6db68cdd33bbe88), [`ae73de1a6`](https://github.com/heroui-inc/heroui/commit/ae73de1a61c26e78235ce2d4c38159d486b55d56), [`ad6393ab3`](https://github.com/heroui-inc/heroui/commit/ad6393ab33362119203455ef5c8ffbfe1ffa96a1), [`3f0d81b56`](https://github.com/heroui-inc/heroui/commit/3f0d81b560e7ef3eb315bd98407249c0eb4ed5eb), [`cb1b3135b`](https://github.com/heroui-inc/heroui/commit/cb1b3135bc7e811c9c2e163d4778f9f6eb2ef8c8), [`a5cac4561`](https://github.com/heroui-inc/heroui/commit/a5cac45619e529cf9850f02f416b6bc7cba77f3f), [`d90ad05b1`](https://github.com/heroui-inc/heroui/commit/d90ad05b13b36617009cb0e5f57f299aa7bb7bd0), [`a0d7141db`](https://github.com/heroui-inc/heroui/commit/a0d7141db314c6bea27df6b8beb15dae3b1bcb93), [`3f0d81b56`](https://github.com/heroui-inc/heroui/commit/3f0d81b560e7ef3eb315bd98407249c0eb4ed5eb), [`3f0d81b56`](https://github.com/heroui-inc/heroui/commit/3f0d81b560e7ef3eb315bd98407249c0eb4ed5eb), [`8a33eabb2`](https://github.com/heroui-inc/heroui/commit/8a33eabb2583202fcc8fbc33e8f2ed23bb45f1a4), [`559436d46`](https://github.com/heroui-inc/heroui/commit/559436d462bdb8739d8c817d1aa98607969d8a07)]:
-  - @heroui/theme@2.3.0-beta.0
-  - @heroui/button@2.1.0-beta.0
-  - @heroui/system@2.3.0-beta.0
-  - @heroui/shared-utils@2.0.9-beta.0
-  - @heroui/react-utils@2.0.18-beta.0
+  - @sytechui/theme@2.3.0-beta.0
+  - @sytechui/button@2.1.0-beta.0
+  - @sytechui/system@2.3.0-beta.0
+  - @sytechui/shared-utils@2.0.9-beta.0
+  - @sytechui/react-utils@2.0.18-beta.0

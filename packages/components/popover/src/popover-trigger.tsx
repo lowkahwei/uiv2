@@ -1,8 +1,8 @@
 import React, {Children, cloneElement, useMemo} from "react";
-import {pickChildren} from "@heroui/react-utils";
-import {useAriaButton} from "@heroui/use-aria-button";
-import {Button} from "@heroui/button";
-import {mergeProps} from "@heroui/shared-utils";
+import {pickChildren} from "@sytechui/react-utils";
+import {useAriaButton} from "@sytechui/use-aria-button";
+import {Button} from "@sytechui/button";
+import {mergeProps} from "@sytechui/shared-utils";
 
 import {usePopoverContext} from "./popover-context";
 

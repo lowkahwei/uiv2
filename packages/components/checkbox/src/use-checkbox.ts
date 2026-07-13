@@ -1,24 +1,24 @@
-import type {CheckboxVariantProps, CheckboxSlots, SlotsToClasses} from "@heroui/theme";
+import type {CheckboxVariantProps, CheckboxSlots, SlotsToClasses} from "@sytechui/theme";
 import type {AriaCheckboxProps} from "@react-types/checkbox";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
 import type {ReactNode, Ref} from "react";
 
-import {useProviderContext} from "@heroui/system";
+import {useProviderContext} from "@sytechui/system";
 import {useCallback, useId} from "react";
 import {useMemo, useRef} from "react";
 import {useToggleState} from "@react-stately/toggle";
-import {checkbox, cn} from "@heroui/theme";
-import {useCallbackRef} from "@heroui/use-callback-ref";
+import {checkbox, cn} from "@sytechui/theme";
+import {useCallbackRef} from "@sytechui/use-callback-ref";
 import {useHover} from "@react-aria/interactions";
 import {useFocusRing} from "@react-aria/focus";
-import {__DEV__, warn, dataAttr, safeAriaLabel, mergeProps, chain} from "@heroui/shared-utils";
+import {__DEV__, warn, dataAttr, safeAriaLabel, mergeProps, chain} from "@sytechui/shared-utils";
 import {
   useCheckbox as useReactAriaCheckbox,
   useCheckboxGroupItem as useReactAriaCheckboxGroupItem,
 } from "@react-aria/checkbox";
-import {useSafeLayoutEffect} from "@heroui/use-safe-layout-effect";
-import {mergeRefs} from "@heroui/react-utils";
-import {FormContext, useSlottedContext} from "@heroui/form";
+import {useSafeLayoutEffect} from "@sytechui/use-safe-layout-effect";
+import {mergeRefs} from "@sytechui/react-utils";
+import {FormContext, useSlottedContext} from "@sytechui/form";
 
 import {useCheckboxGroupContext} from "./checkbox-group-context";
 

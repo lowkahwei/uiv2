@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/spinner",
+  "name": "@sytechui/spinner",
   "version": "2.2.29",
   "description": "Loaders express an unspecified wait time or display the length of a process.",
   "keywords": [
@@ -38,15 +38,15 @@
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0",
-    "@heroui/theme": ">=2.4.24"
+    "@sytechui/theme": ">=2.4.24"
   },
   "dependencies": {
-    "@heroui/system-rsc": "workspace:*",
-    "@heroui/shared-utils": "workspace:*",
-    "@heroui/system": "workspace:*"
+    "@sytechui/system-rsc": "workspace:*",
+    "@sytechui/shared-utils": "workspace:*",
+    "@sytechui/system": "workspace:*"
   },
   "devDependencies": {
-    "@heroui/theme": "workspace:*",
+    "@sytechui/theme": "workspace:*",
     "clean-package": "2.2.0",
     "react": "18.3.0",
     "react-dom": "18.3.0"

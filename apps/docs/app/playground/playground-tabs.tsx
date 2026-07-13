@@ -1,6 +1,6 @@
 "use client";
 
-import {ScrollArea, Tab, Tabs} from "@heroui/react";
+import {ScrollArea, Tab, Tabs} from "@sytechui/react";
 
 export default function BlocksTabs() {
   return (

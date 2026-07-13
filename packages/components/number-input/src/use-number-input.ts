@@ -1,21 +1,21 @@
-import type {NumberInputVariantProps, SlotsToClasses, NumberInputSlots} from "@heroui/theme";
+import type {NumberInputVariantProps, SlotsToClasses, NumberInputSlots} from "@sytechui/theme";
 import type {AriaNumberFieldProps} from "@react-types/numberfield";
 import type {NumberFieldStateOptions} from "@react-stately/numberfield";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
 import type {Ref} from "react";
 
-import {useLabelPlacement, mapPropsVariants, useProviderContext} from "@heroui/system";
-import {useSafeLayoutEffect} from "@heroui/use-safe-layout-effect";
+import {useLabelPlacement, mapPropsVariants, useProviderContext} from "@sytechui/system";
+import {useSafeLayoutEffect} from "@sytechui/use-safe-layout-effect";
 import {useFocusRing} from "@react-aria/focus";
-import {numberInput, cn} from "@heroui/theme";
-import {useDOMRef, filterDOMProps} from "@heroui/react-utils";
+import {numberInput, cn} from "@sytechui/theme";
+import {useDOMRef, filterDOMProps} from "@sytechui/react-utils";
 import {useFocusWithin, useHover, usePress} from "@react-aria/interactions";
 import {useLocale} from "@react-aria/i18n";
-import {dataAttr, isEmpty, objectToDeps, chain, mergeProps} from "@heroui/shared-utils";
+import {dataAttr, isEmpty, objectToDeps, chain, mergeProps} from "@sytechui/shared-utils";
 import {useNumberFieldState} from "@react-stately/numberfield";
 import {useNumberField as useAriaNumberInput} from "@react-aria/numberfield";
 import {useMemo, useCallback, useState} from "react";
-import {FormContext, useSlottedContext} from "@heroui/form";
+import {FormContext, useSlottedContext} from "@sytechui/form";
 
 export interface Props extends Omit<HTMLHeroUIProps<"input">, keyof NumberInputVariantProps> {
   /**

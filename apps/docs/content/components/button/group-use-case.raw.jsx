@@ -5,7 +5,7 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-} from "@heroui/react";
+} from "@sytechui/react";
 
 export const ChevronDownIcon = () => {
   return (

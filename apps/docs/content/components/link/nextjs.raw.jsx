@@ -1,4 +1,4 @@
-import {Link} from "@heroui/react";
+import {Link} from "@sytechui/react";
 import NextLink from "next/link";
 
 export default function App() {

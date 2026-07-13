@@ -1,18 +1,18 @@
 import type {ReactNode, ReactElement} from "react";
 import type {GridNode} from "@react-types/grid";
-import type {HTMLHeroUIProps} from "@heroui/system";
+import type {HTMLHeroUIProps} from "@sytechui/system";
 import type {ValuesType} from "./use-table";
 
 import {cloneElement, isValidElement} from "react";
-import {forwardRef} from "@heroui/system";
-import {useDOMRef, filterDOMProps} from "@heroui/react-utils";
-import {dataAttr, mergeProps} from "@heroui/shared-utils";
+import {forwardRef} from "@sytechui/system";
+import {useDOMRef, filterDOMProps} from "@sytechui/react-utils";
+import {dataAttr, mergeProps} from "@sytechui/shared-utils";
 import {useTableColumnHeader} from "@react-aria/table";
-import {ChevronDownIcon} from "@heroui/shared-icons";
+import {ChevronDownIcon} from "@sytechui/shared-icons";
 import {useFocusRing} from "@react-aria/focus";
 import {VisuallyHidden} from "@react-aria/visually-hidden";
 import {useHover} from "@react-aria/interactions";
-import {cn} from "@heroui/theme";
+import {cn} from "@sytechui/theme";
 
 // @internal
 export type SortIconProps = {

@@ -1,7 +1,7 @@
 import type {Meta} from "@storybook/react";
 
 import React from "react";
-import {Link} from "@heroui/link";
+import {Link} from "@sytechui/link";
 
 import {User} from "../src";
 

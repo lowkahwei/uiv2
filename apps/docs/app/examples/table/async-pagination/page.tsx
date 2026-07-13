@@ -10,7 +10,7 @@ import {
   getKeyValue,
   Spinner,
   Pagination,
-} from "@heroui/react";
+} from "@sytechui/react";
 import {useMemo, useState} from "react";
 import useSWR from "swr";
 

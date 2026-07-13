@@ -1,4 +1,4 @@
-import {Snippet} from "@heroui/react";
+import {Snippet} from "@sytechui/react";
 
 export const CopyIcon = ({size, height, width, ...props}) => {
   return (
@@ -37,7 +37,7 @@ export const CheckIcon = ({size, height, width, ...props}) => {
 export default function App() {
   return (
     <Snippet checkIcon={<CheckIcon />} copyIcon={<CopyIcon />} variant="bordered">
-      npm install @heroui/react
+      npm install @sytechui/react
     </Snippet>
   );
 }

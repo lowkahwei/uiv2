@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-image",
+  "name": "@sytechui/use-image",
   "version": "2.1.14",
   "description": "React hook for progressing image loading",
   "keywords": [
@@ -34,14 +34,14 @@
     "postpack": "clean-package restore"
   },
   "dependencies": {
-    "@heroui/use-safe-layout-effect": "workspace:*",
-    "@heroui/react-utils": "workspace:*"
+    "@sytechui/use-safe-layout-effect": "workspace:*",
+    "@sytechui/react-utils": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0"
   },
   "devDependencies": {
-    "@heroui/test-utils": "workspace:*",
+    "@sytechui/test-utils": "workspace:*",
     "clean-package": "2.2.0",
     "react": "^18.3.0"
   },

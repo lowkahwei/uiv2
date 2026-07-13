@@ -1,6 +1,6 @@
 import * as React from "react";
 import {render} from "@testing-library/react";
-import {HeroUIProvider} from "@heroui/system";
+import {HeroUIProvider} from "@sytechui/system";
 
 import {Spinner} from "../src";
 

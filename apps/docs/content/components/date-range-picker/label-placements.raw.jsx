@@ -1,4 +1,4 @@
-import {DateRangePicker} from "@heroui/react";
+import {DateRangePicker} from "@sytechui/react";
 
 export default function App() {
   const placements = ["inside", "outside", "outside-left", "outside-top"];

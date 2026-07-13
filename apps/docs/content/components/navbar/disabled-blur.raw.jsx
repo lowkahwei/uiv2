@@ -1,4 +1,4 @@
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@heroui/react";
+import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@sytechui/react";
 
 export const AcmeLogo = () => {
   return (

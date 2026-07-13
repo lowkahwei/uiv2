@@ -53,7 +53,7 @@ NextUI components are animated by default and can be disabled by setting the pro
 "use client";
 
 import {type ReactNode} from "react";
-import {HeroUIProvider} from "@heroui/react";
+import {HeroUIProvider} from "@sytechui/react";
 
 export function AppProvider(props: AppProviderProps) {
   const {children, className} = props;
@@ -83,7 +83,7 @@ By default, there is a ripple effect on press in Button and Card component and c
 "use client";
 
 import {type ReactNode} from "react";
-import {HeroUIProvider} from "@heroui/react";
+import {HeroUIProvider} from "@sytechui/react";
 
 export function AppProvider(props: AppProviderProps) {
   const {children, className} = props;
@@ -109,7 +109,7 @@ We can control whether `framer-motion` animations are skipped within the applica
 "use client";
 
 import {type ReactNode} from "react";
-import {HeroUIProvider} from "@heroui/react";
+import {HeroUIProvider} from "@sytechui/react";
 
 export function AppProvider(props: AppProviderProps) {
   const {children, className} = props;
@@ -135,7 +135,7 @@ We can set `validationBehavior` to either `native` or `aria` to control whether 
 "use client";
 
 import {type ReactNode} from "react";
-import {HeroUIProvider} from "@heroui/react";
+import {HeroUIProvider} from "@sytechui/react";
 
 export function AppProvider(props: AppProviderProps) {
   const {children, className} = props;
@@ -244,26 +244,26 @@ We've upgraded and fixed React Aria packages dependencies across our components.
 
 ### Export improved `cn` utility
 
-> If you are using it from `@heroui/react`, no changes are required.
+> If you are using it from `@sytechui/react`, no changes are required.
 
-The new `cn` utility exported from the `@heroui/theme` package includes `tailwind-merge` to avoid conflicts between tailwindcss classes overrides and includes the config for NextUI custom classes.
+The new `cn` utility exported from the `@sytechui/theme` package includes `tailwind-merge` to avoid conflicts between tailwindcss classes overrides and includes the config for NextUI custom classes.
 
-If you are using the `cn` utility from the `@heroui/system`, 
+If you are using the `cn` utility from the `@sytechui/system`,
 
 ```diff-tsx
--import {cn} from "@heroui/system"
+-import {cn} from "@sytechui/system"
 ```
 
-or `@heroui/system-rsc` package,
+or `@sytechui/system-rsc` package,
 
 ```diff-tsx
--import {cn} from "@heroui/system-rsc"
+-import {cn} from "@sytechui/system-rsc"
 ```
 
 you need to update the import as follows:
 
 ```diff-tsx
-+ import {cn} from "@heroui/theme"
++ import {cn} from "@sytechui/theme"
 ```
 
 <Spacer y={4} />

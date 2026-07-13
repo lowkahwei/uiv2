@@ -1,4 +1,4 @@
-import type {SlotsToClasses, ToastRegionSlots, ToastRegionVariantProps} from "@heroui/theme";
+import type {SlotsToClasses, ToastRegionSlots, ToastRegionVariantProps} from "@sytechui/theme";
 import type {AriaToastRegionProps} from "@react-aria/toast";
 import type {QueuedToast, ToastState} from "@react-stately/toast";
 import type {ToastProps, ToastPlacement} from "./use-toast";
@@ -6,8 +6,8 @@ import type {ToastProps, ToastPlacement} from "./use-toast";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useToastRegion} from "@react-aria/toast";
 import {useHover} from "@react-aria/interactions";
-import {toastRegion, cn} from "@heroui/theme";
-import {mergeProps} from "@heroui/shared-utils";
+import {toastRegion, cn} from "@sytechui/theme";
+import {mergeProps} from "@sytechui/shared-utils";
 import {AnimatePresence} from "framer-motion";
 
 import Toast from "./toast";

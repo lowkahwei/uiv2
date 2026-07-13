@@ -1,5 +1,5 @@
 import { memo, useCallback } from "react";
-import { cn } from "@heroui/theme";
+import { cn } from "@sytechui/theme";
 import { useCarouselContext, useCarouselControlContext } from "./carousel";
 import { motion } from "framer-motion";
 import { CarouselPaginationProps } from "./types";

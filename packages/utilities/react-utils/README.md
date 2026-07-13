@@ -1,4 +1,4 @@
-# @heroui/react-utils
+# @sytechui/react-utils
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @heroui/react-utils
+yarn add @sytechui/react-utils
 # or
-npm i @heroui/react-utils
+npm i @sytechui/react-utils
 ```
 
 ## Contribution

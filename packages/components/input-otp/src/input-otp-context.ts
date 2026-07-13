@@ -1,6 +1,6 @@
 import type {UseInputOtpReturn} from "./use-input-otp";
 
-import {createContext} from "@heroui/react-utils";
+import {createContext} from "@sytechui/react-utils";
 
 export const [InputOtpProvider, useInputOtpContext] = createContext<UseInputOtpReturn>({
   name: "InputOtpContext",

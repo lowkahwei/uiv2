@@ -1,12 +1,12 @@
 import type {DropEvent, DropItem} from "@react-aria/dnd";
-import type {PropGetter} from "@heroui/system";
+import type {PropGetter} from "@sytechui/system";
 import type {DropZoneState, UseDropZoneProps} from "./types";
 
-import {useProviderContext, mapPropsVariants} from "@heroui/system";
-import {useDOMRef, filterDOMProps} from "@heroui/react-utils";
-import {useAriaButton} from "@heroui/use-aria-button";
-import {dataAttr, mergeProps, objectToDeps} from "@heroui/shared-utils";
-import {cn, dropZone} from "@heroui/theme";
+import {useProviderContext, mapPropsVariants} from "@sytechui/system";
+import {useDOMRef, filterDOMProps} from "@sytechui/react-utils";
+import {useAriaButton} from "@sytechui/use-aria-button";
+import {dataAttr, mergeProps, objectToDeps} from "@sytechui/shared-utils";
+import {cn, dropZone} from "@sytechui/theme";
 import {useFocusRing} from "@react-aria/focus";
 import {useHover} from "@react-aria/interactions";
 import {useClipboard, useDrop} from "@react-aria/dnd";

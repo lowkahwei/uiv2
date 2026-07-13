@@ -1,7 +1,7 @@
 import type {DateValue} from "@internationalized/date";
 
 import React from "react";
-import {DateInput} from "@heroui/react";
+import {DateInput} from "@sytechui/react";
 import {parseAbsoluteToLocal} from "@internationalized/date";
 import {I18nProvider} from "@react-aria/i18n";
 

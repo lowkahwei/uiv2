@@ -1,7 +1,7 @@
 import type {UseImageProps} from "./use-image";
 
 import {cloneElement} from "react";
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 
 import {useImage} from "./use-image";
 

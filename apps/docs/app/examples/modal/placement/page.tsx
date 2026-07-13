@@ -1,6 +1,6 @@
 "use client";
 
-import type {ModalProps} from "@heroui/react";
+import type {ModalProps} from "@sytechui/react";
 
 import {
   Modal,
@@ -12,7 +12,7 @@ import {
   useDisclosure,
   RadioGroup,
   Radio,
-} from "@heroui/react";
+} from "@sytechui/react";
 import {useState} from "react";
 
 export default function Page() {

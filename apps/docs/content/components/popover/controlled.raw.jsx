@@ -1,4 +1,4 @@
-import {Popover, PopoverTrigger, PopoverContent, Button} from "@heroui/react";
+import {Popover, PopoverTrigger, PopoverContent, Button} from "@sytechui/react";
 
 export default function App() {
   const [isOpen, setIsOpen] = React.useState(false);

@@ -1,4 +1,4 @@
-# @heroui/use-aria-modal-overlay
+# @sytechui/use-aria-modal-overlay
 
 ## 2.2.21
 
@@ -7,7 +7,7 @@
 - [#6281](https://github.com/heroui-inc/heroui/pull/6281) [`7437888`](https://github.com/heroui-inc/heroui/commit/74378881829204b94173ee2d713f81df5e9e9784) Thanks [@wingkwong](https://github.com/wingkwong)! - react-aria versions (release v1.16.0)
 
 - Updated dependencies [[`7437888`](https://github.com/heroui-inc/heroui/commit/74378881829204b94173ee2d713f81df5e9e9784)]:
-  - @heroui/use-aria-overlay@2.0.6
+  - @sytechui/use-aria-overlay@2.0.6
 
 ## 2.2.20
 
@@ -16,7 +16,7 @@
 - [#5996](https://github.com/heroui-inc/heroui/pull/5996) [`e07c969`](https://github.com/heroui-inc/heroui/commit/e07c969c4c6c1711ab153c273c2cacd0a79eef4b) Thanks [@wingkwong](https://github.com/wingkwong)! - upgrade react-aria (v1.14.0)
 
 - Updated dependencies [[`e07c969`](https://github.com/heroui-inc/heroui/commit/e07c969c4c6c1711ab153c273c2cacd0a79eef4b)]:
-  - @heroui/use-aria-overlay@2.0.5
+  - @sytechui/use-aria-overlay@2.0.5
 
 ## 2.2.19
 
@@ -25,7 +25,7 @@
 - [#5761](https://github.com/heroui-inc/heroui/pull/5761) [`136bdf6`](https://github.com/heroui-inc/heroui/commit/136bdf66b1c2ab108d8d2903d986a76cec205ac9) Thanks [@wingkwong](https://github.com/wingkwong)! - bump react-aria versions
 
 - Updated dependencies [[`136bdf6`](https://github.com/heroui-inc/heroui/commit/136bdf66b1c2ab108d8d2903d986a76cec205ac9)]:
-  - @heroui/use-aria-overlay@2.0.4
+  - @sytechui/use-aria-overlay@2.0.4
 
 ## 2.2.18
 
@@ -34,7 +34,7 @@
 - [#5640](https://github.com/heroui-inc/heroui/pull/5640) [`d90ac57`](https://github.com/heroui-inc/heroui/commit/d90ac57bc537e8999b21d4ad3f7e4894e6106fd1) Thanks [@wingkwong](https://github.com/wingkwong)! - bump RA versions (aug 2025)
 
 - Updated dependencies [[`d90ac57`](https://github.com/heroui-inc/heroui/commit/d90ac57bc537e8999b21d4ad3f7e4894e6106fd1), [`b6fda4f`](https://github.com/heroui-inc/heroui/commit/b6fda4fe6fdbdeaff0876eeb602014e666c81ec6)]:
-  - @heroui/use-aria-overlay@2.0.3
+  - @sytechui/use-aria-overlay@2.0.3
 
 ## 2.2.17
 
@@ -43,7 +43,7 @@
 - [#5517](https://github.com/heroui-inc/heroui/pull/5517) [`36eb421`](https://github.com/heroui-inc/heroui/commit/36eb421c66846d4fe6fb102c662ff6bf6149249b) Thanks [@wingkwong](https://github.com/wingkwong)! - sync with RA release (July 22, 2025)
 
 - Updated dependencies [[`8dc4bab`](https://github.com/heroui-inc/heroui/commit/8dc4bab4ec98c77c1a0b9d8cb2f3abc5fdfb4793), [`36eb421`](https://github.com/heroui-inc/heroui/commit/36eb421c66846d4fe6fb102c662ff6bf6149249b)]:
-  - @heroui/use-aria-overlay@2.0.2
+  - @sytechui/use-aria-overlay@2.0.2
 
 ## 2.2.16
 
@@ -113,7 +113,7 @@
   #### System & Core
 
   - add useInputLabelPlacement
-  - remove `@heroui/aria-utils` dependency
+  - remove `@sytechui/aria-utils` dependency
 
   #### Hooks & Utilities
 
@@ -124,7 +124,7 @@
   - refactor: overlay & interactOutside
 
 - Updated dependencies [[`e489af8`](https://github.com/heroui-inc/heroui/commit/e489af83c189d0b42dca1b0afca1f5d003cd6033)]:
-  - @heroui/use-aria-overlay@2.0.1
+  - @sytechui/use-aria-overlay@2.0.1
 
 ## 2.2.16-beta.2
 
@@ -133,7 +133,7 @@
 - [#5466](https://github.com/heroui-inc/heroui/pull/5466) [`87f8a12`](https://github.com/heroui-inc/heroui/commit/87f8a12c279e06cab23d0b60ae35c96ee6d29f32) Thanks [@wingkwong](https://github.com/wingkwong)! - add back RA deps (overlays & utils)
 
 - Updated dependencies [[`87f8a12`](https://github.com/heroui-inc/heroui/commit/87f8a12c279e06cab23d0b60ae35c96ee6d29f32)]:
-  - @heroui/use-aria-overlay@2.0.1-beta.7
+  - @sytechui/use-aria-overlay@2.0.1-beta.7
 
 ## 2.2.16-beta.1
 
@@ -142,7 +142,7 @@
 - [`3275e8c`](https://github.com/heroui-inc/heroui/commit/3275e8ca01e65a207e6a431dd40b949a22c1f1f8) Thanks [@wingkwong](https://github.com/wingkwong)! - trigger beta release
 
 - Updated dependencies [[`3275e8c`](https://github.com/heroui-inc/heroui/commit/3275e8ca01e65a207e6a431dd40b949a22c1f1f8)]:
-  - @heroui/use-aria-overlay@2.0.1-beta.6
+  - @sytechui/use-aria-overlay@2.0.1-beta.6
 
 ## 2.2.16-beta.0
 
@@ -151,7 +151,7 @@
 - [`1bca3f9`](https://github.com/heroui-inc/heroui/commit/1bca3f994655081f04714843047185aacdd481c0) Thanks [@wingkwong](https://github.com/wingkwong)! - sync 2.7.11 release
 
 - Updated dependencies [[`1bca3f9`](https://github.com/heroui-inc/heroui/commit/1bca3f994655081f04714843047185aacdd481c0)]:
-  - @heroui/use-aria-overlay@2.0.1-beta.5
+  - @sytechui/use-aria-overlay@2.0.1-beta.5
 
 ## 2.2.15
 
@@ -365,7 +365,7 @@
 - [#3467](https://github.com/heroui-inc/heroui/pull/3467) [`123b7fbc9`](https://github.com/heroui-inc/heroui/commit/123b7fbc9fb51613d7568572a00982ad230d02ae) Thanks [@chirokas](https://github.com/chirokas)! - Refactor overlays to reduce its complexity, while improving stability.
 
 - Updated dependencies [[`123b7fbc9`](https://github.com/heroui-inc/heroui/commit/123b7fbc9fb51613d7568572a00982ad230d02ae)]:
-  - @heroui/use-aria-overlay@2.0.1
+  - @sytechui/use-aria-overlay@2.0.1
 
 ## 2.0.11
 

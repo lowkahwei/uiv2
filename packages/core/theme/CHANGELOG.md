@@ -1,4 +1,4 @@
-# @heroui/theme
+# @sytechui/theme
 
 ## 2.4.26
 
@@ -51,7 +51,7 @@
 - [#5705](https://github.com/heroui-inc/heroui/pull/5705) [`6eba109`](https://github.com/heroui-inc/heroui/commit/6eba109a7fd9854da818c819a55a5ddc59a0fd76) Thanks [@wingkwong](https://github.com/wingkwong)! - fix tabs in modal (#5657)
 
 - Updated dependencies [[`0d95d7f`](https://github.com/heroui-inc/heroui/commit/0d95d7faa0604ee41213ab637ca7ac4daa16cbcc)]:
-  - @heroui/shared-utils@2.1.12
+  - @sytechui/shared-utils@2.1.12
 
 ## 2.4.22
 
@@ -72,7 +72,7 @@
 - [#5635](https://github.com/heroui-inc/heroui/pull/5635) [`6b86a41`](https://github.com/heroui-inc/heroui/commit/6b86a41fe42ecf1830f90b2685a64ff0784a9e14) Thanks [@wingkwong](https://github.com/wingkwong)! - chore: bump tailwind-variants version
 
 - Updated dependencies [[`e2aed2e`](https://github.com/heroui-inc/heroui/commit/e2aed2e9467c09fd8e32d8f4706289e4dc61bf2c)]:
-  - @heroui/shared-utils@2.1.11
+  - @sytechui/shared-utils@2.1.11
 
 ## 2.4.20
 
@@ -158,7 +158,7 @@
   #### System & Core
 
   - add useInputLabelPlacement
-  - remove `@heroui/aria-utils` dependency
+  - remove `@sytechui/aria-utils` dependency
 
   #### Hooks & Utilities
 
@@ -169,7 +169,7 @@
   - refactor: overlay & interactOutside
 
 - Updated dependencies [[`e489af8`](https://github.com/heroui-inc/heroui/commit/e489af83c189d0b42dca1b0afca1f5d003cd6033)]:
-  - @heroui/shared-utils@2.1.10
+  - @sytechui/shared-utils@2.1.10
 
 ## 2.4.18-beta.7
 
@@ -178,7 +178,7 @@
 - [#5466](https://github.com/heroui-inc/heroui/pull/5466) [`87f8a12`](https://github.com/heroui-inc/heroui/commit/87f8a12c279e06cab23d0b60ae35c96ee6d29f32) Thanks [@wingkwong](https://github.com/wingkwong)! - add back RA deps (overlays & utils)
 
 - Updated dependencies [[`87f8a12`](https://github.com/heroui-inc/heroui/commit/87f8a12c279e06cab23d0b60ae35c96ee6d29f32)]:
-  - @heroui/shared-utils@2.1.10-beta.7
+  - @sytechui/shared-utils@2.1.10-beta.7
 
 ## 2.4.18-beta.6
 
@@ -195,7 +195,7 @@
 - [`3275e8c`](https://github.com/heroui-inc/heroui/commit/3275e8ca01e65a207e6a431dd40b949a22c1f1f8) Thanks [@wingkwong](https://github.com/wingkwong)! - trigger beta release
 
 - Updated dependencies [[`3275e8c`](https://github.com/heroui-inc/heroui/commit/3275e8ca01e65a207e6a431dd40b949a22c1f1f8)]:
-  - @heroui/shared-utils@2.1.10-beta.6
+  - @sytechui/shared-utils@2.1.10-beta.6
 
 ## 2.4.18-beta.4
 
@@ -220,16 +220,16 @@
 - [`1bca3f9`](https://github.com/heroui-inc/heroui/commit/1bca3f994655081f04714843047185aacdd481c0) Thanks [@wingkwong](https://github.com/wingkwong)! - sync 2.7.11 release
 
 - Updated dependencies [[`1bca3f9`](https://github.com/heroui-inc/heroui/commit/1bca3f994655081f04714843047185aacdd481c0)]:
-  - @heroui/shared-utils@2.1.10-beta.5
+  - @sytechui/shared-utils@2.1.10-beta.5
 
 ## 2.4.18-beta.2
 
 ### Patch Changes
 
-- [#5401](https://github.com/heroui-inc/heroui/pull/5401) [`a2c4745`](https://github.com/heroui-inc/heroui/commit/a2c4745f078b2fe30890149d336b1a19a09d394d) Thanks [@wingkwong](https://github.com/wingkwong)! - remove `@heroui/aria-utils` dependency
+- [#5401](https://github.com/heroui-inc/heroui/pull/5401) [`a2c4745`](https://github.com/heroui-inc/heroui/commit/a2c4745f078b2fe30890149d336b1a19a09d394d) Thanks [@wingkwong](https://github.com/wingkwong)! - remove `@sytechui/aria-utils` dependency
 
 - Updated dependencies [[`a2c4745`](https://github.com/heroui-inc/heroui/commit/a2c4745f078b2fe30890149d336b1a19a09d394d)]:
-  - @heroui/shared-utils@2.1.10-beta.4
+  - @sytechui/shared-utils@2.1.10-beta.4
 
 ## 2.4.18-beta.1
 
@@ -238,7 +238,7 @@
 - [#5398](https://github.com/heroui-inc/heroui/pull/5398) [`9c3e4d9`](https://github.com/heroui-inc/heroui/commit/9c3e4d97377706162a5e3145a1429fdb2e5db3be) Thanks [@wingkwong](https://github.com/wingkwong)! - remove RA dependencies (overlays & utils)
 
 - Updated dependencies [[`9c3e4d9`](https://github.com/heroui-inc/heroui/commit/9c3e4d97377706162a5e3145a1429fdb2e5db3be)]:
-  - @heroui/shared-utils@2.1.10-beta.3
+  - @sytechui/shared-utils@2.1.10-beta.3
 
 ## 2.4.18-beta.0
 
@@ -255,7 +255,7 @@
 - [#5274](https://github.com/heroui-inc/heroui/pull/5274) [`a8ef824`](https://github.com/heroui-inc/heroui/commit/a8ef8241faf896ce980998e563d805fcf7132a7a) Thanks [@winchesHe](https://github.com/winchesHe)! - Fix skeleton animate
 
 - Updated dependencies [[`0001ab7`](https://github.com/heroui-inc/heroui/commit/0001ab794bd83f141d82d91d205f8391f5d98d9b), [`a8ef824`](https://github.com/heroui-inc/heroui/commit/a8ef8241faf896ce980998e563d805fcf7132a7a), [`a8ef824`](https://github.com/heroui-inc/heroui/commit/a8ef8241faf896ce980998e563d805fcf7132a7a)]:
-  - @heroui/shared-utils@2.1.10-beta.2
+  - @sytechui/shared-utils@2.1.10-beta.2
 
 ## 2.4.17
 
@@ -282,7 +282,7 @@
   v2.7.7
 
 - Updated dependencies [[`b9e94a2`](https://github.com/heroui-inc/heroui/commit/b9e94a21518ba18447603680055c3a7dad8372bf)]:
-  - @heroui/shared-utils@2.1.9
+  - @sytechui/shared-utils@2.1.9
 
 ## 2.4.14
 
@@ -293,7 +293,7 @@
 - [#5179](https://github.com/heroui-inc/heroui/pull/5179) [`99a5bc2`](https://github.com/heroui-inc/heroui/commit/99a5bc2f4caa7d5468c629c30286935b5e5fa833) Thanks [@wingkwong](https://github.com/wingkwong)! - fixed input-otp variants on segment background
 
 - Updated dependencies [[`500ed77`](https://github.com/heroui-inc/heroui/commit/500ed771e25b08038fdc0d9401bfac31a2d68c3e)]:
-  - @heroui/shared-utils@2.1.8
+  - @sytechui/shared-utils@2.1.8
 
 ## 2.4.13
 
@@ -323,7 +323,7 @@
 - v2.7.4
 
 - Updated dependencies []:
-  - @heroui/shared-utils@2.1.7
+  - @sytechui/shared-utils@2.1.7
 
 ## 2.4.10
 
@@ -338,7 +338,7 @@
 - Fix v2.7.0 release
 
 - Updated dependencies []:
-  - @heroui/shared-utils@2.1.6
+  - @sytechui/shared-utils@2.1.6
 
 ## 2.4.8
 
@@ -347,7 +347,7 @@
 - Fix v2.7.0 release
 
 - Updated dependencies []:
-  - @heroui/shared-utils@2.1.5
+  - @sytechui/shared-utils@2.1.5
 
 ## 2.4.7
 
@@ -376,7 +376,7 @@
     - RTL support improvements
     - Better type safety and prop validation
 - Updated dependencies [[`4ff87ca`](https://github.com/heroui-inc/heroui/commit/4ff87ca7afccd2c3db0b145156a8357b2b51e7b5)]:
-  - @heroui/shared-utils@2.1.4
+  - @sytechui/shared-utils@2.1.4
 
 ## 2.4.6
 
@@ -387,7 +387,7 @@
 - [#4587](https://github.com/heroui-inc/heroui/pull/4587) [`f7e5d20`](https://github.com/heroui-inc/heroui/commit/f7e5d205b156060d2d06aa17af31007dbb9fc13c) Thanks [@wingkwong](https://github.com/wingkwong)! - add missing shadow none (#4586)
 
 - Updated dependencies [[`7ebe0e6`](https://github.com/heroui-inc/heroui/commit/7ebe0e664feb777fe0cad311312d0e02b899319e)]:
-  - @heroui/shared-utils@2.1.3
+  - @sytechui/shared-utils@2.1.3
 
 ## 2.4.5
 
@@ -406,7 +406,7 @@
 - [#4373](https://github.com/heroui-inc/heroui/pull/4373) [`e546124`](https://github.com/heroui-inc/heroui/commit/e546124e1de49e8bd4d8f5e33cba87a0e83435ef) Thanks [@Peterl561](https://github.com/Peterl561)! - menu base use overflow-clip to fix listbox section sticky (#4335)
 
 - Updated dependencies [[`77206bc`](https://github.com/heroui-inc/heroui/commit/77206bc62596894d038b9715e40b361fec286c10), [`5f388fc`](https://github.com/heroui-inc/heroui/commit/5f388fc68c7db7f852432e73386686d919d44d31)]:
-  - @heroui/shared-utils@2.1.2
+  - @sytechui/shared-utils@2.1.2
 
 ## 2.4.3
 
@@ -427,7 +427,7 @@
 - [`d6eee4a`](https://github.com/heroui-inc/heroui/commit/d6eee4a8767556152f47f06dcf04940951abc5af) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - v2.6.2
 
 - Updated dependencies [[`d6eee4a`](https://github.com/heroui-inc/heroui/commit/d6eee4a8767556152f47f06dcf04940951abc5af)]:
-  - @heroui/shared-utils@2.1.1
+  - @sytechui/shared-utils@2.1.1
 
 ## 2.4.0
 
@@ -464,7 +464,7 @@
 - [#4206](https://github.com/heroui-inc/heroui/pull/4206) [`44958bf`](https://github.com/heroui-inc/heroui/commit/44958bf91a1677becd5e9f3c420b7956cf0244d8) Thanks [@vinroger](https://github.com/vinroger)! - Virtualization support added to Listbox and Menu
 
 - Updated dependencies [[`5786897`](https://github.com/heroui-inc/heroui/commit/5786897b9950d95c12351dacd2fb41bb1e298201)]:
-  - @heroui/shared-utils@2.1.0
+  - @sytechui/shared-utils@2.1.0
 
 ## 2.3.0-beta.18
 
@@ -493,7 +493,7 @@
 - [`9869f2b91`](https://github.com/heroui-inc/heroui/commit/9869f2b91d0829f9c7f0500ba05745707820bf27) Thanks [@wingkwong](https://github.com/wingkwong)! - bump version
 
 - Updated dependencies [[`9869f2b91`](https://github.com/heroui-inc/heroui/commit/9869f2b91d0829f9c7f0500ba05745707820bf27)]:
-  - @heroui/shared-utils@2.0.9-beta.8
+  - @sytechui/shared-utils@2.0.9-beta.8
 
 ## 2.3.0-beta.14
 
@@ -520,7 +520,7 @@
 - [#4092](https://github.com/heroui-inc/heroui/pull/4092) [`528668db8`](https://github.com/heroui-inc/heroui/commit/528668db85b98b46473cb1e214780b7468cdadba) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Test new runner
 
 - Updated dependencies [[`528668db8`](https://github.com/heroui-inc/heroui/commit/528668db85b98b46473cb1e214780b7468cdadba)]:
-  - @heroui/shared-utils@2.0.9-beta.7
+  - @sytechui/shared-utils@2.0.9-beta.7
 
 ## 2.3.0-beta.10
 
@@ -529,7 +529,7 @@
 - [#4086](https://github.com/heroui-inc/heroui/pull/4086) [`f69fe47b5`](https://github.com/heroui-inc/heroui/commit/f69fe47b5b8f6f3a77a7a8c20d8715263fa32acb) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Pnpm clean
 
 - Updated dependencies [[`f69fe47b5`](https://github.com/heroui-inc/heroui/commit/f69fe47b5b8f6f3a77a7a8c20d8715263fa32acb)]:
-  - @heroui/shared-utils@2.0.9-beta.6
+  - @sytechui/shared-utils@2.0.9-beta.6
 
 ## 2.3.0-beta.9
 
@@ -538,7 +538,7 @@
 - [#4083](https://github.com/heroui-inc/heroui/pull/4083) [`35058262c`](https://github.com/heroui-inc/heroui/commit/35058262c61628fb42907f529c4417886aa12bb2) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Fix build
 
 - Updated dependencies [[`35058262c`](https://github.com/heroui-inc/heroui/commit/35058262c61628fb42907f529c4417886aa12bb2)]:
-  - @heroui/shared-utils@2.0.9-beta.5
+  - @sytechui/shared-utils@2.0.9-beta.5
 
 ## 2.3.0-beta.8
 
@@ -563,7 +563,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`5339b2571`](https://github.com/heroui-inc/heroui/commit/5339b2571e6d73ca6efe2acd34d88669419db9f7)]:
-  - @heroui/shared-utils@2.0.9-beta.4
+  - @sytechui/shared-utils@2.0.9-beta.4
 
 ## 2.3.0-beta.4
 
@@ -578,7 +578,7 @@
 - [#4010](https://github.com/heroui-inc/heroui/pull/4010) [`ef432eb53`](https://github.com/heroui-inc/heroui/commit/ef432eb539714fded6cab86a2185956fb103e0df) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - framer-motion alpha version added
 
 - Updated dependencies [[`ef432eb53`](https://github.com/heroui-inc/heroui/commit/ef432eb539714fded6cab86a2185956fb103e0df)]:
-  - @heroui/shared-utils@2.0.9-beta.3
+  - @sytechui/shared-utils@2.0.9-beta.3
 
 ## 2.3.0-beta.2
 
@@ -587,7 +587,7 @@
 - [#4008](https://github.com/heroui-inc/heroui/pull/4008) [`7c1c0dd8f`](https://github.com/heroui-inc/heroui/commit/7c1c0dd8fef3ea72996c1095b919574c4b7f9b89) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - React 19 added to peerDeps
 
 - Updated dependencies [[`7c1c0dd8f`](https://github.com/heroui-inc/heroui/commit/7c1c0dd8fef3ea72996c1095b919574c4b7f9b89)]:
-  - @heroui/shared-utils@2.0.9-beta.2
+  - @sytechui/shared-utils@2.0.9-beta.2
 
 ## 2.3.0-beta.1
 
@@ -596,7 +596,7 @@
 - [#3990](https://github.com/heroui-inc/heroui/pull/3990) [`cb5bc4c74`](https://github.com/heroui-inc/heroui/commit/cb5bc4c74f00caaee80dca89c1f02038db315b85) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Beta 1
 
 - Updated dependencies [[`cb5bc4c74`](https://github.com/heroui-inc/heroui/commit/cb5bc4c74f00caaee80dca89c1f02038db315b85)]:
-  - @heroui/shared-utils@2.0.9-beta.1
+  - @sytechui/shared-utils@2.0.9-beta.1
 
 ## 2.3.0-beta.0
 
@@ -635,7 +635,7 @@
 - [#3764](https://github.com/heroui-inc/heroui/pull/3764) [`559436d46`](https://github.com/heroui-inc/heroui/commit/559436d462bdb8739d8c817d1aa98607969d8a07) Thanks [@wingkwong](https://github.com/wingkwong)! - add missing `data-[hover=true]:` for ghost button with danger color
 
 - Updated dependencies [[`3f0d81b56`](https://github.com/heroui-inc/heroui/commit/3f0d81b560e7ef3eb315bd98407249c0eb4ed5eb), [`3f0d81b56`](https://github.com/heroui-inc/heroui/commit/3f0d81b560e7ef3eb315bd98407249c0eb4ed5eb)]:
-  - @heroui/shared-utils@2.0.9-beta.0
+  - @sytechui/shared-utils@2.0.9-beta.0
 
 ## 2.2.11
 

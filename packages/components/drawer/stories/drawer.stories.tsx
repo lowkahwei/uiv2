@@ -3,16 +3,16 @@ import type {Meta} from "@storybook/react";
 import type {DrawerProps} from "../src";
 
 import React from "react";
-import {drawer} from "@heroui/theme";
-import {Button} from "@heroui/button";
-import {Input} from "@heroui/input";
-import {Checkbox} from "@heroui/checkbox";
-import {Link} from "@heroui/link";
-import {Tooltip} from "@heroui/tooltip";
-import {Image} from "@heroui/image";
-import {Avatar, AvatarGroup} from "@heroui/avatar";
-import {MailFilledIcon, LockFilledIcon} from "@heroui/shared-icons";
-import {useDisclosure} from "@heroui/use-disclosure";
+import {drawer} from "@sytechui/theme";
+import {Button} from "@sytechui/button";
+import {Input} from "@sytechui/input";
+import {Checkbox} from "@sytechui/checkbox";
+import {Link} from "@sytechui/link";
+import {Tooltip} from "@sytechui/tooltip";
+import {Image} from "@sytechui/image";
+import {Avatar, AvatarGroup} from "@sytechui/avatar";
+import {MailFilledIcon, LockFilledIcon} from "@sytechui/shared-icons";
+import {useDisclosure} from "@sytechui/use-disclosure";
 
 import {Drawer, DrawerContent, DrawerHeader, DrawerBody, DrawerFooter} from "../src";
 

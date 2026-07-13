@@ -2,19 +2,19 @@
   "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
   "changelog": [
     "@changesets/changelog-github",
-    { "repo": "heroui-inc/heroui" }
+    { "repo": "lowkahwei/uiv2" }
   ],
   "commit": false,
   "fixed": [],
   "linked": [],
   "access": "public",
-  "baseBranch": "canary",
+  "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
     "onlyUpdatePeerDependentsWhenOutOfRange": true
   },
   "ignore": [
-    "@heroui/docs",
-    "@heroui/storybook"
+    "@sytechui/docs",
+    "@sytechui/storybook"
   ]
 }

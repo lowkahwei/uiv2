@@ -1,9 +1,9 @@
-import type {ChipProps} from "@heroui/react";
+import type {ChipProps} from "@sytechui/react";
 import type {Border, HeroUIScaling} from "../../types";
 
 import {cloneElement} from "react";
-import {Chip as HeroUIChip} from "@heroui/react";
-import {cn} from "@heroui/theme";
+import {Chip as HeroUIChip} from "@sytechui/react";
+import {cn} from "@sytechui/theme";
 
 import {ShowcaseComponent} from "../showcase-component";
 import {useThemeBuilder} from "../../provider";

@@ -1,15 +1,15 @@
 import type {GridNode} from "@react-types/grid";
-import type {HTMLHeroUIProps} from "@heroui/system";
+import type {HTMLHeroUIProps} from "@sytechui/system";
 import type {ValuesType} from "./use-table";
 
-import {forwardRef} from "@heroui/system";
-import {useDOMRef, filterDOMProps} from "@heroui/react-utils";
-import {dataAttr, mergeProps} from "@heroui/shared-utils";
+import {forwardRef} from "@sytechui/system";
+import {useDOMRef, filterDOMProps} from "@sytechui/react-utils";
+import {dataAttr, mergeProps} from "@sytechui/shared-utils";
 import {useTableColumnHeader, useTableSelectAllCheckbox} from "@react-aria/table";
 import {useFocusRing} from "@react-aria/focus";
-import {Checkbox} from "@heroui/checkbox";
+import {Checkbox} from "@sytechui/checkbox";
 import {VisuallyHidden} from "@react-aria/visually-hidden";
-import {cn} from "@heroui/theme";
+import {cn} from "@sytechui/theme";
 
 export interface TableSelectAllCheckboxProps<T = object> extends HTMLHeroUIProps<"th"> {
   /**

@@ -1,4 +1,4 @@
-# @heroui/use-aria-multiselect
+# @sytechui/use-aria-multiselect
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @heroui/use-aria-multiselect
+yarn add @sytechui/use-aria-multiselect
 # or
-npm i @heroui/use-aria-multiselect
+npm i @sytechui/use-aria-multiselect
 ```
 
 ## Contribution

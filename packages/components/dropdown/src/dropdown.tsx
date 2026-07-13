@@ -2,7 +2,7 @@ import type {ReactNode} from "react";
 import type {UseDropdownProps} from "./use-dropdown";
 
 import React from "react";
-import {Popover} from "@heroui/popover";
+import {Popover} from "@sytechui/popover";
 
 import {DropdownProvider} from "./dropdown-context";
 import {useDropdown} from "./use-dropdown";

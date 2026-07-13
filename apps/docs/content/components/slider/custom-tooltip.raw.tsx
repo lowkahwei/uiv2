@@ -1,6 +1,6 @@
-import type {SliderValue} from "@heroui/react";
+import type {SliderValue} from "@sytechui/react";
 
-import {Slider} from "@heroui/react";
+import {Slider} from "@sytechui/react";
 
 export default function App() {
   const formatMillisecondsToHHMMSS = (milliseconds: number) => {

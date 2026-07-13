@@ -1,4 +1,4 @@
-import {Chip} from "@heroui/react";
+import {Chip} from "@sytechui/react";
 
 export const NotificationIcon = ({size, height, width, ...props}) => {
   return (

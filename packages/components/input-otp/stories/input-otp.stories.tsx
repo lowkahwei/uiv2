@@ -2,10 +2,10 @@ import type {Meta} from "@storybook/react";
 import type {ValidationResult} from "@react-types/shared";
 
 import React from "react";
-import {button, inputOtp} from "@heroui/theme";
+import {button, inputOtp} from "@sytechui/theme";
 import {Controller, useForm} from "react-hook-form";
-import {Button} from "@heroui/button";
-import {Form} from "@heroui/form";
+import {Button} from "@sytechui/button";
+import {Form} from "@sytechui/form";
 
 import {InputOtp} from "../src";
 

@@ -1,4 +1,4 @@
-import {Card, CardBody, Image, Button, Slider} from "@heroui/react";
+import {Card, CardBody, Image, Button, Slider} from "@sytechui/react";
 
 export const HeartIcon = ({
   size = 24,

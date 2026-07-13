@@ -1,4 +1,4 @@
-import type {IconSvgProps} from "@heroui/shared-icons";
+import type {IconSvgProps} from "@sytechui/shared-icons";
 
 export const ChevronLeftIcon = (props: IconSvgProps) => (
   <svg

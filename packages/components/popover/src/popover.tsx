@@ -2,7 +2,7 @@ import type {ReactNode} from "react";
 import type {UsePopoverProps} from "./use-popover";
 
 import {Children} from "react";
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 import {Overlay} from "@react-aria/overlays";
 import {AnimatePresence} from "framer-motion";
 

@@ -1,4 +1,4 @@
-import { cn } from "@heroui/theme";
+import { cn } from "@sytechui/theme";
 import { useCarouselContext } from "./carousel";
 import { CarouselContentProps } from "./types";
 

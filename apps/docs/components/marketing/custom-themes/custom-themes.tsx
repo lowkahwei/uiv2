@@ -1,7 +1,7 @@
 "use client";
 
 import {useMemo, useState} from "react";
-import {Tabs, Tab, Card, CardBody, Image, Button, RadioGroup, Radio} from "@heroui/react";
+import {Tabs, Tab, Card, CardBody, Image, Button, RadioGroup, Radio} from "@sytechui/react";
 import NextLink from "next/link";
 import NextImage from "next/image";
 

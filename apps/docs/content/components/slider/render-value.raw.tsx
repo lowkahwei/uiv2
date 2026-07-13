@@ -1,7 +1,7 @@
-import type {SliderValue} from "@heroui/react";
+import type {SliderValue} from "@sytechui/react";
 
 import React from "react";
-import {Tooltip, Slider} from "@heroui/react";
+import {Tooltip, Slider} from "@sytechui/react";
 
 export default function App() {
   const [value, setValue] = React.useState<SliderValue>(0.2);

@@ -3,7 +3,7 @@ import type {Route} from "@/libs/docs/page";
 
 import {notFound} from "next/navigation";
 import {allBlogPosts} from "contentlayer2/generated";
-import {Link, Spacer, User} from "@heroui/react";
+import {Link, Spacer, User} from "@sytechui/react";
 import {format, parseISO} from "date-fns";
 import NextLink from "next/link";
 import {Balancer} from "react-wrap-balancer";

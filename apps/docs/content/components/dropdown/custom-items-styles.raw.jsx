@@ -6,7 +6,7 @@ import {
   DropdownItem,
   Button,
   User,
-} from "@heroui/react";
+} from "@sytechui/react";
 
 export const PlusIcon = (props) => {
   return (

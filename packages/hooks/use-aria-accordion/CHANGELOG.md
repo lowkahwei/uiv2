@@ -1,4 +1,4 @@
-# @heroui/use-aria-accordion
+# @sytechui/use-aria-accordion
 
 ## 2.2.20
 
@@ -98,7 +98,7 @@
   #### System & Core
 
   - add useInputLabelPlacement
-  - remove `@heroui/aria-utils` dependency
+  - remove `@sytechui/aria-utils` dependency
 
   #### Hooks & Utilities
 

@@ -7,7 +7,7 @@ import type {Context} from "react";
 import type {RefObject, DOMProps as SharedDOMProps} from "@react-types/shared";
 
 import {useContext, useMemo, useRef, useCallback} from "react";
-import {mergeProps, mergeRefs} from "@heroui/shared-utils";
+import {mergeProps, mergeRefs} from "@sytechui/shared-utils";
 
 export const DEFAULT_SLOT = Symbol("default");
 

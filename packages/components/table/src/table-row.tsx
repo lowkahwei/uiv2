@@ -2,14 +2,14 @@ import type {GridNode} from "@react-types/grid";
 import type {TableRowProps as BaseTableRowProps} from "./base/table-row";
 import type {ValuesType} from "./use-table";
 
-import {forwardRef} from "@heroui/system";
-import {useDOMRef, filterDOMProps} from "@heroui/react-utils";
-import {dataAttr, mergeProps} from "@heroui/shared-utils";
+import {forwardRef} from "@sytechui/system";
+import {useDOMRef, filterDOMProps} from "@sytechui/react-utils";
+import {dataAttr, mergeProps} from "@sytechui/shared-utils";
 import {useTableRow} from "@react-aria/table";
 import {useFocusRing} from "@react-aria/focus";
 import {useHover} from "@react-aria/interactions";
 import {useMemo} from "react";
-import {cn} from "@heroui/theme";
+import {cn} from "@sytechui/theme";
 
 // @internal
 export interface TableRowProps<T = object> extends Omit<BaseTableRowProps, "children"> {

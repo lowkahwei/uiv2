@@ -1,9 +1,9 @@
 import type {UseBreadcrumbsProps} from "./use-breadcrumbs";
 
 import {cloneElement, isValidElement, useMemo} from "react";
-import {forwardRef} from "@heroui/system";
-import {ChevronRightIcon, EllipsisIcon} from "@heroui/shared-icons";
-import {chain, warn} from "@heroui/shared-utils";
+import {forwardRef} from "@sytechui/system";
+import {ChevronRightIcon, EllipsisIcon} from "@sytechui/shared-icons";
+import {chain, warn} from "@sytechui/shared-utils";
 
 import {useBreadcrumbs} from "./use-breadcrumbs";
 

@@ -2,8 +2,8 @@ import type {Meta} from "@storybook/react";
 import type {FormProps} from "../src";
 
 import React, {useState} from "react";
-// import {Input} from "@heroui/input";
-import {Button} from "@heroui/button";
+// import {Input} from "@sytechui/input";
+import {Button} from "@sytechui/button";
 
 import {Form} from "../src";
 

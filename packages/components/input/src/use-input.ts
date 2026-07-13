@@ -1,14 +1,14 @@
-import type {InputVariantProps, SlotsToClasses, InputSlots} from "@heroui/theme";
+import type {InputVariantProps, SlotsToClasses, InputSlots} from "@sytechui/theme";
 import type {AriaTextFieldOptions} from "@react-aria/textfield";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
 import type {AriaTextFieldProps} from "@react-types/textfield";
 import type {Ref} from "react";
 
-import {mapPropsVariants, useProviderContext, useLabelPlacement} from "@heroui/system";
-import {useSafeLayoutEffect} from "@heroui/use-safe-layout-effect";
+import {mapPropsVariants, useProviderContext, useLabelPlacement} from "@sytechui/system";
+import {useSafeLayoutEffect} from "@sytechui/use-safe-layout-effect";
 import {useFocusRing} from "@react-aria/focus";
-import {input, cn} from "@heroui/theme";
-import {useDOMRef, filterDOMProps} from "@heroui/react-utils";
+import {input, cn} from "@sytechui/theme";
+import {useDOMRef, filterDOMProps} from "@sytechui/react-utils";
 import {useFocusWithin, useHover, usePress} from "@react-aria/interactions";
 import {
   dataAttr,
@@ -17,11 +17,11 @@ import {
   safeAriaLabel,
   chain,
   mergeProps,
-} from "@heroui/shared-utils";
+} from "@sytechui/shared-utils";
 import {useControlledState} from "@react-stately/utils";
 import {useMemo, useCallback, useState} from "react";
 import {useTextField} from "@react-aria/textfield";
-import {FormContext, useSlottedContext} from "@heroui/form";
+import {FormContext, useSlottedContext} from "@sytechui/form";
 
 export interface Props<T extends HTMLInputElement | HTMLTextAreaElement = HTMLInputElement>
   extends Omit<HTMLHeroUIProps<"input">, keyof InputVariantProps> {

@@ -1,4 +1,4 @@
-import {Slider} from "@heroui/react";
+import {Slider} from "@sytechui/react";
 
 export default function App() {
   const [value, setValue] = React.useState([100, 300]);

@@ -1,19 +1,19 @@
-import type {ModalVariantProps, SlotsToClasses, ModalSlots} from "@heroui/theme";
+import type {ModalVariantProps, SlotsToClasses, ModalSlots} from "@sytechui/theme";
 import type {HTMLMotionProps} from "framer-motion";
 import type {AriaModalOverlayProps} from "@react-aria/overlays";
 import type {ReactNode} from "react";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
-import type {ReactRef} from "@heroui/react-utils";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
+import type {ReactRef} from "@sytechui/react-utils";
 import type {OverlayTriggerProps} from "@react-stately/overlays";
 
-import {useAriaModalOverlay} from "@heroui/use-aria-modal-overlay";
+import {useAriaModalOverlay} from "@sytechui/use-aria-modal-overlay";
 import {useCallback, useId, useRef, useState, useMemo} from "react";
-import {modal, cn} from "@heroui/theme";
-import {mapPropsVariants, useProviderContext} from "@heroui/system";
-import {useAriaButton} from "@heroui/use-aria-button";
+import {modal, cn} from "@sytechui/theme";
+import {mapPropsVariants, useProviderContext} from "@sytechui/system";
+import {useAriaButton} from "@sytechui/use-aria-button";
 import {useFocusRing} from "@react-aria/focus";
-import {dataAttr, objectToDeps, mergeRefs, mergeProps} from "@heroui/shared-utils";
-import {useDOMRef} from "@heroui/react-utils";
+import {dataAttr, objectToDeps, mergeRefs, mergeProps} from "@sytechui/shared-utils";
+import {useDOMRef} from "@sytechui/react-utils";
 import {useOverlayTriggerState} from "@react-stately/overlays";
 
 interface Props extends HTMLHeroUIProps<"section"> {

@@ -12,16 +12,16 @@ import type {UsePopoverProps, UsePopoverReturn} from "./use-popover";
 
 import * as React from "react";
 import {DismissButton, Overlay} from "@react-aria/overlays";
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 import {LazyMotion, m} from "framer-motion";
-import {mergeProps} from "@heroui/shared-utils";
-import {getTransformOrigins} from "@heroui/aria-utils";
-import {TRANSITION_VARIANTS} from "@heroui/framer-utils";
+import {mergeProps} from "@sytechui/shared-utils";
+import {getTransformOrigins} from "@sytechui/aria-utils";
+import {TRANSITION_VARIANTS} from "@sytechui/framer-utils";
 import {useDialog} from "@react-aria/dialog";
 
 import {usePopover} from "./use-popover";
 
-const domAnimation = () => import("@heroui/dom-animation").then((res) => res.default);
+const domAnimation = () => import("@sytechui/dom-animation").then((res) => res.default);
 
 export interface FreeSoloPopoverProps extends Omit<UsePopoverProps, "children"> {
   children: React.ReactNode | ((titleProps: React.DOMAttributes<HTMLElement>) => React.ReactNode);

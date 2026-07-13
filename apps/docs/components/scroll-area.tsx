@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {ScrollArea as HeroUIScrollArea, cn} from "@heroui/react";
+import {ScrollArea as HeroUIScrollArea, cn} from "@sytechui/react";
 
 const ScrollArea = React.forwardRef<
   HTMLDivElement,

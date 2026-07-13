@@ -6,7 +6,7 @@ import * as React from "react";
 import {render, renderHook, screen} from "@testing-library/react";
 import {Controller, useForm} from "react-hook-form";
 import userEvent from "@testing-library/user-event";
-import {Form} from "@heroui/form";
+import {Form} from "@sytechui/form";
 
 import {InputOtp} from "../src";
 

@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/badge",
+  "name": "@sytechui/badge",
   "version": "2.2.18",
   "description": "Badges are used as a small numerical value or status descriptor for UI elements.",
   "keywords": [
@@ -36,19 +36,19 @@
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0",
-    "@heroui/theme": ">=2.4.24",
-    "@heroui/system": ">=2.4.18"
+    "@sytechui/theme": ">=2.4.24",
+    "@sytechui/system": ">=2.4.18"
   },
   "dependencies": {
-    "@heroui/shared-utils": "workspace:*",
-    "@heroui/react-utils": "workspace:*"
+    "@sytechui/shared-utils": "workspace:*",
+    "@sytechui/react-utils": "workspace:*"
   },
   "devDependencies": {
-    "@heroui/system": "workspace:*",
-    "@heroui/theme": "workspace:*",
-    "@heroui/avatar": "workspace:*",
-    "@heroui/shared-icons": "workspace:*",
-    "@heroui/switch": "workspace:*",
+    "@sytechui/system": "workspace:*",
+    "@sytechui/theme": "workspace:*",
+    "@sytechui/avatar": "workspace:*",
+    "@sytechui/shared-icons": "workspace:*",
+    "@sytechui/switch": "workspace:*",
     "clean-package": "2.2.0",
     "react": "18.3.0",
     "react-dom": "18.3.0"

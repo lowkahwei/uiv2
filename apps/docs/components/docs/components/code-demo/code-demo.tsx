@@ -6,7 +6,7 @@ import type {GradientBoxProps} from "@/components/gradient-box";
 
 import React, {useCallback, useMemo, useRef} from "react";
 import dynamic from "next/dynamic";
-import {Skeleton, Tab, Tabs} from "@heroui/react";
+import {Skeleton, Tab, Tabs} from "@sytechui/react";
 import {useInView} from "framer-motion";
 
 import {useCodeDemo} from "./use-code-demo";

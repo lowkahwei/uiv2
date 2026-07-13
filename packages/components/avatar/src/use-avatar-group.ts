@@ -1,13 +1,13 @@
 import type {ReactNode} from "react";
-import type {SlotsToClasses, AvatarGroupSlots, AvatarGroupVariantProps} from "@heroui/theme";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
-import type {ReactRef} from "@heroui/react-utils";
+import type {SlotsToClasses, AvatarGroupSlots, AvatarGroupVariantProps} from "@sytechui/theme";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
+import type {ReactRef} from "@sytechui/react-utils";
 import type {AvatarProps} from "./index";
 
-import {avatarGroup, cn} from "@heroui/theme";
-import {useDOMRef} from "@heroui/react-utils";
-import {compact} from "@heroui/shared-utils";
-import {getValidChildren} from "@heroui/react-utils";
+import {avatarGroup, cn} from "@sytechui/theme";
+import {useDOMRef} from "@sytechui/react-utils";
+import {compact} from "@sytechui/shared-utils";
+import {getValidChildren} from "@sytechui/react-utils";
 import {cloneElement, useMemo} from "react";
 
 interface Props extends HTMLHeroUIProps<"div"> {

@@ -1,15 +1,15 @@
-import type {NavbarVariantProps, SlotsToClasses, NavbarSlots} from "@heroui/theme";
-import type {ReactRef} from "@heroui/react-utils";
+import type {NavbarVariantProps, SlotsToClasses, NavbarSlots} from "@sytechui/theme";
+import type {ReactRef} from "@sytechui/react-utils";
 import type {HTMLMotionProps} from "framer-motion";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
 
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {mapPropsVariants, useProviderContext} from "@heroui/system";
-import {navbar, cn} from "@heroui/theme";
-import {useDOMRef} from "@heroui/react-utils";
-import {dataAttr, objectToDeps, mergeProps} from "@heroui/shared-utils";
-import {useScrollPosition} from "@heroui/use-scroll-position";
-import {useResizeObserver} from "@heroui/use-resize";
+import {mapPropsVariants, useProviderContext} from "@sytechui/system";
+import {navbar, cn} from "@sytechui/theme";
+import {useDOMRef} from "@sytechui/react-utils";
+import {dataAttr, objectToDeps, mergeProps} from "@sytechui/shared-utils";
+import {useScrollPosition} from "@sytechui/use-scroll-position";
+import {useResizeObserver} from "@sytechui/use-resize";
 import {useControlledState} from "@react-stately/utils";
 import {usePreventScroll} from "@react-aria/overlays";
 

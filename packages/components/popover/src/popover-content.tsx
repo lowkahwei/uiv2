@@ -1,13 +1,13 @@
 import type {AriaDialogProps} from "@react-aria/dialog";
 import type {HTMLMotionProps} from "framer-motion";
 import type {DOMAttributes, ReactNode} from "react";
-import type {HTMLHeroUIProps} from "@heroui/system";
+import type {HTMLHeroUIProps} from "@sytechui/system";
 
 import {useMemo, useRef} from "react";
 import {DismissButton} from "@react-aria/overlays";
-import {TRANSITION_VARIANTS} from "@heroui/framer-utils";
+import {TRANSITION_VARIANTS} from "@sytechui/framer-utils";
 import {m, LazyMotion} from "framer-motion";
-import {getTransformOrigins} from "@heroui/aria-utils";
+import {getTransformOrigins} from "@sytechui/aria-utils";
 import {useDialog} from "@react-aria/dialog";
 
 import {usePopoverContext} from "./popover-context";
@@ -18,7 +18,7 @@ export interface PopoverContentProps
   children?: ReactNode | ((titleProps: DOMAttributes<HTMLElement>) => ReactNode);
 }
 
-const domAnimation = () => import("@heroui/dom-animation").then((res) => res.default);
+const domAnimation = () => import("@sytechui/dom-animation").then((res) => res.default);
 
 const PopoverContent = (props: PopoverContentProps) => {
   const {as, children, className, ...otherProps} = props;

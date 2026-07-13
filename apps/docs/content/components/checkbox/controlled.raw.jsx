@@ -1,4 +1,4 @@
-import {Checkbox} from "@heroui/react";
+import {Checkbox} from "@sytechui/react";
 
 export default function App() {
   const [isSelected, setIsSelected] = React.useState(false);

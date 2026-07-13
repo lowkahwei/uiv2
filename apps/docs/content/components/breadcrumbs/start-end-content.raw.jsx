@@ -1,4 +1,4 @@
-import {Breadcrumbs, BreadcrumbItem} from "@heroui/react";
+import {Breadcrumbs, BreadcrumbItem} from "@sytechui/react";
 
 export const HomeIcon = (props) => {
   return (

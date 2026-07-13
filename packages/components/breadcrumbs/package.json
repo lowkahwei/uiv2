@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/breadcrumbs",
+  "name": "@sytechui/breadcrumbs",
   "version": "2.2.25",
   "description": "Breadcrumbs display a hierarchy of links to the current page or resource in an application.",
   "keywords": [
@@ -36,23 +36,23 @@
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0",
-    "@heroui/theme": ">=2.4.24",
-    "@heroui/system": ">=2.4.18"
+    "@sytechui/theme": ">=2.4.24",
+    "@sytechui/system": ">=2.4.18"
   },
   "dependencies": {
-    "@heroui/react-utils": "workspace:*",
-    "@heroui/shared-utils": "workspace:*",
-    "@heroui/shared-icons": "workspace:*",
+    "@sytechui/react-utils": "workspace:*",
+    "@sytechui/shared-utils": "workspace:*",
+    "@sytechui/shared-icons": "workspace:*",
     "@react-aria/focus": "3.21.5",
     "@react-aria/breadcrumbs": "3.5.32",
     "@react-types/breadcrumbs": "3.7.19"
   },
   "devDependencies": {
-    "@heroui/theme": "workspace:*",
-    "@heroui/system": "workspace:*",
-    "@heroui/dropdown": "workspace:*",
-    "@heroui/tooltip": "workspace:*",
-    "@heroui/button": "workspace:*",
+    "@sytechui/theme": "workspace:*",
+    "@sytechui/system": "workspace:*",
+    "@sytechui/dropdown": "workspace:*",
+    "@sytechui/tooltip": "workspace:*",
+    "@sytechui/button": "workspace:*",
     "clean-package": "2.2.0",
     "react": "18.3.0",
     "react-dom": "18.3.0"

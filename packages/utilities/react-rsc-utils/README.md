@@ -1,4 +1,4 @@
-# @heroui/react-rsc-utils
+# @sytechui/react-rsc-utils
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @heroui/react-rsc-utils
+yarn add @sytechui/react-rsc-utils
 # or
-npm i @heroui/react-rsc-utils
+npm i @sytechui/react-rsc-utils
 ```
 
 ## Contribution

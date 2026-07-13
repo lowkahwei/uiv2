@@ -2,7 +2,7 @@
 
 import React, {useCallback, useEffect} from "react";
 import Script from "next/script";
-import {Image} from "@heroui/react";
+import {Image} from "@sytechui/react";
 
 import carbonOptimize from "./carbon-optimize";
 

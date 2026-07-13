@@ -1,4 +1,4 @@
-import {Tabs, Tab, Card, CardBody} from "@heroui/react";
+import {Tabs, Tab, Card, CardBody} from "@sytechui/react";
 
 export default function App() {
   let tabs = [

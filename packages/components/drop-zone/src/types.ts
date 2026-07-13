@@ -1,7 +1,7 @@
 import type {DropOptions} from "@react-aria/dnd";
-import type {DropZoneSlots, DropZoneVariantProps, SlotsToClasses} from "@heroui/theme";
-import type {HTMLHeroUIProps} from "@heroui/system";
-import type {ReactRef} from "@heroui/react-utils";
+import type {DropZoneSlots, DropZoneVariantProps, SlotsToClasses} from "@sytechui/theme";
+import type {HTMLHeroUIProps} from "@sytechui/system";
+import type {ReactRef} from "@sytechui/react-utils";
 import type {ReactNode} from "react";
 
 export interface UploadedFileInfo {

@@ -1,7 +1,7 @@
 import type {ReactElement} from "react";
 import type {UseCheckboxProps} from "./use-checkbox";
 
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 import {cloneElement} from "react";
 
 import {useCheckbox} from "./use-checkbox";

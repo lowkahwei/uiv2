@@ -1,6 +1,6 @@
 import type {UseAvatarGroupProps} from "./use-avatar-group";
 
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 
 import {AvatarGroupProvider} from "./avatar-group-context";
 import {useAvatarGroup} from "./use-avatar-group";

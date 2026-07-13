@@ -3,7 +3,7 @@ import type {RegionProps} from "./toast-region";
 import type {ToastProps, ToastPlacement} from "./use-toast";
 
 import {ToastQueue, useToastQueue} from "@react-stately/toast";
-import {useProviderContext} from "@heroui/system";
+import {useProviderContext} from "@sytechui/system";
 import {LazyMotion} from "framer-motion";
 
 import {ToastRegion} from "./toast-region";

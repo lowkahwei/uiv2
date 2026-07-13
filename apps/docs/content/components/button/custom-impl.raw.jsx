@@ -1,5 +1,5 @@
 import {forwardRef} from "react";
-import {useButton, Ripple, Spinner} from "@heroui/react";
+import {useButton, Ripple, Spinner} from "@sytechui/react";
 
 const MyButton = forwardRef((props, ref) => {
   const {

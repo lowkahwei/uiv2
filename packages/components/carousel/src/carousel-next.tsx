@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
-import { Button } from "@heroui/button";
-import { cn } from "@heroui/theme";
+import { Button } from "@sytechui/button";
+import { cn } from "@sytechui/theme";
 import { useCarouselContext, useCarouselControlContext } from "./carousel";
-import { ChevronDownIcon, ChevronRightIcon } from "@heroui/shared-icons";
+import { ChevronDownIcon, ChevronRightIcon } from "@sytechui/shared-icons";
 import { CarouselButtonProps } from "./types";
 
 export const CarouselNext = ({

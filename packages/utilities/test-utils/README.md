@@ -1,4 +1,4 @@
-# @heroui/test-utils
+# @sytechui/test-utils
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @heroui/test-utils
+yarn add @sytechui/test-utils
 # or
-npm i @heroui/test-utils
+npm i @sytechui/test-utils
 ```
 
 ## Contribution

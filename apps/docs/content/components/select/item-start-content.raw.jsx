@@ -1,4 +1,4 @@
-import {Select, SelectItem, Avatar} from "@heroui/react";
+import {Select, SelectItem, Avatar} from "@sytechui/react";
 
 export default function App() {
   return (

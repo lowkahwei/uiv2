@@ -1,7 +1,7 @@
 import type {UseScrollAreaProps} from "./use-scroll-area";
 
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 
 import {useScrollArea} from "./use-scroll-area";
 

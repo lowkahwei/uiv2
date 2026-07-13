@@ -1,4 +1,4 @@
-# @heroui/use-aria-link
+# @sytechui/use-aria-link
 
 ## 2.2.23
 
@@ -100,7 +100,7 @@
   #### System & Core
 
   - add useInputLabelPlacement
-  - remove `@heroui/aria-utils` dependency
+  - remove `@sytechui/aria-utils` dependency
 
   #### Hooks & Utilities
 
@@ -147,7 +147,7 @@
   v2.7.7
 
 - Updated dependencies [[`b9e94a2`](https://github.com/heroui-inc/heroui/commit/b9e94a21518ba18447603680055c3a7dad8372bf)]:
-  - @heroui/shared-utils@2.1.9
+  - @sytechui/shared-utils@2.1.9
 
 ## 2.2.13
 
@@ -156,7 +156,7 @@
 - [#5186](https://github.com/heroui-inc/heroui/pull/5186) [`500ed77`](https://github.com/heroui-inc/heroui/commit/500ed771e25b08038fdc0d9401bfac31a2d68c3e) Thanks [@wingkwong](https://github.com/wingkwong)! - RA version bump (#5186)
 
 - Updated dependencies [[`500ed77`](https://github.com/heroui-inc/heroui/commit/500ed771e25b08038fdc0d9401bfac31a2d68c3e)]:
-  - @heroui/shared-utils@2.1.8
+  - @sytechui/shared-utils@2.1.8
 
 ## 2.2.12
 
@@ -177,7 +177,7 @@
 - v2.7.4
 
 - Updated dependencies []:
-  - @heroui/shared-utils@2.1.7
+  - @sytechui/shared-utils@2.1.7
 
 ## 2.2.9
 
@@ -186,7 +186,7 @@
 - Fix v2.7.0 release
 
 - Updated dependencies []:
-  - @heroui/shared-utils@2.1.6
+  - @sytechui/shared-utils@2.1.6
 
 ## 2.2.8
 
@@ -195,7 +195,7 @@
 - Fix v2.7.0 release
 
 - Updated dependencies []:
-  - @heroui/shared-utils@2.1.5
+  - @sytechui/shared-utils@2.1.5
 
 ## 2.2.7
 
@@ -220,7 +220,7 @@
     - RTL support improvements
     - Better type safety and prop validation
 - Updated dependencies [[`4ff87ca`](https://github.com/heroui-inc/heroui/commit/4ff87ca7afccd2c3db0b145156a8357b2b51e7b5)]:
-  - @heroui/shared-utils@2.1.4
+  - @sytechui/shared-utils@2.1.4
 
 ## 2.2.6
 
@@ -229,7 +229,7 @@
 - [#4594](https://github.com/heroui-inc/heroui/pull/4594) [`7ebe0e6`](https://github.com/heroui-inc/heroui/commit/7ebe0e664feb777fe0cad311312d0e02b899319e) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Org name changed
 
 - Updated dependencies [[`7ebe0e6`](https://github.com/heroui-inc/heroui/commit/7ebe0e664feb777fe0cad311312d0e02b899319e)]:
-  - @heroui/shared-utils@2.1.3
+  - @sytechui/shared-utils@2.1.3
 
 ## 2.2.5
 
@@ -242,7 +242,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`77206bc`](https://github.com/heroui-inc/heroui/commit/77206bc62596894d038b9715e40b361fec286c10), [`5f388fc`](https://github.com/heroui-inc/heroui/commit/5f388fc68c7db7f852432e73386686d919d44d31)]:
-  - @heroui/shared-utils@2.1.2
+  - @sytechui/shared-utils@2.1.2
 
 ## 2.2.3
 
@@ -389,7 +389,7 @@
 - [`25e86fb41`](https://github.com/heroui-inc/heroui/commit/25e86fb41770d3cdae6dfdb79306b78fa02d8187) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - New version v2.2.0
 
 - Updated dependencies [[`25e86fb41`](https://github.com/heroui-inc/heroui/commit/25e86fb41770d3cdae6dfdb79306b78fa02d8187)]:
-  - @heroui/use-aria-press@2.0.1
+  - @sytechui/use-aria-press@2.0.1
 
 ## 2.0.14
 

@@ -1,4 +1,4 @@
-# @heroui/use-ssr
+# @sytechui/use-ssr
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @heroui/use-ssr
+yarn add @sytechui/use-ssr
 # or
-npm i @heroui/use-ssr
+npm i @sytechui/use-ssr
 ```
 
 ## Contribution

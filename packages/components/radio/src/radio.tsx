@@ -1,6 +1,6 @@
 import type {UseRadioProps} from "./use-radio";
 
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 
 import {useRadio} from "./use-radio";
 

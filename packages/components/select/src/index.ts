@@ -1,6 +1,6 @@
-import type {ListboxItemProps, ListboxSectionProps} from "@heroui/listbox";
+import type {ListboxItemProps, ListboxSectionProps} from "@sytechui/listbox";
 
-import {ListboxItem, ListboxSection} from "@heroui/listbox";
+import {ListboxItem, ListboxSection} from "@sytechui/listbox";
 
 import Select from "./select";
 import {HiddenSelect} from "./hidden-select";

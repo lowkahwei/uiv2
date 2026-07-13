@@ -1,4 +1,4 @@
-import {Avatar, AvatarGroup} from "@heroui/react";
+import {Avatar, AvatarGroup} from "@sytechui/react";
 
 export default function App() {
   return (

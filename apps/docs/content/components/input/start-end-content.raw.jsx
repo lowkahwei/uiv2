@@ -1,4 +1,4 @@
-import {Input} from "@heroui/react";
+import {Input} from "@sytechui/react";
 
 export const MailIcon = (props) => {
   return (

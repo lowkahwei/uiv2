@@ -1,26 +1,26 @@
 {
-  "name": "heroui",
+  "name": "sytechui",
   "private": true,
   "version": "2.0.0",
   "license": "MIT",
   "author": "HeroUI <support@heroui.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroui-inc/heroui"
+    "url": "https://github.com/lowkahwei/uiv2"
   },
   "scripts": {
     "dev": "pnpm sb",
-    "build": "turbo build --filter=!@heroui/docs --filter=!@heroui/storybook --filter=!@heroui/stories-utils --filter=!@heroui/test-utils",
-    "build:fast": "turbo build:fast --filter=!@heroui/docs --filter=!@heroui/storybook --filter=!@heroui/stories-utils --filter=!@heroui/test-utils",
-    "dev:docs": "turbo dev --filter=@heroui/docs",
-    "build:docs": "turbo build --filter=@heroui/docs",
+    "build": "turbo build --filter=!@sytechui/docs --filter=!@sytechui/storybook --filter=!@sytechui/stories-utils --filter=!@sytechui/test-utils",
+    "build:fast": "turbo build:fast --filter=!@sytechui/docs --filter=!@sytechui/storybook --filter=!@sytechui/stories-utils --filter=!@sytechui/test-utils",
+    "dev:docs": "turbo dev --filter=@sytechui/docs",
+    "build:docs": "turbo build --filter=@sytechui/docs",
     "build:docs-meta": "node ./scripts/update-index-docs.js",
-    "start:docs": "turbo start --filter=@heroui/docs",
-    "deploy:docs": "pnpm --filter @heroui/docs deploy",
-    "deploy:stage-docs": "pnpm --filter @heroui/docs deploy:stage",
-    "sb": "pnpm --filter @heroui/storybook dev",
-    "build:sb": "pnpm --filter @heroui/storybook build",
-    "start:sb": "pnpm --filter @heroui/storybook start",
+    "start:docs": "turbo start --filter=@sytechui/docs",
+    "deploy:docs": "pnpm --filter @sytechui/docs deploy",
+    "deploy:stage-docs": "pnpm --filter @sytechui/docs deploy:stage",
+    "sb": "pnpm --filter @sytechui/storybook dev",
+    "build:sb": "pnpm --filter @sytechui/storybook build",
+    "start:sb": "pnpm --filter @sytechui/storybook start",
     "test": "jest --verbose --config ./jest.config.js",
     "test:strict": "cross-env STRICT_MODE=true pnpm test",
     "typecheck": "turbo typecheck",
@@ -48,7 +48,7 @@
     "release:canary": "changeset publish --snapshot --no-git-tag --tag canary",
     "pubf": "pnpm -r publish --registry=http://localhost:4873 --no-git-checks --force",
     "pub": "pnpm publish --registry=http://localhost:4873 --no-git-checks --force",
-    "postinstall": "husky install && pnpm --filter @heroui/theme build"
+    "postinstall": "husky install && pnpm --filter @sytechui/theme build"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",

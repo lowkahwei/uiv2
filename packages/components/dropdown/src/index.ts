@@ -1,6 +1,6 @@
-import type {MenuItemProps, MenuSectionProps} from "@heroui/menu";
+import type {MenuItemProps, MenuSectionProps} from "@sytechui/menu";
 
-import {MenuItem, MenuSection} from "@heroui/menu";
+import {MenuItem, MenuSection} from "@sytechui/menu";
 
 import Dropdown from "./dropdown";
 import DropdownTrigger from "./dropdown-trigger";

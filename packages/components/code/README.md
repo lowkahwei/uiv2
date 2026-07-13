@@ -1,4 +1,4 @@
-# @heroui/code
+# @sytechui/code
 
 Code is a component used to display inline code.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/docs/components/code) for
 ## Installation
 
 ```sh
-yarn add @heroui/code
+yarn add @sytechui/code
 # or
-npm i @heroui/code
+npm i @sytechui/code
 ```
 
 ## Contribution

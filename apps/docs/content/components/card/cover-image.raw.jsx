@@ -1,4 +1,4 @@
-import {Card, CardHeader, CardFooter, Image, Button} from "@heroui/react";
+import {Card, CardHeader, CardFooter, Image, Button} from "@sytechui/react";
 
 export default function App() {
   return (

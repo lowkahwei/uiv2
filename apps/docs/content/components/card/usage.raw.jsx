@@ -1,4 +1,4 @@
-import {Card, CardBody} from "@heroui/react";
+import {Card, CardBody} from "@sytechui/react";
 
 export default function App() {
   return (

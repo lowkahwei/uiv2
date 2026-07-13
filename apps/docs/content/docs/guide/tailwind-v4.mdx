@@ -19,10 +19,10 @@ TailwindCSS v4 is now available since 2.8.0! This guide will help you migrate yo
 <PackageManagers
   commands={{
     cli: "npx heroui-cli@latest upgrade --all",
-    pnpm: "pnpm install @heroui/react@latest",
-    npm: "npm install @heroui/react@latest",
-    yarn: "yarn add @heroui/react@latest",
-    bun: "bun install @heroui/react@latest"
+    pnpm: "pnpm install @sytechui/react@latest",
+    npm: "npm install @sytechui/react@latest",
+    yarn: "yarn add @sytechui/react@latest",
+    bun: "bun install @sytechui/react@latest"
   }}
 />
 
@@ -38,9 +38,9 @@ Create `hero.ts` file to export `heroui` plugin.
 
 ```tsx
 // hero.ts
-import { heroui } from "@heroui/react";
+import { heroui } from "@sytechui/react";
 // or import from theme package if you are using individual packages.
-// import { heroui } from "@heroui/theme";
+// import { heroui } from "@sytechui/theme";
 export default heroui();
 ```
 
@@ -55,7 +55,7 @@ Update your main css file as below
 + @import "tailwindcss";
 + @plugin './hero.ts';
 /* Note: You may need to change the path to fit your project structure */
-+ @source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
++ @source '../../node_modules/@sytechui/theme/dist/**/*.{js,ts,jsx,tsx}';
 + @custom-variant dark (&:is(.dark *));
 ```
 

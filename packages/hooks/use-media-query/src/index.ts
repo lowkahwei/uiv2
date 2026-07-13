@@ -1,5 +1,5 @@
 import {useState, useCallback, useEffect} from "react";
-import {useSafeLayoutEffect} from "@heroui/use-safe-layout-effect";
+import {useSafeLayoutEffect} from "@sytechui/use-safe-layout-effect";
 
 /**
  * Custom hook that manages media queries.

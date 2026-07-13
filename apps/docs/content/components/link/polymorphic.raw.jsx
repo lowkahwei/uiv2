@@ -1,4 +1,4 @@
-import {Link, Button} from "@heroui/react";
+import {Link, Button} from "@sytechui/react";
 
 export default function App() {
   return (

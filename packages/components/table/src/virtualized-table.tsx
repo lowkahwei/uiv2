@@ -1,7 +1,7 @@
 import type {UseTableProps} from "./use-table";
 
 import {useCallback, useLayoutEffect, useRef, useState} from "react";
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 import {useVirtualizer} from "@tanstack/react-virtual";
 
 import {useTable} from "./use-table";

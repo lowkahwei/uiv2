@@ -1,13 +1,13 @@
-import type {HTMLHeroUIProps} from "@heroui/system";
+import type {HTMLHeroUIProps} from "@sytechui/system";
 import type {ValuesType} from "./use-table";
 
-import {forwardRef} from "@heroui/system";
-import {useDOMRef} from "@heroui/react-utils";
-import {dataAttr, mergeProps} from "@heroui/shared-utils";
+import {forwardRef} from "@sytechui/system";
+import {useDOMRef} from "@sytechui/react-utils";
+import {dataAttr, mergeProps} from "@sytechui/shared-utils";
 import {useTableRowGroup} from "@react-aria/table";
-import {filterDOMProps} from "@heroui/react-utils";
+import {filterDOMProps} from "@sytechui/react-utils";
 import {useMemo} from "react";
-import {cn} from "@heroui/theme";
+import {cn} from "@sytechui/theme";
 
 import TableRow from "./table-row";
 import TableCell from "./table-cell";

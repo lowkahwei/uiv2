@@ -1,18 +1,18 @@
 import type {UseTooltipProps} from "./use-tooltip";
 
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 import {OverlayContainer} from "@react-aria/overlays";
 import {AnimatePresence, m, LazyMotion} from "framer-motion";
-import {TRANSITION_VARIANTS} from "@heroui/framer-utils";
-import {warn, mergeProps} from "@heroui/shared-utils";
+import {TRANSITION_VARIANTS} from "@sytechui/framer-utils";
+import {warn, mergeProps} from "@sytechui/shared-utils";
 import {Children, cloneElement, isValidElement} from "react";
-import {getTransformOrigins} from "@heroui/aria-utils";
+import {getTransformOrigins} from "@sytechui/aria-utils";
 
 import {useTooltip} from "./use-tooltip";
 
 export interface TooltipProps extends Omit<UseTooltipProps, "disableTriggerFocus" | "backdrop"> {}
 
-const domAnimation = () => import("@heroui/dom-animation").then((res) => res.default);
+const domAnimation = () => import("@sytechui/dom-animation").then((res) => res.default);
 
 const Tooltip = forwardRef<"div", TooltipProps>((props, ref) => {
   const {

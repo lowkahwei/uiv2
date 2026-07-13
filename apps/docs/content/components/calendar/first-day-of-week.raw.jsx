@@ -1,4 +1,4 @@
-import {Calendar} from "@heroui/react";
+import {Calendar} from "@sytechui/react";
 
 export default function App() {
   return <Calendar aria-label="Date (firstDayOfWeek)" firstDayOfWeek="mon" />;

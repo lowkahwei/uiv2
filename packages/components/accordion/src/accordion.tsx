@@ -1,9 +1,9 @@
 import type {Key} from "react";
 import type {UseAccordionProps} from "./use-accordion";
 
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 import {LayoutGroup} from "framer-motion";
-import {Divider} from "@heroui/divider";
+import {Divider} from "@sytechui/divider";
 import {Fragment, useCallback, useMemo} from "react";
 
 import {useAccordion} from "./use-accordion";

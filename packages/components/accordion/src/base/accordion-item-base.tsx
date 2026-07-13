@@ -1,11 +1,11 @@
-import type {AccordionItemVariantProps, AccordionItemSlots, SlotsToClasses} from "@heroui/theme";
-import type {As} from "@heroui/system";
-import type {ItemProps} from "@heroui/aria-utils";
+import type {AccordionItemVariantProps, AccordionItemSlots, SlotsToClasses} from "@sytechui/theme";
+import type {As} from "@sytechui/system";
+import type {ItemProps} from "@sytechui/aria-utils";
 import type {FocusableProps, PressEvents} from "@react-types/shared";
 import type {ReactNode} from "react";
 import type {HTMLMotionProps} from "framer-motion";
 
-import {BaseItem} from "@heroui/aria-utils";
+import {BaseItem} from "@sytechui/aria-utils";
 
 export type AccordionItemIndicatorProps = {
   /**

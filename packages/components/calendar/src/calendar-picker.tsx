@@ -1,6 +1,6 @@
 import type {CalendarPickerProps} from "./use-calendar-picker";
 
-import {TimePicker} from "@heroui/time-picker";
+import {TimePicker} from "@sytechui/time-picker";
 
 import {useCalendarPicker} from "./use-calendar-picker";
 

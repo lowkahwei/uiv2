@@ -5,7 +5,7 @@ export type {ScrollBarBehavior, UseScrollAreaProps} from "./use-scroll-area";
 export type {
   ScrollOverflowCheck as ScrollAreaOrientation,
   ScrollOverflowVisibility as ScrollAreaVisibility,
-} from "@heroui/use-data-scroll-overflow";
+} from "@sytechui/use-data-scroll-overflow";
 
 export {useScrollArea} from "./use-scroll-area";
 export {ScrollArea};

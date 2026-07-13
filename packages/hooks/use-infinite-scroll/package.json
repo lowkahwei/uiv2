@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-infinite-scroll",
+  "name": "@sytechui/use-infinite-scroll",
   "version": "2.2.12",
   "description": "A hook for handling infinite scroll based on the IntersectionObserver API",
   "keywords": [
@@ -37,7 +37,7 @@
     "react": ">=18 || >=19.0.0-rc.0"
   },
   "dependencies": {
-    "@heroui/shared-utils": "workspace:*"
+    "@sytechui/shared-utils": "workspace:*"
   },
   "devDependencies": {
     "clean-package": "2.2.0",

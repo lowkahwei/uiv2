@@ -1,26 +1,26 @@
-import type {SelectSlots, SelectVariantProps, SlotsToClasses} from "@heroui/theme";
+import type {SelectSlots, SelectVariantProps, SlotsToClasses} from "@sytechui/theme";
 import type {HiddenSelectProps} from "./hidden-select";
-import type {DOMAttributes, HTMLHeroUIProps, PropGetter, SharedSelection} from "@heroui/system";
-import type {ReactRef} from "@heroui/react-utils";
+import type {DOMAttributes, HTMLHeroUIProps, PropGetter, SharedSelection} from "@sytechui/system";
+import type {ReactRef} from "@sytechui/react-utils";
 import type {Key, ReactNode} from "react";
-import type {ListboxProps} from "@heroui/listbox";
-import type {PopoverProps} from "@heroui/popover";
-import type {ScrollShadowProps} from "@heroui/scroll-shadow";
-import type {MultiSelectProps, MultiSelectState} from "@heroui/use-aria-multiselect";
-import type {SpinnerProps} from "@heroui/spinner";
+import type {ListboxProps} from "@sytechui/listbox";
+import type {PopoverProps} from "@sytechui/popover";
+import type {ScrollShadowProps} from "@sytechui/scroll-shadow";
+import type {MultiSelectProps, MultiSelectState} from "@sytechui/use-aria-multiselect";
+import type {SpinnerProps} from "@sytechui/spinner";
 import type {CollectionChildren, ValidationError} from "@react-types/shared";
 
-import {mapPropsVariants, useLabelPlacement, useProviderContext} from "@heroui/system";
-import {select, cn} from "@heroui/theme";
-import {useDOMRef, filterDOMProps} from "@heroui/react-utils";
+import {mapPropsVariants, useLabelPlacement, useProviderContext} from "@sytechui/system";
+import {select, cn} from "@sytechui/theme";
+import {useDOMRef, filterDOMProps} from "@sytechui/react-utils";
 import {useMemo, useCallback, useRef, useEffect} from "react";
-import {useAriaButton} from "@heroui/use-aria-button";
+import {useAriaButton} from "@sytechui/use-aria-button";
 import {useFocusRing} from "@react-aria/focus";
-import {dataAttr, objectToDeps, mergeProps} from "@heroui/shared-utils";
+import {dataAttr, objectToDeps, mergeProps} from "@sytechui/shared-utils";
 import {useHover, usePress} from "@react-aria/interactions";
-import {useMultiSelect, useMultiSelectState} from "@heroui/use-aria-multiselect";
-import {useSafeLayoutEffect} from "@heroui/use-safe-layout-effect";
-import {FormContext, useSlottedContext} from "@heroui/form";
+import {useMultiSelect, useMultiSelectState} from "@sytechui/use-aria-multiselect";
+import {useSafeLayoutEffect} from "@sytechui/use-safe-layout-effect";
+import {FormContext, useSlottedContext} from "@sytechui/form";
 import {usePreventScroll} from "@react-aria/overlays";
 
 export type SelectedItemProps<T = object> = {

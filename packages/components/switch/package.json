@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/switch",
+  "name": "@sytechui/switch",
   "version": "2.2.27",
   "description": "A switch is similar to a checkbox, but represents on/off values as opposed to selection.",
   "keywords": [
@@ -36,13 +36,13 @@
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0",
-    "@heroui/theme": ">=2.4.24",
-    "@heroui/system": ">=2.4.18"
+    "@sytechui/theme": ">=2.4.24",
+    "@sytechui/system": ">=2.4.18"
   },
   "dependencies": {
-    "@heroui/shared-utils": "workspace:*",
-    "@heroui/react-utils": "workspace:*",
-    "@heroui/use-safe-layout-effect": "workspace:*",
+    "@sytechui/shared-utils": "workspace:*",
+    "@sytechui/react-utils": "workspace:*",
+    "@sytechui/use-safe-layout-effect": "workspace:*",
     "@react-aria/focus": "3.21.5",
     "@react-aria/interactions": "3.27.1",
     "@react-aria/switch": "3.7.11",
@@ -50,9 +50,9 @@
     "@react-stately/toggle": "3.9.5"
   },
   "devDependencies": {
-    "@heroui/theme": "workspace:*",
-    "@heroui/system": "workspace:*",
-    "@heroui/shared-icons": "workspace:*",
+    "@sytechui/theme": "workspace:*",
+    "@sytechui/system": "workspace:*",
+    "@sytechui/shared-icons": "workspace:*",
     "clean-package": "2.2.0",
     "react": "18.3.0",
     "react-dom": "18.3.0",

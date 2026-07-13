@@ -1,4 +1,4 @@
-import {InputOtp} from "@heroui/react";
+import {InputOtp} from "@sytechui/react";
 
 export default function App() {
   return (

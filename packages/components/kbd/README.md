@@ -1,4 +1,4 @@
-# @heroui/kbd
+# @sytechui/kbd
 
 Keyboard key or kbd is a component to display which key or combination of keys performs a given action.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/docs/components/kbd) for 
 ## Installation
 
 ```sh
-yarn add @heroui/kbd
+yarn add @sytechui/kbd
 # or
-npm i @heroui/kbd
+npm i @sytechui/kbd
 ```
 
 ## Contribution

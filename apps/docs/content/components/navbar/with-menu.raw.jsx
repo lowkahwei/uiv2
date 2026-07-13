@@ -8,7 +8,7 @@ import {
   NavbarMenuItem,
   Link,
   Button,
-} from "@heroui/react";
+} from "@sytechui/react";
 
 export const AcmeLogo = () => {
   return (

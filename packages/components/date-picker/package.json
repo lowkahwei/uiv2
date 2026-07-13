@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/date-picker",
+  "name": "@sytechui/date-picker",
   "version": "2.3.33",
   "description": "A date picker combines a DateInput and a Calendar popover to allow users to enter or select a date and time value.",
   "keywords": [
@@ -34,23 +34,23 @@
     "postpack": "clean-package restore"
   },
   "peerDependencies": {
-    "@heroui/system": ">=2.4.18",
-    "@heroui/theme": ">=2.4.24",
+    "@sytechui/system": ">=2.4.18",
+    "@sytechui/theme": ">=2.4.24",
     "framer-motion": ">=11.5.6 || >=12.0.0-alpha.1",
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0"
   },
   "dependencies": {
     "@internationalized/date": "3.12.0",
-    "@heroui/aria-utils": "workspace:*",
-    "@heroui/button": "workspace:*",
-    "@heroui/calendar": "workspace:*",
-    "@heroui/date-input": "workspace:*",
-    "@heroui/form": "workspace:*",
-    "@heroui/popover": "workspace:*",
-    "@heroui/react-utils": "workspace:*",
-    "@heroui/shared-icons": "workspace:*",
-    "@heroui/shared-utils": "workspace:*",
+    "@sytechui/aria-utils": "workspace:*",
+    "@sytechui/button": "workspace:*",
+    "@sytechui/calendar": "workspace:*",
+    "@sytechui/date-input": "workspace:*",
+    "@sytechui/form": "workspace:*",
+    "@sytechui/popover": "workspace:*",
+    "@sytechui/react-utils": "workspace:*",
+    "@sytechui/shared-icons": "workspace:*",
+    "@sytechui/shared-utils": "workspace:*",
     "@react-aria/datepicker": "3.16.1",
     "@react-aria/i18n": "3.12.16",
     "@react-stately/datepicker": "3.16.1",
@@ -59,10 +59,10 @@
     "@react-types/shared": "3.33.1"
   },
   "devDependencies": {
-    "@heroui/radio": "workspace:*",
-    "@heroui/system": "workspace:*",
-    "@heroui/test-utils": "workspace:*",
-    "@heroui/theme": "workspace:*",
+    "@sytechui/radio": "workspace:*",
+    "@sytechui/system": "workspace:*",
+    "@sytechui/test-utils": "workspace:*",
+    "@sytechui/theme": "workspace:*",
     "framer-motion": "11.18.2",
     "clean-package": "2.2.0",
     "react": "18.3.0",

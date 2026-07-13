@@ -1,9 +1,9 @@
-import {Snippet} from "@heroui/react";
+import {Snippet} from "@sytechui/react";
 
 export default function App() {
   return (
     <Snippet symbol="#" variant="bordered">
-      npm install @heroui/react
+      npm install @sytechui/react
     </Snippet>
   );
 }

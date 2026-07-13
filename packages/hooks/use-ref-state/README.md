@@ -1,4 +1,4 @@
-# @heroui/use-ref-state
+# @sytechui/use-ref-state
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @heroui/use-ref-state
+yarn add @sytechui/use-ref-state
 # or
-npm i @heroui/use-ref-state
+npm i @sytechui/use-ref-state
 ```
 
 ## Contribution

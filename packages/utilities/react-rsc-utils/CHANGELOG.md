@@ -1,4 +1,4 @@
-# @heroui/react-rsc-utils
+# @sytechui/react-rsc-utils
 
 ## 2.1.9
 
@@ -68,7 +68,7 @@
   #### System & Core
 
   - add useInputLabelPlacement
-  - remove `@heroui/aria-utils` dependency
+  - remove `@sytechui/aria-utils` dependency
 
   #### Hooks & Utilities
 
@@ -100,7 +100,7 @@
 
 ### Patch Changes
 
-- [#5401](https://github.com/heroui-inc/heroui/pull/5401) [`a2c4745`](https://github.com/heroui-inc/heroui/commit/a2c4745f078b2fe30890149d336b1a19a09d394d) Thanks [@wingkwong](https://github.com/wingkwong)! - remove `@heroui/aria-utils` dependency
+- [#5401](https://github.com/heroui-inc/heroui/pull/5401) [`a2c4745`](https://github.com/heroui-inc/heroui/commit/a2c4745f078b2fe30890149d336b1a19a09d394d) Thanks [@wingkwong](https://github.com/wingkwong)! - remove `@sytechui/aria-utils` dependency
 
 ## 2.1.9-beta.1
 
@@ -263,7 +263,7 @@
 
 ### Patch Changes
 
-- [#2758](https://github.com/heroui-inc/heroui/pull/2758) [`74eda3128`](https://github.com/heroui-inc/heroui/commit/74eda312883b2e17df26f71442aba9fb3cd240be) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Named exports for rsc packages, "use client;" directive added to "@heroui/react" package
+- [#2758](https://github.com/heroui-inc/heroui/pull/2758) [`74eda3128`](https://github.com/heroui-inc/heroui/commit/74eda312883b2e17df26f71442aba9fb3cd240be) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Named exports for rsc packages, "use client;" directive added to "@sytechui/react" package
 
 ## 2.0.11
 

@@ -1,11 +1,11 @@
-import type {BadgeSlots, BadgeVariantProps, SlotsToClasses} from "@heroui/theme";
+import type {BadgeSlots, BadgeVariantProps, SlotsToClasses} from "@sytechui/theme";
 import type {ReactNode} from "react";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
-import type {ReactRef} from "@heroui/react-utils";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
+import type {ReactRef} from "@sytechui/react-utils";
 
-import {badge, cn} from "@heroui/theme";
-import {mapPropsVariants, useProviderContext} from "@heroui/system";
-import {objectToDeps} from "@heroui/shared-utils";
+import {badge, cn} from "@sytechui/theme";
+import {mapPropsVariants, useProviderContext} from "@sytechui/system";
+import {objectToDeps} from "@sytechui/shared-utils";
 import {useMemo} from "react";
 
 interface Props extends HTMLHeroUIProps<"span", "content"> {

@@ -4,7 +4,7 @@ import type {FC} from "react";
 
 import {useInView} from "framer-motion";
 import {useRef, useEffect, useState, useCallback} from "react";
-import {Button, cn, Spinner, Tooltip} from "@heroui/react";
+import {Button, cn, Spinner, Tooltip} from "@sytechui/react";
 
 import {PlayBoldIcon, PauseBoldIcon} from "@/components/icons";
 import {RotateLeftLinearIcon} from "@/components/icons";

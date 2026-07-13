@@ -1,9 +1,9 @@
 import type {Ref} from "react";
-import type {HTMLHeroUIProps} from "@heroui/system";
+import type {HTMLHeroUIProps} from "@sytechui/system";
 
 import {forwardRef} from "react";
 import {domAnimation, LazyMotion, m} from "framer-motion";
-import {useMeasure} from "@heroui/use-measure";
+import {useMeasure} from "@sytechui/use-measure";
 
 /**
  * Props for the ResizablePanel component.

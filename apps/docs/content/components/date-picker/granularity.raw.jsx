@@ -1,4 +1,4 @@
-import {DatePicker} from "@heroui/react";
+import {DatePicker} from "@sytechui/react";
 import {now, parseAbsoluteToLocal} from "@internationalized/date";
 
 export default function App() {

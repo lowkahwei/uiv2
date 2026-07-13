@@ -1,11 +1,11 @@
-import type {CodeVariantProps} from "@heroui/theme";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system-rsc";
-import type {ReactRef} from "@heroui/react-utils";
+import type {CodeVariantProps} from "@sytechui/theme";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system-rsc";
+import type {ReactRef} from "@sytechui/react-utils";
 
-import {code} from "@heroui/theme";
-import {mapPropsVariants} from "@heroui/system-rsc";
+import {code} from "@sytechui/theme";
+import {mapPropsVariants} from "@sytechui/system-rsc";
 import {useMemo} from "react";
-import {objectToDeps} from "@heroui/shared-utils";
+import {objectToDeps} from "@sytechui/shared-utils";
 
 export interface UseCodeProps extends HTMLHeroUIProps<"code">, CodeVariantProps {
   /**

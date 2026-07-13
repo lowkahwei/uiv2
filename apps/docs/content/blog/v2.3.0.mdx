@@ -234,7 +234,7 @@ Alternatively you can set the `locale` globally by using the `HeroUIProvider` co
 // Next.js App Router example
 "use client";
 
-import {HeroUIProvider} from "@heroui/react";
+import {HeroUIProvider} from "@sytechui/react";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -258,7 +258,7 @@ and the `defaultDates` object which allows you to set global minimum and maximum
 // Next.js App Router example
 "use client";
 
-import {HeroUIProvider, SupportedCalendars} from "@heroui/react";
+import {HeroUIProvider, SupportedCalendars} from "@sytechui/react";
 import {CalendarDate, GregorianCalendar} from "@internationalized/date";
 
 export interface ProvidersProps {
@@ -325,7 +325,7 @@ npm install tailwindcss@latest
 3. Find all `-unit` classes in your project and replace them with a `-` separator. For example, replace `p-unit-4` with `p-4`.
 
 ```diff-jsx
-import {Button} from "@heroui/react";
+import {Button} from "@sytechui/react";
 
 export const MyButton = () => {
   return (
@@ -369,11 +369,11 @@ That's it! Your project should now be using the latest version of TailwindCSS an
 
 - Fixed an HSL color rounding issue in the theme settings to ensure accurate color representation. [PR](https://github.com/heroui-inc/heroui/pull/2702) - [@wingkwong](https://github.com/wingkwong)
 - Removed conflicting transition definitions affecting CSS classes. [PR](https://github.com/heroui-inc/heroui/pull/2677) - [@u3u](https://github.com/u3u)
-- Patched the "@heroui/autocomplete" package to fix an issue where empty items with `allowCustomValue` would not render properly due to a null node problem. [PR](https://github.com/heroui-inc/heroui/pull/2674) - [@wingkwong](https://github.com/wingkwong)
+- Patched the "@sytechui/autocomplete" package to fix an issue where empty items with `allowCustomValue` would not render properly due to a null node problem. [PR](https://github.com/heroui-inc/heroui/pull/2674) - [@wingkwong](https://github.com/wingkwong)
 - Implemented a fix in modal components to prevent carryover of IME (Input Method Editor) input when switching fields using the Tab key. [PR](https://github.com/heroui-inc/heroui/pull/2709) - [@ryo-manba](https://github.com/ryo-manba)
 - Enhanced accessibility by handling Tab key press event in the `ModalContent` component. [PR](https://github.com/heroui-inc/heroui/pull/2709) - [@ryo-manba](https://github.com/ryo-manba)
 - Fixed an issue where disabled select components could still be changed using blur and keyboard shortcuts. [PR](https://github.com/heroui-inc/heroui/pull/2649) - [@wingkwong](https://github.com/wingkwong)
-- Patched issues in "@heroui/use-aria-multiselect" and "@heroui/stories-utils" packages to fix a warning about `SELECT defaultSelectedKeys`. [PR](https://github.com/heroui-inc/heroui/pull/2648) - [@wingkwong](https://github.com/wingkwong)
+- Patched issues in "@sytechui/use-aria-multiselect" and "@sytechui/stories-utils" packages to fix a warning about `SELECT defaultSelectedKeys`. [PR](https://github.com/heroui-inc/heroui/pull/2648) - [@wingkwong](https://github.com/wingkwong)
 - Fixed an issue with incorrect `onChange` typing in Checkbox Group, ensuring it now correctly handles an array of strings as values. [PR](https://github.com/heroui-inc/heroui/pull/2595) - [@wingkwong](https://github.com/wingkwong)
 - Fixed the `label` placement issue in `Select` component if a `description` prop is used [PR](https://github.com/heroui-inc/heroui/pull/2553) - [@novsource](https://github.com/novsource)
 - Fixed the `originalProps` spread issue in the `Dropdown` component. [PR](https://github.com/heroui-inc/heroui/pull/2450) - [@wingkwong](https://github.com/wingkwong)

@@ -1,4 +1,4 @@
-# @heroui/link
+# @sytechui/link
 
 Links allow users to click their way from page to page. This component is styled to resemble a hyperlink and semantically renders an `<a>` tag.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/docs/components/link) for
 ## Installation
 
 ```sh
-yarn add @heroui/link
+yarn add @sytechui/link
 # or
-npm i @heroui/link
+npm i @sytechui/link
 ```
 
 ## Contribution

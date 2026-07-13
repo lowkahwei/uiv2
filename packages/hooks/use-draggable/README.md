@@ -1,4 +1,4 @@
-# @heroui/use-draggable
+# @sytechui/use-draggable
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @heroui/use-draggable
+yarn add @sytechui/use-draggable
 # or
-npm i @heroui/use-draggable
+npm i @sytechui/use-draggable
 ```
 
 ## Contribution

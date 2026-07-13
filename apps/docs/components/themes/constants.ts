@@ -1,6 +1,6 @@
 import type {ConfigColors, Config, ConfigLayout} from "./types";
 
-import {colors} from "@heroui/theme";
+import {colors} from "@sytechui/theme";
 
 // Colors
 export const defaultDarkColorWeight = 20;

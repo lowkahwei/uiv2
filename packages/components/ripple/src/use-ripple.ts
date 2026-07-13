@@ -1,7 +1,7 @@
 import type React from "react";
 import type {PressEvent} from "@react-types/shared";
 
-import {getUniqueID} from "@heroui/shared-utils";
+import {getUniqueID} from "@sytechui/shared-utils";
 import {useCallback, useState} from "react";
 
 export type RippleType = {

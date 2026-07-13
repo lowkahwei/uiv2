@@ -12,7 +12,7 @@ export type {
 export {useTable} from "./use-table";
 
 // export utils
-export {getKeyValue} from "@heroui/shared-utils";
+export {getKeyValue} from "@sytechui/shared-utils";
 
 // export component
 export {default as Table} from "./table";

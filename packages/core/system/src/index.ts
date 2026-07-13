@@ -16,7 +16,7 @@ export type {
   ExtendVariantWithSlotsProps,
   ExtendVariants,
   SharedSelection,
-} from "@heroui/system-rsc";
+} from "@sytechui/system-rsc";
 
 export {
   forwardRef,
@@ -25,7 +25,7 @@ export {
   mapPropsVariantsWithCommon,
   isHeroUIEl,
   extendVariants,
-} from "@heroui/system-rsc";
+} from "@sytechui/system-rsc";
 
 export type {HeroUIProviderProps} from "./provider";
 export type {ProviderContextProps} from "./provider-context";

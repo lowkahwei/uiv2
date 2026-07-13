@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/popover",
+  "name": "@sytechui/popover",
   "version": "2.3.32",
   "description": "A popover is an overlay element positioned relative to a trigger.",
   "keywords": [
@@ -34,22 +34,22 @@
     "postpack": "clean-package restore"
   },
   "peerDependencies": {
-    "@heroui/system": ">=2.4.18",
-    "@heroui/theme": ">=2.4.24",
+    "@sytechui/system": ">=2.4.18",
+    "@sytechui/theme": ">=2.4.24",
     "framer-motion": ">=11.5.6 || >=12.0.0-alpha.1",
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0"
   },
   "dependencies": {
-    "@heroui/aria-utils": "workspace:*",
-    "@heroui/button": "workspace:*",
-    "@heroui/framer-utils": "workspace:*",
-    "@heroui/react-utils": "workspace:*",
-    "@heroui/shared-utils": "workspace:*",
-    "@heroui/use-aria-button": "workspace:*",
-    "@heroui/use-aria-overlay": "workspace:*",
-    "@heroui/use-safe-layout-effect": "workspace:*",
-    "@heroui/dom-animation": "workspace:*",
+    "@sytechui/aria-utils": "workspace:*",
+    "@sytechui/button": "workspace:*",
+    "@sytechui/framer-utils": "workspace:*",
+    "@sytechui/react-utils": "workspace:*",
+    "@sytechui/shared-utils": "workspace:*",
+    "@sytechui/use-aria-button": "workspace:*",
+    "@sytechui/use-aria-overlay": "workspace:*",
+    "@sytechui/use-safe-layout-effect": "workspace:*",
+    "@sytechui/dom-animation": "workspace:*",
     "@react-aria/dialog": "3.5.34",
     "@react-aria/focus": "3.21.5",
     "@react-aria/overlays": "3.31.2",
@@ -57,11 +57,11 @@
     "@react-types/overlays": "3.9.4"
   },
   "devDependencies": {
-    "@heroui/card": "workspace:*",
-    "@heroui/input": "workspace:*",
-    "@heroui/system": "workspace:*",
-    "@heroui/theme": "workspace:*",
-    "@heroui/test-utils": "workspace:*",
+    "@sytechui/card": "workspace:*",
+    "@sytechui/input": "workspace:*",
+    "@sytechui/system": "workspace:*",
+    "@sytechui/theme": "workspace:*",
+    "@sytechui/test-utils": "workspace:*",
     "clean-package": "2.2.0",
     "framer-motion": "11.18.2",
     "react": "18.3.0",

@@ -1,4 +1,4 @@
-import {Slider} from "@heroui/react";
+import {Slider} from "@sytechui/react";
 
 export default function App() {
   const radius = ["full", "lg", "md", "sm", "none"];

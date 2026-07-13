@@ -1,6 +1,6 @@
 "use client";
 
-import {Button, Link} from "@heroui/react";
+import {Button, Link} from "@sytechui/react";
 import NextLink from "next/link";
 
 import {title, subtitle, titleWrapper, sectionWrapper} from "@/components/primitives";

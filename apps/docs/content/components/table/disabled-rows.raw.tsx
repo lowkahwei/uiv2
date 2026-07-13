@@ -1,4 +1,4 @@
-import type {Selection} from "@heroui/react";
+import type {Selection} from "@sytechui/react";
 
 import React from "react";
 import {
@@ -9,7 +9,7 @@ import {
   TableRow,
   TableCell,
   getKeyValue,
-} from "@heroui/react";
+} from "@sytechui/react";
 
 const rows = [
   {

@@ -1,7 +1,7 @@
 import type {UseSliderProps} from "./use-slider";
 
-import {renderFn} from "@heroui/react-utils";
-import {forwardRef} from "@heroui/system";
+import {renderFn} from "@sytechui/react-utils";
+import {forwardRef} from "@sytechui/system";
 
 import Thumb from "./slider-thumb";
 import {useSlider} from "./use-slider";

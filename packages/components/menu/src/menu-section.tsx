@@ -4,12 +4,12 @@ import type {Key} from "react";
 import type {MenuItemProps} from "./menu-item";
 import type {MenuSectionBaseProps} from "./base/menu-section-base";
 
-import {menuSection, cn} from "@heroui/theme";
+import {menuSection, cn} from "@sytechui/theme";
 import {useMenuSection} from "@react-aria/menu";
 import {useMemo} from "react";
-import {forwardRef} from "@heroui/system";
-import {mergeProps} from "@heroui/shared-utils";
-import {Divider} from "@heroui/divider";
+import {forwardRef} from "@sytechui/system";
+import {mergeProps} from "@sytechui/shared-utils";
+import {Divider} from "@sytechui/divider";
 
 import MenuItem from "./menu-item";
 

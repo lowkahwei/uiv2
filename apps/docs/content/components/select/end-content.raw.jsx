@@ -1,4 +1,4 @@
-import {Select, SelectItem} from "@heroui/react";
+import {Select, SelectItem} from "@sytechui/react";
 
 export const PetIcon = (props) => {
   return (

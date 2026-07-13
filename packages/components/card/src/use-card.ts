@@ -1,22 +1,22 @@
 import type {FocusableProps, PressEvents} from "@react-types/shared";
-import type {SlotsToClasses, CardSlots, CardReturnType, CardVariantProps} from "@heroui/theme";
-import type {AriaButtonProps} from "@heroui/use-aria-button";
-import type {RippleProps} from "@heroui/ripple";
+import type {SlotsToClasses, CardSlots, CardReturnType, CardVariantProps} from "@sytechui/theme";
+import type {AriaButtonProps} from "@sytechui/use-aria-button";
+import type {RippleProps} from "@sytechui/ripple";
 import type {MouseEventHandler, ReactNode} from "react";
 import type {PressEvent} from "@react-aria/interactions";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
-import type {ReactRef} from "@heroui/react-utils";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
+import type {ReactRef} from "@sytechui/react-utils";
 
-import {card, cn} from "@heroui/theme";
+import {card, cn} from "@sytechui/theme";
 import {useCallback, useMemo} from "react";
 import {useFocusRing} from "@react-aria/focus";
 import {useHover} from "@react-aria/interactions";
-import {useAriaButton} from "@heroui/use-aria-button";
-import {mapPropsVariants, useProviderContext} from "@heroui/system";
-import {dataAttr, objectToDeps, chain, mergeProps} from "@heroui/shared-utils";
-import {filterDOMProps} from "@heroui/react-utils";
-import {useDOMRef} from "@heroui/react-utils";
-import {useRipple} from "@heroui/ripple";
+import {useAriaButton} from "@sytechui/use-aria-button";
+import {mapPropsVariants, useProviderContext} from "@sytechui/system";
+import {dataAttr, objectToDeps, chain, mergeProps} from "@sytechui/shared-utils";
+import {filterDOMProps} from "@sytechui/react-utils";
+import {useDOMRef} from "@sytechui/react-utils";
+import {useRipple} from "@sytechui/ripple";
 
 export interface Props extends Omit<HTMLHeroUIProps<"div">, "onClick"> {
   /**

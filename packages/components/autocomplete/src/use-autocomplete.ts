@@ -1,26 +1,26 @@
-import type {AutocompleteVariantProps, SlotsToClasses, AutocompleteSlots} from "@heroui/theme";
-import type {DOMAttributes, HTMLHeroUIProps, PropGetter} from "@heroui/system";
+import type {AutocompleteVariantProps, SlotsToClasses, AutocompleteSlots} from "@sytechui/theme";
+import type {DOMAttributes, HTMLHeroUIProps, PropGetter} from "@sytechui/system";
 import type {FilterFn} from "@react-stately/combobox";
-import type {ReactRef} from "@heroui/react-utils";
+import type {ReactRef} from "@sytechui/react-utils";
 import type {ReactNode} from "react";
 import type {ComboBoxProps} from "@react-types/combobox";
-import type {PopoverProps} from "@heroui/popover";
-import type {ListboxProps} from "@heroui/listbox";
-import type {InputProps} from "@heroui/input";
-import type {ScrollShadowProps} from "@heroui/scroll-shadow";
-import type {ButtonProps} from "@heroui/button";
+import type {PopoverProps} from "@sytechui/popover";
+import type {ListboxProps} from "@sytechui/listbox";
+import type {InputProps} from "@sytechui/input";
+import type {ScrollShadowProps} from "@sytechui/scroll-shadow";
+import type {ButtonProps} from "@sytechui/button";
 import type {AsyncLoadable, Key, PressEvent} from "@react-types/shared";
 
-import {dataAttr, objectToDeps, chain, mergeProps} from "@heroui/shared-utils";
+import {dataAttr, objectToDeps, chain, mergeProps} from "@sytechui/shared-utils";
 import {useEffect, useMemo, useRef} from "react";
-import {useDOMRef} from "@heroui/react-utils";
+import {useDOMRef} from "@sytechui/react-utils";
 import {useComboBoxState} from "@react-stately/combobox";
 import {useFilter} from "@react-aria/i18n";
-import {autocomplete, cn} from "@heroui/theme";
-import {useSafeLayoutEffect} from "@heroui/use-safe-layout-effect";
-import {mapPropsVariants, useProviderContext} from "@heroui/system";
+import {autocomplete, cn} from "@sytechui/theme";
+import {useSafeLayoutEffect} from "@sytechui/use-safe-layout-effect";
+import {mapPropsVariants, useProviderContext} from "@sytechui/system";
 import {useComboBox} from "@react-aria/combobox";
-import {FormContext, useSlottedContext} from "@heroui/form";
+import {FormContext, useSlottedContext} from "@sytechui/form";
 
 interface Props<T> extends Omit<HTMLHeroUIProps<"input">, keyof ComboBoxProps<T>> {
   /**

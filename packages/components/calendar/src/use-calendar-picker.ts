@@ -1,5 +1,5 @@
 import type {CalendarDate} from "@internationalized/date";
-import type {HTMLHeroUIProps} from "@heroui/system";
+import type {HTMLHeroUIProps} from "@sytechui/system";
 
 import {useCalendarContext} from "./calendar-context";
 

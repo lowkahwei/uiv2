@@ -1,4 +1,4 @@
-# @heroui/drawer
+# @sytechui/drawer
 
 Used to render a content that slides in from the side of the screen.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/docs/components/drawer) f
 ## Installation
 
 ```sh
-yarn add @heroui/drawer
+yarn add @sytechui/drawer
 # or
-npm i @heroui/drawer
+npm i @sytechui/drawer
 ```
 
 ## Contribution

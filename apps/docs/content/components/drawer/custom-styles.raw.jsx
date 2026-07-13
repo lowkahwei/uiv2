@@ -11,7 +11,7 @@ import {
   Tooltip,
   Avatar,
   AvatarGroup,
-} from "@heroui/react";
+} from "@sytechui/react";
 
 export default function App() {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();

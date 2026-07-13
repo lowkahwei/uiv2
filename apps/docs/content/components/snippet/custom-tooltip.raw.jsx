@@ -1,4 +1,4 @@
-import {Snippet} from "@heroui/react";
+import {Snippet} from "@sytechui/react";
 
 export default function App() {
   return (
@@ -11,7 +11,7 @@ export default function App() {
         closeDelay: 0,
       }}
     >
-      npm install @heroui/react
+      npm install @sytechui/react
     </Snippet>
   );
 }

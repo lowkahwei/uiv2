@@ -3,23 +3,23 @@ import type {
   InputOtpSlots,
   InputOtpVariantProps,
   SlotsToClasses,
-} from "@heroui/theme";
-import type {ReactRef} from "@heroui/react-utils";
+} from "@sytechui/theme";
+import type {ReactRef} from "@sytechui/react-utils";
 import type {AriaTextFieldProps} from "@react-types/textfield";
 import type {OTPInputProps} from "input-otp";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
 
-import {mapPropsVariants, useProviderContext} from "@heroui/system";
-import {inputOtp, cn} from "@heroui/theme";
-import {filterDOMProps, useDOMRef} from "@heroui/react-utils";
-import {dataAttr, objectToDeps, isPatternNumeric, chain, mergeProps} from "@heroui/shared-utils";
-import {useFormReset} from "@heroui/use-form-reset";
+import {mapPropsVariants, useProviderContext} from "@sytechui/system";
+import {inputOtp, cn} from "@sytechui/theme";
+import {filterDOMProps, useDOMRef} from "@sytechui/react-utils";
+import {dataAttr, objectToDeps, isPatternNumeric, chain, mergeProps} from "@sytechui/shared-utils";
+import {useFormReset} from "@sytechui/use-form-reset";
 import {useCallback, useMemo} from "react";
 import {useControlledState} from "@react-stately/utils";
 import {useFormValidationState} from "@react-stately/form";
 import {useFormValidation} from "@react-aria/form";
 import {useFocusRing} from "@react-aria/focus";
-import {FormContext, useSlottedContext} from "@heroui/form";
+import {FormContext, useSlottedContext} from "@sytechui/form";
 
 interface Props extends HTMLHeroUIProps<"div"> {
   /**

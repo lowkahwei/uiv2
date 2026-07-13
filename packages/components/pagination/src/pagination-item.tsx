@@ -1,6 +1,6 @@
 import type {UsePaginationItemProps} from "./use-pagination-item";
 
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 
 import {usePaginationItem} from "./use-pagination-item";
 

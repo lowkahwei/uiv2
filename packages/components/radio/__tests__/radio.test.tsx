@@ -4,7 +4,7 @@ import type {RadioGroupProps} from "../src";
 import * as React from "react";
 import {act, render} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {Form} from "@heroui/form";
+import {Form} from "@sytechui/form";
 
 import {RadioGroup, Radio} from "../src";
 

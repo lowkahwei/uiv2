@@ -1,4 +1,4 @@
-# @heroui/aria-utils
+# @sytechui/aria-utils
 
 ## 2.2.29
 
@@ -7,21 +7,21 @@
 - [#6281](https://github.com/heroui-inc/heroui/pull/6281) [`7437888`](https://github.com/heroui-inc/heroui/commit/74378881829204b94173ee2d713f81df5e9e9784) Thanks [@wingkwong](https://github.com/wingkwong)! - react-aria versions (release v1.16.0)
 
 - Updated dependencies [[`7437888`](https://github.com/heroui-inc/heroui/commit/74378881829204b94173ee2d713f81df5e9e9784)]:
-  - @heroui/system@2.4.28
+  - @sytechui/system@2.4.28
 
 ## 2.2.28
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/system@2.4.27
+  - @sytechui/system@2.4.27
 
 ## 2.2.27
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/system@2.4.26
+  - @sytechui/system@2.4.26
 
 ## 2.2.26
 
@@ -30,14 +30,14 @@
 - [#5996](https://github.com/heroui-inc/heroui/pull/5996) [`e07c969`](https://github.com/heroui-inc/heroui/commit/e07c969c4c6c1711ab153c273c2cacd0a79eef4b) Thanks [@wingkwong](https://github.com/wingkwong)! - upgrade react-aria (v1.14.0)
 
 - Updated dependencies [[`e07c969`](https://github.com/heroui-inc/heroui/commit/e07c969c4c6c1711ab153c273c2cacd0a79eef4b)]:
-  - @heroui/system@2.4.25
+  - @sytechui/system@2.4.25
 
 ## 2.2.25
 
 ### Patch Changes
 
 - Updated dependencies [[`8d07922`](https://github.com/heroui-inc/heroui/commit/8d07922c68b3bb569addcb3102676373dacdbaca)]:
-  - @heroui/system@2.4.24
+  - @sytechui/system@2.4.24
 
 ## 2.2.24
 
@@ -46,14 +46,14 @@
 - [#5761](https://github.com/heroui-inc/heroui/pull/5761) [`136bdf6`](https://github.com/heroui-inc/heroui/commit/136bdf66b1c2ab108d8d2903d986a76cec205ac9) Thanks [@wingkwong](https://github.com/wingkwong)! - bump react-aria versions
 
 - Updated dependencies [[`136bdf6`](https://github.com/heroui-inc/heroui/commit/136bdf66b1c2ab108d8d2903d986a76cec205ac9)]:
-  - @heroui/system@2.4.23
+  - @sytechui/system@2.4.23
 
 ## 2.2.23
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/system@2.4.22
+  - @sytechui/system@2.4.22
 
 ## 2.2.22
 
@@ -62,7 +62,7 @@
 - [#5640](https://github.com/heroui-inc/heroui/pull/5640) [`d90ac57`](https://github.com/heroui-inc/heroui/commit/d90ac57bc537e8999b21d4ad3f7e4894e6106fd1) Thanks [@wingkwong](https://github.com/wingkwong)! - bump RA versions (aug 2025)
 
 - Updated dependencies [[`d90ac57`](https://github.com/heroui-inc/heroui/commit/d90ac57bc537e8999b21d4ad3f7e4894e6106fd1)]:
-  - @heroui/system@2.4.21
+  - @sytechui/system@2.4.21
 
 ## 2.2.21
 
@@ -71,7 +71,7 @@
 - [#5517](https://github.com/heroui-inc/heroui/pull/5517) [`36eb421`](https://github.com/heroui-inc/heroui/commit/36eb421c66846d4fe6fb102c662ff6bf6149249b) Thanks [@wingkwong](https://github.com/wingkwong)! - sync with RA release (July 22, 2025)
 
 - Updated dependencies [[`36eb421`](https://github.com/heroui-inc/heroui/commit/36eb421c66846d4fe6fb102c662ff6bf6149249b)]:
-  - @heroui/system@2.4.20
+  - @sytechui/system@2.4.20
 
 ## 2.2.20
 
@@ -141,7 +141,7 @@
   #### System & Core
 
   - add useInputLabelPlacement
-  - remove `@heroui/aria-utils` dependency
+  - remove `@sytechui/aria-utils` dependency
 
   #### Hooks & Utilities
 
@@ -152,7 +152,7 @@
   - refactor: overlay & interactOutside
 
 - Updated dependencies [[`e489af8`](https://github.com/heroui-inc/heroui/commit/e489af83c189d0b42dca1b0afca1f5d003cd6033)]:
-  - @heroui/system@2.4.19
+  - @sytechui/system@2.4.19
 
 ## 2.2.20-beta.2
 
@@ -161,7 +161,7 @@
 - [#5466](https://github.com/heroui-inc/heroui/pull/5466) [`87f8a12`](https://github.com/heroui-inc/heroui/commit/87f8a12c279e06cab23d0b60ae35c96ee6d29f32) Thanks [@wingkwong](https://github.com/wingkwong)! - add back RA deps (overlays & utils)
 
 - Updated dependencies [[`87f8a12`](https://github.com/heroui-inc/heroui/commit/87f8a12c279e06cab23d0b60ae35c96ee6d29f32)]:
-  - @heroui/system@2.4.19-beta.2
+  - @sytechui/system@2.4.19-beta.2
 
 ## 2.2.20-beta.1
 
@@ -170,7 +170,7 @@
 - [`3275e8c`](https://github.com/heroui-inc/heroui/commit/3275e8ca01e65a207e6a431dd40b949a22c1f1f8) Thanks [@wingkwong](https://github.com/wingkwong)! - trigger beta release
 
 - Updated dependencies [[`3275e8c`](https://github.com/heroui-inc/heroui/commit/3275e8ca01e65a207e6a431dd40b949a22c1f1f8)]:
-  - @heroui/system@2.4.19-beta.1
+  - @sytechui/system@2.4.19-beta.1
 
 ## 2.2.20-beta.0
 
@@ -179,14 +179,14 @@
 - [`1bca3f9`](https://github.com/heroui-inc/heroui/commit/1bca3f994655081f04714843047185aacdd481c0) Thanks [@wingkwong](https://github.com/wingkwong)! - sync 2.7.11 release
 
 - Updated dependencies [[`1bca3f9`](https://github.com/heroui-inc/heroui/commit/1bca3f994655081f04714843047185aacdd481c0)]:
-  - @heroui/system@2.4.19-beta.0
+  - @sytechui/system@2.4.19-beta.0
 
 ## 2.2.19
 
 ### Patch Changes
 
 - Updated dependencies [[`be6a1db`](https://github.com/heroui-inc/heroui/commit/be6a1dbf40507af164ebdbe085eda6cceb98aeed), [`7dff993`](https://github.com/heroui-inc/heroui/commit/7dff993e1d11e8f915d1e9c1201396e9b5b53dbf)]:
-  - @heroui/system@2.4.18
+  - @sytechui/system@2.4.18
 
 ## 2.2.18
 
@@ -199,7 +199,7 @@
 - [#5362](https://github.com/heroui-inc/heroui/pull/5362) [`0d217e4`](https://github.com/heroui-inc/heroui/commit/0d217e466f3af30c85edc7d53638e031c8458c56) Thanks [@wingkwong](https://github.com/wingkwong)! - remove unused dependencies
 
 - Updated dependencies [[`1e23994`](https://github.com/heroui-inc/heroui/commit/1e2399434578827987aedc8ff3cc9cf6ccc99c5f), [`0d217e4`](https://github.com/heroui-inc/heroui/commit/0d217e466f3af30c85edc7d53638e031c8458c56), [`0d217e4`](https://github.com/heroui-inc/heroui/commit/0d217e466f3af30c85edc7d53638e031c8458c56), [`0d217e4`](https://github.com/heroui-inc/heroui/commit/0d217e466f3af30c85edc7d53638e031c8458c56)]:
-  - @heroui/system@2.4.17
+  - @sytechui/system@2.4.17
 
 ## 2.2.17
 
@@ -208,7 +208,7 @@
 - [#5310](https://github.com/heroui-inc/heroui/pull/5310) [`1d62208`](https://github.com/heroui-inc/heroui/commit/1d62208642d06f7896724b2702ecb5a17931eb88) Thanks [@wingkwong](https://github.com/wingkwong)! - bump RA versions
 
 - Updated dependencies [[`1d62208`](https://github.com/heroui-inc/heroui/commit/1d62208642d06f7896724b2702ecb5a17931eb88), [`06fe3a3`](https://github.com/heroui-inc/heroui/commit/06fe3a3c4e7f2fdfb5fcbb2255c907280c892de9)]:
-  - @heroui/system@2.4.16
+  - @sytechui/system@2.4.16
 
 ## 2.2.16
 
@@ -219,9 +219,9 @@
   v2.7.7
 
 - Updated dependencies [[`b9e94a2`](https://github.com/heroui-inc/heroui/commit/b9e94a21518ba18447603680055c3a7dad8372bf)]:
-  - @heroui/system@2.4.15
-  - @heroui/react-rsc-utils@2.1.7
-  - @heroui/shared-utils@2.1.9
+  - @sytechui/system@2.4.15
+  - @sytechui/react-rsc-utils@2.1.7
+  - @sytechui/shared-utils@2.1.9
 
 ## 2.2.15
 
@@ -230,8 +230,8 @@
 - [#5186](https://github.com/heroui-inc/heroui/pull/5186) [`500ed77`](https://github.com/heroui-inc/heroui/commit/500ed771e25b08038fdc0d9401bfac31a2d68c3e) Thanks [@wingkwong](https://github.com/wingkwong)! - RA version bump (#5186)
 
 - Updated dependencies [[`500ed77`](https://github.com/heroui-inc/heroui/commit/500ed771e25b08038fdc0d9401bfac31a2d68c3e)]:
-  - @heroui/shared-utils@2.1.8
-  - @heroui/system@2.4.14
+  - @sytechui/shared-utils@2.1.8
+  - @sytechui/system@2.4.14
 
 ## 2.2.14
 
@@ -240,7 +240,7 @@
 - [#5060](https://github.com/heroui-inc/heroui/pull/5060) [`3944e1a`](https://github.com/heroui-inc/heroui/commit/3944e1af4ad58e45e49c4f54c3562474092505b1) Thanks [@wingkwong](https://github.com/wingkwong)! - RA version bump
 
 - Updated dependencies [[`3944e1a`](https://github.com/heroui-inc/heroui/commit/3944e1af4ad58e45e49c4f54c3562474092505b1)]:
-  - @heroui/system@2.4.13
+  - @sytechui/system@2.4.13
 
 ## 2.2.13
 
@@ -249,7 +249,7 @@
 - [#4998](https://github.com/heroui-inc/heroui/pull/4998) [`88f1641`](https://github.com/heroui-inc/heroui/commit/88f164116c2be75cd2de0a076f5ba0942a43e3de) Thanks [@wingkwong](https://github.com/wingkwong)! - bump RA versions
 
 - Updated dependencies [[`88f1641`](https://github.com/heroui-inc/heroui/commit/88f164116c2be75cd2de0a076f5ba0942a43e3de)]:
-  - @heroui/system@2.4.12
+  - @sytechui/system@2.4.12
 
 ## 2.2.12
 
@@ -258,9 +258,9 @@
 - v2.7.4
 
 - Updated dependencies []:
-  - @heroui/system@2.4.11
-  - @heroui/react-rsc-utils@2.1.6
-  - @heroui/shared-utils@2.1.7
+  - @sytechui/system@2.4.11
+  - @sytechui/react-rsc-utils@2.1.6
+  - @sytechui/shared-utils@2.1.7
 
 ## 2.2.11
 
@@ -269,9 +269,9 @@
 - Fix v2.7.0 release
 
 - Updated dependencies []:
-  - @heroui/react-rsc-utils@2.1.5
-  - @heroui/shared-utils@2.1.6
-  - @heroui/system@2.4.10
+  - @sytechui/react-rsc-utils@2.1.5
+  - @sytechui/shared-utils@2.1.6
+  - @sytechui/system@2.4.10
 
 ## 2.2.10
 
@@ -280,9 +280,9 @@
 - Fix v2.7.0 release
 
 - Updated dependencies []:
-  - @heroui/system@2.4.9
-  - @heroui/react-rsc-utils@2.1.4
-  - @heroui/shared-utils@2.1.5
+  - @sytechui/system@2.4.9
+  - @sytechui/react-rsc-utils@2.1.4
+  - @sytechui/shared-utils@2.1.5
 
 ## 2.2.9
 
@@ -307,9 +307,9 @@
     - RTL support improvements
     - Better type safety and prop validation
 - Updated dependencies [[`ccdc076`](https://github.com/heroui-inc/heroui/commit/ccdc07629f07110975cfb80a47c91263a61c0c49), [`4ff87ca`](https://github.com/heroui-inc/heroui/commit/4ff87ca7afccd2c3db0b145156a8357b2b51e7b5)]:
-  - @heroui/system@2.4.8
-  - @heroui/react-rsc-utils@2.1.3
-  - @heroui/shared-utils@2.1.4
+  - @sytechui/system@2.4.8
+  - @sytechui/react-rsc-utils@2.1.3
+  - @sytechui/shared-utils@2.1.4
 
 ## 2.2.8
 
@@ -318,24 +318,24 @@
 - [#4594](https://github.com/heroui-inc/heroui/pull/4594) [`7ebe0e6`](https://github.com/heroui-inc/heroui/commit/7ebe0e664feb777fe0cad311312d0e02b899319e) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Org name changed
 
 - Updated dependencies [[`7ebe0e6`](https://github.com/heroui-inc/heroui/commit/7ebe0e664feb777fe0cad311312d0e02b899319e)]:
-  - @heroui/react-rsc-utils@2.1.2
-  - @heroui/shared-utils@2.1.3
-  - @heroui/system@2.4.7
+  - @sytechui/react-rsc-utils@2.1.2
+  - @sytechui/shared-utils@2.1.3
+  - @sytechui/system@2.4.7
 
 ## 2.2.7
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/system@2.4.6
+  - @sytechui/system@2.4.6
 
 ## 2.2.6
 
 ### Patch Changes
 
 - Updated dependencies [[`77206bc`](https://github.com/heroui-inc/heroui/commit/77206bc62596894d038b9715e40b361fec286c10), [`5f388fc`](https://github.com/heroui-inc/heroui/commit/5f388fc68c7db7f852432e73386686d919d44d31)]:
-  - @heroui/shared-utils@2.1.2
-  - @heroui/system@2.4.5
+  - @sytechui/shared-utils@2.1.2
+  - @sytechui/system@2.4.5
 
 ## 2.2.5
 
@@ -350,21 +350,21 @@
 - [#4258](https://github.com/heroui-inc/heroui/pull/4258) [`1031e98`](https://github.com/heroui-inc/heroui/commit/1031e985b71e69b8a7189ea049b9616257f820b3) Thanks [@wingkwong](https://github.com/wingkwong)! - sync with upstream RA versions
 
 - Updated dependencies [[`1031e98`](https://github.com/heroui-inc/heroui/commit/1031e985b71e69b8a7189ea049b9616257f820b3), [`455556e`](https://github.com/heroui-inc/heroui/commit/455556e14278dd933b4acd1a136ea29879b49545)]:
-  - @heroui/system@2.4.4
+  - @sytechui/system@2.4.4
 
 ## 2.2.3
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/system@2.4.3
+  - @sytechui/system@2.4.3
 
 ## 2.2.2
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/system@2.4.2
+  - @sytechui/system@2.4.2
 
 ## 2.2.1
 
@@ -373,9 +373,9 @@
 - [`d6eee4a`](https://github.com/heroui-inc/heroui/commit/d6eee4a8767556152f47f06dcf04940951abc5af) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - v2.6.2
 
 - Updated dependencies [[`d6eee4a`](https://github.com/heroui-inc/heroui/commit/d6eee4a8767556152f47f06dcf04940951abc5af)]:
-  - @heroui/system@2.4.1
-  - @heroui/react-rsc-utils@2.1.1
-  - @heroui/shared-utils@2.1.1
+  - @sytechui/system@2.4.1
+  - @sytechui/react-rsc-utils@2.1.1
+  - @sytechui/shared-utils@2.1.1
 
 ## 2.2.0
 
@@ -410,16 +410,16 @@
 - [#4226](https://github.com/heroui-inc/heroui/pull/4226) [`6c0213d`](https://github.com/heroui-inc/heroui/commit/6c0213dfc805aa3c793763c0b25f53b2b80c24dc) Thanks [@wingkwong](https://github.com/wingkwong)! - bump `@react-aria/utils` version (#4212)
 
 - Updated dependencies [[`26e478d`](https://github.com/heroui-inc/heroui/commit/26e478dd937dedcaf41110171d971a8a3cf2ff52), [`6c0213d`](https://github.com/heroui-inc/heroui/commit/6c0213dfc805aa3c793763c0b25f53b2b80c24dc), [`5786897`](https://github.com/heroui-inc/heroui/commit/5786897b9950d95c12351dacd2fb41bb1e298201)]:
-  - @heroui/system@2.4.0
-  - @heroui/react-rsc-utils@2.1.0
-  - @heroui/shared-utils@2.1.0
+  - @sytechui/system@2.4.0
+  - @sytechui/react-rsc-utils@2.1.0
+  - @sytechui/shared-utils@2.1.0
 
 ## 2.1.0-beta.11
 
 ### Patch Changes
 
 - Updated dependencies [[`c8f2ec887`](https://github.com/heroui-inc/heroui/commit/c8f2ec88752289913968331032b9e7f772c12ec4)]:
-  - @heroui/system@2.3.0-beta.11
+  - @sytechui/system@2.3.0-beta.11
 
 ## 2.1.0-beta.10
 
@@ -428,9 +428,9 @@
 - [`9869f2b91`](https://github.com/heroui-inc/heroui/commit/9869f2b91d0829f9c7f0500ba05745707820bf27) Thanks [@wingkwong](https://github.com/wingkwong)! - bump version
 
 - Updated dependencies [[`9869f2b91`](https://github.com/heroui-inc/heroui/commit/9869f2b91d0829f9c7f0500ba05745707820bf27)]:
-  - @heroui/system@2.3.0-beta.10
-  - @heroui/react-rsc-utils@2.0.15-beta.5
-  - @heroui/shared-utils@2.0.9-beta.8
+  - @sytechui/system@2.3.0-beta.10
+  - @sytechui/react-rsc-utils@2.0.15-beta.5
+  - @sytechui/shared-utils@2.0.9-beta.8
 
 ## 2.1.0-beta.9
 
@@ -439,14 +439,14 @@
 - [#3036](https://github.com/heroui-inc/heroui/pull/3036) [`eafdb7d47`](https://github.com/heroui-inc/heroui/commit/eafdb7d475a7fcaa7671af77e86fcdf62f14ae00) Thanks [@ryo-manba](https://github.com/ryo-manba)! - update react-aria version
 
 - Updated dependencies [[`eafdb7d47`](https://github.com/heroui-inc/heroui/commit/eafdb7d475a7fcaa7671af77e86fcdf62f14ae00)]:
-  - @heroui/system@2.3.0-beta.9
+  - @sytechui/system@2.3.0-beta.9
 
 ## 2.1.0-beta.8
 
 ### Patch Changes
 
 - Updated dependencies [[`4607fe2ff`](https://github.com/heroui-inc/heroui/commit/4607fe2ff448a536496c2b59ccdfcb217379b6ed)]:
-  - @heroui/system@2.3.0-beta.8
+  - @sytechui/system@2.3.0-beta.8
 
 ## 2.1.0-beta.7
 
@@ -455,9 +455,9 @@
 - [#4092](https://github.com/heroui-inc/heroui/pull/4092) [`528668db8`](https://github.com/heroui-inc/heroui/commit/528668db85b98b46473cb1e214780b7468cdadba) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Test new runner
 
 - Updated dependencies [[`528668db8`](https://github.com/heroui-inc/heroui/commit/528668db85b98b46473cb1e214780b7468cdadba)]:
-  - @heroui/system@2.3.0-beta.7
-  - @heroui/react-rsc-utils@2.0.15-beta.4
-  - @heroui/shared-utils@2.0.9-beta.7
+  - @sytechui/system@2.3.0-beta.7
+  - @sytechui/react-rsc-utils@2.0.15-beta.4
+  - @sytechui/shared-utils@2.0.9-beta.7
 
 ## 2.1.0-beta.6
 
@@ -466,9 +466,9 @@
 - [#4086](https://github.com/heroui-inc/heroui/pull/4086) [`f69fe47b5`](https://github.com/heroui-inc/heroui/commit/f69fe47b5b8f6f3a77a7a8c20d8715263fa32acb) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Pnpm clean
 
 - Updated dependencies [[`f69fe47b5`](https://github.com/heroui-inc/heroui/commit/f69fe47b5b8f6f3a77a7a8c20d8715263fa32acb)]:
-  - @heroui/system@2.3.0-beta.6
-  - @heroui/react-rsc-utils@2.0.15-beta.3
-  - @heroui/shared-utils@2.0.9-beta.6
+  - @sytechui/system@2.3.0-beta.6
+  - @sytechui/react-rsc-utils@2.0.15-beta.3
+  - @sytechui/shared-utils@2.0.9-beta.6
 
 ## 2.1.0-beta.5
 
@@ -477,17 +477,17 @@
 - [#4083](https://github.com/heroui-inc/heroui/pull/4083) [`35058262c`](https://github.com/heroui-inc/heroui/commit/35058262c61628fb42907f529c4417886aa12bb2) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Fix build
 
 - Updated dependencies [[`35058262c`](https://github.com/heroui-inc/heroui/commit/35058262c61628fb42907f529c4417886aa12bb2)]:
-  - @heroui/system@2.3.0-beta.5
-  - @heroui/react-rsc-utils@2.0.15-beta.2
-  - @heroui/shared-utils@2.0.9-beta.5
+  - @sytechui/system@2.3.0-beta.5
+  - @sytechui/react-rsc-utils@2.0.15-beta.2
+  - @sytechui/shared-utils@2.0.9-beta.5
 
 ## 2.1.0-beta.4
 
 ### Patch Changes
 
 - Updated dependencies [[`5339b2571`](https://github.com/heroui-inc/heroui/commit/5339b2571e6d73ca6efe2acd34d88669419db9f7)]:
-  - @heroui/shared-utils@2.0.9-beta.4
-  - @heroui/system@2.3.0-beta.4
+  - @sytechui/shared-utils@2.0.9-beta.4
+  - @sytechui/system@2.3.0-beta.4
 
 ## 2.1.0-beta.3
 
@@ -496,9 +496,9 @@
 - [#4010](https://github.com/heroui-inc/heroui/pull/4010) [`ef432eb53`](https://github.com/heroui-inc/heroui/commit/ef432eb539714fded6cab86a2185956fb103e0df) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - framer-motion alpha version added
 
 - Updated dependencies [[`ef432eb53`](https://github.com/heroui-inc/heroui/commit/ef432eb539714fded6cab86a2185956fb103e0df)]:
-  - @heroui/system@2.3.0-beta.3
-  - @heroui/react-rsc-utils@2.0.15-beta.1
-  - @heroui/shared-utils@2.0.9-beta.3
+  - @sytechui/system@2.3.0-beta.3
+  - @sytechui/react-rsc-utils@2.0.15-beta.1
+  - @sytechui/shared-utils@2.0.9-beta.3
 
 ## 2.1.0-beta.2
 
@@ -507,9 +507,9 @@
 - [#4008](https://github.com/heroui-inc/heroui/pull/4008) [`7c1c0dd8f`](https://github.com/heroui-inc/heroui/commit/7c1c0dd8fef3ea72996c1095b919574c4b7f9b89) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - React 19 added to peerDeps
 
 - Updated dependencies [[`7c1c0dd8f`](https://github.com/heroui-inc/heroui/commit/7c1c0dd8fef3ea72996c1095b919574c4b7f9b89)]:
-  - @heroui/system@2.3.0-beta.2
-  - @heroui/react-rsc-utils@2.0.15-beta.0
-  - @heroui/shared-utils@2.0.9-beta.2
+  - @sytechui/system@2.3.0-beta.2
+  - @sytechui/react-rsc-utils@2.0.15-beta.0
+  - @sytechui/shared-utils@2.0.9-beta.2
 
 ## 2.1.0-beta.1
 
@@ -518,8 +518,8 @@
 - [#3990](https://github.com/heroui-inc/heroui/pull/3990) [`cb5bc4c74`](https://github.com/heroui-inc/heroui/commit/cb5bc4c74f00caaee80dca89c1f02038db315b85) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Beta 1
 
 - Updated dependencies [[`cb5bc4c74`](https://github.com/heroui-inc/heroui/commit/cb5bc4c74f00caaee80dca89c1f02038db315b85)]:
-  - @heroui/system@2.3.0-beta.1
-  - @heroui/shared-utils@2.0.9-beta.1
+  - @sytechui/system@2.3.0-beta.1
+  - @sytechui/shared-utils@2.0.9-beta.1
 
 ## 2.1.0-beta.0
 
@@ -530,8 +530,8 @@
 ### Patch Changes
 
 - Updated dependencies [[`67ea2f65e`](https://github.com/heroui-inc/heroui/commit/67ea2f65e17f913bdffae4690586a6ae202c8f7d), [`3f0d81b56`](https://github.com/heroui-inc/heroui/commit/3f0d81b560e7ef3eb315bd98407249c0eb4ed5eb), [`3f0d81b56`](https://github.com/heroui-inc/heroui/commit/3f0d81b560e7ef3eb315bd98407249c0eb4ed5eb), [`3f0d81b56`](https://github.com/heroui-inc/heroui/commit/3f0d81b560e7ef3eb315bd98407249c0eb4ed5eb)]:
-  - @heroui/system@2.3.0-beta.0
-  - @heroui/shared-utils@2.0.9-beta.0
+  - @sytechui/system@2.3.0-beta.0
+  - @sytechui/shared-utils@2.0.9-beta.0
 
 ## 2.0.26
 
@@ -546,9 +546,9 @@
 - [#3467](https://github.com/heroui-inc/heroui/pull/3467) [`123b7fbc9`](https://github.com/heroui-inc/heroui/commit/123b7fbc9fb51613d7568572a00982ad230d02ae) Thanks [@chirokas](https://github.com/chirokas)! - Refactor overlays to reduce its complexity, while improving stability.
 
 - Updated dependencies [[`4ac7674d1`](https://github.com/heroui-inc/heroui/commit/4ac7674d1ec8ed60925412fe1bd1f01ee9f1555a), [`446a6bf57`](https://github.com/heroui-inc/heroui/commit/446a6bf57c3c9e6acadd6629411b33353b305590), [`f36df4362`](https://github.com/heroui-inc/heroui/commit/f36df4362f572e8e233d4357f43600265cd5b8d5)]:
-  - @heroui/system@2.2.6
-  - @heroui/react-rsc-utils@2.0.14
-  - @heroui/shared-utils@2.0.8
+  - @sytechui/system@2.2.6
+  - @sytechui/react-rsc-utils@2.0.14
+  - @sytechui/shared-utils@2.0.8
 
 ## 2.0.24
 
@@ -557,16 +557,16 @@
 - [#3512](https://github.com/heroui-inc/heroui/pull/3512) [`2d2d300a1`](https://github.com/heroui-inc/heroui/commit/2d2d300a12dbe20ca7ebd125daf3dce74efcbf34) Thanks [@wingkwong](https://github.com/wingkwong)! - fix conflicting versions in npm
 
 - Updated dependencies [[`2d2d300a1`](https://github.com/heroui-inc/heroui/commit/2d2d300a12dbe20ca7ebd125daf3dce74efcbf34)]:
-  - @heroui/system@2.2.5
-  - @heroui/react-rsc-utils@2.0.13
-  - @heroui/shared-utils@2.0.7
+  - @sytechui/system@2.2.5
+  - @sytechui/react-rsc-utils@2.0.13
+  - @sytechui/shared-utils@2.0.7
 
 ## 2.0.23
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/system@2.2.4
+  - @sytechui/system@2.2.4
 
 ## 2.0.22
 
@@ -575,8 +575,8 @@
 - [#3362](https://github.com/heroui-inc/heroui/pull/3362) [`60bb09fe6`](https://github.com/heroui-inc/heroui/commit/60bb09fe6455475a16225e776348e9acf0537f9b) Thanks [@winchesHe](https://github.com/winchesHe)! - Fix tsc error (#2365, #2314, #2505)
 
 - Updated dependencies [[`f5d94f96e`](https://github.com/heroui-inc/heroui/commit/f5d94f96e4cffed1d4aeef971c89f8d283effd49)]:
-  - @heroui/system@2.2.3
-  - @heroui/shared-utils@2.0.6
+  - @sytechui/system@2.2.3
+  - @sytechui/shared-utils@2.0.6
 
 ## 2.0.21
 
@@ -587,7 +587,7 @@
 - [#3240](https://github.com/heroui-inc/heroui/pull/3240) [`47c2472fb`](https://github.com/heroui-inc/heroui/commit/47c2472fb22bfe1c0c357b5ba12e5606eba0d65b) Thanks [@wingkwong](https://github.com/wingkwong)! - bump react-aria dependencies
 
 - Updated dependencies [[`47c2472fb`](https://github.com/heroui-inc/heroui/commit/47c2472fb22bfe1c0c357b5ba12e5606eba0d65b)]:
-  - @heroui/system@2.2.2
+  - @sytechui/system@2.2.2
 
 ## 2.0.20
 
@@ -596,7 +596,7 @@
 - [#3119](https://github.com/heroui-inc/heroui/pull/3119) [`685995a12`](https://github.com/heroui-inc/heroui/commit/685995a125cc3db26c6adb67ed9f7245b87e792a) Thanks [@wingkwong](https://github.com/wingkwong)! - bump `@react-aria/utils` version to `3.24.1` and bump `@react-types/shared` to `3.23.1`
 
 - Updated dependencies [[`685995a12`](https://github.com/heroui-inc/heroui/commit/685995a125cc3db26c6adb67ed9f7245b87e792a), [`685995a12`](https://github.com/heroui-inc/heroui/commit/685995a125cc3db26c6adb67ed9f7245b87e792a)]:
-  - @heroui/system@2.2.1
+  - @sytechui/system@2.2.1
 
 ## 2.0.19
 
@@ -605,7 +605,7 @@
 - [#2854](https://github.com/heroui-inc/heroui/pull/2854) [`3b14c21e0`](https://github.com/heroui-inc/heroui/commit/3b14c21e02fedf15d7d22e911109dac60c4e780e) Thanks [@wingkwong](https://github.com/wingkwong)! - Revise popover-based focus behaviours (#2849, #2834, #2779, #2962, #2872, #2974, #1920, #1287, #3060)
 
 - Updated dependencies [[`e3afa4789`](https://github.com/heroui-inc/heroui/commit/e3afa4789a1ac0fa929b2acaca5bd9c520567ab8), [`422770cc6`](https://github.com/heroui-inc/heroui/commit/422770cc6bcdd1d4c51257654ab718f3c19d6cb2), [`540aa2124`](https://github.com/heroui-inc/heroui/commit/540aa2124b45b65a40e73f5aea2b90405fe1fe9a)]:
-  - @heroui/system@2.2.0
+  - @sytechui/system@2.2.0
 
 ## 2.0.18
 
@@ -614,15 +614,15 @@
 - [#2789](https://github.com/heroui-inc/heroui/pull/2789) [`eccc2f2f3`](https://github.com/heroui-inc/heroui/commit/eccc2f2f3d856eefb2cc7c07b94e1c4cefd4d7d0) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Fix #2749 Introduced named exports for several UI-related packages to enhance modularity and usability in Next.js projects.
 
 - Updated dependencies [[`eccc2f2f3`](https://github.com/heroui-inc/heroui/commit/eccc2f2f3d856eefb2cc7c07b94e1c4cefd4d7d0)]:
-  - @heroui/system@2.1.2
+  - @sytechui/system@2.1.2
 
 ## 2.0.17
 
 ### Patch Changes
 
 - Updated dependencies [[`74eda3128`](https://github.com/heroui-inc/heroui/commit/74eda312883b2e17df26f71442aba9fb3cd240be)]:
-  - @heroui/system@2.1.1
-  - @heroui/react-rsc-utils@2.0.12
+  - @sytechui/system@2.1.1
+  - @sytechui/react-rsc-utils@2.0.12
 
 ## 2.0.16
 
@@ -638,37 +638,37 @@
   - `ResizablePanel` component added to `framer-utils`
   - `test-utils` updated
 - Updated dependencies [[`dc0bcf13a`](https://github.com/heroui-inc/heroui/commit/dc0bcf13a5e9aa0450938bcca47cd4c696066f14), [`dc0bcf13a`](https://github.com/heroui-inc/heroui/commit/dc0bcf13a5e9aa0450938bcca47cd4c696066f14), [`f864dc397`](https://github.com/heroui-inc/heroui/commit/f864dc3974993b29ea5048483d7e0e998e8bef56)]:
-  - @heroui/system@2.1.0
-  - @heroui/react-rsc-utils@2.0.11
-  - @heroui/shared-utils@2.0.5
+  - @sytechui/system@2.1.0
+  - @sytechui/react-rsc-utils@2.0.11
+  - @sytechui/shared-utils@2.0.5
 
 ## 2.0.15
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/system@2.0.15
+  - @sytechui/system@2.0.15
 
 ## 2.0.14
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/system@2.0.14
+  - @sytechui/system@2.0.14
 
 ## 2.0.13
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/system@2.0.13
+  - @sytechui/system@2.0.13
 
 ## 2.0.12
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/system@2.0.12
+  - @sytechui/system@2.0.12
 
 ## 2.0.11
 
@@ -677,16 +677,16 @@
 - [`25e86fb41`](https://github.com/heroui-inc/heroui/commit/25e86fb41770d3cdae6dfdb79306b78fa02d8187) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - New version v2.2.0
 
 - Updated dependencies [[`25e86fb41`](https://github.com/heroui-inc/heroui/commit/25e86fb41770d3cdae6dfdb79306b78fa02d8187)]:
-  - @heroui/system@2.0.11
-  - @heroui/react-rsc-utils@2.0.10
-  - @heroui/shared-utils@2.0.4
+  - @sytechui/system@2.0.11
+  - @sytechui/react-rsc-utils@2.0.10
+  - @sytechui/shared-utils@2.0.4
 
 ## 2.0.10
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/system@2.0.10
+  - @sytechui/system@2.0.10
 
 ## 2.0.9
 
@@ -695,7 +695,7 @@
 - [#1600](https://github.com/heroui-inc/heroui/pull/1600) [`b1b30b797`](https://github.com/heroui-inc/heroui/commit/b1b30b7976f1d6652808fbf12ffde044f0861572) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Fix npm deploy
 
 - Updated dependencies [[`b1b30b797`](https://github.com/heroui-inc/heroui/commit/b1b30b7976f1d6652808fbf12ffde044f0861572)]:
-  - @heroui/system@2.0.9
+  - @sytechui/system@2.0.9
 
 ## 2.0.8
 
@@ -704,21 +704,21 @@
 - [#1589](https://github.com/heroui-inc/heroui/pull/1589) [`1612532ee`](https://github.com/heroui-inc/heroui/commit/1612532eeeabbc49165546b1a2e7aebf89e7a1c2) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - React aria packages upgraded
 
 - Updated dependencies [[`1612532ee`](https://github.com/heroui-inc/heroui/commit/1612532eeeabbc49165546b1a2e7aebf89e7a1c2)]:
-  - @heroui/system@2.0.8
+  - @sytechui/system@2.0.8
 
 ## 2.0.7
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/system@2.0.7
+  - @sytechui/system@2.0.7
 
 ## 2.0.6
 
 ### Patch Changes
 
 - Updated dependencies [[`641bf0885`](https://github.com/heroui-inc/heroui/commit/641bf0885b6af2d7f36f27d83716a441975a5ca5)]:
-  - @heroui/system@2.0.6
+  - @sytechui/system@2.0.6
 
 ## 2.0.5
 
@@ -731,14 +731,14 @@
   - other bug fixes..
 
 - Updated dependencies [[`a30cec48`](https://github.com/heroui-inc/heroui/commit/a30cec4810988fb1962f3a61e0fc0362de08b171)]:
-  - @heroui/system@2.0.5
+  - @sytechui/system@2.0.5
 
 ## 2.0.4
 
 ### Patch Changes
 
 - Updated dependencies [[`710395f3`](https://github.com/heroui-inc/heroui/commit/710395f3a2ca44238332237a49e948c933abe63d)]:
-  - @heroui/system@2.0.4
+  - @sytechui/system@2.0.4
 
 ## 2.0.3
 
@@ -747,14 +747,14 @@
 - [`e3e13a09`](https://github.com/heroui-inc/heroui/commit/e3e13a095f2347ff279c85e6a5d3798f36c6533f) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - New package created to exports system RSC-compatible functions
   Component exports changed to named exports
 - Updated dependencies [[`eefda8d6`](https://github.com/heroui-inc/heroui/commit/eefda8d6e2088526e0dbb2026d807b53d2a97782), [`e3e13a09`](https://github.com/heroui-inc/heroui/commit/e3e13a095f2347ff279c85e6a5d3798f36c6533f)]:
-  - @heroui/system@2.0.3
+  - @sytechui/system@2.0.3
 
 ## 2.0.2
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/system@2.0.2
+  - @sytechui/system@2.0.2
 
 ## 2.0.1
 
@@ -765,4 +765,4 @@
 - [`e940ec06`](https://github.com/heroui-inc/heroui/commit/e940ec06ac5e46340d5956fb7c455a6ab3de3140) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Introducing v2 - Readmes updated
 
 - Updated dependencies [[`e940ec06`](https://github.com/heroui-inc/heroui/commit/e940ec06ac5e46340d5956fb7c455a6ab3de3140), [`e940ec06`](https://github.com/heroui-inc/heroui/commit/e940ec06ac5e46340d5956fb7c455a6ab3de3140)]:
-  - @heroui/system@2.0.1
+  - @sytechui/system@2.0.1

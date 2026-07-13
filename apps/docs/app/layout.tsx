@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 import "@/styles/sandpack.css";
 import type {Metadata, Viewport} from "next";
 
-import {cn} from "@heroui/theme";
+import {cn} from "@sytechui/theme";
 import {Analytics} from "@vercel/analytics/next";
 
 import {Providers} from "./providers";

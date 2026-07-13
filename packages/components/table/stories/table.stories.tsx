@@ -1,17 +1,17 @@
 import type {Meta} from "@storybook/react";
-import type {ChipProps} from "@heroui/chip";
+import type {ChipProps} from "@sytechui/chip";
 import type {TableProps} from "../src";
 
 import React, {useMemo} from "react";
-import {table} from "@heroui/theme";
-import {User} from "@heroui/user";
-import {Chip} from "@heroui/chip";
-import {Button} from "@heroui/button";
-import {Spinner} from "@heroui/spinner";
-import {Pagination} from "@heroui/pagination";
-import {Tooltip} from "@heroui/tooltip";
-import {EditIcon, DeleteIcon, EyeIcon, SortIcon} from "@heroui/shared-icons";
-import {useInfiniteScroll} from "@heroui/use-infinite-scroll";
+import {table} from "@sytechui/theme";
+import {User} from "@sytechui/user";
+import {Chip} from "@sytechui/chip";
+import {Button} from "@sytechui/button";
+import {Spinner} from "@sytechui/spinner";
+import {Pagination} from "@sytechui/pagination";
+import {Tooltip} from "@sytechui/tooltip";
+import {EditIcon, DeleteIcon, EyeIcon, SortIcon} from "@sytechui/shared-icons";
+import {useInfiniteScroll} from "@sytechui/use-infinite-scroll";
 import {useAsyncList} from "@react-stately/data";
 import useSWR from "swr";
 

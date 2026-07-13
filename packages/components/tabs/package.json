@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/tabs",
+  "name": "@sytechui/tabs",
   "version": "2.2.29",
   "description": "Tabs organize content into multiple sections and allow users to navigate between them.",
   "keywords": [
@@ -37,14 +37,14 @@
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0",
     "framer-motion": ">=11.5.6 || >=12.0.0-alpha.1",
-    "@heroui/theme": ">=2.4.24",
-    "@heroui/system": ">=2.4.18"
+    "@sytechui/theme": ">=2.4.24",
+    "@sytechui/system": ">=2.4.18"
   },
   "dependencies": {
-    "@heroui/shared-utils": "workspace:*",
-    "@heroui/react-utils": "workspace:*",
-    "@heroui/aria-utils": "workspace:*",
-    "@heroui/use-is-mounted": "workspace:*",
+    "@sytechui/shared-utils": "workspace:*",
+    "@sytechui/react-utils": "workspace:*",
+    "@sytechui/aria-utils": "workspace:*",
+    "@sytechui/use-is-mounted": "workspace:*",
     "@react-aria/focus": "3.21.5",
     "@react-aria/interactions": "3.27.1",
     "@react-aria/tabs": "3.11.1",
@@ -53,16 +53,16 @@
     "scroll-into-view-if-needed": "3.0.10"
   },
   "devDependencies": {
-    "@heroui/theme": "workspace:*",
-    "@heroui/system": "workspace:*",
+    "@sytechui/theme": "workspace:*",
+    "@sytechui/system": "workspace:*",
     "framer-motion": "11.18.2",
     "react-lorem-component": "0.13.0",
-    "@heroui/card": "workspace:*",
-    "@heroui/input": "workspace:*",
-    "@heroui/test-utils": "workspace:*",
-    "@heroui/button": "workspace:*",
-    "@heroui/modal": "workspace:*",
-    "@heroui/shared-icons": "workspace:*",
+    "@sytechui/card": "workspace:*",
+    "@sytechui/input": "workspace:*",
+    "@sytechui/test-utils": "workspace:*",
+    "@sytechui/button": "workspace:*",
+    "@sytechui/modal": "workspace:*",
+    "@sytechui/shared-icons": "workspace:*",
     "clean-package": "2.2.0",
     "react": "18.3.0",
     "react-dom": "18.3.0"

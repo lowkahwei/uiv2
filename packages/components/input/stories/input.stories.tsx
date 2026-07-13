@@ -5,17 +5,17 @@ import type {Meta} from "@storybook/react";
 import type {InputProps} from "../src";
 
 import React from "react";
-import {input} from "@heroui/theme";
+import {input} from "@sytechui/theme";
 import {
   MailFilledIcon,
   EyeFilledIcon,
   EyeSlashFilledIcon,
   SearchIcon,
   CloseFilledIcon,
-} from "@heroui/shared-icons";
-import {button} from "@heroui/theme";
+} from "@sytechui/shared-icons";
+import {button} from "@sytechui/theme";
 import {useForm} from "react-hook-form";
-import {Form} from "@heroui/form";
+import {Form} from "@sytechui/form";
 
 import {Input, useInput} from "../src";
 

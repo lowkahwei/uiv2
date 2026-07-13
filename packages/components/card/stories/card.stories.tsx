@@ -2,11 +2,11 @@ import type {Meta} from "@storybook/react";
 import type {CardProps} from "../src";
 
 import React from "react";
-import {card} from "@heroui/theme";
-import {Link} from "@heroui/link";
-import {Button} from "@heroui/button";
-import {Code} from "@heroui/code";
-import {Image} from "@heroui/image";
+import {card} from "@sytechui/theme";
+import {Link} from "@sytechui/link";
+import {Button} from "@sytechui/button";
+import {Code} from "@sytechui/code";
+import {Image} from "@sytechui/image";
 
 import {Card, CardBody, CardHeader, CardFooter} from "../src";
 

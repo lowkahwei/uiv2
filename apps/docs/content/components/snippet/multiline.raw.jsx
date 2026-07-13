@@ -1,11 +1,11 @@
-import {Snippet} from "@heroui/react";
+import {Snippet} from "@sytechui/react";
 
 export default function App() {
   return (
     <Snippet>
-      <span>npm install @heroui/react</span>
-      <span>yarn add @heroui/react</span>
-      <span>pnpm add @heroui/react</span>
+      <span>npm install @sytechui/react</span>
+      <span>yarn add @sytechui/react</span>
+      <span>pnpm add @sytechui/react</span>
     </Snippet>
   );
 }

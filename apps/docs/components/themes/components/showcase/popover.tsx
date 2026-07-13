@@ -1,7 +1,7 @@
-import type {PopoverProps} from "@heroui/react";
+import type {PopoverProps} from "@sytechui/react";
 import type {HeroUIScaling} from "../../types";
 
-import {Popover, PopoverTrigger, PopoverContent, Button} from "@heroui/react";
+import {Popover, PopoverTrigger, PopoverContent, Button} from "@sytechui/react";
 
 import {ShowcaseComponent} from "../showcase-component";
 import {useThemeBuilder} from "../../provider";

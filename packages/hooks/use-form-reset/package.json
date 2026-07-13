@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-form-reset",
+  "name": "@sytechui/use-form-reset",
   "version": "2.0.1",
   "description": "use-form-reset hook from `@react-aria` utils",
   "keywords": [

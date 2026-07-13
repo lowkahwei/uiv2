@@ -1,4 +1,4 @@
-import {Autocomplete, AutocompleteItem, Avatar} from "@heroui/react";
+import {Autocomplete, AutocompleteItem, Avatar} from "@sytechui/react";
 
 export default function App() {
   return (

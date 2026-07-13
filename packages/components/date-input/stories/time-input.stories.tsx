@@ -3,8 +3,8 @@ import type {ValidationResult} from "@react-types/shared";
 import type {TimeInputProps, TimeInputValue as TimeValue} from "../src";
 
 import React from "react";
-import {dateInput, button} from "@heroui/theme";
-import {ClockCircleLinearIcon} from "@heroui/shared-icons";
+import {dateInput, button} from "@sytechui/theme";
+import {ClockCircleLinearIcon} from "@sytechui/shared-icons";
 import {
   parseAbsoluteToLocal,
   parseZonedDateTime,

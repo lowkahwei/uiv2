@@ -4,10 +4,10 @@ import type {Language, PrismTheme} from "prism-react-renderer";
 
 import {useIntersectionObserver} from "usehooks-ts";
 import React, {forwardRef, useEffect} from "react";
-import {dataAttr, getUniqueID} from "@heroui/shared-utils";
+import {dataAttr, getUniqueID} from "@sytechui/shared-utils";
 import BaseHighlight, {defaultProps} from "prism-react-renderer";
-import {debounce, omit} from "@heroui/shared-utils";
-import {cn} from "@heroui/react";
+import {debounce, omit} from "@sytechui/shared-utils";
+import {cn} from "@sytechui/react";
 
 import defaultTheme from "@/libs/prism-theme";
 

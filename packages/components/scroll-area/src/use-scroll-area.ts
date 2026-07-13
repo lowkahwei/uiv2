@@ -1,19 +1,19 @@
-import type {SlotsToClasses, ScrollAreaSlots, ScrollAreaVariantProps} from "@heroui/theme";
-import type {PropGetter} from "@heroui/system";
-import type {ReactRef} from "@heroui/react-utils";
+import type {SlotsToClasses, ScrollAreaSlots, ScrollAreaVariantProps} from "@sytechui/theme";
+import type {PropGetter} from "@sytechui/system";
+import type {ReactRef} from "@sytechui/react-utils";
 import type {
   ScrollOverflowCheck,
   UseDataScrollOverflowProps,
-} from "@heroui/use-data-scroll-overflow";
+} from "@sytechui/use-data-scroll-overflow";
 import type * as React from "react";
 import type {ReactNode} from "react";
 import type * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 
-import {scrollArea, scrollShadow, cn} from "@heroui/theme";
-import {mapPropsVariants} from "@heroui/system";
-import {useDOMRef, mergeRefs} from "@heroui/react-utils";
-import {useDataScrollOverflow} from "@heroui/use-data-scroll-overflow";
-import {objectToDeps, mergeProps} from "@heroui/shared-utils";
+import {scrollArea, scrollShadow, cn} from "@sytechui/theme";
+import {mapPropsVariants} from "@sytechui/system";
+import {useDOMRef, mergeRefs} from "@sytechui/react-utils";
+import {useDataScrollOverflow} from "@sytechui/use-data-scroll-overflow";
+import {objectToDeps, mergeProps} from "@sytechui/shared-utils";
 import {useCallback, useMemo, useRef} from "react";
 
 type RootProps = React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root>;

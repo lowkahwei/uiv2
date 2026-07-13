@@ -1,4 +1,4 @@
-# @heroui/user
+# @sytechui/user
 
 Display user information with avatar and name.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/docs/components/user) for
 ## Installation
 
 ```sh
-yarn add @heroui/user
+yarn add @sytechui/user
 # or
-npm i @heroui/user
+npm i @sytechui/user
 ```
 
 ## Contribution

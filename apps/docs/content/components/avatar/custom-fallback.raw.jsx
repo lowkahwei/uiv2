@@ -1,4 +1,4 @@
-import {Avatar} from "@heroui/react";
+import {Avatar} from "@sytechui/react";
 
 export const CameraIcon = ({fill, size, height, width, ...props}) => {
   return (

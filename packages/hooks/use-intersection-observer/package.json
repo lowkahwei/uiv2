@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-intersection-observer",
+  "name": "@sytechui/use-intersection-observer",
   "version": "2.2.14",
   "description": "Tracks the intersection of a DOM element and its containing element or the viewport.",
   "keywords": [

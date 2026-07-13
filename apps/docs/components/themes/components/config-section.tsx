@@ -1,5 +1,5 @@
-import {Tooltip} from "@heroui/react";
-import {cn} from "@heroui/theme";
+import {Tooltip} from "@sytechui/react";
+import {cn} from "@sytechui/theme";
 
 import {CircleInfo} from "@/components/icons";
 

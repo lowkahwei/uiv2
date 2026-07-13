@@ -1,4 +1,4 @@
-# @heroui/input-otp
+# @sytechui/input-otp
 
 ## 2.1.32
 
@@ -7,21 +7,21 @@
 - [#6281](https://github.com/heroui-inc/heroui/pull/6281) [`7437888`](https://github.com/heroui-inc/heroui/commit/74378881829204b94173ee2d713f81df5e9e9784) Thanks [@wingkwong](https://github.com/wingkwong)! - react-aria versions (release v1.16.0)
 
 - Updated dependencies [[`7437888`](https://github.com/heroui-inc/heroui/commit/74378881829204b94173ee2d713f81df5e9e9784)]:
-  - @heroui/form@2.1.32
+  - @sytechui/form@2.1.32
 
 ## 2.1.31
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/form@2.1.31
+  - @sytechui/form@2.1.31
 
 ## 2.1.30
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/form@2.1.30
+  - @sytechui/form@2.1.30
 
 ## 2.1.29
 
@@ -30,7 +30,7 @@
 - [#5996](https://github.com/heroui-inc/heroui/pull/5996) [`e07c969`](https://github.com/heroui-inc/heroui/commit/e07c969c4c6c1711ab153c273c2cacd0a79eef4b) Thanks [@wingkwong](https://github.com/wingkwong)! - upgrade react-aria (v1.14.0)
 
 - Updated dependencies []:
-  - @heroui/form@2.1.29
+  - @sytechui/form@2.1.29
 
 ## 2.1.28
 
@@ -39,7 +39,7 @@
 - [#5930](https://github.com/heroui-inc/heroui/pull/5930) [`ecf2857`](https://github.com/heroui-inc/heroui/commit/ecf2857c90824409088130d12747fef3d47d9e99) Thanks [@wingkwong](https://github.com/wingkwong)! - bump tailwind-variants & tailwind-merge and use latest tv functions
 
 - Updated dependencies [[`ecf2857`](https://github.com/heroui-inc/heroui/commit/ecf2857c90824409088130d12747fef3d47d9e99)]:
-  - @heroui/form@2.1.28
+  - @sytechui/form@2.1.28
 
 ## 2.1.27
 
@@ -48,16 +48,16 @@
 - [#5761](https://github.com/heroui-inc/heroui/pull/5761) [`136bdf6`](https://github.com/heroui-inc/heroui/commit/136bdf66b1c2ab108d8d2903d986a76cec205ac9) Thanks [@wingkwong](https://github.com/wingkwong)! - bump react-aria versions
 
 - Updated dependencies [[`136bdf6`](https://github.com/heroui-inc/heroui/commit/136bdf66b1c2ab108d8d2903d986a76cec205ac9), [`0d95d7f`](https://github.com/heroui-inc/heroui/commit/0d95d7faa0604ee41213ab637ca7ac4daa16cbcc)]:
-  - @heroui/form@2.1.27
-  - @heroui/shared-utils@2.1.12
-  - @heroui/react-utils@2.1.14
+  - @sytechui/form@2.1.27
+  - @sytechui/shared-utils@2.1.12
+  - @sytechui/react-utils@2.1.14
 
 ## 2.1.26
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/form@2.1.26
+  - @sytechui/form@2.1.26
 
 ## 2.1.25
 
@@ -66,9 +66,9 @@
 - [#5640](https://github.com/heroui-inc/heroui/pull/5640) [`d90ac57`](https://github.com/heroui-inc/heroui/commit/d90ac57bc537e8999b21d4ad3f7e4894e6106fd1) Thanks [@wingkwong](https://github.com/wingkwong)! - bump RA versions (aug 2025)
 
 - Updated dependencies [[`d90ac57`](https://github.com/heroui-inc/heroui/commit/d90ac57bc537e8999b21d4ad3f7e4894e6106fd1), [`e2aed2e`](https://github.com/heroui-inc/heroui/commit/e2aed2e9467c09fd8e32d8f4706289e4dc61bf2c)]:
-  - @heroui/form@2.1.25
-  - @heroui/shared-utils@2.1.11
-  - @heroui/react-utils@2.1.13
+  - @sytechui/form@2.1.25
+  - @sytechui/shared-utils@2.1.11
+  - @sytechui/react-utils@2.1.13
 
 ## 2.1.24
 
@@ -77,14 +77,14 @@
 - [#5517](https://github.com/heroui-inc/heroui/pull/5517) [`36eb421`](https://github.com/heroui-inc/heroui/commit/36eb421c66846d4fe6fb102c662ff6bf6149249b) Thanks [@wingkwong](https://github.com/wingkwong)! - sync with RA release (July 22, 2025)
 
 - Updated dependencies [[`36eb421`](https://github.com/heroui-inc/heroui/commit/36eb421c66846d4fe6fb102c662ff6bf6149249b)]:
-  - @heroui/form@2.1.24
+  - @sytechui/form@2.1.24
 
 ## 2.1.23
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/form@2.1.23
+  - @sytechui/form@2.1.23
 
 ## 2.1.22
 
@@ -154,7 +154,7 @@
   #### System & Core
 
   - add useInputLabelPlacement
-  - remove `@heroui/aria-utils` dependency
+  - remove `@sytechui/aria-utils` dependency
 
   #### Hooks & Utilities
 
@@ -165,10 +165,10 @@
   - refactor: overlay & interactOutside
 
 - Updated dependencies [[`e489af8`](https://github.com/heroui-inc/heroui/commit/e489af83c189d0b42dca1b0afca1f5d003cd6033)]:
-  - @heroui/shared-utils@2.1.10
-  - @heroui/react-utils@2.1.12
-  - @heroui/use-form-reset@2.0.1
-  - @heroui/form@2.1.22
+  - @sytechui/shared-utils@2.1.10
+  - @sytechui/react-utils@2.1.12
+  - @sytechui/use-form-reset@2.0.1
+  - @sytechui/form@2.1.22
 
 ## 2.1.22-beta.4
 
@@ -177,16 +177,16 @@
 - [#5466](https://github.com/heroui-inc/heroui/pull/5466) [`87f8a12`](https://github.com/heroui-inc/heroui/commit/87f8a12c279e06cab23d0b60ae35c96ee6d29f32) Thanks [@wingkwong](https://github.com/wingkwong)! - add back RA deps (overlays & utils)
 
 - Updated dependencies [[`87f8a12`](https://github.com/heroui-inc/heroui/commit/87f8a12c279e06cab23d0b60ae35c96ee6d29f32)]:
-  - @heroui/shared-utils@2.1.10-beta.7
-  - @heroui/react-utils@2.1.12-beta.5
-  - @heroui/form@2.1.22-beta.4
+  - @sytechui/shared-utils@2.1.10-beta.7
+  - @sytechui/react-utils@2.1.12-beta.5
+  - @sytechui/form@2.1.22-beta.4
 
 ## 2.1.22-beta.3
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/form@2.1.22-beta.3
+  - @sytechui/form@2.1.22-beta.3
 
 ## 2.1.22-beta.2
 
@@ -195,17 +195,17 @@
 - [`3275e8c`](https://github.com/heroui-inc/heroui/commit/3275e8ca01e65a207e6a431dd40b949a22c1f1f8) Thanks [@wingkwong](https://github.com/wingkwong)! - trigger beta release
 
 - Updated dependencies [[`3275e8c`](https://github.com/heroui-inc/heroui/commit/3275e8ca01e65a207e6a431dd40b949a22c1f1f8)]:
-  - @heroui/shared-utils@2.1.10-beta.6
-  - @heroui/react-utils@2.1.12-beta.4
-  - @heroui/use-form-reset@2.0.0-beta.3
-  - @heroui/form@2.1.22-beta.2
+  - @sytechui/shared-utils@2.1.10-beta.6
+  - @sytechui/react-utils@2.1.12-beta.4
+  - @sytechui/use-form-reset@2.0.0-beta.3
+  - @sytechui/form@2.1.22-beta.2
 
 ## 2.1.22-beta.1
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/form@2.1.22-beta.1
+  - @sytechui/form@2.1.22-beta.1
 
 ## 2.1.22-beta.0
 
@@ -214,11 +214,11 @@
 - [`1bca3f9`](https://github.com/heroui-inc/heroui/commit/1bca3f994655081f04714843047185aacdd481c0) Thanks [@wingkwong](https://github.com/wingkwong)! - sync 2.7.11 release
 
 - Updated dependencies [[`1bca3f9`](https://github.com/heroui-inc/heroui/commit/1bca3f994655081f04714843047185aacdd481c0)]:
-  - @heroui/shared-utils@2.1.10-beta.5
-  - @heroui/react-utils@2.1.12-beta.3
-  - @heroui/use-form-reset@2.0.0-beta.2
-  - @heroui/form@2.1.22-beta.0
-  - @heroui/system@2.4.19-beta.0
+  - @sytechui/shared-utils@2.1.10-beta.5
+  - @sytechui/react-utils@2.1.12-beta.3
+  - @sytechui/use-form-reset@2.0.0-beta.2
+  - @sytechui/form@2.1.22-beta.0
+  - @sytechui/system@2.4.19-beta.0
 
 ## 2.1.21
 
@@ -229,7 +229,7 @@
 - [#5374](https://github.com/heroui-inc/heroui/pull/5374) [`be6a1db`](https://github.com/heroui-inc/heroui/commit/be6a1dbf40507af164ebdbe085eda6cceb98aeed) Thanks [@wingkwong](https://github.com/wingkwong)! - bump system peer dependencies
 
 - Updated dependencies [[`be6a1db`](https://github.com/heroui-inc/heroui/commit/be6a1dbf40507af164ebdbe085eda6cceb98aeed)]:
-  - @heroui/form@2.1.21
+  - @sytechui/form@2.1.21
 
 ## 2.1.20
 
@@ -242,8 +242,8 @@
 - [#5362](https://github.com/heroui-inc/heroui/pull/5362) [`0d217e4`](https://github.com/heroui-inc/heroui/commit/0d217e466f3af30c85edc7d53638e031c8458c56) Thanks [@wingkwong](https://github.com/wingkwong)! - consistent type imports
 
 - Updated dependencies [[`1e23994`](https://github.com/heroui-inc/heroui/commit/1e2399434578827987aedc8ff3cc9cf6ccc99c5f), [`0d217e4`](https://github.com/heroui-inc/heroui/commit/0d217e466f3af30c85edc7d53638e031c8458c56), [`0d217e4`](https://github.com/heroui-inc/heroui/commit/0d217e466f3af30c85edc7d53638e031c8458c56)]:
-  - @heroui/form@2.1.20
-  - @heroui/react-utils@2.1.11
+  - @sytechui/form@2.1.20
+  - @sytechui/react-utils@2.1.11
 
 ## 2.1.19
 
@@ -252,7 +252,7 @@
 - [#5310](https://github.com/heroui-inc/heroui/pull/5310) [`1d62208`](https://github.com/heroui-inc/heroui/commit/1d62208642d06f7896724b2702ecb5a17931eb88) Thanks [@wingkwong](https://github.com/wingkwong)! - bump RA versions
 
 - Updated dependencies [[`1d62208`](https://github.com/heroui-inc/heroui/commit/1d62208642d06f7896724b2702ecb5a17931eb88)]:
-  - @heroui/form@2.1.19
+  - @sytechui/form@2.1.19
 
 ## 2.1.18
 
@@ -263,9 +263,9 @@
   v2.7.7
 
 - Updated dependencies [[`b9e94a2`](https://github.com/heroui-inc/heroui/commit/b9e94a21518ba18447603680055c3a7dad8372bf)]:
-  - @heroui/form@2.1.18
-  - @heroui/react-utils@2.1.10
-  - @heroui/shared-utils@2.1.9
+  - @sytechui/form@2.1.18
+  - @sytechui/react-utils@2.1.10
+  - @sytechui/shared-utils@2.1.9
 
 ## 2.1.17
 
@@ -276,9 +276,9 @@
 - [#5179](https://github.com/heroui-inc/heroui/pull/5179) [`99a5bc2`](https://github.com/heroui-inc/heroui/commit/99a5bc2f4caa7d5468c629c30286935b5e5fa833) Thanks [@wingkwong](https://github.com/wingkwong)! - fixed input-otp variants on segment background
 
 - Updated dependencies [[`500ed77`](https://github.com/heroui-inc/heroui/commit/500ed771e25b08038fdc0d9401bfac31a2d68c3e)]:
-  - @heroui/shared-utils@2.1.8
-  - @heroui/form@2.1.17
-  - @heroui/react-utils@2.1.9
+  - @sytechui/shared-utils@2.1.8
+  - @sytechui/form@2.1.17
+  - @sytechui/react-utils@2.1.9
 
 ## 2.1.16
 
@@ -287,7 +287,7 @@
 - [#5060](https://github.com/heroui-inc/heroui/pull/5060) [`3944e1a`](https://github.com/heroui-inc/heroui/commit/3944e1af4ad58e45e49c4f54c3562474092505b1) Thanks [@wingkwong](https://github.com/wingkwong)! - RA version bump
 
 - Updated dependencies [[`3944e1a`](https://github.com/heroui-inc/heroui/commit/3944e1af4ad58e45e49c4f54c3562474092505b1)]:
-  - @heroui/form@2.1.16
+  - @sytechui/form@2.1.16
 
 ## 2.1.15
 
@@ -296,7 +296,7 @@
 - [#4998](https://github.com/heroui-inc/heroui/pull/4998) [`88f1641`](https://github.com/heroui-inc/heroui/commit/88f164116c2be75cd2de0a076f5ba0942a43e3de) Thanks [@wingkwong](https://github.com/wingkwong)! - bump RA versions
 
 - Updated dependencies [[`88f1641`](https://github.com/heroui-inc/heroui/commit/88f164116c2be75cd2de0a076f5ba0942a43e3de)]:
-  - @heroui/form@2.1.15
+  - @sytechui/form@2.1.15
 
 ## 2.1.14
 
@@ -305,16 +305,16 @@
 - v2.7.4
 
 - Updated dependencies []:
-  - @heroui/form@2.1.14
-  - @heroui/react-utils@2.1.8
-  - @heroui/shared-utils@2.1.7
+  - @sytechui/form@2.1.14
+  - @sytechui/react-utils@2.1.8
+  - @sytechui/shared-utils@2.1.7
 
 ## 2.1.13
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @heroui/form@2.1.13
+  - @sytechui/form@2.1.13
 
 ## 2.1.12
 
@@ -323,9 +323,9 @@
 - Fix v2.7.0 release
 
 - Updated dependencies []:
-  - @heroui/shared-utils@2.1.6
-  - @heroui/react-utils@2.1.7
-  - @heroui/form@2.1.12
+  - @sytechui/shared-utils@2.1.6
+  - @sytechui/react-utils@2.1.7
+  - @sytechui/form@2.1.12
 
 ## 2.1.11
 
@@ -334,9 +334,9 @@
 - Fix v2.7.0 release
 
 - Updated dependencies []:
-  - @heroui/form@2.1.11
-  - @heroui/react-utils@2.1.6
-  - @heroui/shared-utils@2.1.5
+  - @sytechui/form@2.1.11
+  - @sytechui/react-utils@2.1.6
+  - @sytechui/shared-utils@2.1.5
 
 ## 2.1.10
 
@@ -361,9 +361,9 @@
     - RTL support improvements
     - Better type safety and prop validation
 - Updated dependencies [[`4ff87ca`](https://github.com/heroui-inc/heroui/commit/4ff87ca7afccd2c3db0b145156a8357b2b51e7b5)]:
-  - @heroui/form@2.1.10
-  - @heroui/react-utils@2.1.5
-  - @heroui/shared-utils@2.1.4
+  - @sytechui/form@2.1.10
+  - @sytechui/react-utils@2.1.5
+  - @sytechui/shared-utils@2.1.4
 
 ## 2.1.9
 
@@ -372,17 +372,17 @@
 - [#4594](https://github.com/heroui-inc/heroui/pull/4594) [`7ebe0e6`](https://github.com/heroui-inc/heroui/commit/7ebe0e664feb777fe0cad311312d0e02b899319e) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Org name changed
 
 - Updated dependencies [[`7ebe0e6`](https://github.com/heroui-inc/heroui/commit/7ebe0e664feb777fe0cad311312d0e02b899319e)]:
-  - @heroui/shared-utils@2.1.3
-  - @heroui/react-utils@2.1.4
-  - @heroui/form@2.1.9
+  - @sytechui/shared-utils@2.1.3
+  - @sytechui/react-utils@2.1.4
+  - @sytechui/form@2.1.9
 
 ## 2.1.8
 
 ### Patch Changes
 
 - Updated dependencies [[`e7ff673`](https://github.com/heroui-inc/heroui/commit/e7ff6730d7e891f1e9e3ca232b1faaebc5aedef2)]:
-  - @heroui/react-utils@2.1.3
-  - @heroui/form@2.1.8
+  - @sytechui/react-utils@2.1.3
+  - @sytechui/form@2.1.8
 
 ## 2.1.7
 
@@ -395,9 +395,9 @@
 - [#4338](https://github.com/heroui-inc/heroui/pull/4338) [`2f55ecb`](https://github.com/heroui-inc/heroui/commit/2f55ecb4b2e61fb9d9a91df9f4d7c1eff6b7b05e) Thanks [@macci001](https://github.com/macci001)! - Change ensures that the input value does not accept any disallowed characters when the value prop contains them (#4329)
 
 - Updated dependencies [[`77206bc`](https://github.com/heroui-inc/heroui/commit/77206bc62596894d038b9715e40b361fec286c10), [`5f388fc`](https://github.com/heroui-inc/heroui/commit/5f388fc68c7db7f852432e73386686d919d44d31)]:
-  - @heroui/shared-utils@2.1.2
-  - @heroui/form@2.1.7
-  - @heroui/react-utils@2.1.2
+  - @sytechui/shared-utils@2.1.2
+  - @sytechui/form@2.1.7
+  - @sytechui/react-utils@2.1.2
 
 ## 2.1.6
 
@@ -406,7 +406,7 @@
 - [#4314](https://github.com/heroui-inc/heroui/pull/4314) [`5598806`](https://github.com/heroui-inc/heroui/commit/5598806216166dc9fff36cafd9112412486b747f) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Fix build
 
 - Updated dependencies []:
-  - @heroui/form@2.1.6
+  - @sytechui/form@2.1.6
 
 ## 2.1.5
 
@@ -415,7 +415,7 @@
 - [#4296](https://github.com/heroui-inc/heroui/pull/4296) [`1485eca`](https://github.com/heroui-inc/heroui/commit/1485eca48fce8a0acc42fe40590b828c1a90ff48) Thanks [@macci001](https://github.com/macci001)! - Fixing the autofocus functionality in input-otp component(#4250)
 
 - Updated dependencies []:
-  - @heroui/form@2.1.5
+  - @sytechui/form@2.1.5
 
 ## 2.1.4
 
@@ -424,7 +424,7 @@
 - [#4258](https://github.com/heroui-inc/heroui/pull/4258) [`1031e98`](https://github.com/heroui-inc/heroui/commit/1031e985b71e69b8a7189ea049b9616257f820b3) Thanks [@wingkwong](https://github.com/wingkwong)! - sync with upstream RA versions
 
 - Updated dependencies [[`b16291b`](https://github.com/heroui-inc/heroui/commit/b16291b2200229f0d0a9ea910e38f3f100f7931f), [`1031e98`](https://github.com/heroui-inc/heroui/commit/1031e985b71e69b8a7189ea049b9616257f820b3)]:
-  - @heroui/form@2.1.4
+  - @sytechui/form@2.1.4
 
 ## 2.1.3
 
@@ -433,7 +433,7 @@
 - [#4255](https://github.com/heroui-inc/heroui/pull/4255) [`6a94a12`](https://github.com/heroui-inc/heroui/commit/6a94a125d4836b0a18d9cd2cb521c85a6bfa9050) Thanks [@wingkwong](https://github.com/wingkwong)! - fixed incorrect peerDependencies for theme and system package (#4254)
 
 - Updated dependencies [[`6a94a12`](https://github.com/heroui-inc/heroui/commit/6a94a125d4836b0a18d9cd2cb521c85a6bfa9050)]:
-  - @heroui/form@2.1.3
+  - @sytechui/form@2.1.3
 
 ## 2.1.2
 
@@ -442,7 +442,7 @@
 - [#4247](https://github.com/heroui-inc/heroui/pull/4247) [`551ab18`](https://github.com/heroui-inc/heroui/commit/551ab184060b24b2c3a89598f84d4c18599649d0) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Fix peerDeps & core package client on export \*
 
 - Updated dependencies [[`551ab18`](https://github.com/heroui-inc/heroui/commit/551ab184060b24b2c3a89598f84d4c18599649d0)]:
-  - @heroui/form@2.1.2
+  - @sytechui/form@2.1.2
 
 ## 2.1.1
 
@@ -451,9 +451,9 @@
 - [`d6eee4a`](https://github.com/heroui-inc/heroui/commit/d6eee4a8767556152f47f06dcf04940951abc5af) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - v2.6.2
 
 - Updated dependencies [[`d6eee4a`](https://github.com/heroui-inc/heroui/commit/d6eee4a8767556152f47f06dcf04940951abc5af)]:
-  - @heroui/form@2.1.1
-  - @heroui/react-utils@2.1.1
-  - @heroui/shared-utils@2.1.1
+  - @sytechui/form@2.1.1
+  - @sytechui/react-utils@2.1.1
+  - @sytechui/shared-utils@2.1.1
 
 ## 2.1.0
 
@@ -488,9 +488,9 @@
 - [#4224](https://github.com/heroui-inc/heroui/pull/4224) [`26e478d`](https://github.com/heroui-inc/heroui/commit/26e478dd937dedcaf41110171d971a8a3cf2ff52) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - Added form support to input-otp, change default validationBehavior to "native" to avoid breaking changes, and fix select with form
 
 - Updated dependencies [[`26e478d`](https://github.com/heroui-inc/heroui/commit/26e478dd937dedcaf41110171d971a8a3cf2ff52), [`6c0213d`](https://github.com/heroui-inc/heroui/commit/6c0213dfc805aa3c793763c0b25f53b2b80c24dc), [`5786897`](https://github.com/heroui-inc/heroui/commit/5786897b9950d95c12351dacd2fb41bb1e298201)]:
-  - @heroui/form@2.1.0
-  - @heroui/react-utils@2.1.0
-  - @heroui/shared-utils@2.1.0
+  - @sytechui/form@2.1.0
+  - @sytechui/react-utils@2.1.0
+  - @sytechui/shared-utils@2.1.0
 
 ## 2.0.1-beta.0
 
@@ -499,4 +499,4 @@
 - [#4052](https://github.com/heroui-inc/heroui/pull/4052) [`1d5b2b6c1`](https://github.com/heroui-inc/heroui/commit/1d5b2b6c1f8672e7339a6f9dc66f0244d7bb2789) Thanks [@macci001](https://github.com/macci001)! - Adding new input-otp component.
 
 - Updated dependencies [[`1d5b2b6c1`](https://github.com/heroui-inc/heroui/commit/1d5b2b6c1f8672e7339a6f9dc66f0244d7bb2789)]:
-  - @heroui/theme@2.3.0-beta.17
+  - @sytechui/theme@2.3.0-beta.17

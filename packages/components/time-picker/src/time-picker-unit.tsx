@@ -1,8 +1,8 @@
 import type {TimePickerUnitProps} from "./types";
 
 import React, {useMemo, useCallback, useRef, memo} from "react";
-import {cn} from "@heroui/theme";
-import {Carousel, CarouselContent, CarouselItem} from "@heroui/carousel";
+import {cn} from "@sytechui/theme";
+import {Carousel, CarouselContent, CarouselItem} from "@sytechui/carousel";
 
 const generateItems = (items: any[]) => {
   return items.map(({key, item, index, classname}) => (

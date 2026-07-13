@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/menu",
+  "name": "@sytechui/menu",
   "version": "2.2.31",
   "description": "A menu displays a list of options and allows a user to select one or more of them.",
   "keywords": [
@@ -36,15 +36,15 @@
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0",
-    "@heroui/theme": ">=2.4.24",
-    "@heroui/system": ">=2.4.18"
+    "@sytechui/theme": ">=2.4.24",
+    "@sytechui/system": ">=2.4.18"
   },
   "dependencies": {
-    "@heroui/divider": "workspace:*",
-    "@heroui/aria-utils": "workspace:*",
-    "@heroui/use-is-mobile": "workspace:*",
-    "@heroui/shared-utils": "workspace:*",
-    "@heroui/react-utils": "workspace:*",
+    "@sytechui/divider": "workspace:*",
+    "@sytechui/aria-utils": "workspace:*",
+    "@sytechui/use-is-mobile": "workspace:*",
+    "@sytechui/shared-utils": "workspace:*",
+    "@sytechui/react-utils": "workspace:*",
     "@react-aria/focus": "3.21.5",
     "@react-aria/interactions": "3.27.1",
     "@react-aria/menu": "3.21.0",
@@ -53,9 +53,9 @@
     "@react-types/shared": "3.33.1"
   },
   "devDependencies": {
-    "@heroui/theme": "workspace:*",
-    "@heroui/system": "workspace:*",
-    "@heroui/shared-icons": "workspace:*",
+    "@sytechui/theme": "workspace:*",
+    "@sytechui/system": "workspace:*",
+    "@sytechui/shared-icons": "workspace:*",
     "clean-package": "2.2.0",
     "react": "18.3.0",
     "react-dom": "18.3.0"

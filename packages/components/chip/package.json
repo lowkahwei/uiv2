@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/chip",
+  "name": "@sytechui/chip",
   "version": "2.2.25",
   "description": "Chips help people enter information, make selections, filter content, or trigger actions.",
   "keywords": [
@@ -36,20 +36,20 @@
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0",
-    "@heroui/theme": ">=2.4.24",
-    "@heroui/system": ">=2.4.18"
+    "@sytechui/theme": ">=2.4.24",
+    "@sytechui/system": ">=2.4.18"
   },
   "dependencies": {
-    "@heroui/shared-icons": "workspace:*",
-    "@heroui/shared-utils": "workspace:*",
-    "@heroui/react-utils": "workspace:*",
+    "@sytechui/shared-icons": "workspace:*",
+    "@sytechui/shared-utils": "workspace:*",
+    "@sytechui/react-utils": "workspace:*",
     "@react-aria/focus": "3.21.5",
     "@react-aria/interactions": "3.27.1"
   },
   "devDependencies": {
-    "@heroui/theme": "workspace:*",
-    "@heroui/system": "workspace:*",
-    "@heroui/avatar": "workspace:*",
+    "@sytechui/theme": "workspace:*",
+    "@sytechui/system": "workspace:*",
+    "@sytechui/avatar": "workspace:*",
     "clean-package": "2.2.0",
     "react": "18.3.0",
     "react-dom": "18.3.0"

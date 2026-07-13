@@ -2,7 +2,7 @@ import type {ReactElement} from "react";
 import type {UseSwitchProps} from "./use-switch";
 
 import {cloneElement} from "react";
-import {forwardRef} from "@heroui/system";
+import {forwardRef} from "@sytechui/system";
 
 import {useSwitch} from "./use-switch";
 

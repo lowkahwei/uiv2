@@ -1,8 +1,8 @@
 "use client";
 
 import {useState} from "react";
-import {Card, CardHeader, Button, Avatar, CardBody, CardFooter} from "@heroui/react";
-import {cn} from "@heroui/theme";
+import {Card, CardHeader, Button, Avatar, CardBody, CardFooter} from "@sytechui/react";
+import {cn} from "@sytechui/theme";
 
 interface UserTwitterCardProps {
   className?: string;

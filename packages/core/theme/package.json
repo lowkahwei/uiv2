@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/theme",
+  "name": "@sytechui/theme",
   "version": "2.4.26",
   "description": "The default theme for HeroUI components",
   "keywords": [
@@ -51,7 +51,7 @@
     "deepmerge": "4.3.1",
     "tailwind-variants": "3.2.2",
     "tailwind-merge": "3.4.0",
-    "@heroui/shared-utils": "workspace:*"
+    "@sytechui/shared-utils": "workspace:*"
   },
   "peerDependencies": {
     "tailwindcss": ">=4.0.0"

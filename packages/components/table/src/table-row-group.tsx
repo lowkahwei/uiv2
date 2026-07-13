@@ -1,11 +1,11 @@
-import type {HTMLHeroUIProps} from "@heroui/system";
+import type {HTMLHeroUIProps} from "@sytechui/system";
 import type {ValuesType} from "./use-table";
 
 import {forwardRef} from "react";
-import {useDOMRef} from "@heroui/react-utils";
-import {mergeProps} from "@heroui/shared-utils";
+import {useDOMRef} from "@sytechui/react-utils";
+import {mergeProps} from "@sytechui/shared-utils";
 import {useTableRowGroup} from "@react-aria/table";
-import {cn} from "@heroui/theme";
+import {cn} from "@sytechui/theme";
 
 export interface TableRowGroupProps extends HTMLHeroUIProps<"thead"> {
   slots: ValuesType["slots"];

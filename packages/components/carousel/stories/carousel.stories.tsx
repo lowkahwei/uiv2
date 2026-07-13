@@ -8,8 +8,8 @@ import {
   CarouselNext,
   CarouselPagination
 } from "../src";
-import { Card, CardBody, CardFooter } from "@heroui/card";
-import { Button } from "@heroui/button";
+import { Card, CardBody, CardFooter } from "@sytechui/card";
+import { Button } from "@sytechui/button";
 
 const meta: Meta<typeof Carousel> = {
   title: "Components/Carousel",

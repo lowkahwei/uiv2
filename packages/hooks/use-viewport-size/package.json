@@ -1,5 +1,5 @@
 {
-  "name": "@heroui/use-viewport-size",
+  "name": "@sytechui/use-viewport-size",
   "version": "2.0.1",
   "description": "use-viewport-size hook from `@react-aria` utils",
   "keywords": [

@@ -1,12 +1,12 @@
 "use client";
 
 import type {FC} from "react";
-import type {AvatarProps} from "@heroui/react";
+import type {AvatarProps} from "@sytechui/react";
 import type {Sponsor} from "@/libs/docs/sponsors";
 
 import {useMemo, useRef} from "react";
-import {Avatar, Button, Spacer, Tooltip} from "@heroui/react";
-import {clamp} from "@heroui/shared-utils";
+import {Avatar, Button, Spacer, Tooltip} from "@sytechui/react";
+import {clamp} from "@sytechui/shared-utils";
 import {usePostHog} from "posthog-js/react";
 
 import {sectionWrapper, titleWrapper, title, subtitle} from "../primitives";

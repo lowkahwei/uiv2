@@ -1,4 +1,4 @@
-# @heroui/breadcrumbs
+# @sytechui/breadcrumbs
 
 Breadcrumbs display a hierarchy of links to the current page or resource in an application.
 
@@ -7,9 +7,9 @@ Please refer to the [documentation](https://heroui.com/docs/components/breadcrum
 ## Installation
 
 ```sh
-yarn add @heroui/breadcrumbs
+yarn add @sytechui/breadcrumbs
 # or
-npm i @heroui/breadcrumbs
+npm i @sytechui/breadcrumbs
 ```
 
 ## Contribution

@@ -1,4 +1,4 @@
-# @heroui/use-aria-overlay
+# @sytechui/use-aria-overlay
 
 A Quick description of the component
 
@@ -7,9 +7,9 @@ A Quick description of the component
 ## Installation
 
 ```sh
-yarn add @heroui/use-aria-overlay
+yarn add @sytechui/use-aria-overlay
 # or
-npm i @heroui/use-aria-overlay
+npm i @sytechui/use-aria-overlay
 ```
 
 ## Contribution

@@ -1,8 +1,8 @@
-import type {ButtonProps} from "@heroui/react";
+import type {ButtonProps} from "@sytechui/react";
 
-import {useClipboard} from "@heroui/use-clipboard";
+import {useClipboard} from "@sytechui/use-clipboard";
 import {memo} from "react";
-import {Tooltip} from "@heroui/react";
+import {Tooltip} from "@sytechui/react";
 
 import {PreviewButton} from "./preview-button";
 

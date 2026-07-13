@@ -1,15 +1,15 @@
-import type {SnippetVariantProps, SnippetSlots, SlotsToClasses} from "@heroui/theme";
-import type {ReactRef} from "@heroui/react-utils";
+import type {SnippetVariantProps, SnippetSlots, SlotsToClasses} from "@sytechui/theme";
+import type {ReactRef} from "@sytechui/react-utils";
 import type {ReactElement} from "react";
-import type {TooltipProps} from "@heroui/tooltip";
-import type {ButtonProps} from "@heroui/button";
-import type {HTMLHeroUIProps, PropGetter} from "@heroui/system";
+import type {TooltipProps} from "@sytechui/tooltip";
+import type {ButtonProps} from "@sytechui/button";
+import type {HTMLHeroUIProps, PropGetter} from "@sytechui/system";
 
-import {snippet, cn} from "@heroui/theme";
-import {mapPropsVariants, useProviderContext} from "@heroui/system";
-import {useDOMRef, filterDOMProps} from "@heroui/react-utils";
-import {dataAttr, objectToDeps} from "@heroui/shared-utils";
-import {useClipboard} from "@heroui/use-clipboard";
+import {snippet, cn} from "@sytechui/theme";
+import {mapPropsVariants, useProviderContext} from "@sytechui/system";
+import {useDOMRef, filterDOMProps} from "@sytechui/react-utils";
+import {dataAttr, objectToDeps} from "@sytechui/shared-utils";
+import {useClipboard} from "@sytechui/use-clipboard";
 import {useFocusRing} from "@react-aria/focus";
 import {useMemo, useCallback, useRef} from "react";
 
