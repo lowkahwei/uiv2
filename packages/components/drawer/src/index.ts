@@ -5,12 +5,14 @@ import type {
   ModalFooterProps,
 } from "@sytechui/modal";
 
-import {ModalHeader, ModalBody, ModalFooter, ModalContent} from "@sytechui/modal";
+import {ModalHeader, ModalBody, ModalFooter} from "@sytechui/modal";
 
 import Drawer from "./drawer";
+import DrawerContent from "./drawer-content";
 
 // export types
 export type {DrawerProps} from "./drawer";
+export type {DrawerMotionDuration} from "./use-drawer";
 export type {
   ModalContentProps as DrawerContentProps,
   ModalHeaderProps as DrawerHeaderProps,
@@ -29,5 +31,5 @@ export {
   ModalHeader as DrawerHeader,
   ModalBody as DrawerBody,
   ModalFooter as DrawerFooter,
-  ModalContent as DrawerContent,
+  DrawerContent,
 };

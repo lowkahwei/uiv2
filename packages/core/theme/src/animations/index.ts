@@ -9,6 +9,8 @@ export const animations = {
     "fade-out": "fade-out 1.2s linear 0s infinite normal none running",
     "appearance-in": "appearance-in 250ms ease-out normal both",
     "appearance-out": "appearance-out 60ms ease-in normal both",
+    "drawer-enter": "drawer-enter var(--drawer-enter-duration, 250ms) ease-out both",
+    "drawer-exit": "drawer-exit var(--drawer-exit-duration, 280ms) ease-in both",
     "indeterminate-bar":
       "indeterminate-bar 1.5s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite normal none running",
   },
@@ -61,6 +63,22 @@ export const animations = {
       "100%": {
         opacity: "0",
         transform: "scale(0.85)",
+      },
+    },
+    "drawer-enter": {
+      "0%": {
+        translate: "var(--drawer-translate-x) var(--drawer-translate-y)",
+      },
+      "100%": {
+        translate: "0 0",
+      },
+    },
+    "drawer-exit": {
+      "0%": {
+        translate: "0 0",
+      },
+      "100%": {
+        translate: "var(--drawer-translate-x) var(--drawer-translate-y)",
       },
     },
     "indeterminate-bar": {

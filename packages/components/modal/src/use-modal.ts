@@ -164,6 +164,7 @@ export function useModal(originalProps: UseModalProps) {
     className: slots.base({class: cn(baseStyles, props.className)}),
     id: dialogId,
     "data-open": dataAttr(state.isOpen),
+    "data-disable-animation": dataAttr(disableAnimation),
     "data-dismissable": dataAttr(isDismissable),
     "aria-modal": dataAttr(true),
     "data-placement": originalProps?.placement ?? "right",

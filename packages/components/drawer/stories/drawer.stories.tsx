@@ -49,6 +49,16 @@ export default {
         type: "boolean",
       },
     },
+    showSwipeHandle: {
+      control: {
+        type: "boolean",
+      },
+      description: "Shows the handle and enables drag-to-dismiss from that handle.",
+    },
+    motionDuration: {
+      control: "object",
+      description: "Native enter and exit durations in seconds.",
+    },
     isDismissable: {
       control: {
         type: "boolean",
@@ -133,6 +143,72 @@ const Template = (args: DrawerProps) => {
       <Button onPress={onOpen}>Open Drawer</Button>
       <Drawer {...args} isOpen={isOpen} onOpenChange={onOpenChange}>
         {content}
+      </Drawer>
+    </>
+  );
+};
+
+const menuContent = (
+  <DrawerContent>
+    <DrawerHeader>Menu</DrawerHeader>
+    <DrawerBody>
+      <nav aria-label="Main menu">
+        <ul className="flex flex-col gap-1">
+          {["Home", "Projects", "Team", "Settings"].map((item) => (
+            <li key={item}>
+              <Button className="w-full justify-start" variant="light">
+                {item}
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </DrawerBody>
+  </DrawerContent>
+);
+
+const MenuTemplate = (args: DrawerProps) => {
+  const {isOpen, onOpen, onOpenChange} = useDisclosure({defaultOpen: args.defaultOpen});
+
+  return (
+    <>
+      <Button onPress={onOpen}>Open Menu</Button>
+      <Drawer {...args} isOpen={isOpen} onOpenChange={onOpenChange}>
+        {menuContent}
+      </Drawer>
+    </>
+  );
+};
+
+const SwipeHandlePlacementsTemplate = (args: DrawerProps) => {
+  const [placement, setPlacement] = React.useState<DrawerProps["placement"]>(
+    args.placement ?? "bottom",
+  );
+  const {isOpen, onOpen, onOpenChange} = useDisclosure({defaultOpen: args.defaultOpen});
+
+  const openDrawer = (nextPlacement: DrawerProps["placement"]) => {
+    setPlacement(nextPlacement);
+    onOpen();
+  };
+
+  const placements = ["left", "right", "top", "bottom"] as DrawerProps["placement"][];
+
+  return (
+    <>
+      <div className="flex flex-wrap gap-2 px-4">
+        {placements.map((nextPlacement) => (
+          <Button
+            key={nextPlacement}
+            color="primary"
+            variant="flat"
+            onPress={() => openDrawer(nextPlacement)}
+          >
+            Open {nextPlacement}
+          </Button>
+        ))}
+      </div>
+      <Drawer {...args} isOpen={isOpen} placement={placement} onOpenChange={onOpenChange}>
+        {menuContent}
       </Drawer>
     </>
   );
@@ -519,6 +595,54 @@ export const Placement = {
   args: {
     ...defaultProps,
     placement: "right",
+  },
+};
+
+export const SwipeHandle = {
+  render: MenuTemplate,
+  args: {
+    ...defaultProps,
+    backdrop: "blur",
+    placement: "bottom",
+    showSwipeHandle: true,
+    size: "sm",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Drag the handle toward the drawer edge to close it, or release early to snap back.",
+      },
+    },
+  },
+};
+
+export const SwipeHandlePlacements = {
+  render: SwipeHandlePlacementsTemplate,
+  args: {
+    ...defaultProps,
+    backdrop: "blur",
+    placement: "bottom",
+    showSwipeHandle: true,
+    size: "sm",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Tests swipe-to-dismiss and handle orientation across all four placements.",
+      },
+    },
+  },
+};
+
+export const CustomDuration = {
+  render: MenuTemplate,
+  args: {
+    ...defaultProps,
+    backdrop: "blur",
+    motionDuration: {enter: 0.18, exit: 0.2},
+    placement: "left",
+    showSwipeHandle: true,
+    size: "sm",
   },
 };
 

@@ -3,6 +3,7 @@ import type {UseDrawerProps} from "./use-drawer";
 import {forwardRef} from "@sytechui/system";
 import {Modal} from "@sytechui/modal";
 
+import {DrawerProvider} from "./drawer-context";
 import {useDrawer} from "./use-drawer";
 
 export interface DrawerProps extends UseDrawerProps {
@@ -10,12 +11,14 @@ export interface DrawerProps extends UseDrawerProps {
 }
 
 const Drawer = forwardRef<"div", DrawerProps>(({children, ...props}, ref) => {
-  const {domRef, getModalProps} = useDrawer({...props, ref});
+  const {domRef, drawerContext, getModalProps} = useDrawer({...props, ref});
 
   return (
-    <Modal ref={domRef} {...getModalProps()}>
-      {children}
-    </Modal>
+    <DrawerProvider value={drawerContext}>
+      <Modal ref={domRef} {...getModalProps()}>
+        {children}
+      </Modal>
+    </DrawerProvider>
   );
 });
 
