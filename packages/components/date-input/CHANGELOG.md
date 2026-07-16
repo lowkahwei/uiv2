@@ -1,5 +1,12 @@
 # @sytechui/date-input
 
+## 2.3.33
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/form@2.1.33
+
 ## 2.3.32
 
 ### Patch Changes
@@ -95,13 +102,11 @@
 - [`e489af8`](https://github.com/heroui-inc/heroui/commit/e489af83c189d0b42dca1b0afca1f5d003cd6033) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - ## Consolidated Changes
 
   ### Major Update
-
   - TailwindCSS v4
 
   ### Bug Fixes & Improvements
 
   #### Theme & Styling
-
   - fix rotate transition (#5441)
   - fix incorrect target theme (#5469)
   - fixed missing radius styles in th and td in Table (#4988)
@@ -154,12 +159,10 @@
   - fixed image src double fetch issue (#3847)
 
   #### System & Core
-
   - add useInputLabelPlacement
   - remove `@sytechui/aria-utils` dependency
 
   #### Hooks & Utilities
-
   - fix use-theme logic
   - Fix skeleton animate
   - bump RA versions

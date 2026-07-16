@@ -1,5 +1,60 @@
 # @sytechui/react
 
+## 2.8.11
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/drawer@2.3.0
+  - @sytechui/modal@2.2.30
+  - @sytechui/theme@2.4.27
+  - @sytechui/toast@2.0.22
+  - @sytechui/tabs@2.2.29
+  - @sytechui/accordion@2.2.29
+  - @sytechui/alert@2.2.32
+  - @sytechui/autocomplete@2.3.35
+  - @sytechui/avatar@2.2.26
+  - @sytechui/badge@2.2.18
+  - @sytechui/breadcrumbs@2.2.25
+  - @sytechui/button@2.2.32
+  - @sytechui/calendar@2.2.32
+  - @sytechui/card@2.2.28
+  - @sytechui/carousel@2.0.2
+  - @sytechui/checkbox@2.3.33
+  - @sytechui/chip@2.2.25
+  - @sytechui/code@2.2.25
+  - @sytechui/date-input@2.3.33
+  - @sytechui/date-picker@2.3.34
+  - @sytechui/divider@2.2.24
+  - @sytechui/drop-zone@2.0.4
+  - @sytechui/form@2.1.33
+  - @sytechui/image@2.2.19
+  - @sytechui/input@2.4.34
+  - @sytechui/input-otp@2.1.33
+  - @sytechui/kbd@2.2.26
+  - @sytechui/link@2.2.26
+  - @sytechui/listbox@2.3.31
+  - @sytechui/menu@2.2.31
+  - @sytechui/navbar@2.2.30
+  - @sytechui/number-input@2.0.24
+  - @sytechui/pagination@2.2.27
+  - @sytechui/popover@2.3.32
+  - @sytechui/progress@2.2.25
+  - @sytechui/radio@2.3.33
+  - @sytechui/ripple@2.2.21
+  - @sytechui/scroll-area@2.0.0
+  - @sytechui/scroll-shadow@2.3.19
+  - @sytechui/select@2.4.34
+  - @sytechui/skeleton@2.2.18
+  - @sytechui/slider@2.4.29
+  - @sytechui/snippet@2.2.33
+  - @sytechui/spacer@2.2.25
+  - @sytechui/spinner@2.2.29
+  - @sytechui/switch@2.2.27
+  - @sytechui/table@2.2.33
+  - @sytechui/tooltip@2.2.29
+  - @sytechui/user@2.2.26
+
 ## 2.8.10
 
 ### Patch Changes
@@ -563,13 +618,11 @@
 - [`e489af8`](https://github.com/heroui-inc/heroui/commit/e489af83c189d0b42dca1b0afca1f5d003cd6033) Thanks [@jrgarciadev](https://github.com/jrgarciadev)! - ## Consolidated Changes
 
   ### Major Update
-
   - TailwindCSS v4
 
   ### Bug Fixes & Improvements
 
   #### Theme & Styling
-
   - fix rotate transition (#5441)
   - fix incorrect target theme (#5469)
   - fixed missing radius styles in th and td in Table (#4988)
@@ -622,12 +675,10 @@
   - fixed image src double fetch issue (#3847)
 
   #### System & Core
-
   - add useInputLabelPlacement
   - remove `@sytechui/aria-utils` dependency
 
   #### Hooks & Utilities
-
   - fix use-theme logic
   - Fix skeleton animate
   - bump RA versions
