@@ -3,6 +3,7 @@ import custom from "./custom";
 import scrollbarHide from "./scrollbar-hide";
 import text from "./text";
 import animation from "./animation";
+import shimmerText from "./shimmer-text";
 
 export const utilities = {
   ...custom,
@@ -10,4 +11,5 @@ export const utilities = {
   ...scrollbarHide,
   ...text,
   ...animation,
+  ...shimmerText,
 };

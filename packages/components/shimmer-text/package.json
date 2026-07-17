@@ -1,9 +1,11 @@
 {
-  "name": "@sytechui/form",
-  "version": "2.1.35",
-  "description": "A form is a group of inputs that allows users submit data to a server and supports field validation errors.",
+  "name": "@sytechui/shimmer-text",
+  "version": "2.1.0",
+  "description": "A theme-aware text shimmer capability.",
   "keywords": [
-    "form"
+    "shimmer",
+    "text",
+    "loading"
   ],
   "author": "HeroUI <support@heroui.com>",
   "homepage": "https://heroui.com",
@@ -19,7 +21,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/heroui-inc/heroui.git",
-    "directory": "packages/components/form"
+    "directory": "packages/components/shimmer-text"
   },
   "bugs": {
     "url": "https://github.com/heroui-inc/heroui/issues"
@@ -34,21 +36,15 @@
     "postpack": "clean-package restore"
   },
   "peerDependencies": {
-    "@sytechui/system": ">=2.4.18",
-    "@sytechui/theme": ">=2.4.24",
-    "react": ">=18",
-    "react-dom": ">=18"
-  },
-  "dependencies": {
-    "@sytechui/system": "workspace:*",
-    "@sytechui/theme": "workspace:*",
-    "@sytechui/shared-utils": "workspace:*",
-    "@react-types/shared": "3.33.1",
-    "@react-stately/form": "3.2.4",
-    "@react-types/form": "3.7.18"
+    "react": ">=18 || >=19.0.0-rc.0",
+    "react-dom": ">=18 || >=19.0.0-rc.0",
+    "@sytechui/theme": ">=2.5.0",
+    "@sytechui/system": ">=2.4.18"
   },
   "devDependencies": {
-    "@sytechui/button": "workspace:*",
+    "@sytechui/theme": "workspace:*",
+    "@sytechui/system": "workspace:*",
+    "@sytechui/test-utils": "workspace:*",
     "clean-package": "2.2.0",
     "react": "18.3.0",
     "react-dom": "18.3.0"

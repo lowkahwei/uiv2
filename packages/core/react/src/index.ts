@@ -35,6 +35,7 @@ export * from "@sytechui/divider";
 export * from "@sytechui/kbd";
 export * from "@sytechui/tabs";
 export * from "@sytechui/skeleton";
+export * from "@sytechui/shimmer-text";
 export * from "@sytechui/scroll-shadow";
 export * from "@sytechui/scroll-area";
 export * from "@sytechui/select";

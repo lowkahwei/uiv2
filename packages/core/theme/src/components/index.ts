@@ -30,6 +30,7 @@ export * from "./divider";
 export * from "./kbd";
 export * from "./tabs";
 export * from "./skeleton";
+export * from "./shimmer-text";
 export * from "./select";
 export * from "./menu";
 export * from "./listbox";

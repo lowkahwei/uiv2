@@ -1,6 +1,6 @@
 {
   "name": "@sytechui/react",
-  "version": "2.9.1",
+  "version": "2.10.0",
   "description": "🚀 Beautiful and modern React UI library.",
   "author": "HeroUI <support@heroui.com>",
   "homepage": "https://heroui.com",
@@ -78,6 +78,7 @@
     "@sytechui/kbd": "workspace:*",
     "@sytechui/tabs": "workspace:*",
     "@sytechui/skeleton": "workspace:*",
+    "@sytechui/shimmer-text": "workspace:*",
     "@sytechui/scroll-shadow": "workspace:*",
     "@sytechui/scroll-area": "workspace:*",
     "@sytechui/select": "workspace:*",

@@ -28,6 +28,7 @@ export * from "@sytechui/navbar";
 export * from "@sytechui/table";
 export * from "@sytechui/tabs";
 export * from "@sytechui/skeleton";
+export * from "@sytechui/shimmer-text";
 export * from "@sytechui/scroll-shadow";
 export * from "@sytechui/scroll-area";
 export * from "@sytechui/select";

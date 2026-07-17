@@ -2641,6 +2641,27 @@ importers:
         specifier: ^7.51.3
         version: 7.81.0(react@18.3.0)
 
+  packages/components/shimmer-text:
+    devDependencies:
+      '@sytechui/system':
+        specifier: workspace:*
+        version: link:../../core/system
+      '@sytechui/test-utils':
+        specifier: workspace:*
+        version: link:../../utilities/test-utils
+      '@sytechui/theme':
+        specifier: workspace:*
+        version: link:../../core/theme
+      clean-package:
+        specifier: 2.2.0
+        version: 2.2.0
+      react:
+        specifier: 18.3.0
+        version: 18.3.0
+      react-dom:
+        specifier: 18.3.0
+        version: 18.3.0(react@18.3.0)
+
   packages/components/skeleton:
     dependencies:
       '@sytechui/shared-utils':
@@ -3342,6 +3363,9 @@ importers:
       '@sytechui/select':
         specifier: workspace:*
         version: link:../../components/select
+      '@sytechui/shimmer-text':
+        specifier: workspace:*
+        version: link:../../components/shimmer-text
       '@sytechui/skeleton':
         specifier: workspace:*
         version: link:../../components/skeleton

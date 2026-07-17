@@ -1,6 +1,8 @@
 export const animations = {
   animation: {
     shimmer: "shimmer 2s infinite",
+    "shimmer-text":
+      "shimmer-text var(--shimmer-duration, 2s) linear var(--shimmer-iteration, infinite) var(--shimmer-direction, normal)",
     "drip-expand": "drip-expand 420ms linear",
     "spinner-ease-spin": "spinner-spin 0.8s ease infinite",
     "spinner-linear-spin": "spinner-spin 0.8s linear infinite",
@@ -18,6 +20,14 @@ export const animations = {
     shimmer: {
       "100%": {
         transform: "translateX(200%)",
+      },
+    },
+    "shimmer-text": {
+      "0%": {
+        backgroundPosition: "100% 0",
+      },
+      "100%": {
+        backgroundPosition: "0 0",
       },
     },
     "spinner-spin": {
