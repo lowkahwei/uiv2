@@ -21,6 +21,7 @@ export * from "@sytechui/input";
 export * from "@sytechui/popover";
 export * from "@sytechui/dropdown";
 export * from "@sytechui/image";
+export * from "@sytechui/icon";
 export * from "@sytechui/modal";
 export * from "@sytechui/navbar";
 export * from "@sytechui/table";

@@ -1628,6 +1628,22 @@ importers:
         specifier: 18.3.0
         version: 18.3.0(react@18.3.0)
 
+  packages/components/icon:
+    dependencies:
+      '@iconify/react':
+        specifier: 5.0.2
+        version: 5.0.2(react@18.3.0)
+    devDependencies:
+      clean-package:
+        specifier: 2.2.0
+        version: 2.2.0
+      react:
+        specifier: 18.3.0
+        version: 18.3.0
+      react-dom:
+        specifier: 18.3.0
+        version: 18.3.0(react@18.3.0)
+
   packages/components/image:
     dependencies:
       '@sytechui/react-utils':
@@ -3235,6 +3251,9 @@ importers:
       '@sytechui/framer-utils':
         specifier: workspace:*
         version: link:../../utilities/framer-utils
+      '@sytechui/icon':
+        specifier: workspace:*
+        version: link:../../components/icon
       '@sytechui/image':
         specifier: workspace:*
         version: link:../../components/image

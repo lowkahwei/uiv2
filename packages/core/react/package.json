@@ -1,6 +1,6 @@
 {
   "name": "@sytechui/react",
-  "version": "2.8.11",
+  "version": "2.8.12",
   "description": "🚀 Beautiful and modern React UI library.",
   "author": "HeroUI <support@heroui.com>",
   "homepage": "https://heroui.com",
@@ -68,6 +68,7 @@
     "@sytechui/dropdown": "workspace:*",
     "@sytechui/drop-zone": "workspace:*",
     "@sytechui/image": "workspace:*",
+    "@sytechui/icon": "workspace:*",
     "@sytechui/modal": "workspace:*",
     "@sytechui/navbar": "workspace:*",
     "@sytechui/table": "workspace:*",

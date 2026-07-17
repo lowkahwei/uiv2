@@ -1,5 +1,13 @@
 # @sytechui/react
 
+## 2.8.12
+
+### Patch Changes
+
+- Add the `Icon` component for rendering Iconify and image-based icons.
+- Updated dependencies []:
+  - @sytechui/icon@2.1.0
+
 ## 2.8.11
 
 ### Patch Changes
