@@ -1,5 +1,12 @@
 # @sytechui/theme
 
+## 2.5.0
+
+### Minor Changes
+
+- Add the floating `BottomBar` and `BottomBarItem` route navigation components, their theme styles,
+  and the aggregate React exports.
+
 ## 2.4.27
 
 ### Patch Changes

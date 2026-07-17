@@ -1,5 +1,12 @@
 # @sytechui/form
 
+## 2.1.34
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/theme@2.5.0
+
 ## 2.1.33
 
 ### Patch Changes

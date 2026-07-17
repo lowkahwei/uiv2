@@ -187,6 +187,13 @@
           "path": "/docs/components/badge.mdx"
         },
         {
+          "key": "bottom-bar",
+          "title": "Bottom Bar",
+          "keywords": "bottom bar, mobile navigation, floating navigation, safe area",
+          "path": "/docs/components/bottom-bar.mdx",
+          "newPost": true
+        },
+        {
           "key": "breadcrumbs",
           "title": "Breadcrumbs",
           "keywords": "breadcrumbs, navigation, path, trail, location",

@@ -1,6 +1,6 @@
 {
   "name": "@sytechui/input",
-  "version": "2.4.34",
+  "version": "2.4.35",
   "description": "The input component is designed for capturing user input within a text field.",
   "keywords": [
     "input"

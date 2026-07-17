@@ -1,5 +1,17 @@
 # @sytechui/autocomplete
 
+## 2.3.36
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/button@2.2.32
+  - @sytechui/form@2.1.34
+  - @sytechui/input@2.4.35
+  - @sytechui/listbox@2.3.31
+  - @sytechui/popover@2.3.32
+  - @sytechui/scroll-shadow@2.3.19
+
 ## 2.3.35
 
 ### Patch Changes

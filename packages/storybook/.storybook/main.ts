@@ -6,6 +6,7 @@ const config: StorybookConfig = {
   stories: [
     "./welcome.mdx",
     // "../../components/**/stories/**/*.stories.@(js|jsx|ts|tsx)",
+    "../../components/bottom-bar/stories/**/*.stories.@(js|jsx|ts|tsx)",
     "../../components/drawer/stories/**/*.stories.@(js|jsx|ts|tsx)",
     "../../core/theme/stories/*.stories.@(js|jsx|ts|tsx)",
   ],

@@ -1,0 +1,342 @@
+---
+title: "Bottom Bar"
+description: "A floating, themeable bottom navigation bar for primary application destinations."
+---
+
+import {bottomBarContent} from "@/content/components/bottom-bar";
+
+# Bottom Bar
+
+Bottom Bar provides persistent access to an application's primary routes. It uses navigation link
+semantics and a floating regular-glass treatment inspired by the iOS 26 tab bar.
+
+<ComponentLinks component="bottom-bar" />
+
+---
+
+<CarbonAd />
+
+## Installation
+
+<PackageManagers
+  showGlobalInstallWarning
+  commands={{
+    npm: "npm install @sytechui/bottom-bar",
+    yarn: "yarn add @sytechui/bottom-bar",
+    pnpm: "pnpm add @sytechui/bottom-bar",
+    bun: "bun add @sytechui/bottom-bar",
+  }}
+/>
+
+## Import
+
+SytechUI exports two Bottom Bar components:
+
+- **BottomBar**: Wraps and controls the primary navigation items.
+- **BottomBarItem**: Renders one route as a navigation link.
+
+<ImportTabs
+  commands={{
+    main: 'import {BottomBar, BottomBarItem} from "@sytechui/react";',
+    individual: 'import {BottomBar, BottomBarItem} from "@sytechui/bottom-bar";',
+  }}
+/>
+
+## Usage
+
+Every item needs a stable React `key`. Add `href` only when an item should navigate. When neither
+`selectedKey` nor `defaultSelectedKey` is provided, the first enabled item is selected.
+
+<CodeDemo
+  asIframe
+  title="Usage"
+  iframeInitialWidth={390}
+  previewHeight="620px"
+  iframeSrc="/examples/bottom-bar/usage"
+  files={bottomBarContent.usage}
+/>
+
+### Controlled selection
+
+Bottom Bar supports the same controlled and uncontrolled selection model as Tabs:
+
+- Use `defaultSelectedKey` when Bottom Bar owns its selection.
+- Use `selectedKey` when selection comes from application state or the current route.
+
+<CodeDemo
+  asIframe
+  title="Controlled selection"
+  iframeInitialWidth={390}
+  previewHeight="620px"
+  iframeSrc="/examples/bottom-bar/controlled"
+  files={bottomBarContent.controlled}
+/>
+
+For client-side routing, derive `selectedKey` from the current pathname and let each item's `href`
+perform the navigation:
+
+```tsx
+const pathname = usePathname();
+
+<BottomBar aria-label="Primary navigation" selectedKey={pathname}>
+  <BottomBarItem key="/" href="/" icon={<HomeIcon />}>
+    Home
+  </BottomBarItem>
+  <BottomBarItem key="/profile" href="/profile" icon={<ProfileIcon />}>
+    Profile
+  </BottomBarItem>
+</BottomBar>;
+```
+
+Do not call the router again from `onSelectionChange`; the link already navigates. See the
+[Routing guide](/docs/guide/routing) to connect `HeroUIProvider` to your router.
+
+### Selected icons and prominent routes
+
+Use `selectedIcon` when a route has separate selected artwork. `isProminent` visually elevates an
+important route, but the item remains a link rather than an action button. Prefer one prominent
+item and place it in the middle of the children.
+
+### Composition and custom styles
+
+Bottom Bar does not duplicate capabilities such as badges. Compose the existing
+[Badge](/docs/components/badge) around an icon, and use `classNames` to customize Theme slots.
+
+<CodeDemo
+  asIframe
+  title="Composition and custom styles"
+  iframeInitialWidth={390}
+  previewHeight="620px"
+  iframeSrc="/examples/bottom-bar/customization"
+  files={bottomBarContent.customization}
+/>
+
+### Hidden labels
+
+Set `hideLabels="always"` to visually hide all item labels, or `hideLabels="selected"` to reveal
+only the selected label. Hidden labels remain in the accessibility tree, so each item still needs
+concise text children.
+
+```tsx
+<BottomBar aria-label="Primary navigation" hideLabels="always">
+  <BottomBarItem key="home" href="/" icon={<HomeIcon />}>
+    Home
+  </BottomBarItem>
+</BottomBar>
+```
+
+### Position
+
+`position` accepts `fixed`, `sticky`, or `static`. The default `fixed` position is suitable for
+mobile application shells. SytechUI does not hide Bottom Bar at a breakpoint; apply a responsive
+class yourself when the product requires mobile-only navigation.
+
+```tsx
+<BottomBar className="md:hidden" position="fixed">
+  {/* items */}
+</BottomBar>
+```
+
+## iPhone Safe Area
+
+On iPhones with a Home Indicator, the bottom edge is also a system gesture area. Fixed and sticky
+Bottom Bars include `env(safe-area-inset-bottom)` in their bottom spacing so that navigation does
+not overlap this area. On devices without a bottom inset, the environment value resolves to zero.
+
+For the inset to cover the full screen, add `viewport-fit=cover` to the application's viewport:
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+```
+
+With the Next.js metadata API:
+
+```tsx
+export const viewport = {
+  viewportFit: "cover",
+};
+```
+
+Bottom Bar floats above page content and cannot change the layout of its siblings. Reserve enough
+bottom padding on the page so the final content remains reachable:
+
+```tsx
+<main className="pb-28">{children}</main>
+```
+
+## Liquid Glass treatment
+
+The default style is a web approximation of Apple's regular Liquid Glass: it uses semantic Theme
+colors, a translucent fallback, `backdrop-filter` when supported, a single semantic border, and
+shadow. System-level refraction and content-aware tinting are not available to web components.
+
+## Slots
+
+- **base**: Positions the complete navigation landmark and applies Safe Area spacing.
+- **list**: The floating glass surface containing all items.
+- **item**: The list item wrapper.
+- **link**: The interactive route link.
+- **selectionIndicator**: The shared background indicator that slides to the selected route.
+- **icon**: The selected or unselected icon wrapper.
+- **label**: The visible or screen-reader-only route label.
+
+## Data Attributes
+
+`BottomBarItem` applies the following attributes to its `item` and `link` slots:
+
+- **data-selected**: The item key matches `selectedKey`.
+- **data-disabled**: The item is disabled.
+- **data-prominent**: The item uses prominent route styling.
+
+The selected link also receives `aria-current="page"`. The link slot inherits focus and press
+behavior from the SytechUI Link component.
+
+## Accessibility
+
+- Uses a `<nav>` landmark containing a list of links.
+- Marks the selected route with `aria-current="page"`.
+- Keeps visually hidden labels available to assistive technology.
+- Supports mouse, touch, and keyboard interaction through Link.
+- Preserves visible focus indicators and disabled semantics.
+- Requires an `aria-label` when the page has multiple navigation landmarks.
+
+<Spacer y={4} />
+
+## API
+
+### BottomBar Props
+
+<APITable
+  data={[
+    {
+      attribute: "children*",
+      type: "ReactElement<BottomBarItemProps> | ReactElement<BottomBarItemProps>[]",
+      description: "The primary route items. Each item needs a stable React key.",
+      default: "-",
+    },
+    {
+      attribute: "selectedKey",
+      type: "React.Key",
+      description: "The key of the selected item in controlled mode.",
+      default: "-",
+    },
+    {
+      attribute: "defaultSelectedKey",
+      type: "React.Key",
+      description: "The initially selected key in uncontrolled mode.",
+      default: "First enabled item",
+    },
+    {
+      attribute: "position",
+      type: "fixed | sticky | static",
+      description: "The positioning strategy for the Bottom Bar.",
+      default: "fixed",
+    },
+    {
+      attribute: "color",
+      type: "default | primary | secondary | success | warning | danger",
+      description: "The semantic color used by the selected item.",
+      default: "primary",
+    },
+    {
+      attribute: "hideLabels",
+      type: "never | selected | always",
+      description: "Controls when labels are visually hidden while remaining accessible.",
+      default: "never",
+    },
+    {
+      attribute: "disableAnimation",
+      type: "boolean",
+      description: "Whether selection and item transitions are disabled.",
+      default: "false",
+    },
+    {
+      attribute: "classNames",
+      type: 'Partial<Record<"base" | "list" | "item" | "link" | "selectionIndicator" | "icon" | "label", string>>',
+      description: "Class names applied to the Bottom Bar Theme slots.",
+      default: "-",
+    },
+  ]}
+/>
+
+### BottomBar Events
+
+<APITable
+  data={[
+    {
+      attribute: "onSelectionChange",
+      type: "(key: React.Key) => void",
+      description: "Handler called when a different enabled item is selected.",
+      default: "-",
+    },
+  ]}
+/>
+
+### BottomBarItem Props
+
+<APITable
+  data={[
+    {
+      attribute: "children*",
+      type: "ReactNode",
+      description: "The visible and accessible route label.",
+      default: "-",
+    },
+    {
+      attribute: "href",
+      type: "Href",
+      description: "An optional route destination handled by Link and the configured router.",
+      default: "-",
+    },
+    {
+      attribute: "icon",
+      type: "ReactNode",
+      description: "The icon displayed when the item is not selected.",
+      default: "-",
+    },
+    {
+      attribute: "selectedIcon",
+      type: "ReactNode",
+      description: "The selected icon. Falls back to icon when omitted.",
+      default: "-",
+    },
+    {
+      attribute: "isProminent",
+      type: "boolean",
+      description: "Whether the route receives elevated prominent styling.",
+      default: "false",
+    },
+    {
+      attribute: "isDisabled",
+      type: "boolean",
+      description: "Whether the route is visible but cannot be pressed or selected.",
+      default: "false",
+    },
+    {
+      attribute: "target",
+      type: "HTMLAttributeAnchorTarget",
+      description: "Where to display the linked route.",
+      default: "-",
+    },
+    {
+      attribute: "rel",
+      type: "string",
+      description: "The relationship between the current page and linked route.",
+      default: "-",
+    },
+  ]}
+/>
+
+### BottomBarItem Events
+
+<APITable
+  data={[
+    {
+      attribute: "onPress",
+      type: "(event: PressEvent) => void",
+      description:
+        "Handler called when the route link is pressed. Use it for observation, not duplicate navigation.",
+      default: "-",
+    },
+  ]}
+/>

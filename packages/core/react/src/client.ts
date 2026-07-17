@@ -4,6 +4,7 @@ export * from "@sytechui/system";
 export * from "@sytechui/accordion";
 export * from "@sytechui/avatar";
 export * from "@sytechui/badge";
+export * from "@sytechui/bottom-bar";
 export * from "@sytechui/button";
 export * from "@sytechui/card";
 export * from "@sytechui/chip";

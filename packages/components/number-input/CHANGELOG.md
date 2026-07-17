@@ -1,5 +1,13 @@
 # @sytechui/number-input
 
+## 2.0.25
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/button@2.2.32
+  - @sytechui/form@2.1.34
+
 ## 2.0.24
 
 ### Patch Changes

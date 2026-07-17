@@ -1,0 +1,58 @@
+{
+  "name": "@sytechui/bottom-bar",
+  "version": "2.1.0",
+  "description": "A floating, themeable bottom navigation bar for primary application destinations.",
+  "keywords": [
+    "bottom-bar",
+    "navigation",
+    "mobile"
+  ],
+  "author": "HeroUI <support@heroui.com>",
+  "homepage": "https://heroui.com",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lowkahwei/uiv2.git",
+    "directory": "packages/components/bottom-bar"
+  },
+  "bugs": {
+    "url": "https://github.com/lowkahwei/uiv2/issues"
+  },
+  "scripts": {
+    "build": "tsup src --dts",
+    "build:fast": "tsup src",
+    "dev": "pnpm build:fast --watch",
+    "clean": "rimraf dist .turbo",
+    "typecheck": "tsc --noEmit",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
+  "peerDependencies": {
+    "react": ">=18 || >=19.0.0-rc.0",
+    "react-dom": ">=18 || >=19.0.0-rc.0",
+    "@sytechui/theme": ">=2.5.0",
+    "@sytechui/system": ">=2.4.23"
+  },
+  "dependencies": {
+    "@sytechui/link": "workspace:*",
+    "@sytechui/react-utils": "workspace:*",
+    "@sytechui/shared-utils": "workspace:*",
+    "@react-stately/utils": "3.11.0"
+  },
+  "devDependencies": {
+    "@sytechui/theme": "workspace:*",
+    "@sytechui/system": "workspace:*",
+    "clean-package": "2.2.0",
+    "react": "18.3.0",
+    "react-dom": "18.3.0"
+  },
+  "clean-package": "../../../clean-package.config.json"
+}

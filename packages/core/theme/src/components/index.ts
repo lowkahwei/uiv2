@@ -10,6 +10,7 @@ export * from "./popover";
 export * from "./snippet";
 export * from "./chip";
 export * from "./badge";
+export * from "./bottom-bar";
 export * from "./checkbox";
 export * from "./radio";
 export * from "./pagination";

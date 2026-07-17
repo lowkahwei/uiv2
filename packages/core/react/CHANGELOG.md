@@ -1,5 +1,66 @@
 # @sytechui/react
 
+## 2.9.0
+
+### Minor Changes
+
+- Add the floating `BottomBar` and `BottomBarItem` route navigation components, their theme styles,
+  and the aggregate React exports.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/bottom-bar@2.1.0
+  - @sytechui/theme@2.5.0
+  - @sytechui/accordion@2.2.29
+  - @sytechui/alert@2.2.32
+  - @sytechui/autocomplete@2.3.36
+  - @sytechui/avatar@2.2.26
+  - @sytechui/badge@2.2.18
+  - @sytechui/breadcrumbs@2.2.25
+  - @sytechui/button@2.2.32
+  - @sytechui/calendar@2.2.32
+  - @sytechui/card@2.2.28
+  - @sytechui/carousel@2.0.2
+  - @sytechui/checkbox@2.3.34
+  - @sytechui/chip@2.2.25
+  - @sytechui/code@2.2.25
+  - @sytechui/date-input@2.3.34
+  - @sytechui/date-picker@2.3.35
+  - @sytechui/divider@2.2.24
+  - @sytechui/drawer@2.3.0
+  - @sytechui/drop-zone@2.0.4
+  - @sytechui/form@2.1.34
+  - @sytechui/image@2.2.19
+  - @sytechui/input@2.4.35
+  - @sytechui/input-otp@2.1.34
+  - @sytechui/kbd@2.2.26
+  - @sytechui/link@2.2.26
+  - @sytechui/listbox@2.3.31
+  - @sytechui/menu@2.2.31
+  - @sytechui/modal@2.2.30
+  - @sytechui/navbar@2.2.30
+  - @sytechui/number-input@2.0.25
+  - @sytechui/pagination@2.2.27
+  - @sytechui/popover@2.3.32
+  - @sytechui/progress@2.2.25
+  - @sytechui/radio@2.3.34
+  - @sytechui/ripple@2.2.21
+  - @sytechui/scroll-area@2.0.0
+  - @sytechui/scroll-shadow@2.3.19
+  - @sytechui/select@2.4.35
+  - @sytechui/skeleton@2.2.18
+  - @sytechui/slider@2.4.29
+  - @sytechui/snippet@2.2.33
+  - @sytechui/spacer@2.2.25
+  - @sytechui/spinner@2.2.29
+  - @sytechui/switch@2.2.27
+  - @sytechui/table@2.2.34
+  - @sytechui/tabs@2.2.29
+  - @sytechui/toast@2.0.22
+  - @sytechui/tooltip@2.2.29
+  - @sytechui/user@2.2.26
+
 ## 2.8.12
 
 ### Patch Changes
