@@ -1,6 +1,6 @@
 {
   "name": "@sytechui/icon",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Render Iconify icons and image-based icons with a consistent API.",
   "keywords": [
     "icon",

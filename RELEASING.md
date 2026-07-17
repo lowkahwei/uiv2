@@ -123,6 +123,32 @@ pnpm lint
 pnpm build:sb
 ```
 
+新增 package 时，必须保留脚手架生成的 `tsup.config.ts`。组件包应至少包含：
+
+```ts
+export default defineConfig({
+  clean: true,
+  target: "es2019",
+  format: ["cjs", "esm"],
+  banner: {js: '"use client";'},
+});
+```
+
+发布配置声明的入口必须和实际构建产物一致。对于使用仓库根目录
+`clean-package.config.json` 的组件包，在 package 目录中检查：
+
+```bash
+pnpm build
+test -f dist/index.js
+test -f dist/index.mjs
+test -f dist/index.d.ts
+npm pack --dry-run
+```
+
+三个 `test` 命令必须全部成功。尤其不能只确认 `dist/index.js`：发布配置中的
+`exports.import` 指向 `dist/index.mjs`，缺少该文件会导致 Next.js 等 ESM 消费方报告
+`Module not found`。`npm pack --dry-run` 还应列出这些入口文件。
+
 检查发布包会包含哪些文件：
 
 ```bash
