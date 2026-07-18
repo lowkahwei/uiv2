@@ -16,7 +16,7 @@ const divider = tv({
   variants: {
     orientation: {
       horizontal: "w-full h-divider",
-      vertical: "h-full w-divider",
+      vertical: "h-auto min-h-2 self-stretch w-divider",
     },
   },
   defaultVariants: {
@@ -24,6 +24,15 @@ const divider = tv({
   },
 });
 
-export type DividerVariantProps = VariantProps<typeof divider>;
+const labeledDivider = tv({
+  slots: {
+    base: "flex w-full items-center gap-3",
+    line: "h-divider flex-1 bg-divider",
+    label: "shrink-0 text-small text-default-500",
+  },
+});
 
-export {divider};
+export type DividerVariantProps = VariantProps<typeof divider>;
+export type LabeledDividerSlots = keyof ReturnType<typeof labeledDivider>;
+
+export {divider, labeledDivider};

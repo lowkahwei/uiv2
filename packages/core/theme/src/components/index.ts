@@ -5,6 +5,7 @@ export * from "./user";
 export * from "./button";
 export * from "./drip";
 export * from "./spinner";
+export * from "./stepper";
 export * from "./code";
 export * from "./popover";
 export * from "./snippet";

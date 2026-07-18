@@ -17,6 +17,7 @@ export * from "@sytechui/pagination";
 export * from "@sytechui/radio";
 export * from "@sytechui/snippet";
 export * from "@sytechui/spinner";
+export * from "@sytechui/stepper";
 export * from "@sytechui/switch";
 export * from "@sytechui/tooltip";
 export * from "@sytechui/user";

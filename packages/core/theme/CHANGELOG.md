@@ -1,5 +1,13 @@
 # @sytechui/theme
 
+## 2.7.0
+
+### Minor Changes
+
+- Add a controlled, accessible Stepper component with semantic theme variants.
+
+- Add an accessible labeled divider and decorative divider semantics.
+
 ## 2.6.0
 
 ### Minor Changes

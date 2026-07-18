@@ -1,5 +1,12 @@
 # @sytechui/table
 
+## 2.2.36
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/checkbox@2.3.36
+
 ## 2.2.35
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@sytechui/react",
-  "version": "2.10.0",
+  "version": "2.10.1",
   "description": "🚀 Beautiful and modern React UI library.",
   "author": "HeroUI <support@heroui.com>",
   "homepage": "https://heroui.com",
@@ -59,6 +59,7 @@
     "@sytechui/radio": "workspace:*",
     "@sytechui/snippet": "workspace:*",
     "@sytechui/spinner": "workspace:*",
+    "@sytechui/stepper": "workspace:*",
     "@sytechui/switch": "workspace:*",
     "@sytechui/tooltip": "workspace:*",
     "@sytechui/user": "workspace:*",

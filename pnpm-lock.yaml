@@ -2835,6 +2835,43 @@ importers:
         specifier: 18.3.0
         version: 18.3.0(react@18.3.0)
 
+  packages/components/stepper:
+    dependencies:
+      '@react-aria/focus':
+        specifier: 3.21.5
+        version: 3.21.5(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@react-aria/interactions':
+        specifier: 3.27.1
+        version: 3.27.1(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@sytechui/react-utils':
+        specifier: workspace:*
+        version: link:../../utilities/react-utils
+      '@sytechui/shared-icons':
+        specifier: workspace:*
+        version: link:../../utilities/shared-icons
+      '@sytechui/shared-utils':
+        specifier: workspace:*
+        version: link:../../utilities/shared-utils
+    devDependencies:
+      '@sytechui/system':
+        specifier: workspace:*
+        version: link:../../core/system
+      '@sytechui/test-utils':
+        specifier: workspace:*
+        version: link:../../utilities/test-utils
+      '@sytechui/theme':
+        specifier: workspace:*
+        version: link:../../core/theme
+      clean-package:
+        specifier: 2.2.0
+        version: 2.2.0
+      react:
+        specifier: 18.3.0
+        version: 18.3.0
+      react-dom:
+        specifier: 18.3.0
+        version: 18.3.0(react@18.3.0)
+
   packages/components/switch:
     dependencies:
       '@react-aria/focus':
@@ -3381,6 +3418,9 @@ importers:
       '@sytechui/spinner':
         specifier: workspace:*
         version: link:../../components/spinner
+      '@sytechui/stepper':
+        specifier: workspace:*
+        version: link:../../components/stepper
       '@sytechui/switch':
         specifier: workspace:*
         version: link:../../components/switch

@@ -1,9 +1,11 @@
 {
-  "name": "@sytechui/radio",
-  "version": "2.3.36",
-  "description": "Radios allow users to select a single option from a list of mutually exclusive options.",
+  "name": "@sytechui/stepper",
+  "version": "2.0.0",
+  "description": "A controlled, accessible indicator for multi-step processes.",
   "keywords": [
-    "radio"
+    "stepper",
+    "steps",
+    "progress"
   ],
   "author": "HeroUI <support@heroui.com>",
   "homepage": "https://heroui.com",
@@ -18,18 +20,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/heroui-inc/heroui.git",
-    "directory": "packages/components/radio"
-  },
-  "bugs": {
-    "url": "https://github.com/heroui-inc/heroui/issues"
+    "url": "https://github.com/lowkahwei/uiv2",
+    "directory": "packages/components/stepper"
   },
   "scripts": {
     "build": "tsup src --dts",
+    "build:fast": "tsup src",
     "dev": "pnpm build:fast --watch",
     "clean": "rimraf dist .turbo",
     "typecheck": "tsc --noEmit",
-    "build:fast": "tsup src",
     "prepack": "clean-package",
     "postpack": "clean-package restore"
   },
@@ -37,23 +36,19 @@
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0",
     "@sytechui/theme": ">=2.4.24",
-    "@sytechui/system": ">=2.4.18"
+    "@sytechui/system": ">=2.4.23"
   },
   "dependencies": {
-    "@sytechui/form": "workspace:*",
-    "@sytechui/shared-utils": "workspace:*",
-    "@sytechui/react-utils": "workspace:*",
     "@react-aria/focus": "3.21.5",
     "@react-aria/interactions": "3.27.1",
-    "@react-aria/radio": "3.12.5",
-    "@react-aria/visually-hidden": "3.8.31",
-    "@react-stately/radio": "3.11.5",
-    "@react-types/radio": "3.9.4",
-    "@react-types/shared": "3.33.1"
+    "@sytechui/react-utils": "workspace:*",
+    "@sytechui/shared-icons": "workspace:*",
+    "@sytechui/shared-utils": "workspace:*"
   },
   "devDependencies": {
     "@sytechui/theme": "workspace:*",
     "@sytechui/system": "workspace:*",
+    "@sytechui/test-utils": "workspace:*",
     "clean-package": "2.2.0",
     "react": "18.3.0",
     "react-dom": "18.3.0"
