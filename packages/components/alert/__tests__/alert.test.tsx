@@ -1,85 +1,110 @@
 import * as React from "react";
-import {act, render} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 
 import {Alert} from "../src";
 
-const title = "Testing Title";
-const description = "Testing Description";
+const renderAlert = (status: Alert.Props["status"] = "default") =>
+  render(
+    <Alert status={status}>
+      <Alert.Indicator />
+      <Alert.Content>
+        <Alert.Title>Testing Title</Alert.Title>
+        <Alert.Description>Testing Description</Alert.Description>
+      </Alert.Content>
+    </Alert>,
+  );
 
 describe("Alert", () => {
-  it("should render correctly", () => {
-    const wrapper = render(<Alert description={description} title={title} />);
-
-    expect(() => wrapper.unmount()).not.toThrow();
-  });
-
-  it("ref should be forwarded", () => {
+  it("renders the v3 anatomy and forwards the root ref", () => {
     const ref = React.createRef<HTMLDivElement>();
+    const {container} = render(
+      <Alert ref={ref}>
+        <Alert.Indicator />
+        <Alert.Content>
+          <Alert.Title>Testing Title</Alert.Title>
+          <Alert.Description>Testing Description</Alert.Description>
+        </Alert.Content>
+      </Alert>,
+    );
 
-    render(<Alert ref={ref} description={description} title={title} />);
-
-    expect(ref.current).not.toBeNull();
+    expect(ref.current).toBe(screen.getByRole("alert"));
+    expect(container.querySelector('[data-slot="alert-indicator"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="alert-content"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="alert-title"]')).toHaveTextContent("Testing Title");
+    expect(container.querySelector('[data-slot="alert-description"]')).toHaveTextContent(
+      "Testing Description",
+    );
   });
 
-  it("should display title and description when component is rendered", () => {
-    const wrapper = render(<Alert description={description} title={title} />);
+  it.each([
+    ["default", "border-default-300"],
+    ["accent", "border-primary-300"],
+    ["success", "border-success-300"],
+    ["warning", "border-warning-300"],
+    ["danger", "border-danger-300"],
+  ] as const)("applies the %s status styles", (status, borderClass) => {
+    const {container} = renderAlert(status);
+    const indicator = container.querySelector('[data-slot="alert-indicator"]');
 
-    const titleElement = wrapper.getByText(title);
-    const descriptionElement = wrapper.getByText(description);
-
-    expect(titleElement).toContainHTML(title);
-    expect(descriptionElement).toContainHTML(description);
+    expect(container.querySelector('[data-slot="alert-root"]')).toHaveClass(
+      "bg-[oklch(100%_0_0)]",
+      borderClass,
+    );
+    expect(indicator?.className).toContain(status === "default" ? "text-inherit" : "color-mix");
   });
 
-  it("should show close button when is Closable", () => {
-    const {getByRole} = render(<Alert isClosable description={description} title={title} />);
+  it("renders a visible success icon", () => {
+    const {container} = renderAlert("success");
 
-    const closeButton = getByRole("button");
-
-    expect(closeButton).toBeVisible();
+    expect(container.querySelector('[data-slot="alert-default-icon"]')).toHaveAttribute(
+      "fill",
+      "currentColor",
+    );
   });
 
-  it("should show close button when onClose is passed", () => {
-    const onClose = jest.fn();
+  it("renders a custom indicator instead of the default icon", () => {
+    const {container} = render(
+      <Alert status="success">
+        <Alert.Indicator>
+          <span data-testid="custom-icon">custom</span>
+        </Alert.Indicator>
+      </Alert>,
+    );
 
-    const {getByRole} = render(<Alert description={description} title={title} onClose={onClose} />);
-
-    const closeButton = getByRole("button");
-
-    expect(closeButton).toBeVisible();
+    expect(screen.getByTestId("custom-icon")).toBeInTheDocument();
+    expect(container.querySelector('[data-slot="alert-indicator"]')).toHaveClass("size-6");
+    expect(container.querySelector('[data-slot="alert-default-icon"]')).not.toBeInTheDocument();
   });
 
-  it("should not show close button when not isClosable and onClose is not passed", () => {
-    const wrapper = render(<Alert description={description} title={title} />);
+  it("supports slot class names and polymorphic elements", () => {
+    render(
+      <Alert
+        as="section"
+        className="custom-root"
+        classNames={{content: "custom-content", title: "shared-title"}}
+      >
+        <Alert.Content>
+          <Alert.Title as="h2" className="custom-title">
+            Heading
+          </Alert.Title>
+        </Alert.Content>
+      </Alert>,
+    );
 
-    const closeButton = wrapper.queryByRole("button");
-
-    expect(closeButton).toBeNull();
+    expect(screen.getByRole("alert")).toHaveClass("custom-root");
+    expect(screen.getByRole("heading", {level: 2})).toHaveClass("shared-title", "custom-title");
+    expect(screen.getByRole("heading", {level: 2}).parentElement).toHaveClass("custom-content");
   });
 
-  it("should call the onClose function when clicking on close button", () => {
-    const onClose = jest.fn();
+  it.each([
+    ["none", "rounded-none"],
+    ["sm", "rounded-small"],
+    ["md", "rounded-medium"],
+    ["lg", "rounded-[24px]"],
+    ["full", "rounded-full"],
+  ] as const)("applies the %s radius", (radius, className) => {
+    render(<Alert radius={radius}>Content</Alert>);
 
-    const wrapper = render(<Alert description={description} title={title} onClose={onClose} />);
-
-    const closeButton = wrapper.getByRole("button");
-
-    act(() => {
-      closeButton.click();
-    });
-
-    expect(onClose).toHaveBeenCalled();
-  });
-
-  it("should close the alert when clicking on close button", () => {
-    const wrapper = render(<Alert isClosable description={description} title={title} />);
-
-    const closeButton = wrapper.getByRole("button");
-
-    act(() => {
-      closeButton.click();
-    });
-
-    expect(wrapper.container).toBeEmptyDOMElement();
+    expect(screen.getByRole("alert")).toHaveClass(className);
   });
 });

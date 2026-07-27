@@ -1,5 +1,13 @@
 # @sytechui/input
 
+## 2.4.38
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/shared-icons@2.1.11
+  - @sytechui/form@2.1.37
+
 ## 2.4.37
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@sytechui/checkbox",
-  "version": "2.3.36",
+  "version": "2.3.37",
   "description": "Checkboxes allow users to select multiple items from a list of individual items, or to mark one individual item as selected.",
   "keywords": [
     "checkbox"

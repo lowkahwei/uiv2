@@ -1,6 +1,14 @@
 # @sytechui/theme
 
-## 2.7.0
+## 2.6.2
+
+### Major Changes
+
+- Replace Alert with the HeroUI v3 compound component API and status-based styles while retaining
+  radius options and slot-level customization. Fix the Success icon so it renders with the current
+  status color.
+
+## 2.6.1
 
 ### Minor Changes
 

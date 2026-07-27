@@ -1,6 +1,6 @@
 {
   "name": "@sytechui/drawer",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Used to render a content that slides in from the side of the screen.",
   "keywords": [
     "drawer"
@@ -8,7 +8,7 @@
   "author": "HeroUI <support@heroui.com>",
   "homepage": "https://heroui.com",
   "license": "MIT",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "sideEffects": false,
   "files": [
     "dist"
@@ -45,22 +45,15 @@
     "@sytechui/framer-utils": "workspace:*",
     "@sytechui/modal": "workspace:*"
   },
-  "devDependencies": {
-    "@sytechui/theme": "workspace:*",
-    "@sytechui/system": "workspace:*",
-    "@sytechui/input": "workspace:*",
-    "@sytechui/checkbox": "workspace:*",
-    "@sytechui/tooltip": "workspace:*",
-    "@sytechui/image": "workspace:*",
-    "@sytechui/button": "workspace:*",
-    "@sytechui/avatar": "workspace:*",
-    "@sytechui/link": "workspace:*",
-    "@sytechui/shared-icons": "workspace:*",
-    "@sytechui/use-disclosure": "workspace:*",
-    "@sytechui/test-utils": "workspace:*",
-    "clean-package": "2.2.0",
-    "react": "18.3.0",
-    "react-dom": "18.3.0"
-  },
-  "clean-package": "../../../clean-package.config.json"
+  "clean-package": "../../../clean-package.config.json",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  }
 }

@@ -1,5 +1,12 @@
 # @sytechui/bottom-bar
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/link@2.2.27
+
 ## 2.1.0
 
 ### Minor Changes

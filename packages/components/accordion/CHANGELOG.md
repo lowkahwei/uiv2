@@ -1,5 +1,13 @@
 # @sytechui/accordion
 
+## 2.2.31
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/shared-icons@2.1.11
+  - @sytechui/divider@2.3.0
+
 ## 2.2.30
 
 ### Patch Changes

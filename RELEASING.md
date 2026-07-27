@@ -1,7 +1,7 @@
-# npm 发布流程
-
-本仓库使用 [Changesets](https://github.com/changesets/changesets) 管理多个 npm 包的版本、
-内部依赖和 CHANGELOG。
+```bash
+# 在 ~/.npmrc 或项目根目录下的 .npmrc 中配置
+//registry.npmjs.org/:_authToken=你的_GRANULAR_TOKEN
+```
 
 ## 核心概念
 
@@ -15,22 +15,6 @@
 
 > 不要使用 `pnpm version`。这是 pnpm 自己的版本信息命令，不会执行本仓库的
 > Changesets 脚本。
-
-## 什么改动需要 Changeset？
-
-需要：
-
-- 新增或修改公开 API。
-- 修复 npm 用户可感知的问题。
-- 修改组件行为、运行时代码或发布包中的样式。
-
-通常不需要：
-
-- 只修改测试或 Storybook。
-- 只修改内部文档或开发工具。
-- 不改变用户行为的内部重构。
-
-一个完整功能通常只需要一个 Changeset，不需要每次 Git commit 都创建。
 
 ## 版本级别
 

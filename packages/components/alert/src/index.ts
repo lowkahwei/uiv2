@@ -1,10 +1,34 @@
-import Alert from "./alert";
+import type {ComponentProps} from "react";
 
-// export types
-export type {AlertProps} from "./alert";
+import {AlertContent, AlertDescription, AlertIndicator, AlertRoot, AlertTitle} from "./alert";
 
-// export hooks
-export {useAlert} from "./use-alert";
+export const Alert = Object.assign(AlertRoot, {
+  Root: AlertRoot,
+  Indicator: AlertIndicator,
+  Content: AlertContent,
+  Title: AlertTitle,
+  Description: AlertDescription,
+});
 
-// export component
-export {Alert};
+export type Alert = {
+  Props: ComponentProps<typeof AlertRoot>;
+  RootProps: ComponentProps<typeof AlertRoot>;
+  IndicatorProps: ComponentProps<typeof AlertIndicator>;
+  ContentProps: ComponentProps<typeof AlertContent>;
+  TitleProps: ComponentProps<typeof AlertTitle>;
+  DescriptionProps: ComponentProps<typeof AlertDescription>;
+};
+
+export {AlertRoot, AlertIndicator, AlertContent, AlertTitle, AlertDescription};
+
+export type {
+  AlertRootProps,
+  AlertRootProps as AlertProps,
+  AlertIndicatorProps,
+  AlertContentProps,
+  AlertTitleProps,
+  AlertDescriptionProps,
+} from "./alert";
+
+export {alertVariants} from "@sytechui/theme";
+export type {AlertVariants} from "@sytechui/theme";

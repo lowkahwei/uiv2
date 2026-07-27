@@ -1,5 +1,17 @@
 # @sytechui/select
 
+## 2.4.38
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/shared-icons@2.1.11
+  - @sytechui/listbox@2.3.32
+  - @sytechui/form@2.1.37
+  - @sytechui/popover@2.3.32
+  - @sytechui/scroll-shadow@2.3.19
+  - @sytechui/spinner@2.2.29
+
 ## 2.4.37
 
 ### Patch Changes

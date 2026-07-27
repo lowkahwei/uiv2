@@ -1,5 +1,12 @@
 # @sytechui/modal
 
+## 2.2.31
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/shared-icons@2.1.11
+
 ## 2.2.30
 
 ### Patch Changes

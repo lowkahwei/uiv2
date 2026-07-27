@@ -6,10 +6,8 @@ const config: StorybookConfig = {
   stories: [
     "./welcome.mdx",
     // "../../components/**/stories/**/*.stories.@(js|jsx|ts|tsx)",
-    "../../components/divider/stories/**/*.stories.@(js|jsx|ts|tsx)",
-    "../../components/shimmer-text/stories/**/*.stories.@(js|jsx|ts|tsx)",
-    "../../components/stepper/stories/**/*.stories.@(js|jsx|ts|tsx)",
-    "../../core/theme/stories/*.stories.@(js|jsx|ts|tsx)",
+    "../../components/alert/stories/**/*.stories.@(js|jsx|ts|tsx)",
+    // "../../core/theme/stories/*.stories.@(js|jsx|ts|tsx)",
   ],
 
   staticDirs: ["../public"],

@@ -1,5 +1,12 @@
 # @sytechui/drawer
 
+## 2.3.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/modal@2.2.31
+
 ## 2.3.0
 
 ### Minor Changes

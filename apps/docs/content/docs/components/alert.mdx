@@ -1,13 +1,13 @@
 ---
 title: "Alert"
-description: "Alerts are temporary notifications that provide concise feedback about an action or event."
+description: "Display important messages and notifications to users with status indicators."
 ---
 
 import {alertContent} from "@/content/components/alert";
 
 # Alert
 
-Alerts are temporary notifications that provide concise feedback about an action or event.
+Display important messages and notifications to users with status indicators.
 
 <ComponentLinks component="alert" />
 
@@ -41,92 +41,80 @@ Alerts are temporary notifications that provide concise feedback about an action
 
 <CodeDemo title="Usage" files={alertContent.usage} />
 
-### Colors
+### Anatomy
 
-Alert comes with 6 color variants to convey different meanings.
+Access every part through the `Alert` compound component.
 
-<CodeDemo title="Colors" files={alertContent.colors} />
+```tsx
+<Alert>
+  <Alert.Indicator />
+  <Alert.Content>
+    <Alert.Title />
+    <Alert.Description />
+  </Alert.Content>
+</Alert>
+```
 
-### Variants
+### Statuses
 
-<CodeDemo title="Variants" files={alertContent.variants} />
+Use `default`, `accent`, `success`, `warning`, or `danger` to convey the message status.
+
+<CodeDemo title="Statuses" files={alertContent.colors} />
 
 ### Radius
 
+Use `none`, `sm`, `md`, `lg`, or `full`. The v3-style `lg` radius is the default.
+
 <CodeDemo title="Radius" files={alertContent.radius} />
 
-### Custom Icon
+### Custom Indicator
 
-By default, Alert displays an appropriate icon based on the `color` prop. You can override this by providing a custom icon using the `icon` prop.
+Pass children to `Alert.Indicator` to replace its status icon.
 
-<CodeDemo title="Custom Icon" files={alertContent.withIcon} />
+<CodeDemo title="Custom Indicator" files={alertContent.withIcon} />
 
-### Without Icon
+### Without Indicator
 
-You can hide the icon by setting the `hideIcon` prop to `true`.
+The parts are composable, so omit `Alert.Indicator` when an icon is not needed.
 
-<CodeDemo title="Without Icon" files={alertContent.withoutIcon} />
-
-### Without Icon Wrapper
-
-You can hide the icon wrapper by setting the `hideIconWrapper` prop to `true`.
-
-<CodeDemo title="Without Icon Wrapper" files={alertContent.withoutIconWrapper} />
+<CodeDemo title="Without Indicator" files={alertContent.withoutIcon} />
 
 ### With Action
 
-Alert supports an `endContent` prop for additional actions.
+Add buttons or other controls as children of the root.
 
 <CodeDemo title="With Action" files={alertContent.withAction} />
 
 ### Controlled Visibility
 
-You can control the alert visibility using the `isVisible` and `onVisibleChange` props.
+Alert does not own visibility state. Render it conditionally and place a close control in its
+content.
 
-<CodeDemo title="Controlled" files={alertContent.controlled} />
+<CodeDemo title="Controlled Visibility" files={alertContent.controlled} />
 
 ### Custom Styles
 
-You can customize the alert by passing custom Tailwind CSS classes to the component slots.
+Use the root `classNames` prop to customize all slots together, or pass `className` directly to an
+individual compound part.
 
 <CodeDemo title="Custom Styles" files={alertContent.customStyles} />
 
-### Custom Implementation
-
-You can use the `useAlert` hook to create your own alert component.
-
-<CodeDemo showPreview={false} title="Custom Implementation" files={alertContent.customImpl} />
-
 <Spacer y={4} />
 
-## Data Attributes
+## Data Slots
 
-Alert has the following attributes on the `base` element:
-
-- **data-visible**: When the alert is visible
-- **data-closeable**: When the alert can be closed
-- **data-has-title**: When the alert has a title
-- **data-has-description**: When the alert has a description
-
-<Spacer y={4} />
-
-### Slots
-
-Alert has the following slots:
-
-- `base`: The main alert container element
-- `title`: The title element
-- `description`: The description element
-- `mainWrapper`: The wrapper for the title and description content
-- `closeButton`: The close button element
-- `iconWrapper`: The wrapper for the alert icon
-- `alertIcon`: The alert icon element
+- `alert-root`
+- `alert-indicator`
+- `alert-default-icon`
+- `alert-content`
+- `alert-title`
+- `alert-description`
 
 ## Accessibility
 
-- Alert has role of `alert`
-- Close button has aria-label="Close" by default
-- When closed, alert is removed from the DOM
+The root uses `role="alert"` so important dynamic messages are announced by assistive technology.
+Interactive controls remain explicit children, so their labels and behavior stay under application
+control.
 
 <Spacer y={4} />
 
@@ -137,101 +125,52 @@ Alert has the following slots:
 <APITable
   data={[
     {
-      attribute: "title",
-      type: "ReactNode",
-      description: "The alert title",
-      default: "-"
-    },
-    {
-      attribute: "icon", 
-      type: "ReactNode",
-      description: "The alert icon - overrides the default icon",
-      default: "-"
-    },
-    {
-      attribute: "description",
-      type: "ReactNode", 
-      description: "The alert description",
-      default: "-"
-    },
-    {
-      attribute: "color",
-      type: "default | primary | secondary | success | warning | danger",
-      description: "The alert color theme",
-      default: "default"
-    },
-    {
-      attribute: "variant",
-      type: "solid | bordered | flat | faded",
-      description: "The alert variant",
-      default: "flat"
+      attribute: "status",
+      type: "default | accent | success | warning | danger",
+      description: "The visual status of the alert",
+      default: "default",
     },
     {
       attribute: "radius",
       type: "none | sm | md | lg | full",
-      description: "The alert border radius",
-      default: "md"
+      description: "The border radius of the alert",
+      default: "lg",
     },
     {
-      attribute: "startContent",
+      attribute: "classNames",
+      type: "Partial<Record<AlertSlots, string>>",
+      description: "Classes applied to the base, indicator, content, title and description slots",
+      default: "-",
+    },
+    {
+      attribute: "className",
+      type: "string",
+      description: "Additional classes for the root",
+      default: "-",
+    },
+    {
+      attribute: "children",
       type: "ReactNode",
-      description: "The alert start content",
-      default: "-"
+      description: "The composed alert content",
+      default: "-",
     },
-    {
-      attribute: "endContent",
-      type: "ReactNode",
-      description: "The alert end content", 
-      default: "-"
-    },
-    {
-      attribute: "isVisible",
-      type: "boolean",
-      description: "Whether the alert is visible",
-      default: "-"
-    },
-    {
-      attribute: "isClosable",
-      type: "boolean",
-      description: "Whether the alert can be closed",
-      default: "false"
-    },
-    {
-      attribute: "hideIcon",
-      type: "boolean",
-      description: "Whether the icon is hidden",
-      default: "false"
-    },
-    {
-      attribute: "hideIconWrapper",
-      type: "boolean",
-      description: "Whether the icon wrapper is hidden",
-      default: "false"
-    },
-    {
-      attribute: "closeButtonProps",
-      type: "ButtonProps",
-      description: "Props for the close button",
-      default: "-"
-    }
   ]}
 />
 
-### Alert Events
+### Alert.Indicator Props
 
-<APITable
-  data={[
-    {
-      attribute: "onClose",
-      type: "() => void",
-      description: "Handler called when the close button is clicked",
-      default: "-"
-    },
-    {
-      attribute: "onVisibleChange",
-      type: "(isVisible: boolean) => void",
-      description: "Handler called when the alert visibility changes",
-      default: "-"
-    }
-  ]}
-/>
+`className` and `children`. Its children replace the default status icon.
+
+### Alert.Content Props
+
+`className` and `children`.
+
+### Alert.Title Props
+
+`className` and `children`. Renders a `p` by default.
+
+### Alert.Description Props
+
+`className` and `children`. Renders a `span` by default.
+
+All parts also accept native props and the polymorphic `as` prop.

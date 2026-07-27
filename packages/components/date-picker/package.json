@@ -1,6 +1,6 @@
 {
   "name": "@sytechui/date-picker",
-  "version": "2.3.37",
+  "version": "2.3.38",
   "description": "A date picker combines a DateInput and a Calendar popover to allow users to enter or select a date and time value.",
   "keywords": [
     "date-picker"
@@ -8,7 +8,7 @@
   "author": "HeroUI <support@heroui.com>",
   "homepage": "https://heroui.com",
   "license": "MIT",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "sideEffects": false,
   "files": [
     "dist"
@@ -58,15 +58,15 @@
     "@react-types/datepicker": "3.13.5",
     "@react-types/shared": "3.33.1"
   },
-  "devDependencies": {
-    "@sytechui/radio": "workspace:*",
-    "@sytechui/system": "workspace:*",
-    "@sytechui/test-utils": "workspace:*",
-    "@sytechui/theme": "workspace:*",
-    "framer-motion": "11.18.2",
-    "clean-package": "2.2.0",
-    "react": "18.3.0",
-    "react-dom": "18.3.0"
-  },
-  "clean-package": "../../../clean-package.config.json"
+  "clean-package": "../../../clean-package.config.json",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  }
 }

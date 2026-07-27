@@ -648,22 +648,13 @@ importers:
 
   packages/components/alert:
     dependencies:
-      '@react-stately/utils':
-        specifier: 3.11.0
-        version: 3.11.0(react@18.3.0)
-      '@sytechui/button':
-        specifier: workspace:*
-        version: link:../button
-      '@sytechui/react-utils':
-        specifier: workspace:*
-        version: link:../../utilities/react-utils
       '@sytechui/shared-icons':
         specifier: workspace:*
         version: link:../../utilities/shared-icons
-      '@sytechui/shared-utils':
-        specifier: workspace:*
-        version: link:../../utilities/shared-utils
     devDependencies:
+      '@sytechui/button':
+        specifier: workspace:*
+        version: link:../button
       '@sytechui/system':
         specifier: workspace:*
         version: link:../../core/system

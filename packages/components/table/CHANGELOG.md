@@ -1,5 +1,13 @@
 # @sytechui/table
 
+## 2.2.37
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/shared-icons@2.1.11
+  - @sytechui/checkbox@2.3.37
+
 ## 2.2.36
 
 ### Patch Changes

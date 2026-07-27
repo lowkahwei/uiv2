@@ -2,18 +2,13 @@ import {Alert, Button} from "@sytechui/react";
 
 export default function App() {
   return (
-    <div className="flex items-center justify-center w-full">
-      <Alert
-        color="warning"
-        description="Upgrade to a paid plan to continue"
-        endContent={
-          <Button color="warning" size="sm" variant="flat">
-            Upgrade
-          </Button>
-        }
-        title="You have no credits left"
-        variant="faded"
-      />
-    </div>
+    <Alert status="accent">
+      <Alert.Indicator />
+      <Alert.Content>
+        <Alert.Title>Update available</Alert.Title>
+        <Alert.Description>Refresh to get the latest features and fixes.</Alert.Description>
+      </Alert.Content>
+      <Button size="sm">Refresh</Button>
+    </Alert>
   );
 }

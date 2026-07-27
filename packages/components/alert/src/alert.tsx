@@ -1,89 +1,143 @@
-import type {ButtonProps} from "@sytechui/button";
-import type {UseAlertProps} from "./use-alert";
+"use client";
+
+import type {AlertSlots, AlertVariants, SlotsToClasses} from "@sytechui/theme";
+import type {HTMLHeroUIProps} from "@sytechui/system";
 
 import {forwardRef} from "@sytechui/system";
-import {
-  CloseIcon,
-  DangerIcon,
-  InfoCircleIcon,
-  SuccessIcon,
-  WarningIcon,
-} from "@sytechui/shared-icons";
-import {isEmpty} from "@sytechui/shared-utils";
-import {Button} from "@sytechui/button";
-import {cloneElement, isValidElement} from "react";
+import {DangerIcon, InfoIcon, SuccessIcon, WarningIcon} from "@sytechui/shared-icons";
+import {alertVariants} from "@sytechui/theme";
+import {createContext, useContext, useMemo} from "react";
 
-import {useAlert} from "./use-alert";
+type AlertStatus = NonNullable<AlertVariants["status"]>;
+type AlertContextValue = {
+  classNames?: SlotsToClasses<AlertSlots>;
+  slots?: ReturnType<typeof alertVariants>;
+  status?: AlertStatus;
+};
 
-const iconMap = {
-  primary: InfoCircleIcon,
-  secondary: InfoCircleIcon,
+const AlertContext = createContext<AlertContextValue>({});
+
+export interface AlertRootProps extends HTMLHeroUIProps<"div"> {
+  /** The visual status of the alert. */
+  status?: AlertStatus;
+  /** The border radius of the alert. */
+  radius?: AlertVariants["radius"];
+  /** Classes applied to each alert slot. */
+  classNames?: SlotsToClasses<AlertSlots>;
+}
+
+const AlertRoot = forwardRef<"div", AlertRootProps>(
+  ({as, children, className, classNames, radius, status = "default", ...props}, ref) => {
+    const Component = as || "div";
+    const slots = useMemo(() => alertVariants({radius, status}), [radius, status]);
+
+    return (
+      <AlertContext.Provider value={{classNames, slots, status}}>
+        <Component
+          ref={ref}
+          className={slots.base({class: [classNames?.base, className]})}
+          data-slot="alert-root"
+          role="alert"
+          {...props}
+        >
+          {children}
+        </Component>
+      </AlertContext.Provider>
+    );
+  },
+);
+
+export interface AlertIndicatorProps extends HTMLHeroUIProps<"div"> {}
+
+const statusIcons = {
+  default: InfoIcon,
+  accent: InfoIcon,
   success: SuccessIcon,
   warning: WarningIcon,
   danger: DangerIcon,
-} as const;
+} satisfies Record<AlertStatus, typeof InfoIcon>;
 
-export type AlertColor = keyof typeof iconMap;
+const AlertIndicator = forwardRef<"div", AlertIndicatorProps>(
+  ({as, children, className, ...props}, ref) => {
+    const Component = as || "div";
+    const {classNames, slots, status = "default"} = useContext(AlertContext);
+    const Icon = statusIcons[status];
 
-export interface AlertProps extends Omit<UseAlertProps, "hasContent"> {}
+    return (
+      <Component
+        ref={ref}
+        className={slots?.indicator({class: [classNames?.indicator, className]})}
+        data-slot="alert-indicator"
+        {...props}
+      >
+        {children ?? <Icon data-slot="alert-default-icon" />}
+      </Component>
+    );
+  },
+);
 
-const Alert = forwardRef<"div", AlertProps>((props, ref) => {
-  const {
-    title,
-    icon,
-    children,
-    description,
-    endContent,
-    startContent,
-    isClosable,
-    domRef,
-    handleClose,
-    getBaseProps,
-    getMainWrapperProps,
-    getDescriptionProps,
-    getTitleProps,
-    getCloseButtonProps,
-    color,
-    isVisible,
-    onClose,
-    getAlertIconProps,
-    getIconWrapperProps,
-  } = useAlert({...props, ref});
+export interface AlertContentProps extends HTMLHeroUIProps<"div"> {}
 
-  if (!isVisible) return null;
+const AlertContent = forwardRef<"div", AlertContentProps>(
+  ({as, children, className, ...props}, ref) => {
+    const Component = as || "div";
+    const {classNames, slots} = useContext(AlertContext);
 
-  const customIcon = icon && isValidElement(icon) ? cloneElement(icon, getAlertIconProps()) : null;
+    return (
+      <Component
+        ref={ref}
+        className={slots?.content({class: [classNames?.content, className]})}
+        data-slot="alert-content"
+        {...props}
+      >
+        {children}
+      </Component>
+    );
+  },
+);
 
-  const IconComponent = iconMap[color] || iconMap.primary;
+export interface AlertTitleProps extends HTMLHeroUIProps<"p"> {}
+
+const AlertTitle = forwardRef<"p", AlertTitleProps>(({as, children, className, ...props}, ref) => {
+  const Component = as || "p";
+  const {classNames, slots} = useContext(AlertContext);
 
   return (
-    <div ref={domRef} role="alert" {...getBaseProps()}>
-      {startContent}
-      <div {...getIconWrapperProps()}>
-        {customIcon || <IconComponent {...getAlertIconProps()} />}
-      </div>
-      <div {...getMainWrapperProps()}>
-        {!isEmpty(title) && <div {...getTitleProps()}>{title}</div>}
-        {!isEmpty(description) && <div {...getDescriptionProps()}>{description}</div>}
-        {children}
-      </div>
-      {endContent}
-      {(isClosable || onClose) && (
-        <Button
-          isIconOnly
-          aria-label="Close"
-          radius="full"
-          variant="light"
-          onPress={handleClose}
-          {...(getCloseButtonProps() as ButtonProps)}
-        >
-          <CloseIcon height={20} width={20} />
-        </Button>
-      )}
-    </div>
+    <Component
+      ref={ref}
+      className={slots?.title({class: [classNames?.title, className]})}
+      data-slot="alert-title"
+      {...props}
+    >
+      {children}
+    </Component>
   );
 });
 
-Alert.displayName = "HeroUI.Alert";
+export interface AlertDescriptionProps extends HTMLHeroUIProps<"span"> {}
 
-export default Alert;
+const AlertDescription = forwardRef<"span", AlertDescriptionProps>(
+  ({as, children, className, ...props}, ref) => {
+    const Component = as || "span";
+    const {classNames, slots} = useContext(AlertContext);
+
+    return (
+      <Component
+        ref={ref}
+        className={slots?.description({class: [classNames?.description, className]})}
+        data-slot="alert-description"
+        {...props}
+      >
+        {children}
+      </Component>
+    );
+  },
+);
+
+AlertRoot.displayName = "SytechUI.Alert";
+AlertIndicator.displayName = "SytechUI.AlertIndicator";
+AlertContent.displayName = "SytechUI.AlertContent";
+AlertTitle.displayName = "SytechUI.AlertTitle";
+AlertDescription.displayName = "SytechUI.AlertDescription";
+
+export {AlertRoot, AlertIndicator, AlertContent, AlertTitle, AlertDescription};

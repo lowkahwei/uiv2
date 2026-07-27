@@ -1,6 +1,20 @@
 # @sytechui/alert
 
-Alerts are temporary notifications that provide concise feedback about an action or event.
+Display important messages and notifications with HeroUI v3-style status indicators.
+
+```tsx
+<Alert status="success">
+  <Alert.Indicator />
+  <Alert.Content>
+    <Alert.Title>Profile updated</Alert.Title>
+    <Alert.Description>Your changes have been saved.</Alert.Description>
+  </Alert.Content>
+</Alert>
+```
+
+Use `radius="none" | "sm" | "md" | "lg" | "full"`, omit `Alert.Indicator` to hide the icon,
+or pass a custom child to replace it. Every slot supports `className`, and the root accepts
+`classNames` for centralized customization.
 
 Please refer to the [documentation](https://heroui.com/docs/components/alert) for more information.
 

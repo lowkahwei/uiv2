@@ -1,33 +1,21 @@
 import {Alert} from "@sytechui/react";
 
-const UserIcon = ({fill = "currentColor", size, height, width, ...props}) => {
-  return (
-    <svg
-      data-name="Iconly/Curved/Profile"
-      height={size || height || 24}
-      viewBox="0 0 24 24"
-      width={size || width || 24}
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <g
-        fill="none"
-        stroke={fill}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeMiterlimit={10}
-        strokeWidth={1.5}
-      >
-        <path
-          d="M11.845 21.662C8.153 21.662 5 21.088 5 18.787s3.133-4.425 6.845-4.425c3.692 0 6.845 2.1 6.845 4.4s-3.134 2.9-6.845 2.9z"
-          data-name="Stroke 1"
-        />
-        <path d="M11.837 11.174a4.372 4.372 0 10-.031 0z" data-name="Stroke 3" />
-      </g>
-    </svg>
-  );
-};
+const SparkleIcon = () => (
+  <svg fill="none" height="16" viewBox="0 0 24 24" width="16">
+    <path d="m12 2 2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2L12 2Z" fill="currentColor" />
+  </svg>
+);
 
 export default function App() {
-  return <Alert icon={<UserIcon />}>An alert with a custom icon</Alert>;
+  return (
+    <Alert status="accent">
+      <Alert.Indicator>
+        <SparkleIcon />
+      </Alert.Indicator>
+      <Alert.Content>
+        <Alert.Title>Custom indicator</Alert.Title>
+        <Alert.Description>The default status icon has been replaced.</Alert.Description>
+      </Alert.Content>
+    </Alert>
+  );
 }

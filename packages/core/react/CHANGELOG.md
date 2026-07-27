@@ -1,5 +1,63 @@
 # @sytechui/react
 
+## 2.10.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/alert@3.0.0
+  - @sytechui/theme@3.0.0
+  - @sytechui/accordion@2.2.31
+  - @sytechui/autocomplete@2.3.39
+  - @sytechui/avatar@2.2.26
+  - @sytechui/badge@2.2.18
+  - @sytechui/breadcrumbs@2.2.26
+  - @sytechui/button@2.2.32
+  - @sytechui/calendar@2.2.33
+  - @sytechui/carousel@2.0.3
+  - @sytechui/checkbox@2.3.37
+  - @sytechui/chip@2.2.26
+  - @sytechui/date-input@2.3.37
+  - @sytechui/date-picker@2.3.38
+  - @sytechui/drawer@2.3.1
+  - @sytechui/input@2.4.38
+  - @sytechui/link@2.2.27
+  - @sytechui/listbox@2.3.32
+  - @sytechui/menu@2.2.32
+  - @sytechui/modal@2.2.31
+  - @sytechui/navbar@2.2.30
+  - @sytechui/number-input@2.0.28
+  - @sytechui/pagination@2.2.28
+  - @sytechui/select@2.4.38
+  - @sytechui/slider@2.4.29
+  - @sytechui/snippet@2.2.34
+  - @sytechui/stepper@2.0.1
+  - @sytechui/switch@2.2.27
+  - @sytechui/table@2.2.37
+  - @sytechui/tabs@2.2.29
+  - @sytechui/toast@2.0.23
+  - @sytechui/bottom-bar@2.1.1
+  - @sytechui/card@2.2.28
+  - @sytechui/code@2.2.25
+  - @sytechui/divider@2.3.0
+  - @sytechui/drop-zone@2.0.4
+  - @sytechui/form@2.1.37
+  - @sytechui/image@2.2.19
+  - @sytechui/input-otp@2.1.37
+  - @sytechui/kbd@2.2.26
+  - @sytechui/popover@2.3.32
+  - @sytechui/progress@2.2.25
+  - @sytechui/radio@2.3.37
+  - @sytechui/ripple@2.2.21
+  - @sytechui/scroll-area@2.0.0
+  - @sytechui/scroll-shadow@2.3.19
+  - @sytechui/shimmer-text@2.1.0
+  - @sytechui/skeleton@2.2.18
+  - @sytechui/spacer@2.2.25
+  - @sytechui/spinner@2.2.29
+  - @sytechui/tooltip@2.2.29
+  - @sytechui/user@2.2.26
+
 ## 2.11.0
 
 ### Minor Changes

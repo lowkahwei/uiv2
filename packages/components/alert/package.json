@@ -1,7 +1,7 @@
 {
   "name": "@sytechui/alert",
-  "version": "2.2.32",
-  "description": "Alerts are temporary notifications that provide concise feedback about an action or event.",
+  "version": "2.3.0",
+  "description": "Display important messages and notifications with status indicators.",
   "keywords": [
     "alert"
   ],
@@ -40,17 +40,14 @@
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0",
-    "@sytechui/theme": ">=2.4.24",
+    "@sytechui/theme": "workspace:*",
     "@sytechui/system": ">=2.4.18"
   },
   "dependencies": {
-    "@sytechui/react-utils": "workspace:*",
-    "@sytechui/shared-icons": "workspace:*",
-    "@sytechui/shared-utils": "workspace:*",
-    "@react-stately/utils": "3.11.0",
-    "@sytechui/button": "workspace:*"
+    "@sytechui/shared-icons": "workspace:*"
   },
   "devDependencies": {
+    "@sytechui/button": "workspace:*",
     "@sytechui/system": "workspace:*",
     "@sytechui/theme": "workspace:*",
     "clean-package": "2.2.0",

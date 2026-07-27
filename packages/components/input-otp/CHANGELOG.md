@@ -1,5 +1,12 @@
 # @sytechui/input-otp
 
+## 2.1.37
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/form@2.1.37
+
 ## 2.1.36
 
 ### Patch Changes

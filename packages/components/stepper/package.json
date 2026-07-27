@@ -1,6 +1,6 @@
 {
   "name": "@sytechui/stepper",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A controlled, accessible indicator for multi-step processes.",
   "keywords": [
     "stepper",
