@@ -1,6 +1,6 @@
 {
   "name": "@sytechui/tabs",
-  "version": "2.2.29",
+  "version": "2.2.30",
   "description": "Tabs organize content into multiple sections and allow users to navigate between them.",
   "keywords": [
     "tabs"
@@ -42,15 +42,16 @@
   },
   "dependencies": {
     "@sytechui/shared-utils": "workspace:*",
+    "@sytechui/shared-icons": "workspace:*",
     "@sytechui/react-utils": "workspace:*",
+    "@sytechui/scroll-shadow": "workspace:*",
     "@sytechui/aria-utils": "workspace:*",
     "@sytechui/use-is-mounted": "workspace:*",
     "@react-aria/focus": "3.21.5",
     "@react-aria/interactions": "3.27.1",
     "@react-aria/tabs": "3.11.1",
     "@react-stately/tabs": "3.8.9",
-    "@react-types/shared": "3.33.1",
-    "scroll-into-view-if-needed": "3.0.10"
+    "@react-types/shared": "3.33.1"
   },
   "devDependencies": {
     "@sytechui/theme": "workspace:*",
@@ -62,7 +63,6 @@
     "@sytechui/test-utils": "workspace:*",
     "@sytechui/button": "workspace:*",
     "@sytechui/modal": "workspace:*",
-    "@sytechui/shared-icons": "workspace:*",
     "clean-package": "2.2.0",
     "react": "18.3.0",
     "react-dom": "18.3.0"

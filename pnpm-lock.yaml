@@ -1018,9 +1018,6 @@ importers:
       '@sytechui/use-aria-button':
         specifier: workspace:*
         version: link:../../hooks/use-aria-button
-      scroll-into-view-if-needed:
-        specifier: 3.0.10
-        version: 3.0.10
     devDependencies:
       '@sytechui/radio':
         specifier: workspace:*
@@ -3020,6 +3017,12 @@ importers:
       '@sytechui/react-utils':
         specifier: workspace:*
         version: link:../../utilities/react-utils
+      '@sytechui/scroll-shadow':
+        specifier: workspace:*
+        version: link:../scroll-shadow
+      '@sytechui/shared-icons':
+        specifier: workspace:*
+        version: link:../../utilities/shared-icons
       '@sytechui/shared-utils':
         specifier: workspace:*
         version: link:../../utilities/shared-utils
@@ -3042,9 +3045,6 @@ importers:
       '@sytechui/modal':
         specifier: workspace:*
         version: link:../modal
-      '@sytechui/shared-icons':
-        specifier: workspace:*
-        version: link:../../utilities/shared-icons
       '@sytechui/system':
         specifier: workspace:*
         version: link:../../core/system

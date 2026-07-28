@@ -560,6 +560,58 @@ describe("Tabs", () => {
     expect(tablist).toHaveAttribute("aria-orientation", "vertical");
   });
 
+  test("should show horizontal overflow state and scroll with chevrons", () => {
+    const wrapper = render(
+      <Tabs aria-label="Overflowing tabs">
+        <Tab key="item1" title="Item 1" />
+        <Tab key="item2" title="Item 2" />
+        <Tab key="item3" title="Item 3" />
+      </Tabs>,
+    );
+    const tablist = wrapper.getByRole("tablist");
+    const scroller = tablist.parentElement!;
+    const scrollBy = jest.fn();
+
+    Object.defineProperties(scroller, {
+      clientWidth: {configurable: true, value: 100},
+      scrollLeft: {configurable: true, value: 0, writable: true},
+      scrollWidth: {configurable: true, value: 300},
+      scrollBy: {configurable: true, value: scrollBy},
+    });
+
+    fireEvent.scroll(scroller);
+
+    expect(scroller).toHaveAttribute("data-right-scroll", "true");
+    fireEvent.click(wrapper.getByLabelText("Scroll tabs right"));
+    expect(scrollBy).toHaveBeenCalledWith({behavior: "smooth", left: 80});
+  });
+
+  test("should show vertical overflow state and scroll with chevrons", () => {
+    const wrapper = render(
+      <Tabs isVertical aria-label="Overflowing vertical tabs">
+        <Tab key="item1" title="Item 1" />
+        <Tab key="item2" title="Item 2" />
+        <Tab key="item3" title="Item 3" />
+      </Tabs>,
+    );
+    const tablist = wrapper.getByRole("tablist");
+    const scroller = tablist.parentElement!;
+    const scrollBy = jest.fn();
+
+    Object.defineProperties(scroller, {
+      clientHeight: {configurable: true, value: 100},
+      scrollHeight: {configurable: true, value: 300},
+      scrollTop: {configurable: true, value: 0, writable: true},
+      scrollBy: {configurable: true, value: scrollBy},
+    });
+
+    fireEvent.scroll(scroller);
+
+    expect(scroller).toHaveAttribute("data-bottom-scroll", "true");
+    fireEvent.click(wrapper.getByLabelText("Scroll tabs down"));
+    expect(scrollBy).toHaveBeenCalledWith({behavior: "smooth", top: 80});
+  });
+
   test("should navigate vertical tabs with ArrowUp and ArrowDown keys", async () => {
     const wrapper = render(
       <Tabs isVertical aria-label="Vertical tabs keyboard test">

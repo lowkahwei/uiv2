@@ -1,6 +1,5 @@
 import type {TabsVariantProps, SlotsToClasses, TabsSlots, TabsReturnType} from "@sytechui/theme";
 import type {ReactRef} from "@sytechui/react-utils";
-import type {RefObject} from "react";
 import type {TabListState, TabListStateOptions} from "@react-stately/tabs";
 import type {AriaTabListProps} from "@react-aria/tabs";
 import type {CollectionProps} from "@sytechui/aria-utils";
@@ -73,7 +72,6 @@ export type ValuesType<T = object> = {
   state: TabListState<T>;
   slots: TabsReturnType;
   disableCursorAnimation?: boolean;
-  listRef?: RefObject<HTMLElement>;
   shouldSelectOnPressUp?: boolean;
   classNames?: SlotsToClasses<TabsSlots>;
   disableAnimation?: boolean;
@@ -107,7 +105,7 @@ export function useTabs<T extends object>(originalProps: UseTabsProps<T>) {
     originalProps?.disableAnimation ?? globalContext?.disableAnimation ?? false;
 
   const placement = (variantProps as Props).placement ?? (isVertical ? "start" : "top");
-  const orientation =
+  const orientation: "horizontal" | "vertical" =
     isVertical || placement === "start" || placement === "end" ? "vertical" : "horizontal";
 
   const state = useTabListState<T>({
@@ -125,9 +123,9 @@ export function useTabs<T extends object>(originalProps: UseTabsProps<T>) {
       tabs({
         ...variantProps,
         disableAnimation,
-        ...(isVertical ? {placement: "start"} : {}),
+        placement,
       }),
-    [objectToDeps(variantProps), disableAnimation, isVertical],
+    [objectToDeps(variantProps), disableAnimation, placement],
   );
 
   const baseStyles = cn(classNames?.base, className);
@@ -138,7 +136,6 @@ export function useTabs<T extends object>(originalProps: UseTabsProps<T>) {
       slots,
       classNames,
       disableAnimation,
-      listRef: domRef,
       shouldSelectOnPressUp,
       disableCursorAnimation,
       isDisabled: originalProps?.isDisabled,
@@ -203,6 +200,7 @@ export function useTabs<T extends object>(originalProps: UseTabsProps<T>) {
   return {
     Component,
     domRef,
+    orientation,
     state,
     values,
     destroyInactiveTabPanel,

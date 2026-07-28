@@ -267,6 +267,26 @@ const WithFormTemplate = (args: TabsProps) => {
   );
 };
 
+const OverflowTemplate = (args: TabsProps) => (
+  <Tabs className="w-72" {...args} aria-label="Overflowing tabs">
+    {[
+      "Overview",
+      "Analytics",
+      "Reports",
+      "Performance",
+      "Engagement",
+      "Audience",
+      "Acquisition",
+      "Retention",
+      "Settings",
+    ].map((label) => (
+      <Tab key={label.toLowerCase()} title={label}>
+        {label} panel content.
+      </Tab>
+    ))}
+  </Tabs>
+);
+
 export const Default = {
   render: StaticTemplate,
 
@@ -347,6 +367,14 @@ export const Vertical = {
     isVertical: {
       type: "boolean",
     },
+  },
+};
+
+export const Overflow = {
+  render: OverflowTemplate,
+
+  args: {
+    ...defaultProps,
   },
 };
 

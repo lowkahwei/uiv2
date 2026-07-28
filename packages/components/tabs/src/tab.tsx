@@ -4,8 +4,7 @@ import type {ValuesType} from "./use-tabs";
 
 import {forwardRef} from "@sytechui/system";
 import {useDOMRef, filterDOMProps, mergeRefs} from "@sytechui/react-utils";
-import {dataAttr, chain, mergeProps} from "@sytechui/shared-utils";
-import scrollIntoView from "scroll-into-view-if-needed";
+import {dataAttr, mergeProps} from "@sytechui/shared-utils";
 import {useFocusRing} from "@react-aria/focus";
 import {useTab} from "@react-aria/tabs";
 import {useHover} from "@react-aria/interactions";
@@ -15,7 +14,6 @@ export interface TabItemProps<T extends object = object> extends BaseTabItemProp
   item: Node<T>;
   state: ValuesType["state"];
   slots: ValuesType["slots"];
-  listRef?: ValuesType["listRef"];
   classNames?: ValuesType["classNames"];
   isDisabled?: ValuesType["isDisabled"];
 }
@@ -31,7 +29,6 @@ const Tab = forwardRef<"button", TabItemProps>((props, ref) => {
     state,
     classNames,
     isDisabled: isDisabledProp,
-    listRef,
     slots,
     shouldSelectOnPressUp,
     tabRef,
@@ -65,18 +62,6 @@ const Tab = forwardRef<"button", TabItemProps>((props, ref) => {
 
   const tabStyles = cn(classNames?.tab, className);
 
-  const handleClick = () => {
-    if (!domRef?.current || !listRef?.current) return;
-
-    scrollIntoView(domRef.current, {
-      scrollMode: "if-needed",
-      behavior: "smooth",
-      block: "end",
-      inline: "end",
-      boundary: listRef?.current,
-    });
-  };
-
   return (
     <Component
       ref={mergeRefs(domRef, tabRef)}
@@ -104,7 +89,6 @@ const Tab = forwardRef<"button", TabItemProps>((props, ref) => {
           // omit it to avoid executing onClick it twice.
           omitEventNames: new Set(["onClick"]),
         }),
-        {onClick: chain(handleClick, tabProps.onClick)},
       )}
       className={slots.tab?.({class: tabStyles})}
       title={otherProps?.titleValue}

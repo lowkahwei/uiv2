@@ -3,6 +3,13 @@ import type {UseTabsProps} from "./use-tabs";
 
 import {useEffect, useCallback, useRef, useMemo} from "react";
 import {forwardRef} from "@sytechui/system";
+import {ScrollShadow} from "@sytechui/scroll-shadow";
+import {
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronUpIcon,
+} from "@sytechui/shared-icons";
 
 import {useTabs} from "./use-tabs";
 import Tab from "./tab";
@@ -21,6 +28,7 @@ const Tabs = forwardRef(function Tabs<T extends object>(
     values,
     state,
     domRef,
+    orientation,
     destroyInactiveTabPanel,
     getBaseProps,
     getTabListProps,
@@ -33,7 +41,6 @@ const Tabs = forwardRef(function Tabs<T extends object>(
 
   const tabsProps = {
     state,
-    listRef: values.listRef,
     slots: values.slots,
     classNames: values.classNames,
     isDisabled: values.isDisabled,
@@ -52,8 +59,26 @@ const Tabs = forwardRef(function Tabs<T extends object>(
   const previousPlacement = useRef<typeof placement>(undefined);
 
   const cursorRef = useRef<HTMLSpanElement | null>(null);
+  const scrollerRef = useRef<HTMLDivElement | null>(null);
   const selectedItem = state.selectedItem;
   const selectedKey = selectedItem?.key;
+  const isVerticalOrientation = orientation === "vertical";
+
+  const scrollTabs = useCallback(
+    (direction: -1 | 1) => {
+      const tabList = scrollerRef.current;
+
+      if (!tabList) return;
+
+      const size = isVerticalOrientation ? tabList.clientHeight : tabList.clientWidth;
+
+      tabList.scrollBy({
+        behavior: "smooth",
+        [isVerticalOrientation ? "top" : "left"]: direction * size * 0.8,
+      });
+    },
+    [isVerticalOrientation],
+  );
 
   const getCursorStyles = useCallback(
     (tabRect: DOMRect) => {
@@ -148,12 +173,40 @@ const Tabs = forwardRef(function Tabs<T extends object>(
     () => (
       <>
         <div {...getBaseProps()}>
-          <Component {...getTabListProps()}>
-            {!values.disableAnimation && !values.disableCursorAnimation && selectedKey != null && (
-              <span {...getTabCursorProps()} ref={cursorRef} />
-            )}
-            {tabs}
-          </Component>
+          <ScrollShadow
+            ref={scrollerRef}
+            hideScrollBar
+            className={values.slots.scroller({class: values.classNames?.scroller})}
+            orientation={orientation}
+            size={64}
+          >
+            <Component {...getTabListProps()}>
+              {!values.disableAnimation &&
+                !values.disableCursorAnimation &&
+                selectedKey != null && <span {...getTabCursorProps()} ref={cursorRef} />}
+              {tabs}
+            </Component>
+          </ScrollShadow>
+          <button
+            aria-label={isVerticalOrientation ? "Scroll tabs up" : "Scroll tabs left"}
+            className={values.slots.scrollPrev({class: values.classNames?.scrollPrev})}
+            data-slot="scrollPrev"
+            tabIndex={-1}
+            type="button"
+            onClick={() => scrollTabs(-1)}
+          >
+            {isVerticalOrientation ? <ChevronUpIcon /> : <ChevronLeftIcon />}
+          </button>
+          <button
+            aria-label={isVerticalOrientation ? "Scroll tabs down" : "Scroll tabs right"}
+            className={values.slots.scrollNext({class: values.classNames?.scrollNext})}
+            data-slot="scrollNext"
+            tabIndex={-1}
+            type="button"
+            onClick={() => scrollTabs(1)}
+          >
+            {isVerticalOrientation ? <ChevronDownIcon /> : <ChevronRightIcon />}
+          </button>
         </div>
         {[...state.collection].map((item) => {
           return (
@@ -171,6 +224,7 @@ const Tabs = forwardRef(function Tabs<T extends object>(
     ),
     [
       Component,
+      orientation,
       getBaseProps,
       getTabListProps,
       getTabCursorProps,
@@ -187,6 +241,8 @@ const Tabs = forwardRef(function Tabs<T extends object>(
       cursorRef,
       variant,
       isVertical,
+      isVerticalOrientation,
+      scrollTabs,
     ],
   );
 

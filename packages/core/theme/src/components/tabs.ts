@@ -22,18 +22,58 @@ import {colorVariants, dataFocusVisibleClasses} from "../utils";
  */
 const tabs = tv({
   slots: {
-    base: "inline-flex",
+    base: "group relative inline-flex max-w-full bg-default-100",
+    scroller: "max-w-full",
     tabList: [
       "relative",
-      "flex",
+      "inline-flex",
       "p-1",
       "h-fit",
       "gap-2",
       "items-center",
       "flex-nowrap",
-      "overflow-x-scroll",
-      "scrollbar-hide",
-      "bg-default-100",
+      "w-max",
+      "min-w-full",
+    ],
+    scrollPrev: [
+      "absolute",
+      "z-20",
+      "hidden",
+      "size-4",
+      "items-center",
+      "justify-center",
+      "rounded-full",
+      "bg-transparent",
+      "outline-none",
+      "text-foreground",
+      "transition-opacity",
+      "hover:opacity-70",
+      "focus-visible:outline-2",
+      "focus-visible:outline-focus",
+      "group-has-[[data-left-scroll=true]]:flex",
+      "group-has-[[data-left-right-scroll=true]]:flex",
+      "group-has-[[data-top-scroll=true]]:flex",
+      "group-has-[[data-top-bottom-scroll=true]]:flex",
+    ],
+    scrollNext: [
+      "absolute",
+      "z-20",
+      "hidden",
+      "size-4",
+      "items-center",
+      "justify-center",
+      "rounded-full",
+      "bg-transparent",
+      "outline-none",
+      "text-foreground",
+      "transition-opacity",
+      "hover:opacity-70",
+      "focus-visible:outline-2",
+      "focus-visible:outline-focus",
+      "group-has-[[data-right-scroll=true]]:flex",
+      "group-has-[[data-left-right-scroll=true]]:flex",
+      "group-has-[[data-bottom-scroll=true]]:flex",
+      "group-has-[[data-top-bottom-scroll=true]]:flex",
     ],
     tab: [
       "z-0",
@@ -89,14 +129,14 @@ const tabs = tv({
     variant: {
       solid: {},
       light: {
-        tabList: "bg-transparent dark:bg-transparent",
+        base: "bg-transparent dark:bg-transparent",
       },
       underlined: {
-        tabList: "bg-transparent dark:bg-transparent",
+        base: "bg-transparent dark:bg-transparent",
         cursor: "h-[2px] w-[80%] bottom-0 shadow-[0_1px_0px_0_rgba(0,0,0,0.05)]",
       },
       bordered: {
-        tabList: "bg-transparent dark:bg-transparent border-medium border-default-200 shadow-xs",
+        base: "bg-transparent dark:bg-transparent border-medium border-default-200 shadow-xs",
       },
     },
     color: {
@@ -109,16 +149,19 @@ const tabs = tv({
     },
     size: {
       sm: {
+        base: "rounded-medium",
         tabList: "rounded-medium",
         tab: "h-7 text-tiny rounded-small",
         cursor: "rounded-small",
       },
       md: {
+        base: "rounded-medium",
         tabList: "rounded-medium",
         tab: "h-8 text-small rounded-small",
         cursor: "rounded-small",
       },
       lg: {
+        base: "rounded-large",
         tabList: "rounded-large",
         tab: "h-9 text-medium rounded-medium",
         cursor: "rounded-medium",
@@ -126,26 +169,31 @@ const tabs = tv({
     },
     radius: {
       none: {
+        base: "rounded-none",
         tabList: "rounded-none",
         tab: "rounded-none",
         cursor: "rounded-none",
       },
       sm: {
+        base: "rounded-medium",
         tabList: "rounded-medium",
         tab: "rounded-small",
         cursor: "rounded-small",
       },
       md: {
+        base: "rounded-medium",
         tabList: "rounded-medium",
         tab: "rounded-small",
         cursor: "rounded-small",
       },
       lg: {
+        base: "rounded-large",
         tabList: "rounded-large",
         tab: "rounded-medium",
         cursor: "rounded-medium",
       },
       full: {
+        base: "rounded-full",
         tabList: "rounded-full",
         tab: "rounded-full",
         cursor: "rounded-full",
@@ -154,7 +202,7 @@ const tabs = tv({
     fullWidth: {
       true: {
         base: "w-full",
-        tabList: "w-full",
+        scroller: "w-full",
       },
     },
     isDisabled: {
@@ -169,19 +217,30 @@ const tabs = tv({
       },
     },
     placement: {
-      top: {},
+      top: {
+        scrollPrev: "top-1/2 left-1 -translate-y-1/2",
+        scrollNext: "top-1/2 right-1 -translate-y-1/2",
+      },
       start: {
-        tabList: "flex-col",
+        scroller: "h-full",
+        tabList: "min-w-0 flex-col",
         panel: "py-0 px-3",
         tabWrapper: "flex",
+        scrollPrev: "top-1 left-1/2 -translate-x-1/2",
+        scrollNext: "bottom-1 left-1/2 -translate-x-1/2",
       },
       end: {
-        tabList: "flex-col",
+        scroller: "h-full",
+        tabList: "min-w-0 flex-col",
         panel: "py-0 px-3",
         tabWrapper: "flex flex-row-reverse",
+        scrollPrev: "top-1 left-1/2 -translate-x-1/2",
+        scrollNext: "bottom-1 left-1/2 -translate-x-1/2",
       },
       bottom: {
         tabWrapper: "flex flex-col-reverse",
+        scrollPrev: "top-1/2 left-1 -translate-y-1/2",
+        scrollNext: "top-1/2 right-1 -translate-y-1/2",
       },
     },
   },
