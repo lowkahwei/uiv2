@@ -519,8 +519,9 @@ describe("Table", () => {
 
     expect(cell).toHaveClass(
       "before:bg-primary/20",
-      "group-aria-[selected=false]/tr:group-data-[hovered]/tr:before:bg-default-100",
-      "group-aria-[selected=false]/tr:group-data-[hovered]/tr:before:opacity-70",
+      "group-aria-[selected=true]/tr:before:!bg-primary/20",
+      "group-aria-[selected=false]/tr:group-data-[hovered]/tr:before:!bg-default-100",
+      "group-aria-[selected=false]/tr:group-data-[hovered]/tr:before:!opacity-70",
     );
     expect(
       cell.className
@@ -528,6 +529,35 @@ describe("Table", () => {
         .filter((className) => /hovered|selected/.test(className))
         .every((className) => !className.includes("text-")),
     ).toBe(true);
+  });
+
+  it("lets selected row backgrounds override stripes", () => {
+    const wrapper = render(
+      <Table isStriped color="primary">
+        <Table.Content
+          aria-label="Selected striped users"
+          defaultSelectedKeys={["2"]}
+          selectionMode="single"
+        >
+          <Table.Header>
+            <Table.Column isRowHeader>Name</Table.Column>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row id="1">
+              <Table.Cell>Kate</Table.Cell>
+            </Table.Row>
+            <Table.Row id="2">
+              <Table.Cell>John</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table.Content>
+      </Table>,
+    );
+
+    expect(wrapper.getByRole("rowheader", {name: "John"})).toHaveClass(
+      "group-aria-[selected=true]/tr:before:!bg-primary/20",
+      "group-aria-[selected=false]/tr:group-data-[hovered]/tr:before:!bg-default-100",
+    );
   });
 
   it("delegates sorting to React Aria Components", async () => {

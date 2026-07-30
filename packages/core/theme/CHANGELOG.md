@@ -1,5 +1,11 @@
 # @sytechui/theme
 
+## 2.6.4
+
+### Patch Changes
+
+- Prevent Safari from hiding custom tab titles inside overflowing tab lists.
+
 ## 2.6.3
 
 ### Patch Changes

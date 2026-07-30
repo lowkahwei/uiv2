@@ -570,7 +570,10 @@ describe("Tabs", () => {
     );
     const tablist = wrapper.getByRole("tablist");
     const scroller = tablist.parentElement!;
+    const cursor = tablist.querySelector("[data-slot='cursor']");
     const scrollBy = jest.fn();
+
+    expect(cursor).toHaveClass("will-change-auto");
 
     Object.defineProperties(scroller, {
       clientWidth: {configurable: true, value: 100},

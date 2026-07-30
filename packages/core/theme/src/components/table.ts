@@ -182,22 +182,22 @@ const table = tv({
   variants: {
     color: {
       default: {
-        td: "before:bg-default-300",
+        td: ["before:bg-default-300", "group-aria-[selected=true]/tr:before:!bg-default-300"],
       },
       primary: {
-        td: "before:bg-primary/20",
+        td: ["before:bg-primary/20", "group-aria-[selected=true]/tr:before:!bg-primary/20"],
       },
       secondary: {
-        td: "before:bg-secondary/20",
+        td: ["before:bg-secondary/20", "group-aria-[selected=true]/tr:before:!bg-secondary/20"],
       },
       success: {
-        td: "before:bg-success/20",
+        td: ["before:bg-success/20", "group-aria-[selected=true]/tr:before:!bg-success/20"],
       },
       warning: {
-        td: "before:bg-warning/20",
+        td: ["before:bg-warning/20", "group-aria-[selected=true]/tr:before:!bg-warning/20"],
       },
       danger: {
-        td: "before:bg-danger/20",
+        td: ["before:bg-danger/20", "group-aria-[selected=true]/tr:before:!bg-danger/20"],
       },
     },
     layout: {
@@ -282,8 +282,8 @@ const table = tv({
       true: {
         tr: "cursor-default",
         td: [
-          "group-aria-[selected=false]/tr:group-data-[hovered]/tr:before:bg-default-100",
-          "group-aria-[selected=false]/tr:group-data-[hovered]/tr:before:opacity-70",
+          "group-aria-[selected=false]/tr:group-data-[hovered]/tr:before:!bg-default-100",
+          "group-aria-[selected=false]/tr:group-data-[hovered]/tr:before:!opacity-70",
         ],
       },
     },
@@ -399,48 +399,6 @@ const table = tv({
       isGlass: true,
       class: {
         tfoot: "bg-default-100/80 backdrop-blur-sm",
-      },
-    },
-    {
-      isStriped: true,
-      color: "default",
-      class: {
-        td: "group-even/tr:data-[selected=true]:before:bg-default/60",
-      },
-    },
-    {
-      isStriped: true,
-      color: "primary",
-      class: {
-        td: "group-even/tr:data-[selected=true]:before:bg-primary/20",
-      },
-    },
-    {
-      isStriped: true,
-      color: "secondary",
-      class: {
-        td: "group-even/tr:data-[selected=true]:before:bg-secondary/20",
-      },
-    },
-    {
-      isStriped: true,
-      color: "success",
-      class: {
-        td: "group-even/tr:data-[selected=true]:before:bg-success/20",
-      },
-    },
-    {
-      isStriped: true,
-      color: "warning",
-      class: {
-        td: "group-even/tr:data-[selected=true]:before:bg-warning/20",
-      },
-    },
-    {
-      isStriped: true,
-      color: "danger",
-      class: {
-        td: "group-even/tr:data-[selected=true]:before:bg-danger/20",
       },
     },
   ],

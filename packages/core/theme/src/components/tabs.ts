@@ -108,7 +108,8 @@ const tabs = tv({
       "absolute",
       "z-0",
       "bg-white",
-      "will-change-[transform,width,height]",
+      // WebKit can drop nested tab title content when a composited cursor is inside ScrollShadow.
+      "will-change-auto",
       "invisible",
       "data-[initialized=true]:visible",
       "data-[animated=true]:transition-[left,top,width,height]",
