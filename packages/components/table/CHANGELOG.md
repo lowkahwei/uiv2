@@ -1,5 +1,11 @@
 # @sytechui/table
 
+## 2.2.39
+
+### Patch Changes
+
+- fix shadow and truncate
+
 ## 2.2.38
 
 ### Patch Changes

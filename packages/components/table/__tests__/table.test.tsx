@@ -121,8 +121,11 @@ describe("Table", () => {
       </Table>,
     );
 
-    expect(wrapper.getByRole("rowheader")).toHaveClass("truncate");
+    expect(wrapper.getByRole("rowheader")).toHaveClass("whitespace-normal", "break-words");
+    expect(wrapper.getByRole("rowheader")).not.toHaveClass("truncate");
+    expect(wrapper.getByText("Kate")).toHaveClass("truncate");
     expect(wrapper.getByRole("gridcell")).toHaveClass("whitespace-normal", "break-words");
+    expect(wrapper.getByText("Chief executive officer")).not.toHaveClass("truncate");
   });
 
   it("isBordered draws horizontal inner row lines on cells only", () => {
@@ -590,9 +593,15 @@ describe("Table", () => {
       expect(scrollContainer).toContainElement(wrapper.getByRole("grid"));
     });
 
-    it("removeWrapper skips the scroll container entirely", () => {
+    it("removeWrapper keeps the functional scroll container without decoration", () => {
       const wrapper = render(
-        <Table removeWrapper>
+        <Table
+          removeWrapper
+          classNames={{
+            scrollContainer: "custom-scroll-container",
+            wrapper: "custom-wrapper",
+          }}
+        >
           <Table.Content aria-label="Users">
             <Table.Header>
               <Table.Column isRowHeader>Name</Table.Column>
@@ -606,9 +615,22 @@ describe("Table", () => {
         </Table>,
       );
 
-      expect(wrapper.container.querySelector("[data-table-scroll-container]")).toBeNull();
+      const scrollContainer = wrapper.container.querySelector("[data-table-scroll-container]");
+
+      expect(scrollContainer).toHaveClass(
+        "custom-scroll-container",
+        "scrollbar",
+        "overflow-x-auto",
+      );
+      expect(scrollContainer).not.toHaveClass(
+        "custom-wrapper",
+        "p-4",
+        "bg-content1",
+        "shadow-small",
+      );
       expect(wrapper.container.firstChild).toHaveClass("flex", "flex-col");
-      expect(wrapper.getByRole("grid").parentElement).toBe(wrapper.container.firstChild);
+      expect(wrapper.getByRole("grid").parentElement).toBe(scrollContainer);
+      expect(wrapper.container.querySelectorAll("[data-table-scroll-container]")).toHaveLength(1);
     });
 
     it("isResizable auto-wraps in a split wrapper/resizable-container structure", () => {

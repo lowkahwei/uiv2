@@ -250,6 +250,42 @@ describe("Root isVirtualized", () => {
 });
 
 describe("Root native geometry mode", () => {
+  it("measures the retained scroll viewport when removeWrapper is enabled", () => {
+    const clientWidth = jest
+      .spyOn(HTMLElement.prototype, "clientWidth", "get")
+      .mockImplementation(function (this: HTMLElement) {
+        return this.hasAttribute("data-table-scroll-container") ? 240 : 600;
+      });
+    const wrapper = render(
+      <Table
+        removeWrapper
+        columns={[
+          {id: "name", flex: 1},
+          {id: "role", flex: 1},
+        ]}
+      >
+        <Table.Content aria-label="Wrapperless geometry table">
+          <Table.Header>
+            <Table.Column id="name">Name</Table.Column>
+            <Table.Column id="role">Role</Table.Column>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>Ada</Table.Cell>
+              <Table.Cell>Engineer</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table.Content>
+      </Table>,
+    );
+
+    expect(wrapper.container.querySelectorAll("[data-table-scroll-container]")).toHaveLength(1);
+    expect(wrapper.getAllByRole("columnheader")[0]).toHaveStyle({width: "120px"});
+    expect(wrapper.getAllByRole("columnheader")[1]).toHaveStyle({width: "120px"});
+
+    clientWidth.mockRestore();
+  });
+
   it("applies the same widths to the native table and footer", () => {
     const clientWidth = jest
       .spyOn(HTMLElement.prototype, "clientWidth", "get")
@@ -405,6 +441,7 @@ describe("Root native geometry mode", () => {
     const warn = jest.spyOn(console, "warn").mockImplementation();
     const wrapper = render(
       <Table
+        removeWrapper
         columns={[
           {id: "first", pinned: "start", width: 100},
           {id: "second", width: 100},
@@ -435,6 +472,8 @@ describe("Root native geometry mode", () => {
       "[data-table-scroll-container]",
     );
 
+    expect(scrollContainer).not.toBeNull();
+    expect(wrapper.container.querySelectorAll("[data-table-scroll-container]")).toHaveLength(1);
     // At rest (no scroll), the start stack hasn't crossed its sticky threshold yet, so no
     // shadow shows — only the end stack, already up against the viewport edge, does.
     expect(geometryContainer).not.toHaveAttribute("data-table-start-shadow");
@@ -487,6 +526,68 @@ describe("Root native geometry mode", () => {
     await waitFor(() => {
       expect(geometryContainer).not.toHaveAttribute("data-table-end-shadow");
     });
+
+    clientWidth.mockRestore();
+    warn.mockRestore();
+  });
+
+  it("keeps pinned shadows outside truncated striped body cells", () => {
+    const clientWidth = jest
+      .spyOn(HTMLElement.prototype, "clientWidth", "get")
+      .mockReturnValue(200);
+    const warn = jest.spyOn(console, "warn").mockImplementation();
+    const wrapper = render(
+      <Table
+        isStriped
+        columns={[
+          {id: "name", pinned: "start", width: 100},
+          {id: "role", width: 160},
+          {id: "actions", pinned: "end", width: 140},
+        ]}
+        overflowMode="truncate"
+      >
+        <Table.Content aria-label="Truncated pinned columns table">
+          <Table.Header>
+            <Table.Column id="name">Name</Table.Column>
+            <Table.Column id="role">Role</Table.Column>
+            <Table.Column id="actions">Actions</Table.Column>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>Very long member name</Table.Cell>
+              <Table.Cell>Engineering</Table.Cell>
+              <Table.Cell>
+                <div data-testid="action-buttons">
+                  <button type="button">Edit</button>
+                  <button type="button">Delete</button>
+                </div>
+              </Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table.Content>
+      </Table>,
+    );
+    const cells = wrapper.getAllByRole("gridcell");
+    const contentWrappers = wrapper.container.querySelectorAll("[data-table-cell-content]");
+    const geometryStyle =
+      wrapper.container.querySelector("[data-table-geometry] style")?.textContent ?? "";
+
+    expect(cells).toHaveLength(3);
+    expect(contentWrappers).toHaveLength(3);
+    for (const cell of cells) {
+      expect(cell).toHaveClass("whitespace-normal", "break-words");
+      expect(cell).not.toHaveClass("truncate");
+    }
+    for (const content of contentWrappers) {
+      expect(content).toHaveClass("truncate");
+    }
+    expect(wrapper.getByTestId("action-buttons").closest("td")).toBe(cells[2]);
+    expect(cells[0]).toHaveClass("group-even/tr:before:bg-default-100/50");
+    expect(geometryStyle).toContain("thead > tr > th:nth-child(1)::after, [data-table-geometry");
+    expect(geometryStyle).toContain("tbody > tr > td:nth-child(1)::after");
+    expect(geometryStyle).toContain("tbody > tr > td:nth-child(3)::after");
+    expect(geometryStyle).toContain(":dir(rtl)::after");
+    expect(geometryStyle).toContain("background-color: var(--table-pinned-bg)");
 
     clientWidth.mockRestore();
     warn.mockRestore();

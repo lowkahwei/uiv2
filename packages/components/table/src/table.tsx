@@ -178,16 +178,15 @@ export const TableRoot = forwardRef<HTMLDivElement, TableRootProps>(function Tab
 
   let content: ReactNode = isResizable ? (
     <TableResizableContainer
+      removeWrapper={removeWrapper}
       onResize={onResize}
       onResizeEnd={onResizeEnd}
       onResizeStart={onResizeStart}
     >
       {children}
     </TableResizableContainer>
-  ) : removeWrapper ? (
-    children
   ) : (
-    <TableScrollContainer>{children}</TableScrollContainer>
+    <TableScrollContainer removeWrapper={removeWrapper}>{children}</TableScrollContainer>
   );
 
   if (columns?.length) {
@@ -220,21 +219,26 @@ TableRoot.displayName = "SytechUI.Table";
 /* -------------------------------------------------------------------------------------------------
  * Table Scroll Container
  * -----------------------------------------------------------------------------------------------*/
-interface TableScrollContainerProps extends ComponentPropsWithRef<"div"> {}
+interface TableScrollContainerProps extends ComponentPropsWithRef<"div"> {
+  removeWrapper?: boolean;
+}
 
 const TableScrollContainer = forwardRef<HTMLDivElement, TableScrollContainerProps>(
-  function TableScrollContainer({className, ...props}, ref) {
+  function TableScrollContainer({className, removeWrapper, ...props}, ref) {
     const {classNames, slots} = useContext(TableContext);
+    const scrollContainer = (
+      <div
+        ref={ref}
+        className={slots?.scrollContainer({class: cn(classNames?.scrollContainer, className)})}
+        data-table-scroll-container=""
+        {...props}
+      />
+    );
 
-    return (
-      <div className={slots?.wrapper({class: classNames?.wrapper})}>
-        <div
-          ref={ref}
-          className={slots?.scrollContainer({class: cn(classNames?.scrollContainer, className)})}
-          data-table-scroll-container=""
-          {...props}
-        />
-      </div>
+    return removeWrapper ? (
+      scrollContainer
+    ) : (
+      <div className={slots?.wrapper({class: classNames?.wrapper})}>{scrollContainer}</div>
     );
   },
 );
@@ -456,18 +460,33 @@ export interface TableCellProps extends ComponentPropsWithRef<typeof CellPrimiti
 }
 
 export const TableCell = forwardRef<HTMLDivElement | HTMLTableCellElement, TableCellProps>(
-  function TableCell({align, className, overflowMode, ...props}, ref) {
-    const {classNames, slots} = useContext(TableContext);
+  function TableCell({align, children, className, overflowMode, ...props}, ref) {
+    const {classNames, slots, variants} = useContext(TableContext);
+    const resolvedOverflowMode = overflowMode ?? variants?.overflowMode ?? "wrap";
+    const resolvedChildren =
+      resolvedOverflowMode === "truncate"
+        ? composeRenderProps(children, (children) => (
+            <div className="min-w-0 max-w-full truncate" data-table-cell-content="">
+              {children}
+            </div>
+          ))
+        : children;
 
     return (
       <CellPrimitive
         ref={ref}
         className={composeClassName(
-          slots?.td({align, class: classNames?.td, overflowMode}),
+          slots?.td({
+            align,
+            class: classNames?.td,
+            overflowMode: resolvedOverflowMode === "truncate" ? "wrap" : resolvedOverflowMode,
+          }),
           className,
         )}
         {...props}
-      />
+      >
+        {resolvedChildren}
+      </CellPrimitive>
     );
   },
 );
@@ -582,10 +601,12 @@ TableFooter.displayName = "SytechUI.Table.Footer";
  * -----------------------------------------------------------------------------------------------*/
 interface TableResizableContainerProps extends ComponentPropsWithRef<
   typeof ResizableTableContainerPrimitive
-> {}
+> {
+  removeWrapper?: boolean;
+}
 
 const TableResizableContainer = forwardRef<HTMLDivElement, TableResizableContainerProps>(
-  function TableResizableContainer({children, className, onResize, ...props}, ref) {
+  function TableResizableContainer({children, className, onResize, removeWrapper, ...props}, ref) {
     const {classNames, slots} = useContext(TableContext);
     const geometryContext = useContext(TableColumnGeometryContext);
     const handleResize = useCallback<NonNullable<TableResizableContainerProps["onResize"]>>(
@@ -601,22 +622,27 @@ const TableResizableContainer = forwardRef<HTMLDivElement, TableResizableContain
       },
       [geometryContext, onResize],
     );
+    const resizableContainer = (
+      <ResizableTableContainerPrimitive
+        ref={ref}
+        className={slots?.resizableContainer({
+          class: cn(classNames?.resizableContainer, className),
+        })}
+        data-table-scroll-container=""
+        onResize={handleResize}
+        {...props}
+      >
+        {children}
+      </ResizableTableContainerPrimitive>
+    );
 
     return (
       <TableResizableContext.Provider value>
-        <div className={slots?.wrapper({class: classNames?.wrapper})}>
-          <ResizableTableContainerPrimitive
-            ref={ref}
-            className={slots?.resizableContainer({
-              class: cn(classNames?.resizableContainer, className),
-            })}
-            data-table-scroll-container=""
-            onResize={handleResize}
-            {...props}
-          >
-            {children}
-          </ResizableTableContainerPrimitive>
-        </div>
+        {removeWrapper ? (
+          resizableContainer
+        ) : (
+          <div className={slots?.wrapper({class: classNames?.wrapper})}>{resizableContainer}</div>
+        )}
       </TableResizableContext.Provider>
     );
   },

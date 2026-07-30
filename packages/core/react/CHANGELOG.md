@@ -1,5 +1,12 @@
 # @sytechui/react
 
+## 2.10.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/table@2.2.39
+
 ## 2.10.2
 
 ### Patch Changes

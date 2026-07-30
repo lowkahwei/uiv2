@@ -3,6 +3,7 @@
 //registry.npmjs.org/:_authToken=你的_GRANULAR_TOKEN
 ```
 
+pnpm --filter @sytechui/table build
 ## 核心概念
 
 发布分为三个阶段：

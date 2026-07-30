@@ -88,11 +88,11 @@ const pinnedColumns = [
   {id: "role", width: 260},
   {id: "status", pinned: "start" as const, width: 160},
   {id: "team", width: 220},
-  {id: "email", pinned: "end" as const, width: 260},
+  {id: "email", width: 260},
   {id: "phone", width: 180},
   {id: "location", width: 180},
   {id: "department", width: 180},
-  {id: "actions", width: 120},
+  {id: "actions", pinned: "end" as const, width: 160},
 ];
 
 const paginatedRows = Array.from({length: 25}, (_, index) => ({
@@ -814,7 +814,16 @@ function PinnedColumnsTemplate({args}: {args: TableProps}) {
               <Table.Cell>+1 (555) 010-0000</Table.Cell>
               <Table.Cell>Kuala Lumpur</Table.Cell>
               <Table.Cell>Engineering</Table.Cell>
-              <Table.Cell>Edit</Table.Cell>
+              <Table.Cell>
+                <div className="flex gap-1">
+                  <Button size="sm" variant="flat">
+                    Edit
+                  </Button>
+                  <Button color="danger" size="sm" variant="light">
+                    Delete
+                  </Button>
+                </div>
+              </Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
@@ -1039,13 +1048,38 @@ export const PinnedColumns: Story = {
   },
 };
 
+export const PinnedColumnsTruncate: Story = {
+  render: (args) => <PinnedColumnsTemplate args={args} />,
+  args: {
+    ...defaultProps,
+    className: "max-w-4xl",
+    isStriped: true,
+    overflowMode: "truncate",
+  },
+};
+
+export const PinnedColumnsRemoveWrapper: Story = {
+  render: (args) => <PinnedColumnsTemplate args={args} />,
+  args: {...defaultProps, className: "max-w-4xl", removeWrapper: true},
+};
+
+export const PinnedColumnsRemoveWrapperTruncate: Story = {
+  render: (args) => <PinnedColumnsTemplate args={args} />,
+  args: {
+    ...defaultProps,
+    className: "max-w-4xl",
+    overflowMode: "truncate",
+    removeWrapper: true,
+  },
+};
+
 export const PinnedColumnsRtlBrowser: Story = {
   render: (args) => (
     <div dir="rtl">
       <PinnedColumnsTemplate args={args} />
     </div>
   ),
-  args: {...defaultProps, className: "max-w-4xl"},
+  args: {...defaultProps, className: "max-w-4xl", overflowMode: "truncate", removeWrapper: true},
   tags: ["table-browser"],
   play: async ({canvasElement}) => {
     const canvas = within(canvasElement);
