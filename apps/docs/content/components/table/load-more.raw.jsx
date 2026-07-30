@@ -11,6 +11,13 @@ import {
 } from "@sytechui/react";
 import {useAsyncList} from "@react-stately/data";
 
+const columns = [
+  {id: "name", label: "Name"},
+  {id: "height", label: "Height"},
+  {id: "mass", label: "Mass"},
+  {id: "birth_year", label: "Birth year"},
+];
+
 export default function App() {
   const [page, setPage] = React.useState(1);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -41,40 +48,42 @@ export default function App() {
 
   return (
     <Table
-      isHeaderSticky
-      aria-label="Example table with client side sorting"
-      bottomContent={
-        hasMore && !isLoading ? (
+      isSticky
+      classNames={{
+        base: "max-h-[520px] overflow-scroll",
+        table: "min-h-[420px]",
+      }}
+    >
+      <Table.Content aria-label="Example table with client side sorting">
+        <TableHeader>
+          <TableColumn isRowHeader id="name">
+            Name
+          </TableColumn>
+          <TableColumn id="height">Height</TableColumn>
+          <TableColumn id="mass">Mass</TableColumn>
+          <TableColumn id="birth_year">Birth year</TableColumn>
+        </TableHeader>
+        <TableBody
+          items={list.items}
+          renderEmptyState={() => (isLoading ? <Spinner label="Loading..." /> : null)}
+        >
+          {(item) => (
+            <TableRow columns={columns} id={item.name}>
+              {(column) => <TableCell>{getKeyValue(item, column.id)}</TableCell>}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table.Content>
+      <Table.Footer>
+        {hasMore && !isLoading ? (
           <div className="flex w-full justify-center">
             <Button isDisabled={list.isLoading} variant="flat" onPress={list.loadMore}>
               {list.isLoading && <Spinner color="white" size="sm" />}
               Load More
             </Button>
           </div>
-        ) : null
-      }
-      classNames={{
-        base: "max-h-[520px] overflow-scroll",
-        table: "min-h-[420px]",
-      }}
-    >
-      <TableHeader>
-        <TableColumn key="name">Name</TableColumn>
-        <TableColumn key="height">Height</TableColumn>
-        <TableColumn key="mass">Mass</TableColumn>
-        <TableColumn key="birth_year">Birth year</TableColumn>
-      </TableHeader>
-      <TableBody
-        isLoading={isLoading}
-        items={list.items}
-        loadingContent={<Spinner label="Loading..." />}
-      >
-        {(item) => (
-          <TableRow key={item.name}>
-            {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
-          </TableRow>
-        )}
-      </TableBody>
+        ) : null}
+      </Table.Footer>
     </Table>
   );
 }

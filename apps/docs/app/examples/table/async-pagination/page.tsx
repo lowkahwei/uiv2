@@ -21,6 +21,12 @@ type SWCharacter = {
   birth_year: string;
 };
 
+const columns = [
+  {id: "name", label: "Name"},
+  {id: "height", label: "Height"},
+  {id: "mass", label: "Mass"},
+  {id: "birth_year", label: "Birth year"},
+] as const;
 const fetcher = (...args: Parameters<typeof fetch>) => fetch(...args).then((res) => res.json());
 
 export default function Page() {
@@ -42,9 +48,32 @@ export default function Page() {
   return (
     <div className="p-6">
       <Table
-        aria-label="Example table with client async pagination"
-        bottomContent={
-          pages > 0 ? (
+        classNames={{
+          table: "min-h-[400px]",
+        }}
+      >
+        <Table.Content aria-label="Example table with client async pagination">
+          <TableHeader>
+            <TableColumn isRowHeader id="name">
+              Name
+            </TableColumn>
+            <TableColumn id="height">Height</TableColumn>
+            <TableColumn id="mass">Mass</TableColumn>
+            <TableColumn id="birth_year">Birth year</TableColumn>
+          </TableHeader>
+          <TableBody
+            items={data?.results ?? []}
+            renderEmptyState={() => (isLoading || data?.results.length === 0 ? <Spinner /> : null)}
+          >
+            {(item) => (
+              <TableRow columns={columns} id={item.name}>
+                {(column) => <TableCell>{getKeyValue(item, column.id)}</TableCell>}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table.Content>
+        <Table.Footer>
+          {pages > 0 ? (
             <div className="flex w-full justify-center">
               <Pagination
                 isCompact
@@ -56,29 +85,8 @@ export default function Page() {
                 onChange={(page) => setPage(page)}
               />
             </div>
-          ) : null
-        }
-        classNames={{
-          table: "min-h-[400px]",
-        }}
-      >
-        <TableHeader>
-          <TableColumn key="name">Name</TableColumn>
-          <TableColumn key="height">Height</TableColumn>
-          <TableColumn key="mass">Mass</TableColumn>
-          <TableColumn key="birth_year">Birth year</TableColumn>
-        </TableHeader>
-        <TableBody
-          isLoading={isLoading || data?.results.length === 0}
-          items={data?.results ?? []}
-          loadingContent={<Spinner />}
-        >
-          {(item) => (
-            <TableRow key={item.name}>
-              {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
-            </TableRow>
-          )}
-        </TableBody>
+          ) : null}
+        </Table.Footer>
       </Table>
     </div>
   );

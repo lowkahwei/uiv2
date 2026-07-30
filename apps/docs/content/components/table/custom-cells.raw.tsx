@@ -260,21 +260,27 @@ export default function App() {
   }, []);
 
   return (
-    <Table aria-label="Example table with custom cells">
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody items={users}>
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-          </TableRow>
-        )}
-      </TableBody>
+    <Table>
+      <Table.Content aria-label="Example table with custom cells">
+        <TableHeader columns={columns}>
+          {(column) => (
+            <TableColumn
+              align={column.uid === "actions" ? "center" : "start"}
+              id={column.uid}
+              isRowHeader={column.uid === "name"}
+            >
+              {column.name}
+            </TableColumn>
+          )}
+        </TableHeader>
+        <TableBody items={users}>
+          {(item) => (
+            <TableRow columns={columns} id={item.id}>
+              {(column) => <TableCell>{renderCell(item, column.uid)}</TableCell>}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table.Content>
     </Table>
   );
 }

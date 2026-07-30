@@ -9,7 +9,6 @@ import {
   Spinner,
   getKeyValue,
 } from "@sytechui/react";
-import {useInfiniteScroll} from "@sytechui/use-infinite-scroll";
 import {useAsyncList} from "@react-stately/data";
 
 interface SWCharacter {
@@ -19,16 +18,18 @@ interface SWCharacter {
   birth_year: string;
 }
 
+const columns = [
+  {id: "name", label: "Name"},
+  {id: "height", label: "Height"},
+  {id: "mass", label: "Mass"},
+  {id: "birth_year", label: "Birth year"},
+] as const;
+
 export default function App() {
-  const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [hasMore, setHasMore] = React.useState<boolean>(false);
 
   let list = useAsyncList<SWCharacter>({
     async load({signal, cursor}) {
-      if (cursor) {
-        setIsLoading(false);
-      }
-
       // If no cursor is available, then we're loading the first page.
       // Otherwise, the cursor is the next URL to load, as returned from the previous page.
       const res = await fetch(cursor || "https://swapi.py4e.com/api/people/?search=", {signal});
@@ -43,45 +44,44 @@ export default function App() {
     },
   });
 
-  const [loaderRef, scrollerRef] = useInfiniteScroll({
-    hasMore,
-    onLoadMore: list.loadMore,
-  });
-
   return (
     <Table
-      isHeaderSticky
-      aria-label="Example table with infinite pagination"
-      baseRef={scrollerRef}
-      bottomContent={
-        hasMore ? (
-          <div className="flex w-full justify-center">
-            <Spinner ref={loaderRef} color="white" />
-          </div>
-        ) : null
-      }
+      isSticky
       classNames={{
-        base: "max-h-[520px] overflow-scroll",
+        scrollContainer: "max-h-[520px]",
         table: "min-h-[400px]",
       }}
     >
-      <TableHeader>
-        <TableColumn key="name">Name</TableColumn>
-        <TableColumn key="height">Height</TableColumn>
-        <TableColumn key="mass">Mass</TableColumn>
-        <TableColumn key="birth_year">Birth year</TableColumn>
-      </TableHeader>
-      <TableBody
-        isLoading={isLoading}
-        items={list.items}
-        loadingContent={<Spinner color="white" />}
-      >
-        {(item: SWCharacter) => (
-          <TableRow key={item.name}>
-            {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
-          </TableRow>
-        )}
-      </TableBody>
+      <Table.Content aria-label="Example table with infinite pagination">
+        <TableHeader>
+          <TableColumn isRowHeader id="name">
+            Name
+          </TableColumn>
+          <TableColumn id="height">Height</TableColumn>
+          <TableColumn id="mass">Mass</TableColumn>
+          <TableColumn id="birth_year">Birth year</TableColumn>
+        </TableHeader>
+        <TableBody
+          renderEmptyState={() =>
+            list.loadingState === "loading" ? <Spinner color="white" /> : null
+          }
+        >
+          <Table.Collection items={list.items}>
+            {(item: SWCharacter) => (
+              <TableRow columns={columns} id={item.name}>
+                {(column) => <TableCell>{getKeyValue(item, column.id)}</TableCell>}
+              </TableRow>
+            )}
+          </Table.Collection>
+          {hasMore ? (
+            <Table.LoadMore isLoading={list.isLoading} onLoadMore={list.loadMore}>
+              <Table.LoadMoreContent>
+                <Spinner color="white" />
+              </Table.LoadMoreContent>
+            </Table.LoadMore>
+          ) : null}
+        </TableBody>
+      </Table.Content>
     </Table>
   );
 }

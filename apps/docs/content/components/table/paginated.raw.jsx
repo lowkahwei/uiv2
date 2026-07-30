@@ -9,6 +9,12 @@ import {
   getKeyValue,
 } from "@sytechui/react";
 
+const columns = [
+  {id: "name", label: "NAME"},
+  {id: "role", label: "ROLE"},
+  {id: "status", label: "STATUS"},
+];
+
 export const users = [
   {
     key: "1",
@@ -177,36 +183,41 @@ export default function App() {
 
   return (
     <Table
-      aria-label="Example table with client side pagination"
-      bottomContent={
-        <div className="flex w-full justify-center">
-          <Pagination
-            isCompact
-            showControls
-            showShadow
-            color="secondary"
-            page={page}
-            total={pages}
-            onChange={(page) => setPage(page)}
-          />
-        </div>
-      }
       classNames={{
         wrapper: "min-h-[222px]",
       }}
     >
-      <TableHeader>
-        <TableColumn key="name">NAME</TableColumn>
-        <TableColumn key="role">ROLE</TableColumn>
-        <TableColumn key="status">STATUS</TableColumn>
-      </TableHeader>
-      <TableBody items={items}>
-        {(item) => (
-          <TableRow key={item.name}>
-            {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
-          </TableRow>
-        )}
-      </TableBody>
+      <Table.Content aria-label="Example table with client side pagination">
+        <TableHeader>
+          <TableColumn isRowHeader id="name">
+            NAME
+          </TableColumn>
+          <TableColumn id="role">ROLE</TableColumn>
+          <TableColumn id="status">STATUS</TableColumn>
+        </TableHeader>
+        <TableBody items={items}>
+          {(item) => (
+            <TableRow columns={columns} id={item.name}>
+              {(column) => <TableCell>{getKeyValue(item, column.id)}</TableCell>}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table.Content>
+      <Table.Footer>
+        {
+          <div className="flex w-full justify-center">
+            <Pagination
+              isCompact
+              showControls
+              showShadow
+              color="secondary"
+              page={page}
+              total={pages}
+              onChange={(page) => setPage(page)}
+            />
+          </div>
+        }
+      </Table.Footer>
     </Table>
   );
 }

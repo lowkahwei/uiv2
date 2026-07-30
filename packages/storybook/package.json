@@ -26,9 +26,11 @@
     "url": "https://github.com/heroui-inc/heroui/issues"
   },
   "scripts": {
+    "predev": "pnpm --filter @sytechui/theme build:fast",
     "dev": "pnpm storybook dev -p 6006",
     "build": "pnpm storybook build",
-    "start": "pnpm dlx http-server storybook-static"
+    "start": "pnpm dlx http-server storybook-static",
+    "test:browser": "test-storybook --includeTags=table-browser --browsers chromium webkit"
   },
   "dependencies": {
     "@sytechui/system": "workspace:*",
@@ -46,15 +48,17 @@
     "@storybook/preview-api": "^8.5.0",
     "@storybook/react": "^8.5.0",
     "@storybook/react-vite": "^8.5.0",
+    "@storybook/test-runner": "0.23.0",
     "@storybook/theming": "^8.5.0",
+    "@tailwindcss/postcss": "4.1.11",
+    "@tailwindcss/vite": "4.1.11",
     "@vitejs/plugin-react": "^4.3.3",
+    "playwright": "1.62.0",
     "remark-gfm": "^4.0.0",
     "storybook": "^8.5.0",
     "storybook-dark-mode": "^4.0.2",
     "tailwindcss": "4.1.11",
-    "vite": "^5.4.11",
-    "@tailwindcss/postcss": "4.1.11",
-    "@tailwindcss/vite": "4.1.11"
+    "vite": "^5.4.11"
   },
   "tsup": {
     "clean": true,

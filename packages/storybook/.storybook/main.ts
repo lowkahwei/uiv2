@@ -6,7 +6,8 @@ const config: StorybookConfig = {
   stories: [
     "./welcome.mdx",
     // "../../components/**/stories/**/*.stories.@(js|jsx|ts|tsx)",
-    "../../components/tabs/stories/**/*.stories.@(js|jsx|ts|tsx)",
+    "../../components/table/stories/**/*.stories.@(js|jsx|ts|tsx)",
+    "../../components/checkbox/stories/**/*.stories.@(js|jsx|ts|tsx)",
     // "../../core/theme/stories/*.stories.@(js|jsx|ts|tsx)",
   ],
 

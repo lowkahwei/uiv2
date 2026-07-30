@@ -57,22 +57,28 @@ export default function App() {
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(new Set(["2"]));
 
   return (
-    <Table
-      aria-label="Controlled table example with dynamic content"
-      selectedKeys={selectedKeys}
-      selectionMode="multiple"
-      onSelectionChange={setSelectedKeys}
-    >
-      <TableHeader columns={columns}>
-        {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
-      </TableHeader>
-      <TableBody items={rows}>
-        {(item) => (
-          <TableRow key={item.key}>
-            {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
-          </TableRow>
-        )}
-      </TableBody>
+    <Table>
+      <Table.Content
+        aria-label="Controlled table example with dynamic content"
+        selectedKeys={selectedKeys}
+        selectionMode="multiple"
+        onSelectionChange={setSelectedKeys}
+      >
+        <TableHeader columns={columns}>
+          {(column) => (
+            <TableColumn id={column.key} isRowHeader={column.key === "name"}>
+              {column.label}
+            </TableColumn>
+          )}
+        </TableHeader>
+        <TableBody items={rows}>
+          {(item) => (
+            <TableRow columns={columns} id={item.key}>
+              {(column) => <TableCell>{getKeyValue(item, column.key)}</TableCell>}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table.Content>
     </Table>
   );
 }

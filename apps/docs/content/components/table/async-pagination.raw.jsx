@@ -11,6 +11,12 @@ import {
 } from "@sytechui/react";
 import useSWR from "swr";
 
+const columns = [
+  {id: "name", label: "Name"},
+  {id: "height", label: "Height"},
+  {id: "mass", label: "Mass"},
+  {id: "birth_year", label: "Birth year"},
+];
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function App() {
@@ -29,10 +35,29 @@ export default function App() {
   const loadingState = isLoading || data?.results.length === 0 ? "loading" : "idle";
 
   return (
-    <Table
-      aria-label="Example table with client async pagination"
-      bottomContent={
-        pages > 0 ? (
+    <Table>
+      <Table.Content aria-label="Example table with client async pagination">
+        <TableHeader>
+          <TableColumn isRowHeader id="name">
+            Name
+          </TableColumn>
+          <TableColumn id="height">Height</TableColumn>
+          <TableColumn id="mass">Mass</TableColumn>
+          <TableColumn id="birth_year">Birth year</TableColumn>
+        </TableHeader>
+        <TableBody
+          items={data?.results ?? []}
+          renderEmptyState={() => (loadingState === "loading" ? <Spinner /> : null)}
+        >
+          {(item) => (
+            <TableRow columns={columns} id={item?.name}>
+              {(column) => <TableCell>{getKeyValue(item, column.id)}</TableCell>}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table.Content>
+      <Table.Footer>
+        {pages > 0 ? (
           <div className="flex w-full justify-center">
             <Pagination
               isCompact
@@ -44,26 +69,8 @@ export default function App() {
               onChange={(page) => setPage(page)}
             />
           </div>
-        ) : null
-      }
-    >
-      <TableHeader>
-        <TableColumn key="name">Name</TableColumn>
-        <TableColumn key="height">Height</TableColumn>
-        <TableColumn key="mass">Mass</TableColumn>
-        <TableColumn key="birth_year">Birth year</TableColumn>
-      </TableHeader>
-      <TableBody
-        items={data?.results ?? []}
-        loadingContent={<Spinner />}
-        loadingState={loadingState}
-      >
-        {(item) => (
-          <TableRow key={item?.name}>
-            {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
-          </TableRow>
-        )}
-      </TableBody>
+        ) : null}
+      </Table.Footer>
     </Table>
   );
 }

@@ -14,6 +14,7 @@ import {omit, kebabCase, mapKeys} from "@sytechui/shared-utils";
 import {semanticColors, commonColors} from "./colors";
 import {animations} from "./animations";
 import {utilities} from "./utilities";
+import {scrollbarModes} from "./utilities/scrollbar-hide";
 import {flattenThemeObject} from "./utils/object";
 import {isBaseTheme} from "./utils/theme";
 import {lightLayout, darkLayout, defaultLayout} from "./default-layout";
@@ -153,6 +154,7 @@ const corePlugin = (
         [":root, [data-theme]"]: {
           ...baseStyles(prefix),
         },
+        ...scrollbarModes,
       });
 
       // add the base styles to "@layer base"

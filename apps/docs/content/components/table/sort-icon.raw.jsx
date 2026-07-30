@@ -11,6 +11,13 @@ import {
 import {SortIcon} from "@sytechui/shared-icons";
 import {useAsyncList} from "@react-stately/data";
 
+const columns = [
+  {id: "name", label: "Name"},
+  {id: "height", label: "Height"},
+  {id: "mass", label: "Mass"},
+  {id: "birth_year", label: "Birth year"},
+];
+
 export default function App() {
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -46,39 +53,42 @@ export default function App() {
 
   return (
     <Table
-      aria-label="Example table with client side sorting"
       classNames={{
         table: "min-h-[400px]",
       }}
-      sortDescriptor={list.sortDescriptor}
-      sortIcon={SortIcon}
-      onSortChange={list.sort}
     >
-      <TableHeader>
-        <TableColumn key="name" allowsSorting>
-          Name
-        </TableColumn>
-        <TableColumn key="height" allowsSorting>
-          Height
-        </TableColumn>
-        <TableColumn key="mass" allowsSorting>
-          Mass
-        </TableColumn>
-        <TableColumn key="birth_year" allowsSorting>
-          Birth year
-        </TableColumn>
-      </TableHeader>
-      <TableBody
-        isLoading={isLoading}
-        items={list.items}
-        loadingContent={<Spinner label="Loading..." />}
+      <Table.Content
+        aria-label="Example table with client side sorting"
+        sortDescriptor={list.sortDescriptor}
+        onSortChange={list.sort}
       >
-        {(item) => (
-          <TableRow key={item.name}>
-            {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
-          </TableRow>
-        )}
-      </TableBody>
+        <TableHeader>
+          {columns.map((column) => (
+            <TableColumn
+              key={column.id}
+              allowsSorting
+              id={column.id}
+              isRowHeader={column.id === "name"}
+            >
+              {({sortDirection}) => (
+                <Table.SortableColumnHeader indicator={<SortIcon />} sortDirection={sortDirection}>
+                  {column.label}
+                </Table.SortableColumnHeader>
+              )}
+            </TableColumn>
+          ))}
+        </TableHeader>
+        <TableBody
+          items={list.items}
+          renderEmptyState={() => (isLoading ? <Spinner label="Loading..." /> : null)}
+        >
+          {(item) => (
+            <TableRow columns={columns} id={item.name}>
+              {(column) => <TableCell>{getKeyValue(item, column.id)}</TableCell>}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table.Content>
     </Table>
   );
 }

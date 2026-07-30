@@ -1,5 +1,33 @@
 # @sytechui/theme
 
+## 2.6.3
+
+### Patch Changes
+
+- Add an `isBordered` prop to `<Table>` that draws grid lines between body cells: every cell gets an
+  end and bottom border except the last column and the last row, so the table keeps its rounded outer
+  shape and the header is left untouched. Works for both native and virtualized tables.
+
+- Refactor Table to the HeroUI v3 compound API backed by React Aria Components while preserving the
+  SytechUI v2 table theme and variants. Preserve the existing Storybook examples, including selection
+  checkboxes and behaviors, async and infinite pagination, empty states, and virtualized tables. Add
+  HeroUI v3-style thin, theme-aware scrollbars with inherited thin, default, and hidden modes. Add a
+  shared column geometry model and connect virtualized tables, resizable columns, pinned columns, and
+  column-aligned footers to its resolved widths.
+
+  Drive virtualization, column resizing, and the scroll wrapper from `<Table>` props instead of a
+  fixed stack of wrapper components: `isVirtualized` + `layoutOptions` enable virtualized rendering
+  (with the header sticky/non-sticky layout chosen automatically from `isSticky`), `isResizable`
+  - `onResize`/`onResizeStart`/`onResizeEnd` enable column resizing, and `removeWrapper` drops the
+    default scroll container. `Table.ScrollContainer`, `Table.ResizableContainer`,
+    `Table.GeometryContainer`, and `Table.Virtualizer` are removed; `columns` alone is enough to turn on
+    managed column geometry (resizing and footer alignment for both virtualized and non-virtualized
+    tables). Pinned columns use logical `start` and `end` positions, keep their natural column order,
+    and show a boundary shadow only after reaching their sticky edge — pinning is native-table only;
+    `pinned` is silently ignored on a virtualized table's columns.
+
+- Add an `overflowMode` API to wrap or truncate long table cell content, with per-cell overrides.
+
 ## 2.6.2
 
 ### Major Changes

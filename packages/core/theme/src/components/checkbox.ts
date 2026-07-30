@@ -29,14 +29,15 @@ const checkbox = tv({
       "justify-center",
       "shrink-0",
       "overflow-hidden",
+      "shadow-small",
       // before
       "before:content-['']",
       "before:absolute",
       "before:inset-0",
+      "before:border-small",
       "before:border-solid",
-      "before:border-2",
-      "before:box-border",
-      "before:border-default",
+      "before:border-default-200",
+      "before:bg-white",
       // after
       "after:content-['']",
       "after:absolute",
@@ -46,8 +47,10 @@ const checkbox = tv({
       "after:origin-center",
       "group-data-[selected=true]:after:scale-100",
       "group-data-[selected=true]:after:opacity-100",
+      "group-data-[selected=true]:before:border-transparent",
       // hover
-      "group-data-[hover=true]:before:bg-default-100",
+      "group-data-[hover=true]:before:border-default-400",
+      "group-data-[selected=true]:group-data-[hover=true]:before:border-transparent",
       // focus ring
       ...groupDataFocusVisibleClasses,
     ],

@@ -51,14 +51,35 @@ const table = tv({
       "gap-4",
       "shadow-small",
       "bg-content1",
-      "overflow-auto",
     ],
+    scrollContainer: ["scrollbar", "overflow-x-auto"],
+    resizableContainer: ["relative", "scrollbar", "overflow-auto"],
     table: "min-w-full h-auto",
-    thead: "[&>tr]:first:rounded-lg after:content-[''] after:table-row after:h-[5px]",
-    tbody: "after:block",
-    tr: ["group/tr", "outline-solid outline-transparent", ...dataFocusVisibleClasses],
+    thead: [
+      // VirtualizerItem wraps each column, so round via the header row rather than the column.
+      "[&>[role=row]>[role=presentation]:first-child>[role=columnheader]]:rounded-s-lg",
+      "[&>[role=row]>[role=presentation]:last-child>[role=columnheader]]:rounded-e-lg",
+      "[&>[role=row]>[role=presentation]:last-child>[role=columnheader]]:before:hidden",
+      "[&>[role=row]>[role=presentation]:last-child>[role=columnheader]>[data-slot=table-column-resizer]]:hidden",
+      "[&>tr>th:last-child>[data-slot=table-column-resizer]]:hidden",
+    ],
+    tbody: [
+      "[&:is(tbody)]:after:block",
+      // A virtualized body is a div. Clip it instead of relying on first/last table cells.
+      "[&:not(tbody)]:relative",
+      "[&:not(tbody)]:h-full",
+      "[&:not(tbody)]:overflow-hidden",
+      "[&:not(tbody)]:rounded-lg",
+    ],
+    tr: [
+      "group/tr",
+      "outline-solid outline-transparent",
+      "[&:not(tr)]:h-full",
+      ...dataFocusVisibleClasses,
+    ],
     th: [
       "group/th",
+      "relative",
       "px-3",
       "h-10",
       "text-start",
@@ -68,21 +89,62 @@ const table = tv({
       "text-foreground-500",
       "text-tiny",
       "font-semibold",
-      "first:rounded-s-lg",
-      "last:rounded-e-lg",
+      "[&:not(th)]:flex [&:not(th)]:items-center",
+      "[&:is(th):first-child]:rounded-s-lg",
+      "[&:is(th):last-child]:rounded-e-lg",
+      "[&:is(th):last-child]:before:hidden",
+      "before:pointer-events-none",
+      "before:absolute",
+      "before:end-0",
+      "before:top-1/2",
+      "before:h-4",
+      "before:w-px",
+      "before:-translate-y-1/2",
+      "before:rounded-small",
+      "before:bg-default-300",
+      "before:content-['']",
       "outline-solid outline-transparent",
-      "data-[sortable=true]:cursor-pointer",
-      "data-[hover=true]:text-foreground-400",
+      "data-[allows-sorting]:cursor-pointer",
       ...dataFocusVisibleClasses,
+    ],
+    columnResizer: [
+      "absolute",
+      "end-0",
+      "top-1/2",
+      "h-4",
+      "w-px",
+      "-translate-y-1/2",
+      "translate-x-1/2",
+      "rounded-small",
+      "bg-default-300",
+      "bg-clip-content",
+      "box-content",
+      "cursor-col-resize",
+      "touch-none",
+      "border-none",
+      "outline-none",
+      "px-2",
+      "data-[hovered=true]:h-full",
+      "data-[hovered=true]:w-0.5",
+      "data-[hovered=true]:bg-primary",
+      "data-[resizing=true]:h-full",
+      "data-[resizing=true]:w-0.5",
+      "data-[resizing=true]:bg-primary",
+      "data-[focus-visible=true]:h-full",
+      "data-[focus-visible=true]:w-0.5",
+      "data-[focus-visible=true]:bg-focus",
     ],
     td: [
       "py-2",
       "px-3",
       "relative",
+      "isolate",
+      "z-0",
       "align-middle",
       "whitespace-normal",
       "text-small",
       "font-normal",
+      "[&:not(td)]:h-full",
       "outline-solid outline-transparent",
       "[&>*]:z-1",
       "[&>*]:relative",
@@ -91,10 +153,12 @@ const table = tv({
       "before:pointer-events-none",
       "before:content-['']",
       "before:absolute",
-      "before:z-0",
+      "before:-z-10",
       "before:inset-0",
       "before:opacity-0",
       "data-[selected=true]:before:opacity-100",
+      "data-[selected]:before:opacity-100",
+      "group-aria-[selected=true]/tr:before:opacity-100",
       // disabled
       "group-data-[disabled=true]/tr:text-foreground-300",
       "group-data-[disabled=true]/tr:cursor-not-allowed",
@@ -111,28 +175,29 @@ const table = tv({
       "group-data-[hover=true]/th:opacity-100",
       "data-[direction=ascending]:rotate-180",
     ],
-    emptyWrapper: "text-foreground-400 align-middle text-center h-40",
+    emptyWrapper:
+      "flex h-40 w-full items-center justify-center text-center align-middle text-foreground-400",
     loadingWrapper: "absolute inset-0 flex items-center justify-center",
   },
   variants: {
     color: {
       default: {
-        td: "before:bg-default/60 data-[selected=true]:text-default-foreground",
+        td: "before:bg-default-300",
       },
       primary: {
-        td: "before:bg-primary/20 data-[selected=true]:text-primary",
+        td: "before:bg-primary/20",
       },
       secondary: {
-        td: "before:bg-secondary/20 data-[selected=true]:text-secondary",
+        td: "before:bg-secondary/20",
       },
       success: {
-        td: "before:bg-success/20 data-[selected=true]:text-success-600 dark:data-[selected=true]:text-success",
+        td: "before:bg-success/20",
       },
       warning: {
-        td: "before:bg-warning/20 data-[selected=true]:text-warning-600 dark:data-[selected=true]:text-warning",
+        td: "before:bg-warning/20",
       },
       danger: {
-        td: "before:bg-danger/20 data-[selected=true]:text-danger dark:data-[selected=true]:text-danger-500",
+        td: "before:bg-danger/20",
       },
     },
     layout: {
@@ -141,6 +206,14 @@ const table = tv({
       },
       fixed: {
         table: "table-fixed",
+      },
+    },
+    overflowMode: {
+      wrap: {
+        td: "whitespace-normal break-words",
+      },
+      truncate: {
+        td: "truncate",
       },
     },
     shadow: {
@@ -165,9 +238,9 @@ const table = tv({
     isStriped: {
       true: {
         td: [
-          "group-data-[odd=true]/tr:before:bg-default-100",
-          "group-data-[odd=true]/tr:before:opacity-100",
-          "group-data-[odd=true]/tr:before:-z-10",
+          "group-even/tr:before:bg-default-100/50",
+          "group-even/tr:before:opacity-100",
+          "group-even/tr:before:-z-10",
         ],
       },
     },
@@ -177,17 +250,40 @@ const table = tv({
       },
       false: {},
     },
-    isHeaderSticky: {
+    isBordered: {
       true: {
-        thead: "sticky top-0 z-20 [&>tr]:first:shadow-small",
+        // Inner grid lines only: no border after the last column or under the last row.
+        // The end border is cleared from the row because a virtualized cell is wrapped in a
+        // VirtualizerItem, so `:last-child` on the cell itself matches every column.
+        td: ["border-b", "border-divider", "group-last/tr:border-b-0"],
+      },
+    },
+    isGlass: {
+      true: {},
+    },
+    isSticky: {
+      true: {
+        thead: [
+          "sticky top-0 z-20",
+          // A virtualized rowgroup is 0-height (its children are all absolutely
+          // positioned by VirtualizerItem). Stretch it to fill the sticky wrapper
+          // so it has real area to paint on — same role a native <thead> already has.
+          "[&:not(thead)]:absolute",
+          "[&:not(thead)]:inset-0",
+        ],
+      },
+    },
+    isFooterSticky: {
+      true: {
+        tfoot: "sticky bottom-0 z-20 rounded-lg bg-default-100",
       },
     },
     isSelectable: {
       true: {
         tr: "cursor-default",
         td: [
-          "group-aria-[selected=false]/tr:group-data-[hover=true]/tr:before:bg-default-100",
-          "group-aria-[selected=false]/tr:group-data-[hover=true]/tr:before:opacity-70",
+          "group-aria-[selected=false]/tr:group-data-[hovered]/tr:before:bg-default-100",
+          "group-aria-[selected=false]/tr:group-data-[hovered]/tr:before:opacity-70",
         ],
       },
     },
@@ -195,13 +291,13 @@ const table = tv({
       true: {
         td: [
           // first
-          "group-data-[first=true]/tr:first:before:rounded-ss-lg",
-          "group-data-[first=true]/tr:last:before:rounded-se-lg",
+          "group-first/tr:first:before:rounded-ss-lg",
+          "group-first/tr:last:before:rounded-se-lg",
           // middle
-          "group-data-[middle=true]/tr:before:rounded-none",
+          "group-[&:not(:first-child):not(:last-child)]/tr:before:rounded-none",
           // last
-          "group-data-[last=true]/tr:first:before:rounded-es-lg",
-          "group-data-[last=true]/tr:last:before:rounded-ee-lg",
+          "group-last/tr:first:before:rounded-es-lg",
+          "group-last/tr:last:before:rounded-ee-lg",
         ],
       },
       false: {
@@ -211,19 +307,25 @@ const table = tv({
     radius: {
       none: {
         wrapper: "rounded-none",
+        tfoot: "rounded-none",
+        thead: [
+          "[&>[role=row]>[role=presentation]:first-child>[role=columnheader]]:rounded-s-none",
+          "[&>[role=row]>[role=presentation]:last-child>[role=columnheader]]:rounded-e-none",
+        ],
+        tbody: "[&:not(tbody)]:rounded-none",
         th: [
-          "first:rounded-s-none",
-          "first:before:rounded-s-none",
-          "last:rounded-e-none",
-          "last:before:rounded-e-none",
+          "[&:is(th):first-child]:rounded-s-none",
+          "[&:is(th):first-child]:before:rounded-s-none",
+          "[&:is(th):last-child]:rounded-e-none",
+          "[&:is(th):last-child]:before:rounded-e-none",
         ],
         td: [
           "first:before:rounded-s-none",
           "last:before:rounded-e-none",
-          "group-data-[first=true]/tr:first:before:rounded-ss-none",
-          "group-data-[first=true]/tr:last:before:rounded-se-none",
-          "group-data-[last=true]/tr:first:before:rounded-es-none",
-          "group-data-[last=true]/tr:last:before:rounded-ee-none",
+          "group-first/tr:first:before:rounded-ss-none",
+          "group-first/tr:last:before:rounded-se-none",
+          "group-last/tr:first:before:rounded-es-none",
+          "group-last/tr:last:before:rounded-ee-none",
         ],
       },
       sm: {
@@ -264,52 +366,81 @@ const table = tv({
     radius: "lg",
     color: "default",
     isCompact: false,
+    isGlass: true,
     hideHeader: false,
     isStriped: false,
     fullWidth: true,
     align: "start",
+    overflowMode: "wrap",
   },
   compoundVariants: [
+    {
+      isGlass: true,
+      isSticky: true,
+      class: {
+        // The single glass surface lives on the thead slot (rowgroup) — see the
+        // isSticky variant above for why that works in both native and virtualized DOM.
+        thead: "bg-default-100/80 backdrop-blur-sm",
+        th: [
+          // Cells stay transparent so the row group is the only thing painting glass —
+          // per-cell backdrop-filter would clamp its sampling to each cell's own box,
+          // producing a visible seam at every column boundary.
+          "bg-transparent",
+          // Native-only: a horizontally-pinned column header is sticky *within* the row
+          // group, so it can scroll away from the row group's own (also-scrolling)
+          // background box. It needs its own glass to stay opaque as content passes under it.
+          "data-[pinned]:bg-default-100/80",
+          "data-[pinned]:backdrop-blur-sm",
+        ],
+      },
+    },
+    {
+      isFooterSticky: true,
+      isGlass: true,
+      class: {
+        tfoot: "bg-default-100/80 backdrop-blur-sm",
+      },
+    },
     {
       isStriped: true,
       color: "default",
       class: {
-        td: "group-data-[odd=true]/tr:data-[selected=true]/tr:before:bg-default/60",
+        td: "group-even/tr:data-[selected=true]:before:bg-default/60",
       },
     },
     {
       isStriped: true,
       color: "primary",
       class: {
-        td: "group-data-[odd=true]/tr:data-[selected=true]/tr:before:bg-primary/20",
+        td: "group-even/tr:data-[selected=true]:before:bg-primary/20",
       },
     },
     {
       isStriped: true,
       color: "secondary",
       class: {
-        td: "group-data-[odd=true]/tr:data-[selected=true]/tr:before:bg-secondary/20",
+        td: "group-even/tr:data-[selected=true]:before:bg-secondary/20",
       },
     },
     {
       isStriped: true,
       color: "success",
       class: {
-        td: "group-data-[odd=true]/tr:data-[selected=true]/tr:before:bg-success/20",
+        td: "group-even/tr:data-[selected=true]:before:bg-success/20",
       },
     },
     {
       isStriped: true,
       color: "warning",
       class: {
-        td: "group-data-[odd=true]/tr:data-[selected=true]/tr:before:bg-warning/20",
+        td: "group-even/tr:data-[selected=true]:before:bg-warning/20",
       },
     },
     {
       isStriped: true,
       color: "danger",
       class: {
-        td: "group-data-[odd=true]/tr:data-[selected=true]/tr:before:bg-danger/20",
+        td: "group-even/tr:data-[selected=true]:before:bg-danger/20",
       },
     },
   ],

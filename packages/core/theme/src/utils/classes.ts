@@ -5,6 +5,13 @@
 export const baseStyles = (prefix: string) => ({
   color: `hsl(var(--${prefix}-foreground))`,
   backgroundColor: `hsl(var(--${prefix}-background))`,
+  "--scrollbar-thumb": `hsl(var(--${prefix}-foreground) / 0.15)`,
+  "--scrollbar-track": "transparent",
+  "--scrollbar-gutter": "auto",
+  "--scrollbar-width": "thin",
+  "--scrollbar-color": "var(--scrollbar-thumb) var(--scrollbar-track)",
+  "--table-pinned-bg": `hsl(var(--${prefix}-content1))`,
+  "--table-pinned-shadow": `hsl(var(--${prefix}-foreground) / 0.25)`,
 });
 
 /**
