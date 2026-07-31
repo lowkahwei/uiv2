@@ -1,5 +1,12 @@
 # @sytechui/checkbox
 
+## 2.3.39
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/form@2.1.39
+
 ## 2.3.38
 
 ### Patch Changes

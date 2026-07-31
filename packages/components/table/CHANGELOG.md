@@ -1,5 +1,14 @@
 # @sytechui/table
 
+## 2.2.41
+
+### Patch Changes
+
+- fix old dist
+
+- Updated dependencies []:
+  - @sytechui/tooltip@2.2.29
+
 ## 2.2.40
 
 ### Patch Changes

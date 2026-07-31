@@ -1,5 +1,62 @@
 # @sytechui/react
 
+## 2.10.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/table@2.2.41
+  - @sytechui/theme@2.6.6
+  - @sytechui/accordion@2.2.31
+  - @sytechui/alert@2.3.1
+  - @sytechui/autocomplete@2.3.41
+  - @sytechui/avatar@2.2.26
+  - @sytechui/badge@2.2.18
+  - @sytechui/bottom-bar@2.1.1
+  - @sytechui/breadcrumbs@2.2.26
+  - @sytechui/button@2.2.32
+  - @sytechui/calendar@2.2.33
+  - @sytechui/card@2.2.28
+  - @sytechui/carousel@2.0.3
+  - @sytechui/checkbox@2.3.39
+  - @sytechui/chip@2.2.26
+  - @sytechui/code@2.2.25
+  - @sytechui/date-input@2.3.39
+  - @sytechui/divider@2.3.0
+  - @sytechui/drop-zone@2.0.4
+  - @sytechui/form@2.1.39
+  - @sytechui/image@2.2.19
+  - @sytechui/input@2.4.40
+  - @sytechui/input-otp@2.1.39
+  - @sytechui/kbd@2.2.26
+  - @sytechui/link@2.2.27
+  - @sytechui/listbox@2.3.32
+  - @sytechui/menu@2.2.32
+  - @sytechui/modal@2.2.31
+  - @sytechui/navbar@2.2.30
+  - @sytechui/number-input@2.0.30
+  - @sytechui/pagination@2.2.28
+  - @sytechui/popover@2.3.32
+  - @sytechui/progress@2.2.25
+  - @sytechui/radio@2.3.39
+  - @sytechui/ripple@2.2.21
+  - @sytechui/scroll-area@2.0.0
+  - @sytechui/scroll-shadow@2.3.19
+  - @sytechui/select@2.4.40
+  - @sytechui/shimmer-text@2.1.0
+  - @sytechui/skeleton@2.2.18
+  - @sytechui/slider@2.4.29
+  - @sytechui/snippet@2.2.34
+  - @sytechui/spacer@2.2.25
+  - @sytechui/spinner@2.2.29
+  - @sytechui/stepper@2.0.1
+  - @sytechui/switch@2.2.27
+  - @sytechui/tabs@2.2.30
+  - @sytechui/toast@2.0.23
+  - @sytechui/tooltip@2.2.29
+  - @sytechui/user@2.2.26
+  - @sytechui/date-picker@2.3.40
+
 ## 2.10.4
 
 ### Patch Changes

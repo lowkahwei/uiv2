@@ -1,5 +1,12 @@
 # @sytechui/input
 
+## 2.4.40
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/form@2.1.39
+
 ## 2.4.39
 
 ### Patch Changes

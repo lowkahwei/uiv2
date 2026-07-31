@@ -1,5 +1,11 @@
 # @sytechui/theme
 
+## 2.6.6
+
+### Patch Changes
+
+- fix old dist
+
 ## 2.6.5
 
 ### Patch Changes
