@@ -28,22 +28,22 @@ const divider = tv({
     {
       orientation: "horizontal",
       inset: "sm",
-      class: "after:inset-x-[10%] after:inset-y-0",
+      class: "after:left-[10%] after:right-[10%] after:top-0 after:bottom-0",
     },
     {
       orientation: "horizontal",
       inset: "md",
-      class: "after:inset-x-1/4 after:inset-y-0",
+      class: "after:left-1/4 after:right-1/4 after:top-0 after:bottom-0",
     },
     {
       orientation: "vertical",
       inset: "sm",
-      class: "after:inset-x-0 after:inset-y-[10%]",
+      class: "after:left-0 after:right-0 after:top-[10%] after:bottom-[10%]",
     },
     {
       orientation: "vertical",
       inset: "md",
-      class: "after:inset-x-0 after:inset-y-1/4",
+      class: "after:left-0 after:right-0 after:top-1/4 after:bottom-1/4",
     },
   ],
   defaultVariants: {

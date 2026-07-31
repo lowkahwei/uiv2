@@ -1,5 +1,11 @@
 # @sytechui/theme
 
+## 3.0.1
+
+### Patch Changes
+
+- fix divider hidden
+
 ## 3.0.0
 
 ### Major Changes
