@@ -312,27 +312,25 @@ describe("Root native geometry mode", () => {
               <Table.Cell>Edit</Table.Cell>
             </Table.Row>
           </Table.Body>
+          <Table.Footer>
+            <Table.Row id="footer">
+              <Table.Cell>Name total</Table.Cell>
+              <Table.Cell>Role total</Table.Cell>
+              <Table.Cell>Actions total</Table.Cell>
+            </Table.Row>
+          </Table.Footer>
         </Table.Content>
-        <Table.Footer alignColumns>
-          <span>Name total</span>
-          <span>Role total</span>
-          <span>Actions total</span>
-        </Table.Footer>
       </Table>,
     );
     const table = wrapper.getByRole("grid");
     const columns = wrapper.getAllByRole("columnheader");
-    const footer = wrapper.getByText("Name total").parentElement;
+    const footer = wrapper.getByText("Name total").closest("tfoot");
 
     expect(table).toHaveStyle({tableLayout: "fixed", width: "400px"});
     expect(table).toHaveStyle({minWidth: "400px"});
     expect(columns[0]).toHaveStyle({width: "100px"});
     expect(columns[2]).toHaveStyle({width: "100px"});
-    expect(footer).toHaveStyle({
-      display: "grid",
-      gridTemplateColumns: "100px 200px 100px",
-      width: "400px",
-    });
+    expect(footer?.tagName).toBe("TFOOT");
     clientWidth.mockRestore();
   });
 
@@ -361,26 +359,28 @@ describe("Root native geometry mode", () => {
               <Table.Cell>Edit</Table.Cell>
             </Table.Row>
           </Table.Body>
+          <Table.Footer isSticky>
+            <Table.Row id="footer">
+              <Table.Cell>1 member</Table.Cell>
+              <Table.Cell>1 role</Table.Cell>
+              <Table.Cell>1 action</Table.Cell>
+            </Table.Row>
+          </Table.Footer>
         </Table.Content>
-        <Table.Footer alignColumns isSticky>
-          <span>1 member</span>
-          <span>1 role</span>
-          <span>1 action</span>
-        </Table.Footer>
       </Table>,
     );
-    const footer = wrapper.getByText("1 member").parentElement;
+    const footer = wrapper.getByText("1 member").closest("tfoot");
     const geometryStyle =
       wrapper.container.querySelector("[data-table-geometry] style")?.textContent ?? "";
 
-    expect(footer).toHaveAttribute("data-table-footer-align-columns", "true");
-    expect(geometryStyle).toContain("[data-table-footer-align-columns] > :nth-child(1)");
-    expect(geometryStyle).toContain("[data-table-footer-align-columns] > :nth-child(3)");
+    expect(footer?.tagName).toBe("TFOOT");
+    expect(geometryStyle).toContain("tfoot > tr > td:nth-child(1)");
+    expect(geometryStyle).toContain("tfoot > tr > td:nth-child(3)");
     expect(geometryStyle).toContain(
       "background-color: var(--table-pinned-footer-bg, var(--table-pinned-bg))",
     );
-    expect(geometryStyle).toContain("[data-table-footer-align-columns] > :nth-child(1)::after");
-    expect(geometryStyle).toContain("[data-table-footer-align-columns] > :nth-child(3)::after");
+    expect(geometryStyle).toContain("tfoot > tr > td:nth-child(1)::after");
+    expect(geometryStyle).toContain("tfoot > tr > td:nth-child(3)::after");
 
     clientWidth.mockRestore();
   });
@@ -408,11 +408,13 @@ describe("Root native geometry mode", () => {
               <Table.Cell>Engineer</Table.Cell>
             </Table.Row>
           </Table.Body>
+          <Table.Footer>
+            <Table.Row id="footer">
+              <Table.Cell>Name total</Table.Cell>
+              <Table.Cell>Role total</Table.Cell>
+            </Table.Row>
+          </Table.Footer>
         </Table.Content>
-        <Table.Footer alignColumns>
-          <span>Name total</span>
-          <span>Role total</span>
-        </Table.Footer>
       </Table>,
     );
 
@@ -420,10 +422,7 @@ describe("Root native geometry mode", () => {
       minWidth: "200px",
       width: "200px",
     });
-    expect(wrapper.getByText("Name total").parentElement).toHaveStyle({
-      gridTemplateColumns: "100px 100px",
-      width: "200px",
-    });
+    expect(wrapper.getByText("Name total").closest("tfoot")?.tagName).toBe("TFOOT");
     clientWidth.mockRestore();
   });
 

@@ -1,6 +1,6 @@
 {
   "name": "@sytechui/table",
-  "version": "2.2.41",
+  "version": "2.2.42",
   "description": "Tables are used to display tabular data using rows and columns. ",
   "keywords": [
     "table"

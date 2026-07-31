@@ -1,5 +1,16 @@
 # @sytechui/table
 
+## 2.2.42
+
+### Patch Changes
+
+- Render `Table.Footer` through React Aria's native table footer collection so unequal fixed columns
+  share the same browser-resolved tracks as the header and body. `Table.Footer` must now be placed
+  inside `Table.Content` and contain `Table.Row` / `Table.Cell` children; `alignColumns` was removed.
+  Native footer cells now match header rounding and column dividers.
+- Updated dependencies []:
+  - @sytechui/tooltip@2.2.29
+
 ## 2.2.41
 
 ### Patch Changes

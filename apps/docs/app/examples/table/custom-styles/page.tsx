@@ -561,7 +561,7 @@ export default function Page() {
             )}
           </TableBody>
         </Table.Content>
-        <Table.Footer>{bottomContent}</Table.Footer>
+        <div>{bottomContent}</div>
       </Table>
     </div>
   );

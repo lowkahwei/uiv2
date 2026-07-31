@@ -72,7 +72,7 @@ export default function Page() {
             )}
           </TableBody>
         </Table.Content>
-        <Table.Footer>
+        <div>
           {pages > 0 ? (
             <div className="flex w-full justify-center">
               <Pagination
@@ -86,7 +86,7 @@ export default function Page() {
               />
             </div>
           ) : null}
-        </Table.Footer>
+        </div>
       </Table>
     </div>
   );

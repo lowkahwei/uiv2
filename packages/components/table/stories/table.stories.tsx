@@ -189,7 +189,7 @@ function TableShell({
       removeWrapper={removeWrapper}
     >
       {children}
-      {footer ? <Table.Footer className="flex w-full justify-center">{footer}</Table.Footer> : null}
+      {footer ? <div className="flex w-full justify-center">{footer}</div> : null}
     </Table>
   );
 }
@@ -869,13 +869,15 @@ function FooterWithColumnResizingTemplate({args}: {args: TableProps}) {
             </Table.Row>
           ))}
         </Table.Body>
+        <Table.Footer isSticky className="text-small">
+          <Table.Row id="footer">
+            <Table.Cell className="px-3 py-2">25 members</Table.Cell>
+            <Table.Cell className="px-3 py-2">3 roles</Table.Cell>
+            <Table.Cell className="px-3 py-2">Status summary</Table.Cell>
+            <Table.Cell className="px-3 py-2">Actions</Table.Cell>
+          </Table.Row>
+        </Table.Footer>
       </Table.Content>
-      <Table.Footer alignColumns isSticky className="text-small">
-        <span className="px-3 py-2">25 members</span>
-        <span className="px-3 py-2">3 roles</span>
-        <span className="px-3 py-2">Status summary</span>
-        <span className="px-3 py-2">Actions</span>
-      </Table.Footer>
     </Table>
   );
 }
@@ -886,7 +888,7 @@ function PinnedColumnsTemplate({args}: {args: TableProps}) {
       <Table.Content aria-label="Table with naturally positioned pinned columns">
         <Table.Header>
           {pinnedColumns.map((column) => (
-            <Table.Column key={column.id} id={column.id}>
+            <Table.Column key={column.id} id={column.id} isRowHeader={column.id === "name"}>
               {column.id.toUpperCase()}
             </Table.Column>
           ))}
@@ -915,18 +917,20 @@ function PinnedColumnsTemplate({args}: {args: TableProps}) {
             </Table.Row>
           ))}
         </Table.Body>
+        <Table.Footer isSticky className="text-small font-semibold">
+          <Table.Row id="footer">
+            {pinnedColumns.map((column, index) => (
+              <Table.Cell key={column.id} className="px-3 py-2">
+                {index === 0
+                  ? `${rows.length} records`
+                  : index === pinnedColumns.length - 1
+                    ? "Totals"
+                    : "-"}
+              </Table.Cell>
+            ))}
+          </Table.Row>
+        </Table.Footer>
       </Table.Content>
-      <Table.Footer alignColumns isSticky className="text-small font-semibold">
-        {pinnedColumns.map((column, index) => (
-          <span key={column.id} className="px-3 py-2">
-            {index === 0
-              ? `${rows.length} records`
-              : index === pinnedColumns.length - 1
-                ? "Totals"
-                : "-"}
-          </span>
-        ))}
-      </Table.Footer>
     </Table>
   );
 }
@@ -957,6 +961,74 @@ function FixedColumnsTemplate() {
         </Table.Body>
       </Table.Content>
     </Table>
+  );
+}
+
+function UnevenFooterColumnsTemplate() {
+  const [isNarrow, setIsNarrow] = useState(false);
+  const [showIncoming, setShowIncoming] = useState(true);
+  const columns = useMemo(
+    () =>
+      [
+        {id: "selection", minWidth: 48, pinned: "start" as const, width: 48},
+        {id: "company", minWidth: 75, width: 75},
+        {id: "outstanding", width: 100},
+        showIncoming ? {id: "incoming", width: 100} : undefined,
+        {id: "profit", pinned: "end" as const, width: 150},
+      ].filter((column) => column != null),
+    [showIncoming],
+  );
+
+  return (
+    <>
+      <button type="button" onClick={() => setShowIncoming((value) => !value)}>
+        Toggle incoming column
+      </button>
+      <button type="button" onClick={() => setIsNarrow((value) => !value)}>
+        Toggle container width
+      </button>
+      <Table
+        fullWidth
+        isResizable
+        isSticky
+        className={isNarrow ? "w-[420px]" : "w-[900px]"}
+        columns={columns}
+      >
+        <Table.Content aria-label="Uneven footer columns table" selectionMode="multiple">
+          <Table.Header>
+            <Table.Column id="selection">
+              <Table.SelectionCheckbox aria-label="Select all rows" />
+            </Table.Column>
+            <Table.Column isRowHeader id="company">
+              Company
+            </Table.Column>
+            <Table.Column id="outstanding">Outstanding</Table.Column>
+            {showIncoming ? <Table.Column id="incoming">Incoming</Table.Column> : null}
+            <Table.Column id="profit">Profit</Table.Column>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row id="sytech">
+              <Table.Cell>
+                <Table.SelectionCheckbox aria-label="Select Sytech" />
+              </Table.Cell>
+              <Table.Cell>Sytech</Table.Cell>
+              <Table.Cell>2,233.35</Table.Cell>
+              {showIncoming ? <Table.Cell>1,200.00</Table.Cell> : null}
+              <Table.Cell>-1,033.35</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+          <Table.Footer isSticky>
+            <Table.Row id="footer">
+              <Table.Cell />
+              <Table.Cell>Totals</Table.Cell>
+              <Table.Cell>2,233.35</Table.Cell>
+              {showIncoming ? <Table.Cell>1,200.00</Table.Cell> : null}
+              <Table.Cell>-1,033.35</Table.Cell>
+            </Table.Row>
+          </Table.Footer>
+        </Table.Content>
+      </Table>
+    </>
   );
 }
 
@@ -1237,5 +1309,53 @@ export const FixedColumns: Story = {
       expect(columns[0].getBoundingClientRect().width).toBeGreaterThan(100);
       expect(columns[1].getBoundingClientRect().width).toBeGreaterThan(150);
     });
+  },
+};
+
+export const UnevenFooterColumns: Story = {
+  render: () => <UnevenFooterColumnsTemplate />,
+  tags: ["table-browser"],
+  play: async ({canvasElement}) => {
+    const expectAligned = (columnCount: number) => {
+      const headers = [
+        ...canvasElement.querySelectorAll<HTMLElement>("table > thead > tr:first-child > th"),
+      ];
+      const footerCells = [
+        ...canvasElement.querySelectorAll<HTMLElement>("table > tfoot > tr:first-child > td"),
+      ];
+      const footer = footerCells[0]?.closest("tfoot");
+
+      expect(headers).toHaveLength(columnCount);
+      expect(footerCells).toHaveLength(columnCount);
+      expect(getComputedStyle(footer!).position).toBe("sticky");
+      expect(getComputedStyle(footerCells[0]).borderTopLeftRadius).not.toBe("0px");
+      expect(getComputedStyle(footerCells.at(-1)!).borderTopRightRadius).not.toBe("0px");
+      expect(getComputedStyle(footerCells[0], "::before").height).toBe("16px");
+      expect(getComputedStyle(footerCells[0], "::before").width).toBe("1px");
+      expect(getComputedStyle(footerCells.at(-1)!, "::before").display).toBe("none");
+      const headerWidths = headers.map((cell) => cell.getBoundingClientRect().width);
+      const footerWidths = footerCells.map((cell) => cell.getBoundingClientRect().width);
+
+      expect(new Set(headerWidths.map((width) => width.toFixed(2))).size).toBeGreaterThan(1);
+      headerWidths.forEach((width, index) => {
+        expect(Math.abs(width - footerWidths[index])).toBeLessThan(0.1);
+      });
+    };
+
+    await waitFor(() => expectAligned(5));
+
+    fireEvent.click(within(canvasElement).getByRole("button", {name: "Toggle incoming column"}));
+    await waitFor(() => expectAligned(4));
+
+    fireEvent.click(within(canvasElement).getByRole("button", {name: "Toggle incoming column"}));
+    await waitFor(() => expectAligned(5));
+
+    const resizer = canvasElement.querySelector<HTMLElement>('[data-slot="table-column-resizer"]')!;
+
+    fireEvent.keyDown(resizer, {key: "ArrowRight"});
+    await waitFor(() => expectAligned(5));
+
+    fireEvent.click(within(canvasElement).getByRole("button", {name: "Toggle container width"}));
+    await waitFor(() => expectAligned(5));
   },
 };

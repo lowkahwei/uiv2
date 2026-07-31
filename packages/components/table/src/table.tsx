@@ -37,6 +37,7 @@ import {
   Row as RowPrimitive,
   Table as TablePrimitive,
   TableBody as TableBodyPrimitive,
+  TableFooter as TableFooterPrimitive,
   TableHeader as TableHeaderPrimitive,
   TableLoadMoreItem as TableLoadMoreItemPrimitive,
 } from "react-aria-components/Table";
@@ -645,43 +646,34 @@ TableSelectionCheckbox.displayName = "SytechUI.Table.SelectionCheckbox";
 /* -------------------------------------------------------------------------------------------------
  * Table Footer
  * -----------------------------------------------------------------------------------------------*/
-export interface TableFooterProps extends ComponentPropsWithRef<"div"> {
-  alignColumns?: boolean;
+export interface TableFooterProps<T extends object> extends ComponentPropsWithRef<
+  typeof TableFooterPrimitive<T>
+> {
   isSticky?: boolean;
 }
 
-export const TableFooter = forwardRef<HTMLDivElement, TableFooterProps>(function TableFooter(
-  {alignColumns = false, className, isSticky, style, ...props},
-  ref,
+export const TableFooter = forwardRef(function TableFooter<T extends object>(
+  {className, isSticky, ...props}: TableFooterProps<T>,
+  ref: React.ForwardedRef<HTMLDivElement | HTMLTableSectionElement>,
 ) {
   const {classNames, slots} = useContext(TableContext);
-  const geometryContext = useContext(TableColumnGeometryContext);
-  const geometryStyle =
-    alignColumns && geometryContext
-      ? {
-          display: "grid",
-          gridTemplateColumns: geometryContext.geometry.columns
-            .map((column) => `${column.width}px`)
-            .join(" "),
-          width: geometryContext.geometry.totalWidth,
-        }
-      : undefined;
 
   return (
-    <div
+    <TableFooterPrimitive
       ref={ref}
-      className={slots?.tfoot({
-        class: cn(classNames?.tfoot, className),
-        isFooterSticky: isSticky,
-      })}
-      data-table-footer-align-columns={alignColumns || undefined}
-      style={{...geometryStyle, ...style}}
+      className={cn(
+        slots?.tfoot({
+          class: classNames?.tfoot,
+          isFooterSticky: isSticky,
+        }),
+        className,
+      )}
       {...props}
     />
   );
-});
+}) as <T extends object>(props: TableFooterProps<T>) => ReactElement;
 
-TableFooter.displayName = "SytechUI.Table.Footer";
+(TableFooter as React.FC).displayName = "SytechUI.Table.Footer";
 
 /* -------------------------------------------------------------------------------------------------
  * Resizing and loading

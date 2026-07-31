@@ -357,7 +357,7 @@ export const TableGeometryContainer = forwardRef<HTMLDivElement, TableGeometryCo
             // [data-table-geometry] ancestor that doesn't exist, matching nothing.
             const headerCellBare = `thead > tr > th:nth-child(${childIndex})`;
             const bodyCellBare = `tbody > tr > td:nth-child(${childIndex})`;
-            const footerCellBare = `[data-table-footer-align-columns] > :nth-child(${childIndex})`;
+            const footerCellBare = `tfoot > tr > td:nth-child(${childIndex})`;
             const headerCell = `${geometrySelector} ${headerCellBare}`;
             const bodyCell = `${geometrySelector} ${bodyCellBare}`;
             const footerCell = `${geometrySelector} ${footerCellBare}`;

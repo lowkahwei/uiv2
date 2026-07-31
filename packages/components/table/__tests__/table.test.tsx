@@ -83,8 +83,13 @@ describe("Table", () => {
               <Table.Cell>CEO</Table.Cell>
             </Table.Row>
           </Table.Body>
+          <Table.Footer data-testid="footer">
+            <Table.Row id="footer">
+              <Table.Cell>Footer</Table.Cell>
+              <Table.Cell />
+            </Table.Row>
+          </Table.Footer>
         </Table.Content>
-        <Table.Footer data-testid="footer">Footer</Table.Footer>
         <Table.LoadingOverlay data-testid="loading-overlay">Loading</Table.LoadingOverlay>
       </Table>,
     );
@@ -98,7 +103,7 @@ describe("Table", () => {
     expect(wrapper.getAllByRole("rowgroup")[0]).toHaveClass("custom-header");
     expect(wrapper.getAllByRole("rowgroup")[1]).toHaveClass("custom-body");
     expect(wrapper.getAllByRole("columnheader")[0]).toHaveClass("custom-column");
-    expect(wrapper.getByRole("rowheader")).toHaveClass("custom-cell");
+    expect(wrapper.getAllByRole("rowheader")[0]).toHaveClass("custom-cell");
     expect(wrapper.getByTestId("footer")).toHaveClass("custom-footer");
     expect(wrapper.getByTestId("loading-overlay")).toHaveClass("custom-loading");
   });
@@ -265,10 +270,12 @@ describe("Table", () => {
               <Table.Cell>Kate</Table.Cell>
             </Table.Row>
           </Table.Body>
+          <Table.Footer isSticky data-testid="footer">
+            <Table.Row id="footer">
+              <Table.Cell>Footer</Table.Cell>
+            </Table.Row>
+          </Table.Footer>
         </Table.Content>
-        <Table.Footer isSticky data-testid="footer">
-          Footer
-        </Table.Footer>
       </Table>,
     );
 
@@ -284,15 +291,35 @@ describe("Table", () => {
       "sticky",
       "bottom-0",
       "z-20",
-      "bg-default-100/80",
-      "backdrop-blur-sm",
+      "[&>tr>td:first-child]:rounded-s-lg",
+      "[&>tr>td:last-child]:rounded-e-lg",
+      "[&>tr>td]:before:h-4",
+      "[&>tr>td]:before:w-px",
+      "[&>tr>td]:before:!bg-default-300",
+      "[&>tr>td:last-child]:before:hidden",
+      "[&>tr>td]:bg-default-100/80",
+      "[&>tr>td]:backdrop-blur-sm",
     );
   });
 
   it("keeps a non-sticky footer visually neutral", () => {
     const wrapper = render(
       <Table>
-        <Table.Footer data-testid="footer">Footer</Table.Footer>
+        <Table.Content aria-label="Users with footer">
+          <Table.Header>
+            <Table.Column isRowHeader>Name</Table.Column>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row id="1">
+              <Table.Cell>Kate</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+          <Table.Footer data-testid="footer">
+            <Table.Row id="footer">
+              <Table.Cell>Footer</Table.Cell>
+            </Table.Row>
+          </Table.Footer>
+        </Table.Content>
       </Table>,
     );
 
@@ -311,10 +338,12 @@ describe("Table", () => {
               <Table.Cell>Kate</Table.Cell>
             </Table.Row>
           </Table.Body>
+          <Table.Footer isSticky data-testid="opaque-footer">
+            <Table.Row id="footer">
+              <Table.Cell>Footer</Table.Cell>
+            </Table.Row>
+          </Table.Footer>
         </Table.Content>
-        <Table.Footer isSticky data-testid="opaque-footer">
-          Footer
-        </Table.Footer>
       </Table>,
     );
 
@@ -325,10 +354,10 @@ describe("Table", () => {
     );
     expect(wrapper.getAllByRole("columnheader")[0]).toHaveClass("bg-default-100");
     expect(wrapper.getAllByRole("columnheader")[0]).not.toHaveClass("bg-transparent");
-    expect(wrapper.getByTestId("opaque-footer")).toHaveClass("sticky", "bg-default-100");
+    expect(wrapper.getByTestId("opaque-footer")).toHaveClass("sticky", "[&>tr>td]:bg-default-100");
     expect(wrapper.getByTestId("opaque-footer")).not.toHaveClass(
-      "bg-default-100/80",
-      "backdrop-blur-sm",
+      "[&>tr>td]:bg-default-100/80",
+      "[&>tr>td]:backdrop-blur-sm",
     );
   });
 
@@ -828,19 +857,22 @@ describe("Table", () => {
                 <Table.Cell>Engineer</Table.Cell>
               </Table.Row>
             </Table.Body>
+            <Table.Footer>
+              <Table.Row id="footer">
+                <Table.Cell>Name total</Table.Cell>
+                <Table.Cell>Role total</Table.Cell>
+              </Table.Row>
+            </Table.Footer>
           </Table.Content>
-          <Table.Footer alignColumns>
-            <span>Name total</span>
-            <span>Role total</span>
-          </Table.Footer>
         </Table>,
       );
       const columnHeaders = wrapper.getAllByRole("columnheader");
-      const footer = wrapper.getByText("Name total").parentElement;
+      const footer = wrapper.getByText("Name total").closest("tfoot");
 
       expect(columnHeaders[0]).toHaveStyle({width: "100px"});
       expect(columnHeaders[1]).toHaveStyle({width: "200px"});
-      expect(footer).toHaveStyle({display: "grid", gridTemplateColumns: "100px 200px"});
+      expect(footer).toBeInTheDocument();
+      expect(footer?.tagName).toBe("TFOOT");
 
       clientWidth.mockRestore();
     });

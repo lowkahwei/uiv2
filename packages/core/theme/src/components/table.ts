@@ -163,7 +163,22 @@ const table = tv({
       "group-data-[disabled=true]/tr:text-foreground-300",
       "group-data-[disabled=true]/tr:cursor-not-allowed",
     ],
-    tfoot: "",
+    tfoot: [
+      "[&>tr>td:first-child]:rounded-s-lg",
+      "[&>tr>td:last-child]:rounded-e-lg",
+      "[&>tr>td]:before:bottom-auto",
+      "[&>tr>td]:before:start-auto",
+      "[&>tr>td]:before:end-0",
+      "[&>tr>td]:before:top-1/2",
+      "[&>tr>td]:before:z-auto",
+      "[&>tr>td]:before:h-4",
+      "[&>tr>td]:before:w-px",
+      "[&>tr>td]:before:-translate-y-1/2",
+      "[&>tr>td]:before:rounded-small",
+      "[&>tr>td]:before:!bg-default-300",
+      "[&>tr>td]:before:!opacity-100",
+      "[&>tr>td:last-child]:before:hidden",
+    ],
     sortIcon: [
       "ms-2",
       "mb-px",
@@ -275,7 +290,12 @@ const table = tv({
     },
     isFooterSticky: {
       true: {
-        tfoot: "sticky bottom-0 z-20 rounded-lg bg-default-100",
+        tfoot: [
+          "sticky bottom-0 z-20",
+          "[&:not(tfoot)]:rounded-lg",
+          "[&:not(tfoot)]:bg-default-100",
+          "[&>tr>td]:bg-default-100",
+        ],
       },
     },
     isSelectable: {
@@ -307,7 +327,11 @@ const table = tv({
     radius: {
       none: {
         wrapper: "rounded-none",
-        tfoot: "rounded-none",
+        tfoot: [
+          "[&:not(tfoot)]:rounded-none",
+          "[&>tr>td:first-child]:rounded-s-none",
+          "[&>tr>td:last-child]:rounded-e-none",
+        ],
         thead: [
           "[&>[role=row]>[role=presentation]:first-child>[role=columnheader]]:rounded-s-none",
           "[&>[role=row]>[role=presentation]:last-child>[role=columnheader]]:rounded-e-none",
@@ -398,7 +422,12 @@ const table = tv({
       isFooterSticky: true,
       isGlass: true,
       class: {
-        tfoot: "bg-default-100/80 backdrop-blur-sm",
+        tfoot: [
+          "[&:not(tfoot)]:bg-default-100/80",
+          "[&:not(tfoot)]:backdrop-blur-sm",
+          "[&>tr>td]:bg-default-100/80",
+          "[&>tr>td]:backdrop-blur-sm",
+        ],
       },
     },
   ],

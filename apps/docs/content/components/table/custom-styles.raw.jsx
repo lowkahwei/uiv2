@@ -647,7 +647,7 @@ export default function App() {
           )}
         </TableBody>
       </Table.Content>
-      <Table.Footer>{bottomContent}</Table.Footer>
+      <div>{bottomContent}</div>
     </Table>
   );
 }

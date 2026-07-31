@@ -375,8 +375,10 @@ If the combined pinned widths leave no scrollable center area, Table adds
 or unpin a column instead of automatically shrinking user-defined widths.
 
 When every managed column has a fixed width, `fullWidth` distributes any remaining container space
-across those columns. Use `fullWidth={false}` to preserve the exact declared widths. The Table and
-an `alignColumns` footer always use the same resolved pixel widths.
+across those columns. Use `fullWidth={false}` to preserve the exact declared widths. Put
+`Table.Footer` inside `Table.Content` and compose it from `Table.Row` and `Table.Cell`. React Aria
+then renders a native `<tfoot>` for non-virtualized tables, so header, body, and footer share the
+browser's column tracks without a second width calculation.
 
 > **Note**: Pass a stable `columns` reference — define the array outside the component or memoize
 > it with `useMemo`. A new array identity on every render forces the table to recompute column
@@ -958,8 +960,9 @@ Table props and render props.
 
 ### Additional compound parts
 
-- `Table.Footer`: an external footer `div`; `alignColumns` uses managed geometry and `isSticky`
-  pins it to the scroll-container bottom.
+- `Table.Footer`: React Aria's footer row group. Place it inside `Table.Content` after
+  `Table.Body`, and render `Table.Row` / `Table.Cell` children. It is a native `<tfoot>` for
+  non-virtualized tables and supports `isSticky`.
 - Column headers show a passive divider by default. Enable `isResizable` to automatically add React
   Aria's keyboard, pointer, and touch-accessible resizing to every column except the last.
 - `Table.SelectionCheckbox`: an explicit header or row selection checkbox; accepts a Table color.

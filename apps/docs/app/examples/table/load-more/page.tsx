@@ -85,7 +85,7 @@ export default function Page() {
             )}
           </TableBody>
         </Table.Content>
-        <Table.Footer>
+        <div>
           {hasMore && !isLoading ? (
             <div className="flex w-full justify-center">
               <Button isDisabled={list.isLoading} variant="flat" onPress={list.loadMore}>
@@ -94,7 +94,7 @@ export default function Page() {
               </Button>
             </div>
           ) : null}
-        </Table.Footer>
+        </div>
       </Table>
     </div>
   );
