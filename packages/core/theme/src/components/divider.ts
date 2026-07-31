@@ -18,8 +18,36 @@ const divider = tv({
       horizontal: "w-full h-divider",
       vertical: "h-auto min-h-2 self-stretch w-divider",
     },
+    inset: {
+      none: "",
+      sm: "relative bg-transparent after:absolute after:bg-divider after:content-['']",
+      md: "relative bg-transparent after:absolute after:bg-divider after:content-['']",
+    },
   },
+  compoundVariants: [
+    {
+      orientation: "horizontal",
+      inset: "sm",
+      class: "after:inset-x-[10%] after:inset-y-0",
+    },
+    {
+      orientation: "horizontal",
+      inset: "md",
+      class: "after:inset-x-1/4 after:inset-y-0",
+    },
+    {
+      orientation: "vertical",
+      inset: "sm",
+      class: "after:inset-x-0 after:inset-y-[10%]",
+    },
+    {
+      orientation: "vertical",
+      inset: "md",
+      class: "after:inset-x-0 after:inset-y-1/4",
+    },
+  ],
   defaultVariants: {
+    inset: "none",
     orientation: "horizontal",
   },
 });

@@ -1,5 +1,16 @@
 # @sytechui/divider
 
+## 3.0.0
+
+### Major Changes
+
+- Add inset variants for centered horizontal and vertical dividers.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/system-rsc@2.3.24
+
 ## 2.3.0
 
 ### Minor Changes

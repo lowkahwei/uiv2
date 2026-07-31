@@ -1,5 +1,11 @@
 # @sytechui/theme
 
+## 3.0.0
+
+### Major Changes
+
+- Add inset variants for centered horizontal and vertical dividers.
+
 ## 2.6.7
 
 ### Patch Changes

@@ -16,6 +16,12 @@ export default {
       },
       options: ["horizontal", "vertical"],
     },
+    inset: {
+      control: {
+        type: "select",
+      },
+      options: ["none", "sm", "md"],
+    },
   },
   decorators: [
     (Story) => (

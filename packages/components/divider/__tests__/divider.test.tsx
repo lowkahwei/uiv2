@@ -23,6 +23,24 @@ describe("Divider", () => {
     expect(divider).toHaveClass("self-stretch");
   });
 
+  it("renders an inset divider with a centered visual line", () => {
+    const {getByRole} = render(<Divider inset="sm" orientation="vertical" />);
+    const divider = getByRole("separator");
+
+    expect(divider).toHaveClass("after:inset-y-[10%]");
+    expect(divider).toHaveClass("bg-transparent");
+    expect(divider).not.toHaveAttribute("inset");
+  });
+
+  it("supports a half-length horizontal divider", () => {
+    const {getByRole} = render(<Divider inset="md" />);
+    const divider = getByRole("separator");
+
+    expect(divider.tagName).toBe("DIV");
+    expect(divider).toHaveClass("after:inset-x-1/4");
+    expect(divider).not.toHaveAttribute("aria-orientation");
+  });
+
   it("preserves vertical semantics for a custom component", () => {
     const CustomDivider = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
       function CustomDivider(props, ref) {

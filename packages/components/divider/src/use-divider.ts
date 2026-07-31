@@ -22,11 +22,18 @@ interface Props extends HTMLHeroUIProps<"hr"> {
 export type UseDividerProps = Props & DividerVariantProps & Omit<AriaSeparatorProps, "elementType">;
 
 export function useDivider(props: UseDividerProps) {
-  const {as, className, isDecorative = false, orientation = "horizontal", ...otherProps} = props;
+  const {
+    as,
+    className,
+    inset = "none",
+    isDecorative = false,
+    orientation = "horizontal",
+    ...otherProps
+  } = props;
 
   let Component = as || "hr";
 
-  if (Component === "hr" && orientation === "vertical") {
+  if (Component === "hr" && (orientation === "vertical" || inset !== "none")) {
     Component = "div";
   }
 
@@ -36,6 +43,7 @@ export function useDivider(props: UseDividerProps) {
   });
 
   const styles = divider({
+    inset,
     orientation,
     className,
   });
