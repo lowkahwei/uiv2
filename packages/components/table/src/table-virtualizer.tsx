@@ -357,8 +357,10 @@ export const TableGeometryContainer = forwardRef<HTMLDivElement, TableGeometryCo
             // [data-table-geometry] ancestor that doesn't exist, matching nothing.
             const headerCellBare = `thead > tr > th:nth-child(${childIndex})`;
             const bodyCellBare = `tbody > tr > td:nth-child(${childIndex})`;
+            const footerCellBare = `[data-table-footer-align-columns] > :nth-child(${childIndex})`;
             const headerCell = `${geometrySelector} ${headerCellBare}`;
             const bodyCell = `${geometrySelector} ${bodyCellBare}`;
+            const footerCell = `${geometrySelector} ${footerCellBare}`;
 
             // Start beats end on both header and body tiers (th stays above td, matching the
             // existing sticky-header-over-sticky-column corner behavior) so an end-pinned cell
@@ -371,15 +373,27 @@ export const TableGeometryContainer = forwardRef<HTMLDivElement, TableGeometryCo
                 `position: sticky; ${offsetProperty}: ${column.pinnedOffset ?? 0}px; z-index: ${bodyZIndex};` +
                 `background-color: var(--table-pinned-bg);` +
                 `}`,
+              `${footerCell} {` +
+                `position: sticky; ${offsetProperty}: ${column.pinnedOffset ?? 0}px; z-index: ${bodyZIndex};` +
+                `background-color: var(--table-pinned-footer-bg, var(--table-pinned-bg));` +
+                `}`,
               `${headerCell}::after, ${bodyCell}::after {` +
+                `content: ''; position: absolute; inset-block: 0; width: 30px;` +
+                `pointer-events: none; ${offsetProperty}: 100%;` +
+                `}`,
+              `${footerCell}::after {` +
                 `content: ''; position: absolute; inset-block: 0; width: 30px;` +
                 `pointer-events: none; ${offsetProperty}: 100%;` +
                 `}`,
               `${geometrySelector}[${shadowAttribute}="${childIndex}"] ${headerCellBare}::after,` +
                 `${geometrySelector}[${shadowAttribute}="${childIndex}"] ${bodyCellBare}::after ` +
                 `{box-shadow: ${shadow};}`,
+              `${geometrySelector}[${shadowAttribute}="${childIndex}"] ${footerCellBare}::after ` +
+                `{box-shadow: ${shadow};}`,
               `${geometrySelector}[${shadowAttribute}="${childIndex}"] ${headerCellBare}:dir(rtl)::after,` +
                 `${geometrySelector}[${shadowAttribute}="${childIndex}"] ${bodyCellBare}:dir(rtl)::after ` +
+                `{box-shadow: ${rtlShadow};}`,
+              `${geometrySelector}[${shadowAttribute}="${childIndex}"] ${footerCellBare}:dir(rtl)::after ` +
                 `{box-shadow: ${rtlShadow};}`,
             ];
           })

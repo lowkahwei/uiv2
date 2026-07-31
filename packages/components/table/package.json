@@ -1,6 +1,6 @@
 {
   "name": "@sytechui/table",
-  "version": "2.2.39",
+  "version": "2.2.40",
   "description": "Tables are used to display tabular data using rows and columns. ",
   "keywords": [
     "table"
@@ -43,6 +43,7 @@
     "@react-types/shared": "3.33.1",
     "@sytechui/shared-icons": "workspace:*",
     "@sytechui/shared-utils": "workspace:*",
+    "@sytechui/tooltip": "workspace:*",
     "react-aria-components": "1.19.0"
   },
   "devDependencies": {
@@ -54,7 +55,6 @@
     "@sytechui/spinner": "workspace:*",
     "@sytechui/system": "workspace:*",
     "@sytechui/theme": "workspace:*",
-    "@sytechui/tooltip": "workspace:*",
     "@sytechui/use-infinite-scroll": "workspace:*",
     "@sytechui/user": "workspace:*",
     "clean-package": "2.2.0",

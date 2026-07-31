@@ -1,5 +1,11 @@
 # @sytechui/alert
 
+## 2.3.1
+
+### Patch Changes
+
+- Allow compatible newer versions of `@sytechui/theme`.
+
 ## 2.3.0
 
 ### Major Changes

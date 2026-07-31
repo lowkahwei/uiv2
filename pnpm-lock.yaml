@@ -2879,6 +2879,9 @@ importers:
       '@sytechui/shared-utils':
         specifier: workspace:*
         version: link:../../utilities/shared-utils
+      '@sytechui/tooltip':
+        specifier: workspace:*
+        version: link:../tooltip
       react-aria-components:
         specifier: 1.19.0
         version: 1.19.0(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
@@ -2907,9 +2910,6 @@ importers:
       '@sytechui/theme':
         specifier: workspace:*
         version: link:../../core/theme
-      '@sytechui/tooltip':
-        specifier: workspace:*
-        version: link:../tooltip
       '@sytechui/use-infinite-scroll':
         specifier: workspace:*
         version: link:../../hooks/use-infinite-scroll

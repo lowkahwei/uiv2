@@ -1,6 +1,6 @@
 {
   "name": "@sytechui/select",
-  "version": "2.4.38",
+  "version": "2.4.39",
   "description": "A select displays a collapsible list of options and allows a user to select one of them.",
   "keywords": [
     "select"

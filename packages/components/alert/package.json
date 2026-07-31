@@ -1,6 +1,6 @@
 {
   "name": "@sytechui/alert",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Display important messages and notifications with status indicators.",
   "keywords": [
     "alert"
@@ -40,7 +40,7 @@
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0",
-    "@sytechui/theme": "workspace:*",
+    "@sytechui/theme": ">=2.4.24",
     "@sytechui/system": ">=2.4.18"
   },
   "dependencies": {

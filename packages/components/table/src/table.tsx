@@ -1,6 +1,7 @@
 "use client";
 
 import type {SlotsToClasses, TableReturnType, TableSlots, TableVariantProps} from "@sytechui/theme";
+import type {TooltipProps} from "@sytechui/tooltip";
 import type {
   ComponentPropsWithRef,
   ComponentPropsWithoutRef,
@@ -14,7 +15,17 @@ import type {TableVirtualizerProps} from "./table-virtualizer";
 import {ChevronDownIcon} from "@sytechui/shared-icons";
 import {objectToDeps} from "@sytechui/shared-utils";
 import {checkbox, cn, table} from "@sytechui/theme";
-import React, {createContext, forwardRef, useCallback, useContext, useMemo} from "react";
+import {Tooltip} from "@sytechui/tooltip";
+import React, {
+  createContext,
+  forwardRef,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {composeRenderProps} from "react-aria-components";
 import {
   Cell as CellPrimitive,
@@ -56,6 +67,7 @@ type PublicTableVariantProps = Omit<
 
 interface TableContextValue {
   classNames?: SlotsToClasses<TableSlots>;
+  headerOverflowMode?: TableVariantProps["overflowMode"];
   slots?: TableReturnType;
   variants?: PublicTableVariantProps;
 }
@@ -99,6 +111,11 @@ export interface TableRootProps
    * `Table.Row`. Use the same filtered/reordered array for all three.
    */
   columns?: readonly ColumnGeometryDefinition[];
+  /**
+   * Controls wrapping in column headers. Truncated headers show their full content in a tooltip
+   * only while the content is visually overflowing.
+   */
+  headerOverflowMode?: TableVariantProps["overflowMode"];
   isResizable?: boolean;
   isVirtualized?: boolean;
   layoutOptions?: TableVirtualizerProps["layoutOptions"];
@@ -117,6 +134,7 @@ export const TableRoot = forwardRef<HTMLDivElement, TableRootProps>(function Tab
     color,
     columns,
     fullWidth,
+    headerOverflowMode,
     hideHeader,
     isBordered,
     isCompact,
@@ -172,8 +190,8 @@ export const TableRoot = forwardRef<HTMLDivElement, TableRootProps>(function Tab
   );
   const slots = useMemo(() => table(variants), [variants]);
   const context = useMemo(
-    () => ({classNames, slots, variants}),
-    [objectToDeps(classNames), slots, variants],
+    () => ({classNames, headerOverflowMode, slots, variants}),
+    [objectToDeps(classNames), headerOverflowMode, slots, variants],
   );
 
   let content: ReactNode = isResizable ? (
@@ -325,14 +343,27 @@ export const TableHeader = forwardRef(function TableHeader<T extends object>(
  * -----------------------------------------------------------------------------------------------*/
 export interface TableColumnProps extends ComponentPropsWithRef<typeof ColumnPrimitive> {
   align?: TableVariantProps["align"];
+  tooltipProps?: Omit<TooltipProps, "children" | "content" | "isDisabled">;
 }
 
 export const TableColumn = forwardRef<HTMLDivElement | HTMLTableCellElement, TableColumnProps>(
   function TableColumn(
-    {align, children, className, defaultWidth, id, maxWidth, minWidth, style, width, ...props},
+    {
+      align,
+      children,
+      className,
+      defaultWidth,
+      id,
+      maxWidth,
+      minWidth,
+      style,
+      tooltipProps,
+      width,
+      ...props
+    },
     ref,
   ) {
-    const {classNames, slots} = useContext(TableContext);
+    const {classNames, headerOverflowMode, slots} = useContext(TableContext);
     const definitions = useContext(TableColumnDefinitionsContext);
     const geometryContext = useContext(TableColumnGeometryContext);
     const geometryMode = useContext(TableGeometryModeContext);
@@ -364,14 +395,21 @@ export const TableColumn = forwardRef<HTMLDivElement | HTMLTableCellElement, Tab
     // table-virtualizer.tsx), so this attribute — which the generated <style> in
     // TableGeometryContainer keys off of — is native-only too.
     const pinnedAttribute = geometryMode === "native" ? columnGeometry?.pinned : undefined;
-    const resolvedChildren = isResizable
-      ? composeRenderProps(children, (children) => (
-          <>
-            {children}
-            <TableColumnResizer />
-          </>
-        ))
-      : children;
+    const resolvedChildren =
+      isResizable || headerOverflowMode === "truncate"
+        ? composeRenderProps(children, (children) => (
+            <>
+              {headerOverflowMode === "truncate" ? (
+                <TableColumnOverflowTooltip tooltipProps={tooltipProps}>
+                  {children}
+                </TableColumnOverflowTooltip>
+              ) : (
+                children
+              )}
+              {isResizable ? <TableColumnResizer /> : null}
+            </>
+          ))
+        : children;
 
     return (
       <ColumnPrimitive
@@ -393,6 +431,54 @@ export const TableColumn = forwardRef<HTMLDivElement | HTMLTableCellElement, Tab
 );
 
 TableColumn.displayName = "SytechUI.Table.Column";
+
+function TableColumnOverflowTooltip({
+  children,
+  tooltipProps,
+}: {
+  children: ReactNode;
+  tooltipProps?: Omit<TooltipProps, "children" | "content" | "isDisabled">;
+}) {
+  const contentRef = useRef<HTMLSpanElement>(null);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+
+  useEffect(() => {
+    const content = contentRef.current;
+
+    if (!content) return;
+
+    const updateOverflow = () => {
+      setIsOverflowing(content.scrollWidth > content.clientWidth);
+    };
+
+    updateOverflow();
+
+    if (typeof ResizeObserver === "undefined") {
+      window.addEventListener("resize", updateOverflow);
+
+      return () => window.removeEventListener("resize", updateOverflow);
+    }
+
+    const observer = new ResizeObserver(updateOverflow);
+
+    observer.observe(content);
+
+    return () => observer.disconnect();
+  }, [children]);
+
+  return (
+    <Tooltip {...tooltipProps} content={children} isDisabled={!isOverflowing}>
+      <span
+        ref={contentRef}
+        className="block min-w-0 max-w-full truncate"
+        data-overflowing={isOverflowing || undefined}
+        data-table-column-content=""
+      >
+        {children}
+      </span>
+    </Tooltip>
+  );
+}
 
 /* -------------------------------------------------------------------------------------------------
  * Table Body
@@ -588,6 +674,7 @@ export const TableFooter = forwardRef<HTMLDivElement, TableFooterProps>(function
         class: cn(classNames?.tfoot, className),
         isFooterSticky: isSticky,
       })}
+      data-table-footer-align-columns={alignColumns || undefined}
       style={{...geometryStyle, ...style}}
       {...props}
     />

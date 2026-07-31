@@ -336,6 +336,55 @@ describe("Root native geometry mode", () => {
     clientWidth.mockRestore();
   });
 
+  it("pins aligned footer cells with the same offsets and shadows as their columns", () => {
+    const clientWidth = jest
+      .spyOn(HTMLElement.prototype, "clientWidth", "get")
+      .mockReturnValue(240);
+    const wrapper = render(
+      <Table
+        columns={[
+          {id: "name", pinned: "start", width: 100},
+          {id: "role", width: 180},
+          {id: "actions", pinned: "end", width: 100},
+        ]}
+      >
+        <Table.Content aria-label="Pinned footer table">
+          <Table.Header>
+            <Table.Column id="name">Name</Table.Column>
+            <Table.Column id="role">Role</Table.Column>
+            <Table.Column id="actions">Actions</Table.Column>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>Ada</Table.Cell>
+              <Table.Cell>Engineer</Table.Cell>
+              <Table.Cell>Edit</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table.Content>
+        <Table.Footer alignColumns isSticky>
+          <span>1 member</span>
+          <span>1 role</span>
+          <span>1 action</span>
+        </Table.Footer>
+      </Table>,
+    );
+    const footer = wrapper.getByText("1 member").parentElement;
+    const geometryStyle =
+      wrapper.container.querySelector("[data-table-geometry] style")?.textContent ?? "";
+
+    expect(footer).toHaveAttribute("data-table-footer-align-columns", "true");
+    expect(geometryStyle).toContain("[data-table-footer-align-columns] > :nth-child(1)");
+    expect(geometryStyle).toContain("[data-table-footer-align-columns] > :nth-child(3)");
+    expect(geometryStyle).toContain(
+      "background-color: var(--table-pinned-footer-bg, var(--table-pinned-bg))",
+    );
+    expect(geometryStyle).toContain("[data-table-footer-align-columns] > :nth-child(1)::after");
+    expect(geometryStyle).toContain("[data-table-footer-align-columns] > :nth-child(3)::after");
+
+    clientWidth.mockRestore();
+  });
+
   it("keeps exact fixed widths when fullWidth is disabled", () => {
     const clientWidth = jest
       .spyOn(HTMLElement.prototype, "clientWidth", "get")

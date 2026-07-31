@@ -11,6 +11,7 @@ export const baseStyles = (prefix: string) => ({
   "--scrollbar-width": "thin",
   "--scrollbar-color": "var(--scrollbar-thumb) var(--scrollbar-track)",
   "--table-pinned-bg": `hsl(var(--${prefix}-content1))`,
+  "--table-pinned-footer-bg": `hsl(var(--${prefix}-default-100))`,
   "--table-pinned-shadow": `hsl(var(--${prefix}-foreground) / 0.25)`,
 });
 

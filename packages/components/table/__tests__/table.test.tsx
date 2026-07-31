@@ -1,7 +1,7 @@
 import type {UserEvent} from "@testing-library/user-event";
 
 import * as React from "react";
-import {render, waitFor} from "@testing-library/react";
+import {act, render, waitFor} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import {Table} from "../src";
@@ -126,6 +126,54 @@ describe("Table", () => {
     expect(wrapper.getByText("Kate")).toHaveClass("truncate");
     expect(wrapper.getByRole("gridcell")).toHaveClass("whitespace-normal", "break-words");
     expect(wrapper.getByText("Chief executive officer")).not.toHaveClass("truncate");
+  });
+
+  it("shows a tooltip only while a truncated column header is overflowing", async () => {
+    let notifyResize: (() => void) | undefined;
+    const originalResizeObserver = global.ResizeObserver;
+
+    global.ResizeObserver = class ResizeObserverMock {
+      constructor(callback: ResizeObserverCallback) {
+        notifyResize = () => callback([], this);
+      }
+
+      disconnect = jest.fn();
+      observe = jest.fn();
+      unobserve = jest.fn();
+    };
+
+    const wrapper = render(
+      <Table headerOverflowMode="truncate">
+        <Table.Content aria-label="Financial report">
+          <Table.Header>
+            <Table.Column tooltipProps={{disableAnimation: true, isOpen: true}}>
+              Interest Collected
+            </Table.Column>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row id="1">
+              <Table.Cell>250.00</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table.Content>
+      </Table>,
+    );
+    const content = wrapper.getByText("Interest Collected");
+
+    Object.defineProperties(content, {
+      clientWidth: {configurable: true, value: 80},
+      scrollWidth: {configurable: true, value: 180},
+    });
+    act(() => notifyResize?.());
+    await waitFor(() => expect(content).toHaveAttribute("data-overflowing", "true"));
+
+    expect(await wrapper.findByRole("tooltip")).toHaveTextContent("Interest Collected");
+
+    Object.defineProperty(content, "clientWidth", {configurable: true, value: 200});
+    act(() => notifyResize?.());
+
+    await waitFor(() => expect(wrapper.queryByRole("tooltip")).not.toBeInTheDocument());
+    global.ResizeObserver = originalResizeObserver;
   });
 
   it("isBordered draws horizontal inner row lines on cells only", () => {

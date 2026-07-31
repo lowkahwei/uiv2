@@ -8,6 +8,7 @@ describe("scrollbar utilities", () => {
       "--scrollbar-track": "transparent",
       "--scrollbar-width": "thin",
       "--table-pinned-bg": "hsl(var(--heroui-content1))",
+      "--table-pinned-footer-bg": "hsl(var(--heroui-default-100))",
       "--table-pinned-shadow": "hsl(var(--heroui-foreground) / 0.25)",
     });
     expect(scrollbarUtilities[".scrollbar"]).toEqual({

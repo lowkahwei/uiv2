@@ -1,5 +1,16 @@
 # @sytechui/date-picker
 
+## 2.3.39
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/button@2.2.32
+  - @sytechui/calendar@2.2.33
+  - @sytechui/date-input@2.3.38
+  - @sytechui/form@2.1.38
+  - @sytechui/popover@2.3.32
+
 ## 2.3.38
 
 ### Patch Changes

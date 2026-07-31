@@ -69,6 +69,57 @@ const columns = [
   {id: "status", label: "STATUS"},
 ];
 
+const financialColumns = [
+  {id: "date", label: "Date"},
+  {id: "company", label: "Company"},
+  {id: "totalLoan", label: "Total Loan"},
+  {id: "totalFee", label: "Total Fee"},
+  {id: "totalOut", label: "Total Outstanding Amount"},
+  {id: "interest", label: "Interest Collected"},
+  {id: "principal", label: "Principal Collected"},
+  {id: "penalty", label: "Penalty Collected"},
+  {id: "extra", label: "Extra Collected"},
+  {id: "advance", label: "Advance Payment Collected"},
+  {id: "totalIn", label: "Total Incoming Amount"},
+  {id: "feeExpense", label: "Fee Expense"},
+  {id: "profit", label: "Net Profit After Expenses"},
+] as const;
+
+const financialRows = [
+  {
+    id: "1",
+    date: "2026-07-31",
+    company: "Sytech",
+    totalLoan: "0.00",
+    totalFee: "0.00",
+    totalOut: "0.00",
+    interest: "0.00",
+    principal: "0.00",
+    penalty: "0.00",
+    extra: "0.00",
+    advance: "0.00",
+    totalIn: "0.00",
+    feeExpense: "200.00",
+    profit: "-200.00",
+  },
+  {
+    id: "2",
+    date: "2026-07-29",
+    company: "Sytech",
+    totalLoan: "2,233.35",
+    totalFee: "0.00",
+    totalOut: "2,233.35",
+    interest: "250.00",
+    principal: "916.67",
+    penalty: "0.00",
+    extra: "0.00",
+    advance: "33.33",
+    totalIn: "1,200.00",
+    feeExpense: "0.00",
+    profit: "-1,033.35",
+  },
+];
+
 const virtualizedColumns = [
   {id: "name", minWidth: 100},
   {id: "value", minWidth: 100},
@@ -753,6 +804,43 @@ function ColumnResizingTemplate({args}: {args: TableProps}) {
   );
 }
 
+function LongHeaderOverflowTemplate({args}: {args: TableProps}) {
+  return (
+    <Table isResizable {...args} headerOverflowMode="truncate">
+      <Table.Content
+        aria-label="Financial report with long column headers"
+        className="min-w-[1300px]"
+      >
+        <Table.Header columns={financialColumns}>
+          {(column) => (
+            <Table.Column
+              defaultWidth={column.id === "date" ? 130 : 110}
+              id={column.id}
+              minWidth={80}
+              tooltipProps={{delay: 200}}
+            >
+              {column.label}
+            </Table.Column>
+          )}
+        </Table.Header>
+        <Table.Body items={financialRows}>
+          {(item) => (
+            <Table.Row columns={financialColumns} id={item.id}>
+              {(column) => (
+                <Table.Cell
+                  align={column.id === "date" || column.id === "company" ? "start" : "end"}
+                >
+                  {item[column.id]}
+                </Table.Cell>
+              )}
+            </Table.Row>
+          )}
+        </Table.Body>
+      </Table.Content>
+    </Table>
+  );
+}
+
 function FooterWithColumnResizingTemplate({args}: {args: TableProps}) {
   return (
     <Table
@@ -828,6 +916,17 @@ function PinnedColumnsTemplate({args}: {args: TableProps}) {
           ))}
         </Table.Body>
       </Table.Content>
+      <Table.Footer alignColumns isSticky className="text-small font-semibold">
+        {pinnedColumns.map((column, index) => (
+          <span key={column.id} className="px-3 py-2">
+            {index === 0
+              ? `${rows.length} records`
+              : index === pinnedColumns.length - 1
+                ? "Totals"
+                : "-"}
+          </span>
+        ))}
+      </Table.Footer>
     </Table>
   );
 }
@@ -1025,6 +1124,11 @@ export const ColumnResizing: Story = {
       ).toHaveLength(3);
     });
   },
+};
+
+export const LongHeaderOverflow: Story = {
+  render: (args) => <LongHeaderOverflowTemplate args={args} />,
+  args: {...defaultProps, className: "max-w-5xl"},
 };
 
 export const FooterWithColumnResizing: Story = {

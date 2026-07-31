@@ -1,5 +1,12 @@
 # @sytechui/date-input
 
+## 2.3.38
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sytechui/form@2.1.38
+
 ## 2.3.37
 
 ### Patch Changes

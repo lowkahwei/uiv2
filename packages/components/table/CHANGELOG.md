@@ -1,5 +1,14 @@
 # @sytechui/table
 
+## 2.2.40
+
+### Patch Changes
+
+- Add automatic truncation tooltips for overflowing table column headers and keep aligned footer
+  cells pinned with their columns.
+- Updated dependencies []:
+  - @sytechui/tooltip@2.2.29
+
 ## 2.2.39
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @sytechui/theme
 
+## 2.6.5
+
+### Patch Changes
+
+- Add automatic truncation tooltips for overflowing table column headers and keep aligned footer
+  cells pinned with their columns.
+
 ## 2.6.4
 
 ### Patch Changes
