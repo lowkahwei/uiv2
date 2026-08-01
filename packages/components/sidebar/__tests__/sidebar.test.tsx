@@ -481,7 +481,7 @@ describe("Sidebar", () => {
     const onOpenChange = jest.fn();
 
     render(
-      <SidebarProvider onOpenChange={onOpenChange} toggleShortcut="mod+shift+s">
+      <SidebarProvider toggleShortcut="mod+shift+s" onOpenChange={onOpenChange}>
         <SidebarLayout />
       </SidebarProvider>,
     );
@@ -496,7 +496,7 @@ describe("Sidebar", () => {
     const onOpenChange = jest.fn();
 
     render(
-      <SidebarProvider onOpenChange={onOpenChange} toggleShortcut={false}>
+      <SidebarProvider toggleShortcut={false} onOpenChange={onOpenChange}>
         <SidebarLayout />
       </SidebarProvider>,
     );

@@ -229,6 +229,7 @@ const RightSideDemo = (props: SidebarProps) => (
         <MobileTrigger />
         <h1 className="text-2xl font-bold">Content area</h1>
         <p className="mt-2 text-foreground-600">The sidebar docks to the right edge.</p>
+        <LayoutMetadata />
       </main>
       <Sidebar {...props} aria-label="Application sidebar" side="right">
         <SidebarContents />
@@ -236,6 +237,12 @@ const RightSideDemo = (props: SidebarProps) => (
     </div>
   </SidebarProvider>
 );
+
+function LayoutMetadata() {
+  const {side, collapsible} = useSidebar();
+
+  return <p className="mt-2 text-sm text-foreground-500">Context: {`${side} / ${collapsible}`}</p>;
+}
 
 export const RightSide = {
   tags: ["sidebar-browser"],
@@ -283,9 +290,7 @@ export const OffcanvasCollapsed = {
     const main = within(canvas.getByRole("main"));
 
     await userEvent.click(main.getByRole("button", {name: "Expand sidebar"}));
-    await waitFor(() =>
-      expect(sidebar.parentElement).toHaveStyle({transform: "translateX(0)"}),
-    );
+    await waitFor(() => expect(sidebar.parentElement).toHaveStyle({transform: "translateX(0)"}));
 
     await userEvent.click(within(sidebar).getByRole("button", {name: "Collapse sidebar"}));
   },
@@ -383,7 +388,10 @@ const SidebarContentsWithNested = () => (
   </>
 );
 
-const NestedItemsDemo = ({defaultOpen = true, ...props}: SidebarProps & {defaultOpen?: boolean}) => (
+const NestedItemsDemo = ({
+  defaultOpen = true,
+  ...props
+}: SidebarProps & {defaultOpen?: boolean}) => (
   <SidebarProvider defaultOpen={defaultOpen}>
     <div className="flex min-h-screen">
       <Sidebar {...props} aria-label="Application sidebar">
@@ -483,7 +491,7 @@ const GuideLinesDemo = (props: SidebarProps) => (
       <Sidebar {...props} aria-label="Guide line examples">
         <SidebarContent>
           <SidebarGroup title="Guide lines">
-            <SidebarSubmenu defaultOpen icon={<Icon />} label="Always" showGuideLines>
+            <SidebarSubmenu defaultOpen showGuideLines icon={<Icon />} label="Always">
               <SidebarItem href="#always">Visible line</SidebarItem>
             </SidebarSubmenu>
             <SidebarSubmenu defaultOpen icon={<Icon />} label="Never" showGuideLines={false}>
@@ -506,9 +514,49 @@ export const GuideLines = {
 
 export const CSSVariables = {
   render: (args: SidebarProps) => (
-    <SidebarDemo
-      {...args}
-      style={{"--sidebar-duration": "600ms"} as React.CSSProperties}
-    />
+    <SidebarDemo {...args} style={{"--sidebar-duration": "600ms"} as React.CSSProperties} />
   ),
+};
+
+const CustomShortcutDemo = (props: SidebarProps) => (
+  <SidebarProvider toggleShortcut="mod+shift+s">
+    <div className="flex min-h-screen">
+      <Sidebar {...props} aria-label="Custom shortcut sidebar">
+        <SidebarContents />
+      </Sidebar>
+      <main className="min-w-0 flex-1 p-8">Press Cmd/Ctrl+Shift+S to toggle the sidebar.</main>
+    </div>
+  </SidebarProvider>
+);
+
+export const CustomShortcut = {
+  render: (args: SidebarProps) => <CustomShortcutDemo {...args} />,
+  play: async ({canvasElement}: {canvasElement: HTMLElement}) => {
+    const sidebar = within(canvasElement).getByRole("complementary", {
+      name: "Custom shortcut sidebar",
+    });
+
+    await userEvent.keyboard("{Meta>}{Shift>}s{/Shift}{/Meta}");
+    await waitFor(() => expect(sidebar).toHaveAttribute("data-state", "collapsed"));
+  },
+};
+
+const PersistentMobileActionDemo = (props: SidebarProps) => (
+  <SidebarProvider>
+    <SidebarTrigger className="m-6" />
+    <Sidebar {...props} aria-label="Persistent mobile sidebar">
+      <SidebarContent>
+        <SidebarGroup title="Workspace">
+          <SidebarItem closeMobileOnAction={false} icon={<Icon />}>
+            Choose workspace
+          </SidebarItem>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+  </SidebarProvider>
+);
+
+export const PersistentMobileAction = {
+  parameters: {viewport: {defaultViewport: "mobile1"}},
+  render: (args: SidebarProps) => <PersistentMobileActionDemo {...args} />,
 };

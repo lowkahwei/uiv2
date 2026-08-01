@@ -27,15 +27,8 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
     },
     ref,
   ) => {
-    const {
-      state,
-      isMobile,
-      openMobile,
-      setOpenMobile,
-      mobileBreakpoint,
-      reduceMotion,
-      _setLayout,
-    } = useSidebar();
+    const {state, isMobile, openMobile, setOpenMobile, mobileBreakpoint, reduceMotion, _setLayout} =
+      useSidebar();
     const breakpointId = useId();
 
     useEffect(() => _setLayout({side, collapsible}), [_setLayout, side, collapsible]);

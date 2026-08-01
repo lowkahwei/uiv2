@@ -2,4 +2,7 @@
 "@sytechui/sidebar": minor
 ---
 
-Add a responsive, collapsible Sidebar compound component with desktop and mobile navigation patterns. Supports a configurable mobile breakpoint, Drawer prop passthrough, a disableable collapsed-state tooltip, and a customizable trigger icon. Also supports `side` (left/right docking), `collapsible` (`icon`/`offcanvas`/`none`), a `Cmd/Ctrl+B` toggle shortcut, a `SidebarItem` `action` slot, and nested items via `SidebarSubmenu`.
+Add a responsive Sidebar compound component with mobile Drawer navigation, icon and offcanvas
+collapse modes, configurable shortcuts, Cookie persistence, reduced motion, CSS variables,
+scroll shadows, nested-item flyouts, guide lines, item actions, link routing controls, and the
+new `SidebarMain` and `SidebarSeparator` layout primitives.
