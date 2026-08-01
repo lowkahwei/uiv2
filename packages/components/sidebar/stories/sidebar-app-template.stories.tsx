@@ -151,7 +151,7 @@ const AppTemplateShell = ({defaultOpen = true}: {defaultOpen?: boolean}) => {
         <SidebarMain className="flex flex-col">
           <header className="flex h-12 items-center border-b border-divider px-4">
             <SidebarTrigger className="md:hidden" label="Open navigation" />
-            <span className="ml-auto text-sm text-foreground-500">Theme · Language</span>
+            <span className="ml-auto text-sm text-foreground-600">Theme · Language</span>
           </header>
           <div className="flex-1 p-8">
             <h1 className="text-2xl font-bold">

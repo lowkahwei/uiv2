@@ -101,9 +101,9 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
         <div
           aria-hidden="true"
           className={cn(
-            "h-screen shrink-0",
+            "h-svh shrink-0",
             !reduceMotion &&
-              "transition-[width] duration-[var(--sidebar-duration,150ms)] ease-[var(--sidebar-ease,ease-in-out)]",
+              "transition-[width] duration-[var(--sidebar-duration,150ms)] ease-[var(--sidebar-ease,ease-in-out)] motion-reduce:transition-none",
             desktopVisibilityClassName,
           )}
           data-sidebar-bp={customBreakpoint ? breakpointId : undefined}
@@ -112,9 +112,9 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
         />
         <div
           className={cn(
-            "fixed inset-y-0 z-50 h-screen overflow-hidden",
+            "fixed inset-y-0 z-50 h-svh overflow-hidden",
             !reduceMotion &&
-              "transition-[width,transform] duration-[var(--sidebar-duration,150ms)] ease-[var(--sidebar-ease,ease-in-out)]",
+              "transition-[width,transform] duration-[var(--sidebar-duration,150ms)] ease-[var(--sidebar-ease,ease-in-out)] motion-reduce:transition-none",
             side === "right" ? "right-0" : "left-0",
             desktopVisibilityClassName,
           )}

@@ -241,7 +241,7 @@ const RightSideDemo = (props: SidebarProps) => (
 function LayoutMetadata() {
   const {side, collapsible} = useSidebar();
 
-  return <p className="mt-2 text-sm text-foreground-500">Context: {`${side} / ${collapsible}`}</p>;
+  return <p className="mt-2 text-sm text-foreground-600">Context: {`${side} / ${collapsible}`}</p>;
 }
 
 export const RightSide = {
@@ -280,17 +280,15 @@ export const OffcanvasCollapsed = {
     const canvas = within(canvasElement);
     const sidebar = canvas.getByRole("complementary", {name: "Application sidebar"});
 
-    await waitFor(() =>
-      expect(sidebar.parentElement).toHaveStyle({
-        transform: "translateX(-100%)",
-        width: "270px",
-      }),
-    );
+    await waitFor(() => {
+      expect(sidebar).toHaveAttribute("data-state", "collapsed");
+      expect(sidebar.parentElement).toHaveStyle({width: "270px"});
+    });
 
     const main = within(canvas.getByRole("main"));
 
     await userEvent.click(main.getByRole("button", {name: "Expand sidebar"}));
-    await waitFor(() => expect(sidebar.parentElement).toHaveStyle({transform: "translateX(0)"}));
+    await waitFor(() => expect(sidebar).toHaveAttribute("data-state", "expanded"));
 
     await userEvent.click(within(sidebar).getByRole("button", {name: "Collapse sidebar"}));
   },
@@ -359,7 +357,7 @@ const ItemActionsDemo = (props: SidebarProps) => (
       </Sidebar>
       <main className="min-w-0 flex-1 p-8">
         <MobileTrigger />
-        <p className="text-foreground-500">Hover or focus an item to reveal its action button.</p>
+        <p className="text-foreground-600">Hover or focus an item to reveal its action button.</p>
       </main>
     </div>
   </SidebarProvider>
@@ -399,7 +397,7 @@ const NestedItemsDemo = ({
       </Sidebar>
       <main className="min-w-0 flex-1 p-8">
         <MobileTrigger />
-        <p className="text-foreground-500">
+        <p className="text-foreground-600">
           Click Settings to expand or collapse its nested items.
         </p>
       </main>

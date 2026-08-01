@@ -45,9 +45,9 @@ export function SidebarProvider({
     if (isMobile) {
       setOpenMobileState((currentOpen) => !currentOpen);
     } else {
-      setOpenState(!open);
+      setOpenState((currentOpen) => !currentOpen);
     }
-  }, [isMobile, open, setOpenState]);
+  }, [isMobile, setOpenState]);
 
   useEffect(() => {
     if (!toggleShortcut) return;
@@ -58,7 +58,28 @@ export function SidebarProvider({
       .map((token) => token.trim());
     const modifiers = tokens.slice(0, -1);
     const key = tokens.at(-1);
+    const supportedModifiers = new Set(["mod", "shift", "alt"]);
+    const hasUnsupportedModifier = modifiers.some((modifier) => !supportedModifiers.has(modifier));
+
+    if (hasUnsupportedModifier) {
+      if (process.env.NODE_ENV !== "production") {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `SidebarProvider: toggleShortcut "${toggleShortcut}" uses an unsupported modifier. Only "mod", "shift", and "alt" are supported.`,
+        );
+      }
+
+      return;
+    }
+
     const handleKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      const isEditableTarget =
+        target != null &&
+        (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable);
+
+      if (isEditableTarget) return;
+
       const modKey = event.metaKey || event.ctrlKey;
 
       if (

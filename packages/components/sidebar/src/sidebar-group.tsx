@@ -23,7 +23,7 @@ const SidebarGroup = ({children, title, className, ...props}: SidebarGroupProps)
         </h2>
       )}
       <ul
-        className="flex flex-col gap-[var(--sidebar-menu-row-gap,0.25rem)]"
+        className="flex flex-col gap-[var(--sidebar-menu-row-gap,0.125rem)]"
         data-slot="group-content"
       >
         {children}

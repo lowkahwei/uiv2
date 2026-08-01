@@ -1,6 +1,7 @@
 import type {ButtonProps} from "@sytechui/button";
 import type {DrawerProps} from "@sytechui/drawer";
 import type {LinkProps} from "@sytechui/link";
+import type {ScrollShadowProps} from "@sytechui/scroll-shadow";
 import type {TooltipProps} from "@sytechui/tooltip";
 import type {ComponentPropsWithoutRef, ReactNode} from "react";
 
@@ -65,7 +66,7 @@ export interface SidebarHeaderProps extends Omit<ComponentPropsWithoutRef<"div">
   children?: ReactNode;
 }
 
-export interface SidebarContentProps extends Omit<ComponentPropsWithoutRef<"nav">, "children"> {
+export interface SidebarContentProps extends Omit<ScrollShadowProps, "children" | "as"> {
   children?: ReactNode;
 }
 

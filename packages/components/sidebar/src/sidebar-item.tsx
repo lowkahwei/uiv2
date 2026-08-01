@@ -42,8 +42,8 @@ const SidebarItem = ({
     [closeMobileOnAction, isMobile, onPress, setOpenMobile],
   );
   const itemClassName = cn(
-    "relative flex min-h-9 w-full min-w-0 items-center gap-0 overflow-hidden rounded-md px-0 text-left font-medium",
-    !reduceMotion && "transition-colors",
+    "relative flex h-9 min-h-9 w-full min-w-0 items-center gap-0 overflow-hidden rounded-md px-0 text-left text-sm font-medium",
+    !reduceMotion && "transition-colors motion-reduce:transition-none",
     isActive ? "bg-default text-foreground" : "text-foreground-500 hover:bg-content2",
     isDisabled && "cursor-not-allowed opacity-50",
     className,
@@ -61,8 +61,10 @@ const SidebarItem = ({
       )}
       <span
         className={cn(
-          "flex min-w-0 flex-1 items-center gap-2 truncate py-2 pr-3",
-          !reduceMotion && "transition-[opacity,width] duration-[var(--sidebar-duration,150ms)]",
+          "flex min-w-0 flex-1 items-center gap-2 truncate py-1.5 pr-3",
+          icon == null && "pl-2.5",
+          !reduceMotion &&
+            "transition-[opacity,width] duration-[var(--sidebar-duration,150ms)] motion-reduce:transition-none",
           isCompact && "w-0 flex-none overflow-hidden p-0 opacity-0",
         )}
         data-slot="label"
@@ -99,6 +101,7 @@ const SidebarItem = ({
       <Button
         {...(props as ButtonProps)}
         fullWidth
+        aria-current={isActive ? "page" : undefined}
         className={itemClassName}
         data-active={isActive ? "true" : undefined}
         data-slot="control"
@@ -131,7 +134,7 @@ const SidebarItem = ({
         <span
           className={cn(
             "absolute right-1 top-1/2 -translate-y-1/2 opacity-0 group-focus-within/item:opacity-100 group-hover/item:opacity-100",
-            !reduceMotion && "transition-opacity",
+            !reduceMotion && "transition-opacity motion-reduce:transition-none",
           )}
           data-slot="action"
         >

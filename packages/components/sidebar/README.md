@@ -275,13 +275,13 @@ motion and nested-menu spacing without theme configuration:
 <SidebarProvider reduceMotion>{children}</SidebarProvider>
 ```
 
-| Variable                     | Default                      |
-| ---------------------------- | ---------------------------- |
-| `--sidebar-duration`         | `150ms`                      |
-| `--sidebar-ease`             | `ease-in-out`                |
-| `--sidebar-menu-indent`      | `1rem`                       |
-| `--sidebar-menu-row-gap`     | `0.25rem`                    |
-| `--sidebar-menu-guide-color` | `hsl(var(--heroui-divider))` |
+| Variable                     | Default                            |
+| ---------------------------- | ---------------------------------- |
+| `--sidebar-duration`         | `150ms`                            |
+| `--sidebar-ease`             | `ease-in-out`                      |
+| `--sidebar-menu-indent`      | `1rem`                             |
+| `--sidebar-menu-row-gap`     | `0.125rem`                         |
+| `--sidebar-menu-guide-color` | `hsl(var(--heroui-divider) / 0.1)` |
 
 ```tsx
 <Sidebar style={{"--sidebar-duration": "600ms"}}>{children}</Sidebar>
