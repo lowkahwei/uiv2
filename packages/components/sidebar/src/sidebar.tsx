@@ -20,6 +20,7 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
       collapsedWidth = "60px",
       side = "left",
       collapsible = "icon",
+      variant = "default",
       className,
       style,
       drawerProps,
@@ -33,6 +34,7 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
 
     useEffect(() => _setLayout({side, collapsible}), [_setLayout, side, collapsible]);
 
+    const isFloating = variant === "floating";
     const isCollapsed = state === "collapsed";
     const isOffcanvasCollapsed = isCollapsed && collapsible === "offcanvas" && !isMobile;
     const effectiveCollapsedWidth = collapsible === "offcanvas" ? "0px" : collapsedWidth;
@@ -41,6 +43,7 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
     const offcanvasTransform = isOffcanvasCollapsed
       ? `translateX(${side === "right" ? "100%" : "-100%"})`
       : "translateX(0)";
+    // Output only, for descendants to read; does not drive layout. Use `width`/`collapsedWidth` to resize.
     const sidebarStyle = {
       "--sidebar-width": toCssSize(width),
       "--sidebar-width-icon": toCssSize(collapsedWidth),
@@ -50,8 +53,13 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
       <aside
         ref={ref}
         className={cn(
-          "group/sidebar flex h-full min-h-0 select-none flex-col bg-content1 text-foreground",
-          side === "right" ? "border-l border-divider" : "border-r border-divider",
+          "group/sidebar flex h-full min-h-0 select-none flex-col text-foreground",
+          variant === "floating" && "rounded-xl border border-divider bg-content1 shadow-md",
+          variant === "inset" && "border-transparent bg-transparent",
+          variant === "default" &&
+            (side === "right"
+              ? "border-l border-divider bg-content1"
+              : "border-r border-divider bg-content1"),
           className,
         )}
         data-mobile={isMobile ? "true" : undefined}
@@ -59,6 +67,7 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
         data-side={side}
         data-slot="base"
         data-state={isMobile ? "expanded" : state}
+        data-variant={variant}
         style={sidebarStyle}
         {...props}
       >
@@ -68,7 +77,11 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
 
     if (collapsible === "none") {
       return (
-        <div className="h-full shrink-0" data-slot="container" style={{width: toCssSize(width)}}>
+        <div
+          className={cn("h-full shrink-0", isFloating && "m-2")}
+          data-slot="container"
+          style={{width: toCssSize(width)}}
+        >
           {content}
         </div>
       );
@@ -112,16 +125,25 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
         />
         <div
           className={cn(
-            "fixed inset-y-0 z-50 h-svh overflow-hidden",
+            "fixed z-50 h-svh",
+            isFloating ? "top-2 bottom-2" : "inset-y-0 overflow-hidden",
             !reduceMotion &&
               "transition-[width,transform] duration-[var(--sidebar-duration,150ms)] ease-[var(--sidebar-ease,ease-in-out)] motion-reduce:transition-none",
-            side === "right" ? "right-0" : "left-0",
+            side === "right"
+              ? isFloating
+                ? "right-2"
+                : "right-0"
+              : isFloating
+                ? "left-2"
+                : "left-0",
             desktopVisibilityClassName,
           )}
           data-sidebar-bp={customBreakpoint ? breakpointId : undefined}
           data-slot="container"
           style={{
-            width: toCssSize(containerWidth),
+            width: isFloating
+              ? `calc(${toCssSize(containerWidth)} - 0.5rem)`
+              : toCssSize(containerWidth),
             transform: collapsible === "offcanvas" ? offcanvasTransform : undefined,
           }}
         >

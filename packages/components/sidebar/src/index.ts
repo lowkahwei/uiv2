@@ -1,6 +1,7 @@
 import Sidebar from "./sidebar";
 
 export type {
+  SidebarActionsContextValue,
   SidebarCollapsible,
   SidebarContentProps,
   SidebarContextValue,
@@ -13,12 +14,14 @@ export type {
   SidebarProviderProps,
   SidebarSide,
   SidebarState,
+  SidebarStateContextValue,
   SidebarSubmenuProps,
   SidebarTriggerProps,
+  SidebarVariant,
 } from "./types";
 export type {SidebarSeparatorProps} from "./sidebar-separator";
 
-export {SidebarProvider, useSidebar} from "./sidebar-context";
+export {SidebarProvider, useSidebar, useSidebarActions, useSidebarState} from "./sidebar-context";
 export {Sidebar};
 export {SidebarContent} from "./sidebar-content";
 export {SidebarFooter} from "./sidebar-footer";

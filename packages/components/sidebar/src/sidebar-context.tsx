@@ -1,12 +1,24 @@
-import type {SidebarContextValue, SidebarProviderProps} from "./types";
+import type {
+  SidebarActionsContextValue,
+  SidebarContextValue,
+  SidebarProviderProps,
+  SidebarStateContextValue,
+} from "./types";
 
+import {RouterProvider} from "@react-aria/utils";
 import {useControlledState} from "@react-stately/utils";
 import {useIsMobile} from "@sytechui/use-media-query";
 import {createContext, useCallback, useContext, useEffect, useMemo, useState} from "react";
 
-export type {SidebarContextValue, SidebarProviderProps} from "./types";
+export type {
+  SidebarActionsContextValue,
+  SidebarContextValue,
+  SidebarProviderProps,
+  SidebarStateContextValue,
+} from "./types";
 
-const SidebarContext = createContext<SidebarContextValue | null>(null);
+const SidebarStateContext = createContext<SidebarStateContextValue | null>(null);
+const SidebarActionsContext = createContext<SidebarActionsContextValue | null>(null);
 
 export function SidebarProvider({
   children,
@@ -16,6 +28,7 @@ export function SidebarProvider({
   mobileBreakpoint = 767,
   toggleShortcut = "mod+b",
   reduceMotion = false,
+  navigate,
 }: SidebarProviderProps) {
   const [open, setOpenState] = useControlledState(openProp, defaultOpen, onOpenChange);
   const [openMobile, setOpenMobileState] = useState(false);
@@ -98,49 +111,77 @@ export function SidebarProvider({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [toggleShortcut, toggleSidebar]);
 
-  const value = useMemo<SidebarContextValue>(
+  const stateValue = useMemo<SidebarStateContextValue>(
     () => ({
       state: open ? "expanded" : "collapsed",
       open,
-      setOpen,
       isMobile,
       openMobile,
-      setOpenMobile,
-      toggleSidebar,
       mobileBreakpoint,
       ...layout,
       reduceMotion,
-      _setLayout: setLayout,
     }),
-    [
-      open,
-      setOpen,
-      isMobile,
-      openMobile,
-      setOpenMobile,
-      toggleSidebar,
-      mobileBreakpoint,
-      layout,
-      reduceMotion,
-    ],
+    [open, isMobile, openMobile, mobileBreakpoint, layout, reduceMotion],
   );
 
-  return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>;
+  const actionsValue = useMemo<SidebarActionsContextValue>(
+    () => ({
+      setOpen,
+      setOpenMobile,
+      toggleSidebar,
+      _setLayout: setLayout,
+    }),
+    [setOpen, setOpenMobile, toggleSidebar],
+  );
+
+  const providers = (
+    <SidebarActionsContext.Provider value={actionsValue}>
+      <SidebarStateContext.Provider value={stateValue}>{children}</SidebarStateContext.Provider>
+    </SidebarActionsContext.Provider>
+  );
+
+  if (!navigate) return providers;
+
+  return <RouterProvider navigate={(href) => navigate(String(href))}>{providers}</RouterProvider>;
 }
 
-export function useSidebar() {
-  const context = useContext(SidebarContext);
+/** Subscribes only to the sidebar's changing state (re-renders on toggle, viewport, etc). */
+export function useSidebarState() {
+  const context = useContext(SidebarStateContext);
 
   if (!context) {
-    throw new Error("useSidebar must be used within a SidebarProvider.");
+    throw new Error("useSidebarState must be used within a SidebarProvider.");
   }
 
   return context;
 }
 
-export function SidebarExpandedScope({children}: Pick<SidebarProviderProps, "children">) {
-  const context = useSidebar();
-  const value = useMemo(() => ({...context, state: "expanded" as const}), [context]);
+/** Subscribes only to the sidebar's referentially-stable action callbacks. */
+export function useSidebarActions() {
+  const context = useContext(SidebarActionsContext);
 
-  return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>;
+  if (!context) {
+    throw new Error("useSidebarActions must be used within a SidebarProvider.");
+  }
+
+  return context;
+}
+
+export function useSidebar(): SidebarContextValue {
+  const state = useSidebarState();
+  const actions = useSidebarActions();
+
+  return useMemo(() => ({...state, ...actions}), [state, actions]);
+}
+
+export function SidebarExpandedScope({children}: Pick<SidebarProviderProps, "children">) {
+  const state = useSidebarState();
+  const expandedState = useMemo<SidebarStateContextValue>(
+    () => ({...state, state: "expanded" as const}),
+    [state],
+  );
+
+  return (
+    <SidebarStateContext.Provider value={expandedState}>{children}</SidebarStateContext.Provider>
+  );
 }

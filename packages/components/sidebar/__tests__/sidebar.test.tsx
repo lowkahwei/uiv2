@@ -184,6 +184,22 @@ describe("Sidebar", () => {
     );
   });
 
+  it("calls the navigate prop for client-side link navigation", async () => {
+    const navigate = jest.fn();
+    const user = userEvent.setup();
+    const {getByRole} = render(
+      <SidebarProvider navigate={navigate}>
+        <Sidebar>
+          <SidebarItem href="/reports">Reports</SidebarItem>
+        </Sidebar>
+      </SidebarProvider>,
+    );
+
+    await user.click(getByRole("link", {name: "Reports"}));
+
+    expect(navigate).toHaveBeenCalledWith("/reports");
+  });
+
   it("uses the supplied default state on the first render", () => {
     const {getByRole, queryByRole} = render(
       <SidebarProvider defaultOpen={false}>
@@ -292,7 +308,9 @@ describe("Sidebar", () => {
   });
 
   it("requires a provider", () => {
-    expect(() => render(<Sidebar />)).toThrow("useSidebar must be used within a SidebarProvider.");
+    expect(() => render(<Sidebar />)).toThrow(
+      "useSidebarState must be used within a SidebarProvider.",
+    );
   });
 
   it("can disable Sidebar-owned transitions", () => {

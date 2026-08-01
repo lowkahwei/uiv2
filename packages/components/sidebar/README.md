@@ -291,6 +291,11 @@ Compact submenu Popovers render in a portal, so CSS variables set only on `Sideb
 inherit into the flyout; the documented fallback values apply there. Set variables on a shared
 ancestor (such as `body`) when the flyout should use custom values too.
 
+`Sidebar` also sets `--sidebar-width` and `--sidebar-width-icon` on its root element, reflecting
+the current `width` / `collapsedWidth` props for descendants to read (e.g. positioning something
+against the sidebar's current width). They are output only: overriding them does not resize the
+sidebar. To change the width, pass `width` / `collapsedWidth` props instead.
+
 ## License
 
 MIT

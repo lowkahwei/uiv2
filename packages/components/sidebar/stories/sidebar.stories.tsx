@@ -558,3 +558,45 @@ export const PersistentMobileAction = {
   parameters: {viewport: {defaultViewport: "mobile1"}},
   render: (args: SidebarProps) => <PersistentMobileActionDemo {...args} />,
 };
+
+const FloatingVariantDemo = (props: SidebarProps) => (
+  <SidebarProvider>
+    <div className="flex min-h-screen bg-content2">
+      <Sidebar {...props} aria-label="Application sidebar" variant="floating">
+        <SidebarContents />
+      </Sidebar>
+      <main className="min-w-0 flex-1 p-8">
+        <MobileTrigger />
+        <h1 className="text-2xl font-bold">Content area</h1>
+        <p className="mt-2 text-foreground-600">
+          The floating variant detaches from the edge with rounded corners and a shadow.
+        </p>
+      </main>
+    </div>
+  </SidebarProvider>
+);
+
+export const FloatingVariant = {
+  render: (args: SidebarProps) => <FloatingVariantDemo {...args} />,
+};
+
+const InsetVariantDemo = (props: SidebarProps) => (
+  <SidebarProvider>
+    <div className="flex min-h-screen bg-content2">
+      <Sidebar {...props} aria-label="Application sidebar" variant="inset">
+        <SidebarContents />
+      </Sidebar>
+      <main className="min-w-0 flex-1 p-8">
+        <MobileTrigger />
+        <h1 className="text-2xl font-bold">Content area</h1>
+        <p className="mt-2 text-foreground-600">
+          The inset variant removes the border and shadow, blending into the page background.
+        </p>
+      </main>
+    </div>
+  </SidebarProvider>
+);
+
+export const InsetVariant = {
+  render: (args: SidebarProps) => <InsetVariantDemo {...args} />,
+};

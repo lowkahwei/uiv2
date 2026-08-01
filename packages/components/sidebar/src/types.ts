@@ -21,6 +21,11 @@ export interface SidebarProviderProps {
   toggleShortcut?: string | false | null;
   /** Disables Sidebar-owned transitions. @default false */
   reduceMotion?: boolean;
+  /**
+   * Client-side navigation function for `SidebarItem`/`SidebarSubmenu` links. When provided,
+   * wraps `children` in a scoped React Aria `RouterProvider`, so a global one isn't required.
+   */
+  navigate?: (href: string) => void;
 }
 
 export interface SidebarContextValue {
@@ -39,8 +44,21 @@ export interface SidebarContextValue {
   _setLayout: (layout: {side: SidebarSide; collapsible: SidebarCollapsible}) => void;
 }
 
+/** The subset of {@link SidebarContextValue} that changes as the sidebar is used. */
+export type SidebarStateContextValue = Omit<
+  SidebarContextValue,
+  "setOpen" | "setOpenMobile" | "toggleSidebar" | "_setLayout"
+>;
+
+/** The subset of {@link SidebarContextValue} holding referentially-stable action callbacks. */
+export type SidebarActionsContextValue = Pick<
+  SidebarContextValue,
+  "setOpen" | "setOpenMobile" | "toggleSidebar" | "_setLayout"
+>;
+
 export type SidebarSide = "left" | "right";
 export type SidebarCollapsible = "offcanvas" | "icon" | "none";
+export type SidebarVariant = "default" | "floating" | "inset";
 
 export interface SidebarProps extends Omit<ComponentPropsWithoutRef<"aside">, "children"> {
   children?: ReactNode;
@@ -58,6 +76,14 @@ export interface SidebarProps extends Omit<ComponentPropsWithoutRef<"aside">, "c
    * @default "icon"
    */
   collapsible?: SidebarCollapsible;
+  /**
+   * Visual style of the sidebar panel.
+   * - `"default"`: flush against the edge with a divider border.
+   * - `"floating"`: inset with rounded corners and a shadow, detached from the edge.
+   * - `"inset"`: transparent background, no border or shadow.
+   * @default "default"
+   */
+  variant?: SidebarVariant;
   /** Props forwarded to the mobile Drawer (e.g. backdrop, placement, size, motionProps). */
   drawerProps?: Omit<DrawerProps, "children" | "isOpen" | "onOpenChange">;
 }
