@@ -98,6 +98,8 @@ export interface SidebarItemProps extends Omit<
    * button). Shown on hover/focus and hidden while the desktop sidebar is collapsed.
    */
   action?: ReactNode;
+  /** Whether pressing the item closes the mobile Drawer. @default true */
+  closeMobileOnAction?: boolean;
 }
 
 export interface SidebarSubmenuProps extends Omit<ButtonProps, "children" | "onPress"> {

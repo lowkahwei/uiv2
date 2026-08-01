@@ -187,6 +187,29 @@ describe("Sidebar", () => {
     await waitFor(() => expect(queryByRole("dialog")).not.toBeInTheDocument());
   });
 
+  it("can keep the mobile Drawer open after an item is selected", async () => {
+    setMobile(true);
+    const user = userEvent.setup();
+
+    const {getByRole} = render(
+      <SidebarProvider>
+        <SidebarTrigger />
+        <Sidebar aria-label="Application sidebar">
+          <SidebarContent>
+            <SidebarGroup>
+              <SidebarItem closeMobileOnAction={false}>Home</SidebarItem>
+            </SidebarGroup>
+          </SidebarContent>
+        </Sidebar>
+      </SidebarProvider>,
+    );
+
+    await user.click(getByRole("button", {name: "Open sidebar"}));
+    await user.click(getByRole("button", {name: "Home"}));
+
+    expect(getByRole("dialog")).toBeInTheDocument();
+  });
+
   it("exposes state through useSidebar", () => {
     function State() {
       const {state, open} = useSidebar();

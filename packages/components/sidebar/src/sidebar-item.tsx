@@ -16,6 +16,7 @@ const SidebarItem = ({
   icon,
   badge,
   action,
+  closeMobileOnAction = true,
   isActive = false,
   isDisabled = false,
   tooltip,
@@ -29,9 +30,9 @@ const SidebarItem = ({
   const handlePress: LinkProps["onPress"] = useCallback(
     (event) => {
       onPress?.(event);
-      if (isMobile) setOpenMobile(false);
+      if (isMobile && closeMobileOnAction) setOpenMobile(false);
     },
-    [isMobile, onPress, setOpenMobile],
+    [closeMobileOnAction, isMobile, onPress, setOpenMobile],
   );
   const itemClassName = cn(
     "relative flex min-h-9 w-full min-w-0 items-center gap-0 overflow-hidden rounded-md px-0 text-left font-medium transition-colors",
