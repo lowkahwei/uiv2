@@ -346,8 +346,8 @@ describe("Sidebar", () => {
     expect(queryByText("Custom")).toBeInTheDocument();
   });
 
-  it("collapses to zero width when collapsible is offcanvas", () => {
-    const {getByRole, queryByRole} = render(
+  it("slides out at full width when collapsible is offcanvas", () => {
+    const {getByRole} = render(
       <SidebarProvider defaultOpen={false}>
         <Sidebar aria-label="Application sidebar" collapsible="offcanvas">
           <SidebarContent>
@@ -361,8 +361,8 @@ describe("Sidebar", () => {
 
     const container = getByRole("complementary").parentElement;
 
-    expect(container).toHaveStyle({width: "0px"});
-    expect(queryByRole("button", {name: "Home"})).not.toBeInTheDocument();
+    expect(container).toHaveStyle({width: "270px", transform: "translateX(-100%)"});
+    expect(getByRole("button", {name: "Home"})).toBeInTheDocument();
   });
 
   it("ignores collapse state and renders statically when collapsible is none", () => {

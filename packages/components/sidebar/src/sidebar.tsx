@@ -43,6 +43,10 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
     const isOffcanvasCollapsed = isCollapsed && collapsible === "offcanvas" && !isMobile;
     const effectiveCollapsedWidth = collapsible === "offcanvas" ? "0px" : collapsedWidth;
     const sidebarWidth = isCollapsed ? effectiveCollapsedWidth : width;
+    const containerWidth = collapsible === "offcanvas" ? width : sidebarWidth;
+    const offcanvasTransform = isOffcanvasCollapsed
+      ? `translateX(${side === "right" ? "100%" : "-100%"})`
+      : "translateX(0)";
     const sidebarStyle = {
       "--sidebar-width": toCssSize(width),
       "--sidebar-width-icon": toCssSize(collapsedWidth),
@@ -64,7 +68,7 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
         style={sidebarStyle}
         {...props}
       >
-        {isOffcanvasCollapsed ? null : children}
+        {children}
       </aside>
     );
 
@@ -113,12 +117,15 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
         <div
           className={cn(
             "fixed inset-y-0 z-50 h-screen overflow-hidden",
-            !reduceMotion && "transition-[width] duration-150 ease-in-out",
+            !reduceMotion && "transition-[width,transform] duration-150 ease-in-out",
             side === "right" ? "right-0" : "left-0",
             desktopVisibilityClassName,
           )}
           data-slot="container"
-          style={{width: sidebarWidth}}
+          style={{
+            width: toCssSize(containerWidth),
+            transform: collapsible === "offcanvas" ? offcanvasTransform : undefined,
+          }}
         >
           {content}
         </div>

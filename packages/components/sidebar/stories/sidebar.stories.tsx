@@ -267,12 +267,19 @@ export const OffcanvasCollapsed = {
     const canvas = within(canvasElement);
     const sidebar = canvas.getByRole("complementary", {name: "Application sidebar"});
 
-    await waitFor(() => expect(sidebar.parentElement).toHaveStyle({width: "0px"}));
+    await waitFor(() =>
+      expect(sidebar.parentElement).toHaveStyle({
+        transform: "translateX(-100%)",
+        width: "270px",
+      }),
+    );
 
     const main = within(canvas.getByRole("main"));
 
     await userEvent.click(main.getByRole("button", {name: "Expand sidebar"}));
-    await waitFor(() => expect(sidebar.parentElement).not.toHaveStyle({width: "0px"}));
+    await waitFor(() =>
+      expect(sidebar.parentElement).toHaveStyle({transform: "translateX(0)"}),
+    );
 
     await userEvent.click(within(sidebar).getByRole("button", {name: "Collapse sidebar"}));
   },
