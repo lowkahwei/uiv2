@@ -66,6 +66,8 @@ export interface SidebarContentProps extends Omit<ComponentPropsWithoutRef<"nav"
   children?: ReactNode;
 }
 
+export interface SidebarMainProps extends ComponentPropsWithoutRef<"main"> {}
+
 export interface SidebarGroupProps extends Omit<
   ComponentPropsWithoutRef<"section">,
   "children" | "title"

@@ -8,6 +8,7 @@ export type {
   SidebarGroupProps,
   SidebarHeaderProps,
   SidebarItemProps,
+  SidebarMainProps,
   SidebarProps,
   SidebarProviderProps,
   SidebarSide,
@@ -24,6 +25,7 @@ export {SidebarFooter} from "./sidebar-footer";
 export {SidebarGroup} from "./sidebar-group";
 export {SidebarHeader} from "./sidebar-header";
 export {SidebarItem} from "./sidebar-item";
+export {SidebarMain} from "./sidebar-main";
 export {SidebarSeparator} from "./sidebar-separator";
 export {SidebarSubmenu} from "./sidebar-submenu";
 export {SidebarTrigger} from "./sidebar-trigger";

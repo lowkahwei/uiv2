@@ -10,6 +10,7 @@ import {
   SidebarGroup,
   SidebarHeader,
   SidebarItem,
+  SidebarMain,
   SidebarProvider,
   SidebarTrigger,
   useSidebar,
@@ -147,7 +148,7 @@ const AppTemplateShell = ({defaultOpen = true}: {defaultOpen?: boolean}) => {
           </SidebarFooter>
         </Sidebar>
 
-        <main className="flex min-w-0 flex-1 flex-col">
+        <SidebarMain className="flex flex-col">
           <header className="flex h-12 items-center border-b border-divider px-4">
             <SidebarTrigger className="md:hidden" label="Open navigation" />
             <span className="ml-auto text-sm text-foreground-500">Theme · Language</span>
@@ -160,7 +161,7 @@ const AppTemplateShell = ({defaultOpen = true}: {defaultOpen?: boolean}) => {
               This story mirrors the app template shell while using only the public Sidebar API.
             </p>
           </div>
-        </main>
+        </SidebarMain>
       </div>
     </SidebarProvider>
   );
