@@ -46,22 +46,20 @@ sidebar uses `Drawer` and closes after an item is pressed.
 
 ## Persisting the desktop preference
 
-Persistence is an application policy. Read the saved Cookie on the server, pass it as
-`defaultOpen`, and write changes from `onOpenChange`:
+An uncontrolled `SidebarProvider` writes its desktop state to the `sidebar_state` Cookie.
+Read it on the server and pass the value back as `defaultOpen` to avoid a hydration jump:
 
 ```tsx
-<SidebarProvider
-  defaultOpen={savedSidebarState !== "false"}
-  onOpenChange={(open) => {
-    document.cookie = `sidebar_open=${open}; path=/; max-age=31536000; samesite=lax`;
-  }}
->
-  {children}
-</SidebarProvider>
+import {cookies} from "next/headers";
+
+const cookieStore = await cookies();
+const defaultOpen = cookieStore.get("sidebar_state")?.value !== "false";
+
+return <SidebarProvider defaultOpen={defaultOpen}>{children}</SidebarProvider>;
 ```
 
-Reading the Cookie before rendering prevents the sidebar from jumping between expanded and
-collapsed states after hydration. Mobile Drawer state is intentionally not persisted.
+The provider only writes this Cookie; reading remains the application's SSR responsibility.
+Controlled providers do not write it, and mobile Drawer state is never persisted.
 
 ## Controlled state
 

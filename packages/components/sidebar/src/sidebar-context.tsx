@@ -32,6 +32,12 @@ export function SidebarProvider({
     if (!isMobile) setOpenMobileState(false);
   }, [isMobile]);
 
+  useEffect(() => {
+    if (openProp === undefined) {
+      document.cookie = `sidebar_state=${open}; path=/; max-age=31536000`;
+    }
+  }, [open, openProp]);
+
   const setOpen = useCallback((nextOpen: boolean) => setOpenState(nextOpen), [setOpenState]);
   const setOpenMobile = useCallback((nextOpen: boolean) => setOpenMobileState(nextOpen), []);
   const toggleSidebar = useCallback(() => {

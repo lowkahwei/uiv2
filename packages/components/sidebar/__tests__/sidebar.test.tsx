@@ -103,6 +103,20 @@ describe("Sidebar", () => {
     expect(onOpenChange).toHaveBeenCalledWith(false);
   });
 
+  it("persists the uncontrolled desktop state in a Cookie", async () => {
+    const user = userEvent.setup();
+
+    const {getByRole} = render(
+      <SidebarProvider>
+        <SidebarLayout />
+      </SidebarProvider>,
+    );
+
+    await user.click(getByRole("button", {name: "Collapse sidebar"}));
+
+    expect(document.cookie).toContain("sidebar_state=false");
+  });
+
   it("supports a controlled desktop state", async () => {
     const user = userEvent.setup();
     const onOpenChange = jest.fn();
