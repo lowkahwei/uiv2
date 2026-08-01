@@ -226,6 +226,24 @@ describe("Sidebar", () => {
     expect(getByText("collapsed:false")).toBeInTheDocument();
   });
 
+  it("exposes Sidebar layout props through useSidebar", () => {
+    function Layout() {
+      const {side, collapsible} = useSidebar();
+
+      return <span>{`${side}:${collapsible}`}</span>;
+    }
+
+    const {getByText} = render(
+      <SidebarProvider>
+        <Sidebar side="right">
+          <Layout />
+        </Sidebar>
+      </SidebarProvider>,
+    );
+
+    expect(getByText("right:icon")).toBeInTheDocument();
+  });
+
   it("requires a provider", () => {
     expect(() => render(<Sidebar />)).toThrow("useSidebar must be used within a SidebarProvider.");
   });

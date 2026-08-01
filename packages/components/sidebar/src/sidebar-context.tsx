@@ -18,6 +18,10 @@ export function SidebarProvider({
 }: SidebarProviderProps) {
   const [open, setOpenState] = useControlledState(openProp, defaultOpen, onOpenChange);
   const [openMobile, setOpenMobileState] = useState(false);
+  const [layout, setLayout] = useState<Pick<SidebarContextValue, "side" | "collapsible">>({
+    side: "left",
+    collapsible: "icon",
+  });
   const [isMounted, setIsMounted] = useState(false);
   const isMobileQuery = useIsMobile(mobileBreakpoint);
   const isMobile = isMounted && isMobileQuery;
@@ -76,8 +80,10 @@ export function SidebarProvider({
       setOpenMobile,
       toggleSidebar,
       mobileBreakpoint,
+      ...layout,
+      _setLayout: setLayout,
     }),
-    [open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar, mobileBreakpoint],
+    [open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar, mobileBreakpoint, layout],
   );
 
   return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>;

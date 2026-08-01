@@ -29,6 +29,10 @@ export interface SidebarContextValue {
   setOpenMobile: (open: boolean) => void;
   toggleSidebar: () => void;
   mobileBreakpoint: number;
+  side: SidebarSide;
+  collapsible: SidebarCollapsible;
+  /** @internal Synchronizes layout props owned by `Sidebar`. */
+  _setLayout: (layout: {side: SidebarSide; collapsible: SidebarCollapsible}) => void;
 }
 
 export type SidebarSide = "left" | "right";

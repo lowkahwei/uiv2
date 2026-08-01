@@ -4,6 +4,7 @@ import type {SidebarProps} from "./types";
 import {Drawer, DrawerContent} from "@sytechui/drawer";
 import {forwardRef} from "@sytechui/system";
 import {cn} from "@sytechui/theme";
+import {useEffect} from "react";
 
 import {useSidebar} from "./sidebar-context";
 
@@ -26,7 +27,10 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
     },
     ref,
   ) => {
-    const {state, isMobile, openMobile, setOpenMobile, mobileBreakpoint} = useSidebar();
+    const {state, isMobile, openMobile, setOpenMobile, mobileBreakpoint, _setLayout} = useSidebar();
+
+    useEffect(() => _setLayout({side, collapsible}), [_setLayout, side, collapsible]);
+
     const isCollapsed = state === "collapsed";
     const isOffcanvasCollapsed = isCollapsed && collapsible === "offcanvas" && !isMobile;
     const effectiveCollapsedWidth = collapsible === "offcanvas" ? "0px" : collapsedWidth;
