@@ -45,6 +45,7 @@
     "@sytechui/divider": "workspace:*",
     "@sytechui/drawer": "workspace:*",
     "@sytechui/link": "workspace:*",
+    "@sytechui/scroll-shadow": "workspace:*",
     "@sytechui/tooltip": "workspace:*",
     "@sytechui/use-media-query": "workspace:*"
   },

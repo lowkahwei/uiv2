@@ -405,3 +405,29 @@ export const WithNestedItems = {
     });
   },
 };
+
+const ScrollableContentDemo = (props: SidebarProps) => (
+  <SidebarProvider>
+    <div className="flex h-screen">
+      <Sidebar {...props} aria-label="Scrollable sidebar">
+        <SidebarHeader>
+          <SidebarBrand />
+        </SidebarHeader>
+        <SidebarContent aria-label="Thirty destinations">
+          <SidebarGroup title="Destinations">
+            {Array.from({length: 30}, (_, index) => (
+              <SidebarItem key={index} href={`#destination-${index + 1}`} icon={<Icon />}>
+                Destination {index + 1}
+              </SidebarItem>
+            ))}
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
+      <main className="min-w-0 flex-1 p-8">Scroll the sidebar to see both edge shadows.</main>
+    </div>
+  </SidebarProvider>
+);
+
+export const ScrollableContent = {
+  render: (args: SidebarProps) => <ScrollableContentDemo {...args} />,
+};

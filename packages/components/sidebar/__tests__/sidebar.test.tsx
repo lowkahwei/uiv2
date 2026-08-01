@@ -77,7 +77,10 @@ describe("Sidebar", () => {
     );
 
     expect(getByRole("complementary", {name: "Application sidebar"})).toBe(ref.current);
-    expect(getByRole("navigation", {name: "Primary"})).toHaveClass("scrollbar-hide");
+    expect(getByRole("navigation", {name: "Primary"})).toHaveAttribute(
+      "data-orientation",
+      "vertical",
+    );
     expect(getByRole("link", {name: "Home"})).toHaveClass("gap-0");
     expect(getByRole("link", {name: "Home"})).toHaveAttribute("href", "/home");
     expect(getByRole("link", {name: "Home"})).toHaveAttribute("aria-current", "page");

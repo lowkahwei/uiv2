@@ -2626,6 +2626,9 @@ importers:
       '@sytechui/link':
         specifier: workspace:*
         version: link:../link
+      '@sytechui/scroll-shadow':
+        specifier: workspace:*
+        version: link:../scroll-shadow
       '@sytechui/tooltip':
         specifier: workspace:*
         version: link:../tooltip
