@@ -2,15 +2,15 @@
 
 @config "../tailwind.config.js";
 
-h1 {
+.sbdocs-content h1 {
   @apply text-4xl font-bold !text-foreground;
 }
 
-h2 {
+.sbdocs-content h2 {
   @apply text-2xl font-bold !text-foreground !border-none;
 }
 
-h3 {
+.sbdocs-content h3 {
   @apply text-xl font-bold !text-neutral-600;
 }
 

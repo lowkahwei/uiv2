@@ -2609,6 +2609,46 @@ importers:
         specifier: 18.3.0
         version: 18.3.0(react@18.3.0)
 
+  packages/components/sidebar:
+    dependencies:
+      '@react-stately/utils':
+        specifier: 3.11.0
+        version: 3.11.0(react@18.3.0)
+      '@sytechui/button':
+        specifier: workspace:*
+        version: link:../button
+      '@sytechui/drawer':
+        specifier: workspace:*
+        version: link:../drawer
+      '@sytechui/link':
+        specifier: workspace:*
+        version: link:../link
+      '@sytechui/tooltip':
+        specifier: workspace:*
+        version: link:../tooltip
+      '@sytechui/use-media-query':
+        specifier: workspace:*
+        version: link:../../hooks/use-media-query
+    devDependencies:
+      '@storybook/test':
+        specifier: 8.6.18
+        version: 8.6.18(storybook@8.6.18(prettier@3.9.5))
+      '@sytechui/system':
+        specifier: workspace:*
+        version: link:../../core/system
+      '@sytechui/theme':
+        specifier: workspace:*
+        version: link:../../core/theme
+      clean-package:
+        specifier: 2.2.0
+        version: 2.2.0
+      react:
+        specifier: 18.3.0
+        version: 18.3.0
+      react-dom:
+        specifier: 18.3.0
+        version: 18.3.0(react@18.3.0)
+
   packages/components/skeleton:
     dependencies:
       '@sytechui/shared-utils':

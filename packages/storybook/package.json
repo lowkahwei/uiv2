@@ -30,7 +30,7 @@
     "dev": "pnpm storybook dev -p 6006",
     "build": "pnpm storybook build",
     "start": "pnpm dlx http-server storybook-static",
-    "test:browser": "test-storybook --includeTags=table-browser --browsers chromium webkit"
+    "test:browser": "test-storybook --includeTags table-browser sidebar-browser --browsers chromium webkit"
   },
   "dependencies": {
     "@sytechui/system": "workspace:*",
