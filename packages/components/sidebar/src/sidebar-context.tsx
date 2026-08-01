@@ -14,6 +14,7 @@ export function SidebarProvider({
   defaultOpen = true,
   onOpenChange,
   mobileBreakpoint = 767,
+  toggleShortcut = "mod+b",
 }: SidebarProviderProps) {
   const [open, setOpenState] = useControlledState(openProp, defaultOpen, onOpenChange);
   const [openMobile, setOpenMobileState] = useState(false);
@@ -38,8 +39,23 @@ export function SidebarProvider({
   }, [isMobile, open, setOpenState]);
 
   useEffect(() => {
+    if (!toggleShortcut) return;
+
+    const tokens = toggleShortcut
+      .toLowerCase()
+      .split("+")
+      .map((token) => token.trim());
+    const modifiers = tokens.slice(0, -1);
+    const key = tokens.at(-1);
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key.toLowerCase() === "b" && (event.metaKey || event.ctrlKey)) {
+      const modKey = event.metaKey || event.ctrlKey;
+
+      if (
+        event.key.toLowerCase() === key &&
+        modifiers.includes("mod") === modKey &&
+        modifiers.includes("shift") === event.shiftKey &&
+        modifiers.includes("alt") === event.altKey
+      ) {
         event.preventDefault();
         toggleSidebar();
       }
@@ -48,7 +64,7 @@ export function SidebarProvider({
     window.addEventListener("keydown", handleKeyDown);
 
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [toggleSidebar]);
+  }, [toggleShortcut, toggleSidebar]);
 
   const value = useMemo<SidebarContextValue>(
     () => ({

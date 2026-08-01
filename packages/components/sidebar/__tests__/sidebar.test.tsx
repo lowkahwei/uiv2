@@ -364,6 +364,36 @@ describe("Sidebar", () => {
     expect(onOpenChange).toHaveBeenCalledWith(false);
   });
 
+  it("supports a custom toggle shortcut", async () => {
+    const user = userEvent.setup();
+    const onOpenChange = jest.fn();
+
+    render(
+      <SidebarProvider onOpenChange={onOpenChange} toggleShortcut="mod+shift+s">
+        <SidebarLayout />
+      </SidebarProvider>,
+    );
+
+    await user.keyboard("{Meta>}{Shift>}s{/Shift}{/Meta}");
+
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+  });
+
+  it("can disable the toggle shortcut", async () => {
+    const user = userEvent.setup();
+    const onOpenChange = jest.fn();
+
+    render(
+      <SidebarProvider onOpenChange={onOpenChange} toggleShortcut={false}>
+        <SidebarLayout />
+      </SidebarProvider>,
+    );
+
+    await user.keyboard("{Meta>}b{/Meta}");
+
+    expect(onOpenChange).not.toHaveBeenCalled();
+  });
+
   it("shows the action slot on an item and keeps it clickable", async () => {
     const user = userEvent.setup();
     const onActionPress = jest.fn();

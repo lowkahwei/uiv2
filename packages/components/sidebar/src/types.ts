@@ -15,6 +15,8 @@ export interface SidebarProviderProps {
   onOpenChange?: (open: boolean) => void;
   /** Max viewport width (px) at which the sidebar switches to mobile (drawer) mode. @default 767 */
   mobileBreakpoint?: number;
+  /** Shortcut used to toggle the sidebar. Pass `false` or `null` to disable it. @default "mod+b" */
+  toggleShortcut?: string | false | null;
 }
 
 export interface SidebarContextValue {
