@@ -1,6 +1,7 @@
 import type {ButtonProps} from "@sytechui/button";
 import type {DrawerProps} from "@sytechui/drawer";
 import type {LinkProps} from "@sytechui/link";
+import type {TooltipProps} from "@sytechui/tooltip";
 import type {ComponentPropsWithoutRef, ReactNode} from "react";
 
 export type SidebarState = "expanded" | "collapsed";
@@ -93,6 +94,8 @@ export interface SidebarItemProps extends Omit<
    * Pass `false` to disable the collapsed-state tooltip entirely.
    */
   tooltip?: ReactNode | false;
+  /** Props forwarded to the collapsed-state tooltip. */
+  tooltipProps?: Omit<TooltipProps, "children" | "content" | "isDisabled">;
   /**
    * Secondary action rendered at the trailing edge of the item (e.g. an icon-only menu
    * button). Shown on hover/focus and hidden while the desktop sidebar is collapsed.
@@ -116,6 +119,8 @@ export interface SidebarSubmenuProps extends Omit<ButtonProps, "children" | "onP
    * Pass `false` to disable the collapsed-state tooltip entirely.
    */
   tooltip?: ReactNode | false;
+  /** Props forwarded to the collapsed-state tooltip. */
+  tooltipProps?: Omit<TooltipProps, "children" | "content" | "isDisabled">;
 }
 
 export interface SidebarFooterProps extends Omit<ComponentPropsWithoutRef<"div">, "children"> {

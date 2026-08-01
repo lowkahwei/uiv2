@@ -33,6 +33,7 @@ const SidebarSubmenu = ({
   badge,
   defaultOpen = false,
   tooltip,
+  tooltipProps,
   className,
   ...props
 }: SidebarSubmenuProps) => {
@@ -91,9 +92,10 @@ const SidebarSubmenu = ({
     <li data-slot="submenu">
       <Tooltip
         closeDelay={0}
+        placement="right"
+        {...tooltipProps}
         content={tooltip === false ? undefined : (tooltip ?? label)}
         isDisabled={isTooltipDisabled}
-        placement="right"
       >
         {trigger}
       </Tooltip>

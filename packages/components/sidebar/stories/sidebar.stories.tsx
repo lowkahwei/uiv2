@@ -62,7 +62,12 @@ const SidebarContents = () => (
         <SidebarItem isActive href="#dashboard" icon={<Icon />}>
           Dashboard
         </SidebarItem>
-        <SidebarItem badge={<span className="text-xs">4</span>} href="#activity" icon={<Icon />}>
+        <SidebarItem
+          badge={<span className="text-xs">4</span>}
+          href="#activity"
+          icon={<Icon />}
+          tooltipProps={{delay: 500, placement: "bottom"}}
+        >
           Activity
         </SidebarItem>
       </SidebarGroup>

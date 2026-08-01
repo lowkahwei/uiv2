@@ -20,6 +20,7 @@ const SidebarItem = ({
   isActive = false,
   isDisabled = false,
   tooltip,
+  tooltipProps,
   className,
   onPress,
   ...props
@@ -109,9 +110,10 @@ const SidebarItem = ({
     >
       <Tooltip
         closeDelay={0}
+        placement="right"
+        {...tooltipProps}
         content={tooltip === false ? undefined : (tooltip ?? children)}
         isDisabled={isTooltipDisabled}
-        placement="right"
       >
         {control}
       </Tooltip>
