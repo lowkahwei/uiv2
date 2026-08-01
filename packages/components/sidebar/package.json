@@ -42,6 +42,7 @@
   "dependencies": {
     "@react-stately/utils": "3.11.0",
     "@sytechui/button": "workspace:*",
+    "@sytechui/divider": "workspace:*",
     "@sytechui/drawer": "workspace:*",
     "@sytechui/link": "workspace:*",
     "@sytechui/tooltip": "workspace:*",

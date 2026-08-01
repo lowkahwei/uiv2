@@ -2617,6 +2617,9 @@ importers:
       '@sytechui/button':
         specifier: workspace:*
         version: link:../button
+      '@sytechui/divider':
+        specifier: workspace:*
+        version: link:../divider
       '@sytechui/drawer':
         specifier: workspace:*
         version: link:../drawer

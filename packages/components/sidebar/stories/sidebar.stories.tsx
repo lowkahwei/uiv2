@@ -13,6 +13,7 @@ import {
   SidebarHeader,
   SidebarItem,
   SidebarProvider,
+  SidebarSeparator,
   SidebarSubmenu,
   SidebarTrigger,
   useSidebar,
@@ -71,6 +72,7 @@ const SidebarContents = () => (
           Activity
         </SidebarItem>
       </SidebarGroup>
+      <SidebarSeparator />
       <SidebarGroup title="Manage">
         <SidebarItem href="#projects" icon={<Icon />}>
           Projects
