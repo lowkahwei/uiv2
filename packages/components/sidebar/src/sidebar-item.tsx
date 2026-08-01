@@ -56,7 +56,8 @@ const SidebarItem = ({
       <span
         className={cn(
           "flex min-w-0 flex-1 items-center gap-2 truncate py-2 pr-3",
-          !reduceMotion && "transition-[opacity,width] duration-150",
+          !reduceMotion &&
+            "transition-[opacity,width] duration-[var(--sidebar-duration,150ms)]",
           isCompact && "w-0 flex-none overflow-hidden p-0 opacity-0",
         )}
         data-slot="label"

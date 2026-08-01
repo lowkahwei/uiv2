@@ -108,7 +108,8 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
           aria-hidden="true"
           className={cn(
             "h-screen shrink-0",
-            !reduceMotion && "transition-[width] duration-150 ease-in-out",
+            !reduceMotion &&
+              "transition-[width] duration-[var(--sidebar-duration,150ms)] ease-[var(--sidebar-ease,ease-in-out)]",
             desktopVisibilityClassName,
           )}
           data-slot="gap"
@@ -117,7 +118,8 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
         <div
           className={cn(
             "fixed inset-y-0 z-50 h-screen overflow-hidden",
-            !reduceMotion && "transition-[width,transform] duration-150 ease-in-out",
+            !reduceMotion &&
+              "transition-[width,transform] duration-[var(--sidebar-duration,150ms)] ease-[var(--sidebar-ease,ease-in-out)]",
             side === "right" ? "right-0" : "left-0",
             desktopVisibilityClassName,
           )}

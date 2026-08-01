@@ -13,7 +13,7 @@ const ChevronIcon = ({isOpen, reduceMotion}: {isOpen: boolean; reduceMotion: boo
     aria-hidden="true"
     className={cn(
       "ml-auto shrink-0",
-      !reduceMotion && "transition-transform duration-150",
+      !reduceMotion && "transition-transform duration-[var(--sidebar-duration,150ms)]",
       isOpen && "rotate-90",
     )}
     fill="none"
@@ -50,10 +50,11 @@ const SidebarSubmenu = ({
   const isTooltipDisabled = !isCompact || tooltip === false;
   const isExpanded = isOpen && !isCompact;
   const submenuContentClassName = cn(
-    "mt-1 flex flex-col gap-1 pl-4",
-    showGuideLines === true && "border-l border-divider",
+    "mt-1 flex flex-col gap-[var(--sidebar-menu-row-gap,0.25rem)] pl-[var(--sidebar-menu-indent,1rem)]",
+    showGuideLines === true &&
+      "border-l border-[var(--sidebar-menu-guide-color,hsl(var(--heroui-divider)))]",
     showGuideLines === "hover" && [
-      "border-l border-transparent group-hover/submenu:border-divider",
+      "border-l border-transparent group-hover/submenu:border-[var(--sidebar-menu-guide-color,hsl(var(--heroui-divider)))]",
       !reduceMotion && "transition-colors",
     ],
   );
@@ -86,7 +87,8 @@ const SidebarSubmenu = ({
       <span
         className={cn(
           "flex min-w-0 flex-1 items-center gap-2 truncate py-2 pr-3",
-          !reduceMotion && "transition-[opacity,width] duration-150",
+          !reduceMotion &&
+            "transition-[opacity,width] duration-[var(--sidebar-duration,150ms)]",
           isCompact && "w-0 flex-none overflow-hidden p-0 opacity-0",
         )}
         data-slot="label"

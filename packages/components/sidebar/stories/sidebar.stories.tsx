@@ -497,3 +497,12 @@ const GuideLinesDemo = (props: SidebarProps) => (
 export const GuideLines = {
   render: (args: SidebarProps) => <GuideLinesDemo {...args} />,
 };
+
+export const CSSVariables = {
+  render: (args: SidebarProps) => (
+    <SidebarDemo
+      {...args}
+      style={{"--sidebar-duration": "600ms"} as React.CSSProperties}
+    />
+  ),
+};
