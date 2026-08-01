@@ -2626,6 +2626,9 @@ importers:
       '@sytechui/link':
         specifier: workspace:*
         version: link:../link
+      '@sytechui/shared-icons':
+        specifier: workspace:*
+        version: link:../../utilities/shared-icons
       '@sytechui/system':
         specifier: '>=2.4.23'
         version: link:../../core/system
@@ -2642,6 +2645,58 @@ importers:
       '@storybook/test':
         specifier: 8.6.18
         version: 8.6.18(storybook@8.6.18(prettier@3.9.5))
+      clean-package:
+        specifier: 2.2.0
+        version: 2.2.0
+      react:
+        specifier: 18.3.0
+        version: 18.3.0
+      react-dom:
+        specifier: 18.3.0
+        version: 18.3.0(react@18.3.0)
+
+  packages/components/sidebar-old:
+    dependencies:
+      '@react-aria/utils':
+        specifier: 3.33.1
+        version: 3.33.1(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@react-stately/utils':
+        specifier: 3.11.0
+        version: 3.11.0(react@18.3.0)
+      '@sytechui/button':
+        specifier: workspace:*
+        version: link:../button
+      '@sytechui/divider':
+        specifier: workspace:*
+        version: link:../divider
+      '@sytechui/drawer':
+        specifier: workspace:*
+        version: link:../drawer
+      '@sytechui/link':
+        specifier: workspace:*
+        version: link:../link
+      '@sytechui/popover':
+        specifier: workspace:*
+        version: link:../popover
+      '@sytechui/scroll-shadow':
+        specifier: workspace:*
+        version: link:../scroll-shadow
+      '@sytechui/tooltip':
+        specifier: workspace:*
+        version: link:../tooltip
+      '@sytechui/use-media-query':
+        specifier: workspace:*
+        version: link:../../hooks/use-media-query
+    devDependencies:
+      '@storybook/test':
+        specifier: 8.6.18
+        version: 8.6.18(storybook@8.6.18(prettier@3.9.5))
+      '@sytechui/system':
+        specifier: workspace:*
+        version: link:../../core/system
+      '@sytechui/theme':
+        specifier: workspace:*
+        version: link:../../core/theme
       clean-package:
         specifier: 2.2.0
         version: 2.2.0
@@ -3369,6 +3424,9 @@ importers:
       '@sytechui/shimmer-text':
         specifier: workspace:*
         version: link:../../components/shimmer-text
+      '@sytechui/sidebar':
+        specifier: workspace:*
+        version: link:../../components/sidebar
       '@sytechui/skeleton':
         specifier: workspace:*
         version: link:../../components/skeleton

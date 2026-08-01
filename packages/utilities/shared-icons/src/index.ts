@@ -41,6 +41,7 @@ export * from "./info-circle";
 export * from "./warning";
 export * from "./danger";
 export * from "./success";
+export * from "./panel-left";
 
 // sets
 export * from "./bulk";

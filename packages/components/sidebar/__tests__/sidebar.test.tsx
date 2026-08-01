@@ -188,7 +188,6 @@ describe("Sidebar", () => {
     const sidebar = getDesktopSidebar(container);
 
     expect(wrapper.style.getPropertyValue("--sidebar-width")).toBe("16rem");
-    expect(wrapper.style.getPropertyValue("--sidebar-width-mobile")).toBe("18rem");
     expect(wrapper.style.getPropertyValue("--sidebar-width-icon")).toBe("3rem");
     expect(sidebar).toHaveAttribute("data-state", "expanded");
     expect(sidebar).not.toHaveAttribute("data-collapsible");
@@ -479,5 +478,114 @@ describe("Sidebar", () => {
 
     expect(gap).toHaveClass("transition-[width]", "duration-200");
     expect(gap).not.toHaveClass("transition-none");
+  });
+
+  it("renders pre-hydration CSS for a custom mobileBreakpoint", () => {
+    const {container} = render(
+      <SidebarProvider mobileBreakpoint={900}>
+        <Sidebar collapsible="icon">content</Sidebar>
+      </SidebarProvider>,
+    );
+
+    expect(container.querySelector("style")).toHaveTextContent("max-width:900px");
+    expect(container.querySelectorAll("[data-sidebar-bp]")).toHaveLength(1);
+  });
+
+  it("forwards refs to subcomponents", () => {
+    const headerRef = React.createRef<HTMLDivElement>();
+    const triggerRef = React.createRef<HTMLButtonElement>();
+
+    render(
+      <SidebarProvider>
+        <SidebarHeader ref={headerRef} />
+        <SidebarTrigger ref={triggerRef} />
+      </SidebarProvider>,
+    );
+
+    expect(headerRef.current).toBeInstanceOf(HTMLDivElement);
+    expect(triggerRef.current).toBeInstanceOf(HTMLButtonElement);
+  });
+
+  it("applies width and collapsedWidth to the CSS variables", () => {
+    const {container} = render(
+      <SidebarProvider collapsedWidth="4rem" width={280}>
+        <Sidebar>content</Sidebar>
+      </SidebarProvider>,
+    );
+    const wrapper = container.querySelector<HTMLElement>('[data-slot="sidebar-wrapper"]')!;
+
+    expect(wrapper.style.getPropertyValue("--sidebar-width")).toBe("280px");
+    expect(wrapper.style.getPropertyValue("--sidebar-width-icon")).toBe("4rem");
+  });
+
+  it("supports a custom toggleShortcut and ignores editable targets", async () => {
+    const user = userEvent.setup();
+    const {container, getByRole} = render(
+      <SidebarProvider toggleShortcut="mod+shift+s">
+        <Sidebar>content</Sidebar>
+        <SidebarInput aria-label="Search" />
+      </SidebarProvider>,
+    );
+    const sidebar = getDesktopSidebar(container);
+
+    await user.keyboard("{Meta>}b{/Meta}");
+    expect(sidebar).toHaveAttribute("data-state", "expanded");
+
+    await user.keyboard("{Meta>}{Shift>}s{/Shift}{/Meta}");
+    expect(sidebar).toHaveAttribute("data-state", "collapsed");
+
+    await user.click(getByRole("textbox", {name: "Search"}));
+    await user.keyboard("{Meta>}{Shift>}s{/Shift}{/Meta}");
+    expect(sidebar).toHaveAttribute("data-state", "collapsed");
+  });
+
+  it("disables the shortcut with toggleShortcut={false}", async () => {
+    const user = userEvent.setup();
+    const {container} = render(
+      <SidebarProvider toggleShortcut={false}>
+        <Sidebar>content</Sidebar>
+      </SidebarProvider>,
+    );
+
+    await user.keyboard("{Meta>}b{/Meta}");
+    expect(getDesktopSidebar(container)).toHaveAttribute("data-state", "expanded");
+  });
+
+  it("closes the mobile drawer after pressing a menu button", async () => {
+    setMobile(true);
+    const user = userEvent.setup();
+    const {getByRole, findByRole, queryByRole} = render(
+      <SidebarProvider>
+        <Sidebar aria-label="Application sidebar">
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton closeMobileOnPress onPress={() => {}}>
+                Dashboard
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </Sidebar>
+        <SidebarTrigger />
+      </SidebarProvider>,
+    );
+
+    await user.click(getByRole("button", {name: "Toggle sidebar"}));
+    await user.click(await findByRole("button", {name: "Dashboard"}));
+
+    await waitFor(() => {
+      expect(queryByRole("dialog")).not.toBeInTheDocument();
+    });
+  });
+
+  it("forwards drawerProps to the mobile drawer", async () => {
+    setMobile(true);
+    const user = userEvent.setup();
+
+    render(<Layout sidebarProps={{drawerProps: {classNames: {base: "custom-drawer-base"}}}} />);
+    await user.click(document.querySelector<HTMLElement>('[data-slot="sidebar-trigger"]')!);
+
+    await waitFor(() => {
+      expect(document.querySelector(".custom-drawer-base")).toBeInTheDocument();
+    });
   });
 });

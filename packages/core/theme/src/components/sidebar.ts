@@ -5,11 +5,11 @@ import {tv} from "../utils/tv";
 const sidebar = tv({
   slots: {
     base: "group/sidebar-wrapper flex min-h-svh w-full bg-background",
-    sidebar: "group/sidebar peer hidden text-foreground md:block",
+    sidebar: "group/sidebar peer text-foreground",
     gap: "relative shrink-0 bg-transparent",
-    container: "fixed inset-y-0 z-40 hidden h-svh md:flex",
+    container: "fixed inset-y-0 z-40 flex h-svh",
     inner: "flex size-full min-w-0 flex-col overflow-hidden bg-content1 text-foreground",
-    mobile: "h-full w-[var(--sidebar-width-mobile)] max-w-[100vw] p-0",
+    mobile: "h-full w-full p-0",
     trigger: "size-8 min-w-8",
     rail: [
       "absolute inset-y-0 z-50 hidden w-4 -translate-x-1/2 transition-all",
@@ -83,6 +83,8 @@ const sidebar = tv({
       "data-[active=true]:bg-default data-[active=true]:text-foreground",
     ],
   },
+  // 注意:side/variant 变体只作用于 Sidebar 组件内部使用的 slot(sidebar/gap/container/inner/mobile);
+  // 其余 slot 来自 Provider 级实例,不接收这两个变体,别给 header/menu 等 slot 加 side/variant 样式。
   variants: {
     side: {
       left: {container: "left-0"},

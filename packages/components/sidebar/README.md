@@ -28,6 +28,61 @@ components and theme tokens.
 </SidebarProvider>
 ```
 
+## Sidebar widths
+
+`width` and `collapsedWidth` set the `--sidebar-width` and `--sidebar-width-icon` CSS variables on
+`SidebarProvider`. Both accept a `string` (any CSS length) or a `number` (treated as pixels):
+
+```tsx
+<SidebarProvider collapsedWidth="4rem" width={280}>
+  {/* sidebar layout */}
+</SidebarProvider>
+```
+
+These variables only control the desktop sidebar. The mobile Drawer's width is set by its own
+`size` prop — see [Customizing the mobile Drawer](#customizing-the-mobile-drawer).
+
+## Keyboard shortcut
+
+`SidebarProvider` toggles the desktop sidebar on `Cmd+B` (Mac) / `Ctrl+B` (Windows/Linux) by
+default, using `mod`, `shift`, and `alt` tokens:
+
+```tsx
+<SidebarProvider toggleShortcut="mod+shift+s">{/* sidebar layout */}</SidebarProvider>
+<SidebarProvider toggleShortcut={false}>{/* sidebar layout */}</SidebarProvider>
+```
+
+The shortcut is ignored while focus is inside an `<input>`, `<textarea>`, or any
+`contenteditable` element, so it never steals a native editing shortcut like bold text.
+
+## Customizing the mobile Drawer
+
+Forward any `Drawer` prop (`backdrop`, `size`, `motionProps`, `classNames`, ...) through
+`drawerProps` on `Sidebar`:
+
+```tsx
+<Sidebar drawerProps={{backdrop: "blur", size: "xs"}}>{/* sidebar layout */}</Sidebar>
+```
+
+`isOpen` and `onOpenChange` are always owned by the sidebar and cannot be overridden.
+
+## Mobile dismissal
+
+`SidebarMenuButton` and `SidebarMenuSubButton` can close the mobile Drawer after being pressed via
+`closeMobileOnPress`. A `SidebarMenuButton` rendered with `href` (a navigation link) and every
+`SidebarMenuSubButton` default to `true`; a `SidebarMenuButton` rendered without `href` (a plain
+button, often used to trigger a submenu) defaults to `false` so expanding a submenu doesn't also
+dismiss the Drawer. Either direction can be overridden explicitly:
+
+```tsx
+<SidebarMenuButton href="/dashboard" closeMobileOnPress={false}>
+  Dashboard
+</SidebarMenuButton>
+<SidebarMenuButton closeMobileOnPress onPress={() => setSubmenuOpen((open) => !open)}>
+  Settings
+</SidebarMenuButton>
+```
+
 ## Theme slots
 
 `SidebarProvider` accepts Sytech's standard `classNames` slot overrides. A local component

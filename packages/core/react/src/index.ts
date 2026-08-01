@@ -55,6 +55,7 @@ export * from "@sytechui/drawer";
 export * from "@sytechui/input-otp";
 export * from "@sytechui/number-input";
 export * from "@sytechui/toast";
+export * from "@sytechui/sidebar";
 
 /**
  * React Aria - Exports

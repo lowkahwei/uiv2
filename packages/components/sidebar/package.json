@@ -47,6 +47,7 @@
     "@sytechui/drawer": "workspace:*",
     "@sytechui/input": "workspace:*",
     "@sytechui/link": "workspace:*",
+    "@sytechui/shared-icons": "workspace:*",
     "@sytechui/tooltip": "workspace:*",
     "@sytechui/use-media-query": "workspace:*"
   },
