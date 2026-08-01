@@ -323,6 +323,17 @@ describe("Sidebar", () => {
     expect(getByRole("dialog")).toBeInTheDocument();
   });
 
+  it("renders pre-hydration CSS for a custom mobileBreakpoint", () => {
+    const {container} = render(
+      <SidebarProvider mobileBreakpoint={900}>
+        <SidebarLayout />
+      </SidebarProvider>,
+    );
+
+    expect(container.querySelector("style")).toHaveTextContent("max-width:900px");
+    expect(container.querySelectorAll("[data-sidebar-bp]")).toHaveLength(2);
+  });
+
   it("forwards drawerProps to the mobile Drawer", async () => {
     setMobile(true);
     const user = userEvent.setup();

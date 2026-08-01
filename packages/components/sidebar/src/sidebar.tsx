@@ -4,7 +4,7 @@ import type {SidebarProps} from "./types";
 import {Drawer, DrawerContent} from "@sytechui/drawer";
 import {forwardRef} from "@sytechui/system";
 import {cn} from "@sytechui/theme";
-import {useEffect} from "react";
+import {useEffect, useId} from "react";
 
 import {useSidebar} from "./sidebar-context";
 
@@ -36,6 +36,7 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
       reduceMotion,
       _setLayout,
     } = useSidebar();
+    const breakpointId = useId();
 
     useEffect(() => _setLayout({side, collapsible}), [_setLayout, side, collapsible]);
 
@@ -95,15 +96,15 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
       );
     }
 
-    // ponytail: pre-hydration anti-flash CSS only ships for the default breakpoint (a static
-    // Tailwind class the build can compile). Custom breakpoints skip it and may flash briefly
-    // before hydration on real mobile viewports; upgrade path is a safelisted arbitrary-value
-    // class if that ever matters.
     const desktopVisibilityClassName =
       mobileBreakpoint === DEFAULT_MOBILE_BREAKPOINT ? "hidden md:block" : undefined;
+    const customBreakpoint = mobileBreakpoint !== DEFAULT_MOBILE_BREAKPOINT;
 
     return (
       <>
+        {customBreakpoint && (
+          <style>{`@media (max-width:${mobileBreakpoint}px){[data-sidebar-bp="${breakpointId}"]{display:none}}`}</style>
+        )}
         <div
           aria-hidden="true"
           className={cn(
@@ -112,6 +113,7 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
               "transition-[width] duration-[var(--sidebar-duration,150ms)] ease-[var(--sidebar-ease,ease-in-out)]",
             desktopVisibilityClassName,
           )}
+          data-sidebar-bp={customBreakpoint ? breakpointId : undefined}
           data-slot="gap"
           style={{width: sidebarWidth, minWidth: sidebarWidth}}
         />
@@ -123,6 +125,7 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
             side === "right" ? "right-0" : "left-0",
             desktopVisibilityClassName,
           )}
+          data-sidebar-bp={customBreakpoint ? breakpointId : undefined}
           data-slot="container"
           style={{
             width: toCssSize(containerWidth),

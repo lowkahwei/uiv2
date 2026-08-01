@@ -80,10 +80,8 @@ default. Override it with `mobileBreakpoint`:
 <SidebarProvider mobileBreakpoint={1024}>{children}</SidebarProvider>
 ```
 
-Note: the anti-flash CSS that hides the desktop sidebar before hydration only ships for the
-default `767` breakpoint (it's a static, build-time Tailwind class). Custom breakpoints skip
-that optimization and may briefly flash the desktop layout on mobile viewports before React
-hydrates.
+The default breakpoint uses a static responsive class. Custom breakpoints emit a scoped inline
+media rule so the desktop sidebar also stays hidden before hydration on narrow viewports.
 
 ## Customizing the mobile Drawer
 
