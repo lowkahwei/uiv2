@@ -80,6 +80,12 @@ const SidebarContents = () => (
         <SidebarItem href="#settings" icon={<Icon />}>
           Settings
         </SidebarItem>
+        <SidebarItem forceReload href="#reports" icon={<Icon />}>
+          Full-page reports
+        </SidebarItem>
+        <SidebarItem href="https://example.com" icon={<Icon />}>
+          External docs
+        </SidebarItem>
       </SidebarGroup>
     </SidebarContent>
     <SidebarFooter>

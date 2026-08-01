@@ -112,6 +112,8 @@ export interface SidebarItemProps extends Omit<
   action?: ReactNode;
   /** Whether pressing the item closes the mobile Drawer. @default true */
   closeMobileOnAction?: boolean;
+  /** Forces a full-page navigation by targeting the top-level browsing context. @default false */
+  forceReload?: boolean;
 }
 
 export interface SidebarSubmenuProps extends Omit<ButtonProps, "children" | "onPress"> {

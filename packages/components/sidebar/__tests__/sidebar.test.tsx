@@ -154,6 +154,36 @@ describe("Sidebar", () => {
     expect(onPress).not.toHaveBeenCalled();
   });
 
+  it("forces full-page link navigation", () => {
+    const {getByRole} = render(
+      <SidebarProvider>
+        <Sidebar>
+          <SidebarItem forceReload href="/reports">
+            Reports
+          </SidebarItem>
+        </Sidebar>
+      </SidebarProvider>,
+    );
+
+    expect(getByRole("link", {name: "Reports"})).toHaveAttribute("target", "_top");
+  });
+
+  it("opens HTTP links in a safe new tab by default", () => {
+    const {getByRole} = render(
+      <SidebarProvider>
+        <Sidebar>
+          <SidebarItem href="https://example.com">Documentation</SidebarItem>
+        </Sidebar>
+      </SidebarProvider>,
+    );
+
+    expect(getByRole("link", {name: "Documentation"})).toHaveAttribute("target", "_blank");
+    expect(getByRole("link", {name: "Documentation"})).toHaveAttribute(
+      "rel",
+      "noopener noreferrer",
+    );
+  });
+
   it("uses the supplied default state on the first render", () => {
     const {getByRole, queryByRole} = render(
       <SidebarProvider defaultOpen={false}>

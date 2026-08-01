@@ -17,17 +17,23 @@ const SidebarItem = ({
   badge,
   action,
   closeMobileOnAction = true,
+  forceReload = false,
   isActive = false,
   isDisabled = false,
   tooltip,
   tooltipProps,
   className,
   onPress,
+  target: targetProp,
+  rel: relProp,
   ...props
 }: SidebarItemProps) => {
   const {state, isMobile, setOpenMobile, reduceMotion} = useSidebar();
   const isCompact = state === "collapsed" && !isMobile;
   const isTooltipDisabled = !isCompact || tooltip === false;
+  const isExternalLink = typeof href === "string" && /^https?:\/\//i.test(href);
+  const target = forceReload ? "_top" : (targetProp ?? (isExternalLink ? "_blank" : undefined));
+  const rel = isExternalLink ? (relProp ?? "noopener noreferrer") : relProp;
   const handlePress: LinkProps["onPress"] = useCallback(
     (event) => {
       onPress?.(event);
@@ -83,6 +89,8 @@ const SidebarItem = ({
         data-slot="control"
         href={href}
         isDisabled={isDisabled}
+        rel={rel}
+        target={target}
         underline="none"
         onPress={handlePress}
       >
