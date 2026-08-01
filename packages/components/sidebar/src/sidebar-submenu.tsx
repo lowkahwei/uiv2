@@ -39,6 +39,7 @@ const SidebarSubmenu = ({
   defaultOpen = false,
   tooltip,
   tooltipProps,
+  showGuideLines = true,
   className,
   ...props
 }: SidebarSubmenuProps) => {
@@ -48,6 +49,14 @@ const SidebarSubmenu = ({
   const [flyoutOpen, setFlyoutOpen] = useState(false);
   const isTooltipDisabled = !isCompact || tooltip === false;
   const isExpanded = isOpen && !isCompact;
+  const submenuContentClassName = cn(
+    "mt-1 flex flex-col gap-1 pl-4",
+    showGuideLines === true && "border-l border-divider",
+    showGuideLines === "hover" && [
+      "border-l border-transparent group-hover/submenu:border-divider",
+      !reduceMotion && "transition-colors",
+    ],
+  );
 
   const trigger = (
     <Button
@@ -90,14 +99,19 @@ const SidebarSubmenu = ({
   );
 
   return (
-    <li data-slot="submenu">
+    <li className="group/submenu" data-slot="submenu">
       {isCompact ? (
         <Popover isOpen={flyoutOpen} placement="right-start" onOpenChange={setFlyoutOpen}>
           <PopoverTrigger>{trigger}</PopoverTrigger>
-          <PopoverContent className="min-w-48 p-2">
+          <PopoverContent className="group/submenu min-w-48 p-2">
             <p className="px-2 py-1 text-xs font-bold uppercase text-foreground-500">{label}</p>
             <SidebarExpandedScope>
-              <ul className="mt-1 flex flex-col gap-1" onClickCapture={() => setFlyoutOpen(false)}>
+              <ul
+                className={submenuContentClassName}
+                data-guide-lines={String(showGuideLines)}
+                data-slot="submenu-content"
+                onClickCapture={() => setFlyoutOpen(false)}
+              >
                 {children}
               </ul>
             </SidebarExpandedScope>
@@ -116,7 +130,8 @@ const SidebarSubmenu = ({
       )}
       {isExpanded && (
         <ul
-          className="mt-1 flex flex-col gap-1 border-l border-divider pl-4"
+          className={submenuContentClassName}
+          data-guide-lines={String(showGuideLines)}
           data-slot="submenu-content"
         >
           {children}

@@ -536,6 +536,23 @@ describe("Sidebar", () => {
     expect(queryByRole("link", {name: "Profile"})).not.toBeInTheDocument();
   });
 
+  it("supports hover-only submenu guide lines", () => {
+    const {container} = render(
+      <SidebarProvider>
+        <Sidebar>
+          <SidebarSubmenu defaultOpen label="Settings" showGuideLines="hover">
+            <SidebarItem>Profile</SidebarItem>
+          </SidebarSubmenu>
+        </Sidebar>
+      </SidebarProvider>,
+    );
+
+    const submenu = container.querySelector('[data-slot="submenu-content"]');
+
+    expect(submenu).toHaveAttribute("data-guide-lines", "hover");
+    expect(submenu).toHaveClass("border-transparent");
+  });
+
   it("opens nested items in a flyout from the collapsed state", async () => {
     const user = userEvent.setup();
     const {getByRole, queryByRole} = render(

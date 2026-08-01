@@ -130,6 +130,8 @@ export interface SidebarSubmenuProps extends Omit<ButtonProps, "children" | "onP
   tooltip?: ReactNode | false;
   /** Props forwarded to the collapsed-state tooltip. */
   tooltipProps?: Omit<TooltipProps, "children" | "content" | "isDisabled">;
+  /** Controls nested-item guide lines. @default true */
+  showGuideLines?: boolean | "hover";
 }
 
 export interface SidebarFooterProps extends Omit<ComponentPropsWithoutRef<"div">, "children"> {

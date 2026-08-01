@@ -470,3 +470,30 @@ const ReduceMotionDemo = (props: SidebarProps) => {
 export const ReducedMotion = {
   render: (args: SidebarProps) => <ReduceMotionDemo {...args} />,
 };
+
+const GuideLinesDemo = (props: SidebarProps) => (
+  <SidebarProvider>
+    <div className="flex min-h-screen">
+      <Sidebar {...props} aria-label="Guide line examples">
+        <SidebarContent>
+          <SidebarGroup title="Guide lines">
+            <SidebarSubmenu defaultOpen icon={<Icon />} label="Always" showGuideLines>
+              <SidebarItem href="#always">Visible line</SidebarItem>
+            </SidebarSubmenu>
+            <SidebarSubmenu defaultOpen icon={<Icon />} label="Never" showGuideLines={false}>
+              <SidebarItem href="#never">No line</SidebarItem>
+            </SidebarSubmenu>
+            <SidebarSubmenu defaultOpen icon={<Icon />} label="On hover" showGuideLines="hover">
+              <SidebarItem href="#hover">Hover the group</SidebarItem>
+            </SidebarSubmenu>
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
+      <main className="min-w-0 flex-1 p-8">Compare all three guide-line modes.</main>
+    </div>
+  </SidebarProvider>
+);
+
+export const GuideLines = {
+  render: (args: SidebarProps) => <GuideLinesDemo {...args} />,
+};
