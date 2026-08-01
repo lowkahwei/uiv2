@@ -370,8 +370,8 @@ const SidebarContentsWithNested = () => (
   </>
 );
 
-const NestedItemsDemo = (props: SidebarProps) => (
-  <SidebarProvider>
+const NestedItemsDemo = ({defaultOpen = true, ...props}: SidebarProps & {defaultOpen?: boolean}) => (
+  <SidebarProvider defaultOpen={defaultOpen}>
     <div className="flex min-h-screen">
       <Sidebar {...props} aria-label="Application sidebar">
         <SidebarContentsWithNested />
@@ -404,6 +404,10 @@ export const WithNestedItems = {
       expect(canvas.queryByRole("link", {name: "Profile"})).not.toBeInTheDocument();
     });
   },
+};
+
+export const CollapsedNestedItems = {
+  render: (args: SidebarProps) => <NestedItemsDemo {...args} defaultOpen={false} />,
 };
 
 const ScrollableContentDemo = (props: SidebarProps) => (

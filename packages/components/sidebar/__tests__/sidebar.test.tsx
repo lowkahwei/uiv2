@@ -509,9 +509,9 @@ describe("Sidebar", () => {
     expect(queryByRole("link", {name: "Profile"})).not.toBeInTheDocument();
   });
 
-  it("expands the sidebar and SidebarSubmenu from the collapsed state", async () => {
+  it("opens nested items in a flyout from the collapsed state", async () => {
     const user = userEvent.setup();
-    const {getByRole} = render(
+    const {getByRole, queryByRole} = render(
       <SidebarProvider defaultOpen={false}>
         <Sidebar aria-label="Application sidebar">
           <SidebarContent>
@@ -526,8 +526,11 @@ describe("Sidebar", () => {
     );
 
     await user.click(getByRole("button", {name: "Settings"}));
-    expect(getByRole("complementary")).toHaveAttribute("data-state", "expanded");
+    expect(getByRole("complementary")).toHaveAttribute("data-state", "collapsed");
     expect(getByRole("button", {name: "Settings"})).toHaveAttribute("aria-expanded", "true");
     expect(getByRole("link", {name: "Profile"})).toBeInTheDocument();
+
+    await user.click(getByRole("link", {name: "Profile"}));
+    await waitFor(() => expect(queryByRole("link", {name: "Profile"})).not.toBeInTheDocument());
   });
 });

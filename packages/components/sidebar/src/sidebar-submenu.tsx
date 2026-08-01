@@ -1,11 +1,12 @@
 import type {SidebarSubmenuProps} from "./types";
 
 import {Button} from "@sytechui/button";
+import {Popover, PopoverContent, PopoverTrigger} from "@sytechui/popover";
 import {cn} from "@sytechui/theme";
 import {Tooltip} from "@sytechui/tooltip";
 import {useState} from "react";
 
-import {useSidebar} from "./sidebar-context";
+import {SidebarExpandedScope, useSidebar} from "./sidebar-context";
 
 const ChevronIcon = ({isOpen}: {isOpen: boolean}) => (
   <svg
@@ -37,9 +38,10 @@ const SidebarSubmenu = ({
   className,
   ...props
 }: SidebarSubmenuProps) => {
-  const {state, isMobile, setOpen} = useSidebar();
+  const {state, isMobile} = useSidebar();
   const isCompact = state === "collapsed" && !isMobile;
   const [isOpen, setIsOpen] = useState(defaultOpen);
+  const [flyoutOpen, setFlyoutOpen] = useState(false);
   const isTooltipDisabled = !isCompact || tooltip === false;
   const isExpanded = isOpen && !isCompact;
 
@@ -47,7 +49,7 @@ const SidebarSubmenu = ({
     <Button
       {...props}
       fullWidth
-      aria-expanded={isExpanded}
+      aria-expanded={isCompact ? flyoutOpen : isExpanded}
       className={cn(
         "relative flex min-h-9 w-full min-w-0 items-center gap-0 overflow-hidden rounded-md px-0 text-left font-medium text-foreground-500 transition-colors hover:bg-content2",
         className,
@@ -56,14 +58,7 @@ const SidebarSubmenu = ({
       disableRipple={false}
       radius="sm"
       variant="light"
-      onPress={() => {
-        if (isCompact) {
-          setOpen(true);
-          setIsOpen(true);
-        } else {
-          setIsOpen((open) => !open);
-        }
-      }}
+      onPress={() => !isCompact && setIsOpen((open) => !open)}
     >
       {icon != null && (
         <span
@@ -90,15 +85,29 @@ const SidebarSubmenu = ({
 
   return (
     <li data-slot="submenu">
-      <Tooltip
-        closeDelay={0}
-        placement="right"
-        {...tooltipProps}
-        content={tooltip === false ? undefined : (tooltip ?? label)}
-        isDisabled={isTooltipDisabled}
-      >
-        {trigger}
-      </Tooltip>
+      {isCompact ? (
+        <Popover isOpen={flyoutOpen} placement="right-start" onOpenChange={setFlyoutOpen}>
+          <PopoverTrigger>{trigger}</PopoverTrigger>
+          <PopoverContent className="min-w-48 p-2">
+            <p className="px-2 py-1 text-xs font-bold uppercase text-foreground-500">{label}</p>
+            <SidebarExpandedScope>
+              <ul className="mt-1 flex flex-col gap-1" onClickCapture={() => setFlyoutOpen(false)}>
+                {children}
+              </ul>
+            </SidebarExpandedScope>
+          </PopoverContent>
+        </Popover>
+      ) : (
+        <Tooltip
+          closeDelay={0}
+          placement="right"
+          {...tooltipProps}
+          content={tooltip === false ? undefined : (tooltip ?? label)}
+          isDisabled={isTooltipDisabled}
+        >
+          {trigger}
+        </Tooltip>
+      )}
       {isExpanded && (
         <ul
           className="mt-1 flex flex-col gap-1 border-l border-divider pl-4"

@@ -98,3 +98,10 @@ export function useSidebar() {
 
   return context;
 }
+
+export function SidebarExpandedScope({children}: Pick<SidebarProviderProps, "children">) {
+  const context = useSidebar();
+  const value = useMemo(() => ({...context, state: "expanded" as const}), [context]);
+
+  return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>;
+}
