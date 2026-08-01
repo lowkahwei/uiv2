@@ -1,11 +1,9 @@
 {
-  "name": "@sytechui/sidebar",
+  "name": "@sytechui/sidebar_old",
   "version": "2.0.0",
-  "description": "A composable responsive sidebar for application layouts.",
+  "description": "Responsive collapsible sidebar navigation",
   "keywords": [
-    "sidebar",
-    "navigation",
-    "layout"
+    "sidebar"
   ],
   "author": "HeroUI <support@heroui.com>",
   "homepage": "https://heroui.com",
@@ -38,20 +36,27 @@
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0",
     "react-dom": ">=18 || >=19.0.0-rc.0",
-    "@sytechui/system": ">=2.4.23",
-    "@sytechui/theme": ">=2.4.24"
+    "@sytechui/theme": ">=2.4.24",
+    "@sytechui/system": ">=2.4.23"
   },
   "dependencies": {
+    "@react-aria/utils": "3.33.1",
+    "@react-stately/utils": "3.11.0",
     "@sytechui/button": "workspace:*",
     "@sytechui/divider": "workspace:*",
     "@sytechui/drawer": "workspace:*",
-    "@sytechui/input": "workspace:*",
     "@sytechui/link": "workspace:*",
+    "@sytechui/popover": "workspace:*",
+    "@sytechui/scroll-shadow": "workspace:*",
     "@sytechui/tooltip": "workspace:*",
     "@sytechui/use-media-query": "workspace:*"
   },
   "devDependencies": {
     "@storybook/test": "8.6.18",
+    "@sytechui/drawer": "workspace:*",
+    "@sytechui/theme": "workspace:*",
+    "@sytechui/system": "workspace:*",
+    "@sytechui/use-media-query": "workspace:*",
     "clean-package": "2.2.0",
     "react": "18.3.0",
     "react-dom": "18.3.0"

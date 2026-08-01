@@ -37,6 +37,7 @@ export * from "./menu";
 export * from "./listbox";
 export * from "./scroll-shadow";
 export * from "./scroll-area";
+export * from "./sidebar";
 export * from "./slider";
 export * from "./breadcrumbs";
 export * from "./autocomplete";

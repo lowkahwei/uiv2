@@ -1,34 +1,40 @@
-import Sidebar from "./sidebar";
-
 export type {
-  SidebarActionsContextValue,
   SidebarCollapsible,
-  SidebarContentProps,
   SidebarContextValue,
-  SidebarFooterProps,
-  SidebarGroupProps,
-  SidebarHeaderProps,
-  SidebarItemProps,
-  SidebarMainProps,
+  SidebarGroupActionProps,
+  SidebarMenuActionProps,
+  SidebarMenuButtonProps,
+  SidebarMenuSubButtonProps,
   SidebarProps,
   SidebarProviderProps,
   SidebarSide,
   SidebarState,
-  SidebarStateContextValue,
-  SidebarSubmenuProps,
   SidebarTriggerProps,
   SidebarVariant,
-} from "./types";
-export type {SidebarSeparatorProps} from "./sidebar-separator";
+} from "./sidebar";
 
-export {SidebarProvider, useSidebar, useSidebarActions, useSidebarState} from "./sidebar-context";
-export {Sidebar};
-export {SidebarContent} from "./sidebar-content";
-export {SidebarFooter} from "./sidebar-footer";
-export {SidebarGroup} from "./sidebar-group";
-export {SidebarHeader} from "./sidebar-header";
-export {SidebarItem} from "./sidebar-item";
-export {SidebarMain} from "./sidebar-main";
-export {SidebarSeparator} from "./sidebar-separator";
-export {SidebarSubmenu} from "./sidebar-submenu";
-export {SidebarTrigger} from "./sidebar-trigger";
+export {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupAction,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInput,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuAction,
+  SidebarMenuBadge,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarSeparator,
+  SidebarTrigger,
+  useSidebar,
+} from "./sidebar";

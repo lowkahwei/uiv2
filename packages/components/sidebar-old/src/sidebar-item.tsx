@@ -61,11 +61,8 @@ const SidebarItem = ({
       )}
       <span
         className={cn(
-          "flex min-w-0 flex-1 items-center gap-2 truncate py-1.5 pr-3",
+          "flex min-w-0 flex-1 items-center gap-2 truncate whitespace-nowrap py-1.5 pr-3",
           icon == null && "pl-2.5",
-          !reduceMotion &&
-            "transition-[opacity,width] duration-[var(--sidebar-duration,150ms)] motion-reduce:transition-none",
-          isCompact && "w-0 flex-none overflow-hidden p-0 opacity-0",
         )}
         data-slot="label"
       >

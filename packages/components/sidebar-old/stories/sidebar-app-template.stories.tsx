@@ -68,52 +68,40 @@ const groups = [
 ];
 
 const SidebarBrand = () => {
-  const {state, isMobile} = useSidebar();
-  const isCompact = state === "collapsed" && !isMobile;
+  const {isMobile} = useSidebar();
 
   return (
-    <div className={`flex min-h-9 items-center gap-2${isCompact ? " justify-center" : ""}`}>
-      {!isCompact && <span className="min-w-0 flex-1 truncate font-bold">Lend System</span>}
+    <div className="flex min-h-9 items-center overflow-hidden">
+      <span className="min-w-0 flex-1 truncate whitespace-nowrap font-bold">Lend System</span>
       {!isMobile && <SidebarTrigger />}
     </div>
   );
 };
 
-const WorkspaceSelector = () => {
-  const {state, isMobile} = useSidebar();
-
-  if (state === "collapsed" && !isMobile) return null;
-
-  return (
-    <div className="px-3 py-2">
-      <div className="flex h-10 w-full items-center gap-2 rounded-md bg-content2 px-3 text-left text-sm">
+const WorkspaceSelector = () => (
+  <div className="overflow-hidden px-3 py-2">
+    <div className="flex h-10 w-full items-center overflow-hidden rounded-md bg-content2 text-left text-sm">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center">
         <span className="flex h-6 w-6 items-center justify-center rounded bg-primary font-bold text-primary-foreground">
           D
         </span>
-        <span className="min-w-0 flex-1 truncate">Default Workspace</span>
-      </div>
-    </div>
-  );
-};
-
-const Account = () => {
-  const {state, isMobile} = useSidebar();
-  const showDetails = state === "expanded" || isMobile;
-
-  return (
-    <div className="flex w-full items-center gap-2 rounded-md text-left">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-default font-bold">
-        JD
       </span>
-      {showDetails && (
-        <span className="min-w-0">
-          <span className="block truncate text-sm font-medium">Jane Doe</span>
-          <span className="block truncate text-xs text-foreground-500">jane@example.com</span>
-        </span>
-      )}
+      <span className="min-w-0 flex-1 truncate whitespace-nowrap pr-3">Default Workspace</span>
     </div>
-  );
-};
+  </div>
+);
+
+const Account = () => (
+  <div className="flex w-full items-center overflow-hidden rounded-md text-left">
+    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-default font-bold">
+      JD
+    </span>
+    <span className="min-w-0 flex-1 whitespace-nowrap pl-2">
+      <span className="block truncate text-sm font-medium">Jane Doe</span>
+      <span className="block truncate text-xs text-foreground-500">jane@example.com</span>
+    </span>
+  </div>
+);
 
 const AppTemplateShell = ({defaultOpen = true}: {defaultOpen?: boolean}) => {
   const [activeItem, setActiveItem] = useState("management");

@@ -2611,12 +2611,6 @@ importers:
 
   packages/components/sidebar:
     dependencies:
-      '@react-aria/utils':
-        specifier: 3.33.1
-        version: 3.33.1(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
-      '@react-stately/utils':
-        specifier: 3.11.0
-        version: 3.11.0(react@18.3.0)
       '@sytechui/button':
         specifier: workspace:*
         version: link:../button
@@ -2626,15 +2620,18 @@ importers:
       '@sytechui/drawer':
         specifier: workspace:*
         version: link:../drawer
+      '@sytechui/input':
+        specifier: workspace:*
+        version: link:../input
       '@sytechui/link':
         specifier: workspace:*
         version: link:../link
-      '@sytechui/popover':
-        specifier: workspace:*
-        version: link:../popover
-      '@sytechui/scroll-shadow':
-        specifier: workspace:*
-        version: link:../scroll-shadow
+      '@sytechui/system':
+        specifier: '>=2.4.23'
+        version: link:../../core/system
+      '@sytechui/theme':
+        specifier: '>=2.4.24'
+        version: link:../../core/theme
       '@sytechui/tooltip':
         specifier: workspace:*
         version: link:../tooltip
@@ -2645,12 +2642,6 @@ importers:
       '@storybook/test':
         specifier: 8.6.18
         version: 8.6.18(storybook@8.6.18(prettier@3.9.5))
-      '@sytechui/system':
-        specifier: workspace:*
-        version: link:../../core/system
-      '@sytechui/theme':
-        specifier: workspace:*
-        version: link:../../core/theme
       clean-package:
         specifier: 2.2.0
         version: 2.2.0

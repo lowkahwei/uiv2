@@ -1,19 +1,33 @@
 import "@testing-library/jest-dom";
 import * as React from "react";
 import {render, waitFor} from "@testing-library/react";
+import {HeroUIProvider} from "@sytechui/system";
 import userEvent from "@testing-library/user-event";
+import {MotionGlobalConfig} from "framer-motion";
 
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
+  SidebarGroupAction,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
-  SidebarItem,
+  SidebarInput,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuAction,
+  SidebarMenuBadge,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   SidebarProvider,
-  SidebarSubmenu,
+  SidebarRail,
+  SidebarSeparator,
   SidebarTrigger,
-  useSidebar,
 } from "../src";
 
 const originalMatchMedia = window.matchMedia;
@@ -34,606 +48,436 @@ function setMobile(isMobile: boolean) {
   });
 }
 
-const SidebarLayout = () => (
-  <Sidebar aria-label="Application sidebar">
+const AppSidebar = (props: React.ComponentProps<typeof Sidebar>) => (
+  <Sidebar aria-label="Application sidebar" collapsible="icon" {...props}>
     <SidebarHeader>
-      <SidebarTrigger />
+      <SidebarInput aria-label="Search navigation" />
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton data-testid="workspace-switcher" size="lg" tooltip="Workspace">
+            <span aria-hidden="true">W</span>
+            <span>
+              <span>Acme Inc</span>
+              <span>Enterprise</span>
+            </span>
+            <span aria-hidden="true">↕</span>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
     </SidebarHeader>
-    <SidebarContent aria-label="Primary">
-      <SidebarGroup title="Main">
-        <SidebarItem isActive href="/home" icon={<span aria-hidden="true">H</span>}>
-          Home
-        </SidebarItem>
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarGroupLabel>Application</SidebarGroupLabel>
+        <SidebarGroupAction aria-label="Add application">+</SidebarGroupAction>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton isActive href="/dashboard" tooltip="Dashboard">
+                <span aria-hidden="true">D</span>
+                <span>Dashboard</span>
+              </SidebarMenuButton>
+              <SidebarMenuBadge>3</SidebarMenuBadge>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton tooltip="Projects">
+                <span aria-hidden="true">P</span>
+                <span>Projects</span>
+              </SidebarMenuButton>
+              <SidebarMenuAction aria-label="More project actions">•••</SidebarMenuAction>
+              <SidebarMenuSub>
+                <SidebarMenuSubItem>
+                  <SidebarMenuSubButton href="/projects/one">
+                    <span>Project one</span>
+                  </SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+              </SidebarMenuSub>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroupContent>
       </SidebarGroup>
+      <SidebarSeparator />
     </SidebarContent>
-    <SidebarFooter>Account</SidebarFooter>
+    <SidebarFooter>
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton data-testid="account-switcher" size="lg" tooltip="Account">
+            <span aria-hidden="true">CN</span>
+            <span>
+              <span>Account</span>
+              <span>account@example.com</span>
+            </span>
+            <span aria-hidden="true">↕</span>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarFooter>
+    <SidebarRail />
   </Sidebar>
 );
 
+interface LayoutProps {
+  defaultOpen?: boolean;
+  providerProps?: Omit<React.ComponentProps<typeof SidebarProvider>, "children" | "defaultOpen">;
+  sidebarProps?: React.ComponentProps<typeof Sidebar>;
+}
+
+const Layout = ({defaultOpen = true, providerProps, sidebarProps}: LayoutProps) => (
+  <SidebarProvider defaultOpen={defaultOpen} {...providerProps}>
+    <AppSidebar {...sidebarProps} />
+    <SidebarInset>
+      <SidebarTrigger />
+      <h1>Dashboard content</h1>
+    </SidebarInset>
+  </SidebarProvider>
+);
+
+const getDesktopSidebar = (container: HTMLElement) =>
+  container.querySelector<HTMLElement>('[data-slot="sidebar"][data-state]')!;
+
 describe("Sidebar", () => {
   beforeEach(() => setMobile(false));
+
   afterEach(() => {
+    MotionGlobalConfig.skipAnimations = false;
     Object.defineProperty(window, "matchMedia", {
       configurable: true,
       value: originalMatchMedia,
     });
   });
 
-  it("renders semantic navigation and forwards its ref", () => {
-    const ref = React.createRef<HTMLElement>();
-    const {getByRole, getByText} = render(
-      <SidebarProvider>
-        <Sidebar ref={ref} aria-label="Application sidebar">
-          <SidebarContent aria-label="Primary">
-            <SidebarGroup title="Main">
-              <SidebarItem isActive href="/home" icon={<span aria-hidden="true">H</span>}>
-                Home
-              </SidebarItem>
-            </SidebarGroup>
-          </SidebarContent>
-          <SidebarFooter>Account</SidebarFooter>
-        </Sidebar>
-      </SidebarProvider>,
-    );
+  it("renders every composable primitive and its accessible state", () => {
+    const {container, getByRole, getByText} = render(<Layout />);
 
-    expect(getByRole("complementary", {name: "Application sidebar"})).toBe(ref.current);
-    expect(getByRole("navigation", {name: "Primary"})).toHaveAttribute(
-      "data-orientation",
-      "vertical",
-    );
-    expect(getByRole("link", {name: "Home"})).toHaveClass("gap-0");
-    expect(getByRole("link", {name: "Home"})).toHaveAttribute("href", "/home");
-    expect(getByRole("link", {name: "Home"})).toHaveAttribute("aria-current", "page");
+    expect(getByRole("complementary", {name: "Application sidebar"})).toBeInTheDocument();
+    expect(getByRole("textbox", {name: "Search navigation"})).toBeInTheDocument();
+    expect(getByRole("button", {name: "Add application"})).toBeInTheDocument();
+    expect(getByRole("button", {name: "More project actions"})).toBeInTheDocument();
+    expect(getByRole("link", {name: "Dashboard"})).toHaveAttribute("aria-current", "page");
+    expect(getByRole("link", {name: "Project one"})).toHaveAttribute("href", "/projects/one");
     expect(getByText("Account")).toBeInTheDocument();
+
+    [
+      "sidebar-header",
+      "sidebar-input",
+      "sidebar-content",
+      "sidebar-group",
+      "sidebar-group-label",
+      "sidebar-group-action",
+      "sidebar-group-content",
+      "sidebar-menu",
+      "sidebar-menu-item",
+      "sidebar-menu-button",
+      "sidebar-menu-action",
+      "sidebar-menu-badge",
+      "sidebar-menu-sub",
+      "sidebar-menu-sub-item",
+      "sidebar-menu-sub-button",
+      "sidebar-separator",
+      "sidebar-footer",
+      "sidebar-rail",
+      "sidebar-inset",
+      "sidebar-trigger",
+    ].forEach((slot) => {
+      expect(container.querySelector(`[data-slot="${slot}"]`)).toBeInTheDocument();
+    });
   });
 
-  it("toggles the uncontrolled desktop state and notifies consumers", async () => {
-    const user = userEvent.setup();
-    const onOpenChange = jest.fn();
-    const {getByRole} = render(
-      <SidebarProvider onOpenChange={onOpenChange}>
-        <SidebarLayout />
-      </SidebarProvider>,
-    );
+  it("sets the default dimensions and expanded state", () => {
+    const {container} = render(<Layout />);
+    const wrapper = container.querySelector<HTMLElement>('[data-slot="sidebar-wrapper"]')!;
+    const sidebar = getDesktopSidebar(container);
 
-    await user.click(getByRole("button", {name: "Collapse sidebar"}));
-
-    expect(getByRole("complementary")).toHaveAttribute("data-state", "collapsed");
-    expect(getByRole("button", {name: "Expand sidebar"})).toBeInTheDocument();
-    expect(onOpenChange).toHaveBeenCalledWith(false);
+    expect(wrapper.style.getPropertyValue("--sidebar-width")).toBe("16rem");
+    expect(wrapper.style.getPropertyValue("--sidebar-width-mobile")).toBe("18rem");
+    expect(wrapper.style.getPropertyValue("--sidebar-width-icon")).toBe("3rem");
+    expect(sidebar).toHaveAttribute("data-state", "expanded");
+    expect(sidebar).not.toHaveAttribute("data-collapsible");
   });
 
-  it("persists the uncontrolled desktop state in a Cookie", async () => {
+  it("toggles from the trigger and both keyboard shortcuts while persisting the cookie", async () => {
     const user = userEvent.setup();
+    const {container} = render(<Layout />);
+    const sidebar = getDesktopSidebar(container);
+    const trigger = container.querySelector<HTMLElement>('[data-slot="sidebar-trigger"]')!;
 
-    const {getByRole} = render(
-      <SidebarProvider>
-        <SidebarLayout />
-      </SidebarProvider>,
-    );
-
-    await user.click(getByRole("button", {name: "Collapse sidebar"}));
-
+    await user.click(trigger);
+    expect(sidebar).toHaveAttribute("data-state", "collapsed");
+    expect(sidebar).toHaveAttribute("data-collapsible", "icon");
     expect(document.cookie).toContain("sidebar_state=false");
+
+    await user.keyboard("{Meta>}b{/Meta}");
+    expect(sidebar).toHaveAttribute("data-state", "expanded");
+
+    await user.keyboard("{Control>}b{/Control}");
+    expect(sidebar).toHaveAttribute("data-state", "collapsed");
   });
 
-  it("supports a controlled desktop state", async () => {
-    const user = userEvent.setup();
-    const onOpenChange = jest.fn();
-    const {getByRole} = render(
-      <SidebarProvider open onOpenChange={onOpenChange}>
-        <SidebarLayout />
-      </SidebarProvider>,
-    );
-
-    await user.click(getByRole("button", {name: "Collapse sidebar"}));
-
-    expect(onOpenChange).toHaveBeenCalledWith(false);
-    expect(getByRole("complementary")).toHaveAttribute("data-state", "expanded");
-  });
-
-  it("renders action items as buttons and respects disabled state", async () => {
+  it("toggles from the rail and preserves a custom trigger callback", async () => {
     const user = userEvent.setup();
     const onPress = jest.fn();
-    const {getByRole} = render(
-      <SidebarProvider>
-        <Sidebar aria-label="Application sidebar">
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarItem isDisabled icon={<span>H</span>} onPress={onPress}>
-                Home
-              </SidebarItem>
-            </SidebarGroup>
-          </SidebarContent>
-        </Sidebar>
-      </SidebarProvider>,
-    );
-
-    await user.click(getByRole("button", {name: "Home"}));
-
-    expect(onPress).not.toHaveBeenCalled();
-  });
-
-  it("forces full-page link navigation", () => {
-    const {getByRole} = render(
-      <SidebarProvider>
-        <Sidebar>
-          <SidebarItem forceReload href="/reports">
-            Reports
-          </SidebarItem>
-        </Sidebar>
-      </SidebarProvider>,
-    );
-
-    expect(getByRole("link", {name: "Reports"})).toHaveAttribute("target", "_top");
-  });
-
-  it("opens HTTP links in a safe new tab by default", () => {
-    const {getByRole} = render(
-      <SidebarProvider>
-        <Sidebar>
-          <SidebarItem href="https://example.com">Documentation</SidebarItem>
-        </Sidebar>
-      </SidebarProvider>,
-    );
-
-    expect(getByRole("link", {name: "Documentation"})).toHaveAttribute("target", "_blank");
-    expect(getByRole("link", {name: "Documentation"})).toHaveAttribute(
-      "rel",
-      "noopener noreferrer",
-    );
-  });
-
-  it("calls the navigate prop for client-side link navigation", async () => {
-    const navigate = jest.fn();
-    const user = userEvent.setup();
-    const {getByRole} = render(
-      <SidebarProvider navigate={navigate}>
-        <Sidebar>
-          <SidebarItem href="/reports">Reports</SidebarItem>
-        </Sidebar>
-      </SidebarProvider>,
-    );
-
-    await user.click(getByRole("link", {name: "Reports"}));
-
-    expect(navigate).toHaveBeenCalledWith("/reports");
-  });
-
-  it("uses the supplied default state on the first render", () => {
-    const {getByRole, queryByRole} = render(
-      <SidebarProvider defaultOpen={false}>
-        <SidebarLayout />
-      </SidebarProvider>,
-    );
-
-    expect(getByRole("complementary")).toHaveAttribute("data-state", "collapsed");
-    expect(getByRole("button", {name: "Expand sidebar"})).toBeInTheDocument();
-    expect(queryByRole("heading", {name: "Main"})).not.toBeInTheDocument();
-  });
-
-  it("does not duplicate a compact badge in the accessible name", () => {
-    const {getByRole} = render(
-      <SidebarProvider defaultOpen={false}>
-        <Sidebar aria-label="Application sidebar">
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarItem badge={<span>4</span>} icon={<span>H</span>}>
-                Home
-              </SidebarItem>
-            </SidebarGroup>
-          </SidebarContent>
-        </Sidebar>
-      </SidebarProvider>,
-    );
-
-    expect(getByRole("button", {name: "Home 4"})).toBeInTheDocument();
-  });
-
-  it("opens on mobile and closes after an item is selected", async () => {
-    setMobile(true);
-    const user = userEvent.setup();
-
-    const {getByRole, queryByRole} = render(
-      <SidebarProvider>
-        <SidebarTrigger />
-        <SidebarLayout />
-      </SidebarProvider>,
-    );
-
-    await user.click(getByRole("button", {name: "Open sidebar"}));
-    expect(getByRole("dialog")).toBeInTheDocument();
-    expect(getByRole("button", {name: "Close sidebar"})).toBeInTheDocument();
-
-    await user.click(getByRole("link", {name: "Home"}));
-
-    await waitFor(() => expect(queryByRole("dialog")).not.toBeInTheDocument());
-  });
-
-  it("can keep the mobile Drawer open after an item is selected", async () => {
-    setMobile(true);
-    const user = userEvent.setup();
-
-    const {getByRole} = render(
-      <SidebarProvider>
-        <SidebarTrigger />
-        <Sidebar aria-label="Application sidebar">
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarItem closeMobileOnAction={false}>Home</SidebarItem>
-            </SidebarGroup>
-          </SidebarContent>
-        </Sidebar>
-      </SidebarProvider>,
-    );
-
-    await user.click(getByRole("button", {name: "Open sidebar"}));
-    await user.click(getByRole("button", {name: "Home"}));
-
-    expect(getByRole("dialog")).toBeInTheDocument();
-  });
-
-  it("exposes state through useSidebar", () => {
-    function State() {
-      const {state, open} = useSidebar();
-
-      return <span>{`${state}:${open}`}</span>;
-    }
-
-    const {getByText} = render(
-      <SidebarProvider defaultOpen={false}>
-        <State />
-      </SidebarProvider>,
-    );
-
-    expect(getByText("collapsed:false")).toBeInTheDocument();
-  });
-
-  it("exposes Sidebar layout props through useSidebar", () => {
-    function Layout() {
-      const {side, collapsible} = useSidebar();
-
-      return <span>{`${side}:${collapsible}`}</span>;
-    }
-
-    const {getByText} = render(
-      <SidebarProvider>
-        <Sidebar side="right">
-          <Layout />
-        </Sidebar>
-      </SidebarProvider>,
-    );
-
-    expect(getByText("right:icon")).toBeInTheDocument();
-  });
-
-  it("requires a provider", () => {
-    expect(() => render(<Sidebar />)).toThrow(
-      "useSidebarState must be used within a SidebarProvider.",
-    );
-  });
-
-  it("can disable Sidebar-owned transitions", () => {
-    const {getByRole} = render(
-      <SidebarProvider reduceMotion>
-        <SidebarLayout />
-      </SidebarProvider>,
-    );
-
-    const sidebar = getByRole("complementary");
-
-    expect(sidebar).toHaveAttribute("data-reduce-motion", "true");
-    expect(sidebar.parentElement).not.toHaveClass("transition-[width]");
-  });
-
-  it("treats a custom mobileBreakpoint as the mobile threshold", async () => {
-    setMobile(true);
-    const user = userEvent.setup();
-
-    const {getByRole} = render(
-      <SidebarProvider mobileBreakpoint={1024}>
-        <SidebarTrigger />
-        <SidebarLayout />
-      </SidebarProvider>,
-    );
-
-    await user.click(getByRole("button", {name: "Open sidebar"}));
-    expect(getByRole("dialog")).toBeInTheDocument();
-  });
-
-  it("renders pre-hydration CSS for a custom mobileBreakpoint", () => {
-    const {container} = render(
-      <SidebarProvider mobileBreakpoint={900}>
-        <SidebarLayout />
-      </SidebarProvider>,
-    );
-
-    expect(container.querySelector("style")).toHaveTextContent("max-width:900px");
-    expect(container.querySelectorAll("[data-sidebar-bp]")).toHaveLength(2);
-  });
-
-  it("forwards drawerProps to the mobile Drawer", async () => {
-    setMobile(true);
-    const user = userEvent.setup();
-    const {getByRole} = render(
-      <SidebarProvider>
-        <SidebarTrigger />
-        <Sidebar aria-label="Application sidebar" drawerProps={{placement: "right"}}>
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarItem icon={<span>H</span>}>Home</SidebarItem>
-            </SidebarGroup>
-          </SidebarContent>
-        </Sidebar>
-      </SidebarProvider>,
-    );
-
-    await user.click(getByRole("button", {name: "Open sidebar"}));
-    expect(getByRole("dialog")).toHaveAttribute("data-placement", "right");
-  });
-
-  it("disables the collapsed-state tooltip when tooltip is false", async () => {
-    const user = userEvent.setup();
-    const {getByRole, queryByRole} = render(
-      <SidebarProvider defaultOpen={false}>
-        <Sidebar aria-label="Application sidebar">
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarItem icon={<span>H</span>} tooltip={false}>
-                Home
-              </SidebarItem>
-            </SidebarGroup>
-          </SidebarContent>
-        </Sidebar>
-      </SidebarProvider>,
-    );
-
-    await user.hover(getByRole("button", {name: "Home"}));
-    expect(queryByRole("tooltip")).not.toBeInTheDocument();
-  });
-
-  it("renders a custom SidebarTrigger icon", () => {
-    const {getByRole, queryByText} = render(
-      <SidebarProvider>
-        <SidebarTrigger>
-          <span>Custom</span>
-        </SidebarTrigger>
-      </SidebarProvider>,
-    );
-
-    expect(getByRole("button")).toHaveTextContent("Custom");
-    expect(queryByText("Custom")).toBeInTheDocument();
-  });
-
-  it("slides out at full width when collapsible is offcanvas", () => {
-    const {getByRole} = render(
-      <SidebarProvider defaultOpen={false}>
-        <Sidebar aria-label="Application sidebar" collapsible="offcanvas">
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarItem icon={<span>H</span>}>Home</SidebarItem>
-            </SidebarGroup>
-          </SidebarContent>
-        </Sidebar>
-      </SidebarProvider>,
-    );
-
-    const container = getByRole("complementary").parentElement;
-
-    expect(container).toHaveStyle({width: "270px", transform: "translateX(-100%)"});
-    expect(getByRole("button", {name: "Home"})).toBeInTheDocument();
-  });
-
-  it("ignores collapse state and renders statically when collapsible is none", () => {
-    setMobile(true);
-    const {getByRole, queryByRole} = render(
-      <SidebarProvider defaultOpen={false}>
-        <Sidebar aria-label="Application sidebar" collapsible="none">
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarItem icon={<span>H</span>}>Home</SidebarItem>
-            </SidebarGroup>
-          </SidebarContent>
-        </Sidebar>
-      </SidebarProvider>,
-    );
-
-    expect(queryByRole("dialog")).not.toBeInTheDocument();
-    expect(getByRole("complementary")).toBeInTheDocument();
-  });
-
-  it("docks to the right and flips the mobile Drawer placement", async () => {
-    setMobile(true);
-    const user = userEvent.setup();
-    const {getByRole} = render(
-      <SidebarProvider>
-        <SidebarTrigger />
-        <Sidebar aria-label="Application sidebar" side="right">
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarItem icon={<span>H</span>}>Home</SidebarItem>
-            </SidebarGroup>
-          </SidebarContent>
-        </Sidebar>
-      </SidebarProvider>,
-    );
-
-    await user.click(getByRole("button", {name: "Open sidebar"}));
-    expect(getByRole("dialog")).toHaveAttribute("data-placement", "right");
-  });
-
-  it("docks to the right on desktop", () => {
-    const {getByRole} = render(
-      <SidebarProvider>
-        <Sidebar aria-label="Application sidebar" side="right">
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarItem icon={<span>H</span>}>Home</SidebarItem>
-            </SidebarGroup>
-          </SidebarContent>
-        </Sidebar>
-      </SidebarProvider>,
-    );
-
-    expect(getByRole("complementary")).toHaveAttribute("data-side", "right");
-    expect(getByRole("complementary").parentElement).toHaveClass("right-0");
-  });
-
-  it("toggles the desktop state with the Cmd/Ctrl+B shortcut", async () => {
-    const user = userEvent.setup();
-    const onOpenChange = jest.fn();
-
-    render(
-      <SidebarProvider onOpenChange={onOpenChange}>
-        <SidebarLayout />
-      </SidebarProvider>,
-    );
-
-    await user.keyboard("{Meta>}b{/Meta}");
-
-    expect(onOpenChange).toHaveBeenCalledWith(false);
-  });
-
-  it("supports a custom toggle shortcut", async () => {
-    const user = userEvent.setup();
-    const onOpenChange = jest.fn();
-
-    render(
-      <SidebarProvider toggleShortcut="mod+shift+s" onOpenChange={onOpenChange}>
-        <SidebarLayout />
-      </SidebarProvider>,
-    );
-
-    await user.keyboard("{Meta>}{Shift>}s{/Shift}{/Meta}");
-
-    expect(onOpenChange).toHaveBeenCalledWith(false);
-  });
-
-  it("can disable the toggle shortcut", async () => {
-    const user = userEvent.setup();
-    const onOpenChange = jest.fn();
-
-    render(
-      <SidebarProvider toggleShortcut={false} onOpenChange={onOpenChange}>
-        <SidebarLayout />
-      </SidebarProvider>,
-    );
-
-    await user.keyboard("{Meta>}b{/Meta}");
-
-    expect(onOpenChange).not.toHaveBeenCalled();
-  });
-
-  it("shows the action slot on an item and keeps it clickable", async () => {
-    const user = userEvent.setup();
-    const onActionPress = jest.fn();
-    const {getByRole} = render(
-      <SidebarProvider>
-        <Sidebar aria-label="Application sidebar">
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarItem
-                action={
-                  <button aria-label="More" type="button" onClick={onActionPress}>
-                    …
-                  </button>
-                }
-                icon={<span>H</span>}
-              >
-                Home
-              </SidebarItem>
-            </SidebarGroup>
-          </SidebarContent>
-        </Sidebar>
-      </SidebarProvider>,
-    );
-
-    await user.click(getByRole("button", {name: "More"}));
-    expect(onActionPress).toHaveBeenCalledTimes(1);
-  });
-
-  it("hides the action slot while the desktop sidebar is collapsed", () => {
-    const {queryByRole} = render(
-      <SidebarProvider defaultOpen={false}>
-        <Sidebar aria-label="Application sidebar">
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarItem action={<button type="button">More</button>} icon={<span>H</span>}>
-                Home
-              </SidebarItem>
-            </SidebarGroup>
-          </SidebarContent>
-        </Sidebar>
-      </SidebarProvider>,
-    );
-
-    expect(queryByRole("button", {name: "More"})).not.toBeInTheDocument();
-  });
-
-  it("expands and collapses nested items in SidebarSubmenu", async () => {
-    const user = userEvent.setup();
-    const {getByRole, queryByRole} = render(
-      <SidebarProvider>
-        <Sidebar aria-label="Application sidebar">
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarSubmenu icon={<span>S</span>} label="Settings">
-                <SidebarItem href="/settings/profile">Profile</SidebarItem>
-              </SidebarSubmenu>
-            </SidebarGroup>
-          </SidebarContent>
-        </Sidebar>
-      </SidebarProvider>,
-    );
-
-    expect(queryByRole("link", {name: "Profile"})).not.toBeInTheDocument();
-
-    await user.click(getByRole("button", {name: "Settings"}));
-    expect(getByRole("link", {name: "Profile"})).toBeInTheDocument();
-
-    await user.click(getByRole("button", {name: "Settings"}));
-    expect(queryByRole("link", {name: "Profile"})).not.toBeInTheDocument();
-  });
-
-  it("supports hover-only submenu guide lines", () => {
     const {container} = render(
       <SidebarProvider>
-        <Sidebar>
-          <SidebarSubmenu defaultOpen label="Settings" showGuideLines="hover">
-            <SidebarItem>Profile</SidebarItem>
-          </SidebarSubmenu>
-        </Sidebar>
+        <AppSidebar />
+        <SidebarTrigger data-testid="custom-trigger" onPress={onPress} />
       </SidebarProvider>,
     );
+    const sidebar = getDesktopSidebar(container);
 
-    const submenu = container.querySelector('[data-slot="submenu-content"]');
+    await user.click(container.querySelector<HTMLElement>('[data-testid="custom-trigger"]')!);
+    expect(onPress).toHaveBeenCalledTimes(1);
+    expect(sidebar).toHaveAttribute("data-state", "collapsed");
 
-    expect(submenu).toHaveAttribute("data-guide-lines", "hover");
-    expect(submenu).toHaveClass("border-transparent");
+    await user.click(container.querySelector<HTMLElement>('[data-slot="sidebar-rail"]')!);
+    expect(sidebar).toHaveAttribute("data-state", "expanded");
   });
 
-  it("opens nested items in a flyout from the collapsed state", async () => {
+  it("keeps header and footer labels mounted throughout the icon animation", async () => {
     const user = userEvent.setup();
-    const {getByRole, queryByRole} = render(
-      <SidebarProvider defaultOpen={false}>
-        <Sidebar aria-label="Application sidebar">
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarSubmenu icon={<span>S</span>} label="Settings">
-                <SidebarItem href="/settings/profile">Profile</SidebarItem>
-              </SidebarSubmenu>
-            </SidebarGroup>
-          </SidebarContent>
+    const {container, getByTestId, getByText} = render(<Layout defaultOpen={false} />);
+    const workspace = getByTestId("workspace-switcher");
+    const account = getByTestId("account-switcher");
+    const workspaceLabel = getByText("Acme Inc").parentElement!;
+    const accountLabel = getByText("Account").parentElement!;
+
+    [workspace, account].forEach((button) => {
+      expect(button).toHaveClass(
+        "transition-[width,height,padding]",
+        "duration-200",
+        "ease-linear",
+        "motion-reduce:transition-none",
+      );
+    });
+
+    expect(workspace).toContainElement(workspaceLabel);
+    expect(account).toContainElement(accountLabel);
+    expect(workspaceLabel).not.toHaveClass("hidden");
+    expect(accountLabel).not.toHaveClass("hidden");
+
+    await user.click(container.querySelector<HTMLElement>('[data-slot="sidebar-trigger"]')!);
+
+    expect(getDesktopSidebar(container)).toHaveAttribute("data-state", "expanded");
+    expect(workspace).toContainElement(workspaceLabel);
+    expect(account).toContainElement(accountLabel);
+  });
+
+  it("supports controlled state without mutating the rendered value", async () => {
+    const user = userEvent.setup();
+    const onOpenChange = jest.fn();
+    const {container} = render(
+      <SidebarProvider open onOpenChange={onOpenChange}>
+        <AppSidebar />
+        <SidebarTrigger />
+      </SidebarProvider>,
+    );
+
+    await user.click(container.querySelector<HTMLElement>('[data-slot="sidebar-trigger"]')!);
+
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+    expect(getDesktopSidebar(container)).toHaveAttribute("data-state", "expanded");
+  });
+
+  it.each([
+    ["left", "translateX(-100%)"],
+    ["right", "translateX(100%)"],
+  ] as const)("slides an offcanvas sidebar from the %s", async (side, collapsedTransform) => {
+    const user = userEvent.setup();
+    const {container} = render(
+      <Layout defaultOpen={false} sidebarProps={{collapsible: "offcanvas", side}} />,
+    );
+    const gap = container.querySelector<HTMLElement>('[data-slot="sidebar-gap"]')!;
+    const panel = container.querySelector<HTMLElement>('[data-slot="sidebar-container"]')!;
+
+    expect(gap).toHaveStyle({width: "0px"});
+    expect(panel).toHaveStyle({transform: collapsedTransform});
+    expect(getDesktopSidebar(container)).toHaveAttribute("data-side", side);
+
+    await user.click(container.querySelector<HTMLElement>('[data-slot="sidebar-trigger"]')!);
+    expect(panel).toHaveStyle({transform: "translateX(0)"});
+  });
+
+  it("uses the icon width when initially collapsed", () => {
+    const {container} = render(<Layout defaultOpen={false} />);
+    const gap = container.querySelector<HTMLElement>('[data-slot="sidebar-gap"]')!;
+    const panel = container.querySelector<HTMLElement>('[data-slot="sidebar-container"]')!;
+
+    expect(gap).toHaveStyle({width: "var(--sidebar-width-icon)"});
+    expect(panel).toHaveStyle({width: "var(--sidebar-width-icon)"});
+    expect(panel).toHaveStyle({transform: "translateX(0)"});
+  });
+
+  it.each(["floating", "inset"] as const)("applies the %s layout spacing", (variant) => {
+    const {container} = render(<Layout sidebarProps={{variant}} />);
+    const gap = container.querySelector<HTMLElement>('[data-slot="sidebar-gap"]')!;
+    const panel = container.querySelector<HTMLElement>('[data-slot="sidebar-container"]')!;
+    const inner = container.querySelector<HTMLElement>('[data-slot="sidebar-inner"]')!;
+
+    expect(gap).toHaveStyle({width: "calc(var(--sidebar-width) + 1rem)"});
+    expect(panel).toHaveClass("p-2");
+
+    if (variant === "floating") {
+      expect(inner).toHaveClass("rounded-xl", "border", "shadow-sm");
+    } else {
+      expect(inner).not.toHaveClass("rounded-xl");
+    }
+  });
+
+  it("renders a static column when collapsing is disabled", () => {
+    const {container, getByRole} = render(
+      <SidebarProvider>
+        <Sidebar aria-label="Static sidebar" collapsible="none">
+          Static content
         </Sidebar>
       </SidebarProvider>,
     );
 
-    await user.click(getByRole("button", {name: "Settings"}));
-    expect(getByRole("complementary")).toHaveAttribute("data-state", "collapsed");
-    expect(getByRole("button", {name: "Settings"})).toHaveAttribute("aria-expanded", "true");
-    expect(getByRole("link", {name: "Profile"})).toBeInTheDocument();
+    expect(getByRole("complementary", {name: "Static sidebar"})).toHaveClass(
+      "w-[var(--sidebar-width)]",
+    );
+    expect(container.querySelector('[data-slot="sidebar-gap"]')).not.toBeInTheDocument();
+    expect(container.querySelector("[data-state]")).not.toBeInTheDocument();
+  });
 
-    await user.click(getByRole("link", {name: "Profile"}));
-    await waitFor(() => expect(queryByRole("link", {name: "Profile"})).not.toBeInTheDocument());
+  it("opens the sidebar in a Sytech drawer on mobile", async () => {
+    setMobile(true);
+    const user = userEvent.setup();
+    const {findByRole, getByRole} = render(<Layout />);
+
+    await user.click(getByRole("button", {name: "Toggle sidebar"}));
+
+    await waitFor(async () => {
+      expect(await findByRole("complementary", {name: "Application sidebar"})).toBeVisible();
+    });
+  });
+
+  it("shows collapsed menu tooltips", async () => {
+    const user = userEvent.setup();
+    const {findByRole, getByRole} = render(<Layout defaultOpen={false} />);
+
+    await user.hover(getByRole("link", {name: "Dashboard"}));
+    expect(await findByRole("tooltip")).toHaveTextContent("Dashboard");
+  });
+
+  it("connects every desktop primitive to its theme slot", () => {
+    const classNames = {
+      base: "theme-base",
+      sidebar: "theme-sidebar",
+      gap: "theme-gap",
+      container: "theme-container",
+      inner: "theme-inner",
+      trigger: "theme-trigger",
+      rail: "theme-rail",
+      inset: "theme-inset",
+      input: "theme-input",
+      header: "theme-header",
+      footer: "theme-footer",
+      separator: "theme-separator",
+      content: "theme-content",
+      group: "theme-group",
+      groupLabel: "theme-group-label",
+      groupAction: "theme-group-action",
+      groupContent: "theme-group-content",
+      menu: "theme-menu",
+      menuItem: "theme-menu-item",
+      menuButton: "theme-menu-button",
+      menuAction: "theme-menu-action",
+      menuBadge: "theme-menu-badge",
+      menuSub: "theme-menu-sub",
+      menuSubItem: "theme-menu-sub-item",
+      menuSubButton: "theme-menu-sub-button",
+    } satisfies NonNullable<React.ComponentProps<typeof SidebarProvider>["classNames"]>;
+    const {container} = render(<Layout providerProps={{classNames}} />);
+    const slotSelectors: Array<[keyof typeof classNames, string]> = [
+      ["base", '[data-slot="sidebar-wrapper"]'],
+      ["sidebar", '[data-slot="sidebar"][data-state]'],
+      ["gap", '[data-slot="sidebar-gap"]'],
+      ["container", '[data-slot="sidebar-container"]'],
+      ["inner", '[data-slot="sidebar-inner"]'],
+      ["trigger", '[data-slot="sidebar-trigger"]'],
+      ["rail", '[data-slot="sidebar-rail"]'],
+      ["inset", '[data-slot="sidebar-inset"]'],
+      ["input", ".theme-input"],
+      ["header", '[data-slot="sidebar-header"]'],
+      ["footer", '[data-slot="sidebar-footer"]'],
+      ["separator", '[data-slot="sidebar-separator"]'],
+      ["content", '[data-slot="sidebar-content"]'],
+      ["group", '[data-slot="sidebar-group"]'],
+      ["groupLabel", '[data-slot="sidebar-group-label"]'],
+      ["groupAction", '[data-slot="sidebar-group-action"]'],
+      ["groupContent", '[data-slot="sidebar-group-content"]'],
+      ["menu", '[data-slot="sidebar-menu"]'],
+      ["menuItem", '[data-slot="sidebar-menu-item"]'],
+      ["menuButton", '[data-slot="sidebar-menu-button"]'],
+      ["menuAction", '[data-slot="sidebar-menu-action"]'],
+      ["menuBadge", '[data-slot="sidebar-menu-badge"]'],
+      ["menuSub", '[data-slot="sidebar-menu-sub"]'],
+      ["menuSubItem", '[data-slot="sidebar-menu-sub-item"]'],
+      ["menuSubButton", '[data-slot="sidebar-menu-sub-button"]'],
+    ];
+
+    slotSelectors.forEach(([slot, selector]) => {
+      expect(container.querySelector(selector)).toHaveClass(classNames[slot]);
+    });
+  });
+
+  it("connects the mobile drawer to its theme slot", async () => {
+    setMobile(true);
+    const user = userEvent.setup();
+
+    render(<Layout providerProps={{classNames: {mobile: "theme-mobile"}}} />);
+    await user.click(document.querySelector<HTMLElement>('[data-slot="sidebar-trigger"]')!);
+
+    await waitFor(() => {
+      expect(document.querySelector('[data-mobile="true"]')).toHaveClass("theme-mobile");
+    });
+  });
+
+  it("lets local classes override provider slot classes", () => {
+    const {getByRole} = render(
+      <SidebarProvider classNames={{trigger: "h-10 theme-trigger"}}>
+        <SidebarTrigger className="h-14 local-trigger" />
+      </SidebarProvider>,
+    );
+    const trigger = getByRole("button", {name: "Toggle sidebar"});
+
+    expect(trigger).toHaveClass("h-14", "local-trigger", "theme-trigger");
+    expect(trigger).not.toHaveClass("h-10");
+  });
+
+  it("disables every sidebar transition through the component theme prop", () => {
+    const {container} = render(<Layout providerProps={{disableAnimation: true}} />);
+    const gap = container.querySelector<HTMLElement>('[data-slot="sidebar-gap"]')!;
+    const panel = container.querySelector<HTMLElement>('[data-slot="sidebar-container"]')!;
+    const rail = container.querySelector<HTMLElement>('[data-slot="sidebar-rail"]')!;
+    const label = container.querySelector<HTMLElement>('[data-slot="sidebar-group-label"]')!;
+    const menuButton = container.querySelector<HTMLElement>('[data-slot="sidebar-menu-button"]')!;
+
+    [gap, panel, rail, label, menuButton].forEach((element) => {
+      expect(element).toHaveClass("transition-none");
+    });
+  });
+
+  it("inherits the global Sytech animation setting", () => {
+    const {container} = render(
+      <HeroUIProvider disableAnimation>
+        <Layout />
+      </HeroUIProvider>,
+    );
+
+    expect(container.querySelector('[data-slot="sidebar-gap"]')).toHaveClass("transition-none");
+    expect(container.querySelector('[data-slot="sidebar-menu-button"]')).toHaveClass(
+      "transition-none",
+    );
+  });
+
+  it("lets a local animation setting override the global Sytech setting", () => {
+    const {container} = render(
+      <HeroUIProvider disableAnimation>
+        <Layout providerProps={{disableAnimation: false}} />
+      </HeroUIProvider>,
+    );
+    const gap = container.querySelector('[data-slot="sidebar-gap"]');
+
+    expect(gap).toHaveClass("transition-[width]", "duration-200");
+    expect(gap).not.toHaveClass("transition-none");
   });
 });

@@ -1,0 +1,604 @@
+import type {Meta} from "@storybook/react";
+import type {SidebarProps} from "../src";
+
+import {Button} from "@sytechui/button";
+import {cn} from "@sytechui/theme";
+import React, {useState} from "react";
+import {expect, userEvent, waitFor, within} from "@storybook/test";
+
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarHeader,
+  SidebarItem,
+  SidebarProvider,
+  SidebarSeparator,
+  SidebarSubmenu,
+  SidebarTrigger,
+  useSidebar,
+} from "../src";
+
+const Icon = () => (
+  <svg aria-hidden="true" fill="none" height="20" viewBox="0 0 24 24" width="20">
+    <path
+      d="M5 12h14M12 5l7 7-7 7"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.8"
+    />
+  </svg>
+);
+
+const SidebarBrand = () => {
+  const {state, isMobile, reduceMotion} = useSidebar();
+  const isCompact = state === "collapsed" && !isMobile;
+
+  return (
+    <div className="flex min-h-8 items-center overflow-hidden">
+      <span
+        aria-hidden="true"
+        className={cn(
+          "flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-md bg-primary font-bold text-primary-foreground",
+          !reduceMotion &&
+            "transition-[width,opacity] duration-[var(--sidebar-duration,200ms)] ease-[var(--sidebar-ease,linear)]",
+          isCompact && "w-0 opacity-0",
+        )}
+      >
+        S
+      </span>
+      <span className="min-w-0 flex-1 truncate whitespace-nowrap pl-2 font-bold">Workspace</span>
+      {!isMobile && <SidebarTrigger />}
+    </div>
+  );
+};
+
+const SidebarContents = () => (
+  <>
+    <SidebarHeader>
+      <SidebarBrand />
+    </SidebarHeader>
+    <SidebarContent aria-label="Primary">
+      <SidebarGroup title="Overview">
+        <SidebarItem isActive href="#dashboard" icon={<Icon />}>
+          Dashboard
+        </SidebarItem>
+        <SidebarItem
+          badge={<span className="text-xs">4</span>}
+          href="#activity"
+          icon={<Icon />}
+          tooltipProps={{delay: 500, placement: "bottom"}}
+        >
+          Activity
+        </SidebarItem>
+      </SidebarGroup>
+      <SidebarSeparator />
+      <SidebarGroup title="Manage">
+        <SidebarItem href="#projects" icon={<Icon />}>
+          Projects
+        </SidebarItem>
+        <SidebarItem href="#settings" icon={<Icon />}>
+          Settings
+        </SidebarItem>
+        <SidebarItem forceReload href="#reports" icon={<Icon />}>
+          Full-page reports
+        </SidebarItem>
+        <SidebarItem href="https://example.com" icon={<Icon />}>
+          External docs
+        </SidebarItem>
+      </SidebarGroup>
+    </SidebarContent>
+    <SidebarFooter>
+      <SidebarGroup className="mb-0">
+        {/* tooltip={false} skips the collapsed-state label tooltip for this item. */}
+        <SidebarItem href="#account" icon={<Icon />} tooltip={false}>
+          Account
+        </SidebarItem>
+      </SidebarGroup>
+    </SidebarFooter>
+  </>
+);
+
+const MobileTrigger = ({children}: {children?: React.ReactNode}) => {
+  const {isMobile} = useSidebar();
+
+  return isMobile ? <SidebarTrigger className="mb-6">{children}</SidebarTrigger> : null;
+};
+
+const OffcanvasTrigger = () => {
+  const {state, isMobile} = useSidebar();
+
+  return state === "collapsed" || isMobile ? <SidebarTrigger className="mb-6" /> : null;
+};
+
+const SidebarDemo = ({defaultOpen = true, ...props}: SidebarProps & {defaultOpen?: boolean}) => (
+  <SidebarProvider defaultOpen={defaultOpen}>
+    <div className="flex min-h-screen">
+      <Sidebar {...props} aria-label="Application sidebar">
+        <SidebarContents />
+      </Sidebar>
+      <main className="min-w-0 flex-1 p-8">
+        {/* children override the built-in trigger icon. */}
+        <MobileTrigger>
+          <Icon />
+        </MobileTrigger>
+        <h1 className="text-2xl font-bold">Content area</h1>
+        <p className="mt-2 text-foreground-600">
+          Resize the viewport or collapse the sidebar to explore it.
+        </p>
+      </main>
+    </div>
+  </SidebarProvider>
+);
+
+const ControlledDemo = (props: SidebarProps) => {
+  const [open, setOpen] = useState(true);
+
+  return (
+    <SidebarProvider open={open} onOpenChange={setOpen}>
+      <div className="flex min-h-screen">
+        <Sidebar {...props} aria-label="Application sidebar">
+          <SidebarContents />
+        </Sidebar>
+        <main className="min-w-0 flex-1 p-8">
+          <MobileTrigger />
+          <p>Desktop state is controlled by the application.</p>
+        </main>
+      </div>
+    </SidebarProvider>
+  );
+};
+
+export default {
+  title: "Components/Sidebar",
+  component: Sidebar,
+  parameters: {layout: "fullscreen"},
+  argTypes: {
+    width: {control: "text"},
+    collapsedWidth: {control: "text"},
+  },
+} satisfies Meta<typeof Sidebar>;
+
+export const Default = {
+  tags: ["sidebar-browser"],
+  render: (args: SidebarProps) => <SidebarDemo {...args} />,
+  play: async ({canvasElement}: {canvasElement: HTMLElement}) => {
+    const canvas = within(canvasElement);
+    const sidebar = canvas.getByRole("complementary", {name: "Application sidebar"});
+
+    expect(sidebar).toHaveAttribute("data-state", "expanded");
+
+    await userEvent.keyboard("{Meta>}b{/Meta}");
+    await waitFor(() => expect(sidebar).toHaveAttribute("data-state", "collapsed"));
+
+    await userEvent.click(canvas.getByRole("button", {name: "Expand sidebar"}));
+  },
+};
+
+export const Collapsed = {
+  render: (args: SidebarProps) => <SidebarDemo {...args} defaultOpen={false} />,
+};
+
+export const Controlled = {
+  render: (args: SidebarProps) => <ControlledDemo {...args} />,
+};
+
+export const Mobile = {
+  parameters: {viewport: {defaultViewport: "mobile1"}},
+  render: (args: SidebarProps) => <SidebarDemo {...args} />,
+};
+
+const CustomBreakpointDemo = (props: SidebarProps) => (
+  <SidebarProvider mobileBreakpoint={1024}>
+    <div className="flex min-h-screen">
+      <Sidebar {...props} aria-label="Application sidebar">
+        <SidebarContents />
+      </Sidebar>
+      <main className="min-w-0 flex-1 p-8">
+        <MobileTrigger />
+        <p>Switches to the mobile Drawer below 1024px instead of the default 767px.</p>
+      </main>
+    </div>
+  </SidebarProvider>
+);
+
+export const CustomMobileBreakpoint = {
+  parameters: {viewport: {defaultViewport: "tablet"}},
+  render: (args: SidebarProps) => <CustomBreakpointDemo {...args} />,
+};
+
+export const CustomDrawer = {
+  parameters: {viewport: {defaultViewport: "mobile1"}},
+  render: (args: SidebarProps) => (
+    <SidebarDemo {...args} drawerProps={{placement: "right", backdrop: "opaque"}} />
+  ),
+};
+
+const MoreIcon = () => (
+  <svg aria-hidden="true" fill="none" height="16" viewBox="0 0 24 24" width="16">
+    <circle cx="12" cy="5" fill="currentColor" r="1.5" />
+    <circle cx="12" cy="12" fill="currentColor" r="1.5" />
+    <circle cx="12" cy="19" fill="currentColor" r="1.5" />
+  </svg>
+);
+
+const RightSideDemo = (props: SidebarProps) => (
+  <SidebarProvider>
+    <div className="flex min-h-screen">
+      <main className="min-w-0 flex-1 p-8">
+        <MobileTrigger />
+        <h1 className="text-2xl font-bold">Content area</h1>
+        <p className="mt-2 text-foreground-600">The sidebar docks to the right edge.</p>
+        <LayoutMetadata />
+      </main>
+      <Sidebar {...props} aria-label="Application sidebar" side="right">
+        <SidebarContents />
+      </Sidebar>
+    </div>
+  </SidebarProvider>
+);
+
+function LayoutMetadata() {
+  const {side, collapsible} = useSidebar();
+
+  return <p className="mt-2 text-sm text-foreground-600">Context: {`${side} / ${collapsible}`}</p>;
+}
+
+export const RightSide = {
+  tags: ["sidebar-browser"],
+  render: (args: SidebarProps) => <RightSideDemo {...args} />,
+  play: async ({canvasElement}: {canvasElement: HTMLElement}) => {
+    const canvas = within(canvasElement);
+    const sidebar = canvas.getByRole("complementary", {name: "Application sidebar"});
+
+    expect(sidebar).toHaveAttribute("data-side", "right");
+    expect(sidebar.parentElement).toHaveClass("right-0");
+  },
+};
+
+const OffcanvasDemo = (props: SidebarProps) => (
+  <SidebarProvider defaultOpen={false}>
+    <div className="flex min-h-screen">
+      <Sidebar {...props} aria-label="Application sidebar" collapsible="offcanvas">
+        <SidebarContents />
+      </Sidebar>
+      <main className="min-w-0 flex-1 p-8">
+        <OffcanvasTrigger />
+        <h1 className="text-2xl font-bold">Content area</h1>
+        <p className="mt-2 text-foreground-600">
+          Collapsing hides the sidebar entirely instead of showing an icon rail.
+        </p>
+      </main>
+    </div>
+  </SidebarProvider>
+);
+
+export const OffcanvasCollapsed = {
+  tags: ["sidebar-browser"],
+  render: (args: SidebarProps) => <OffcanvasDemo {...args} />,
+  play: async ({canvasElement}: {canvasElement: HTMLElement}) => {
+    const canvas = within(canvasElement);
+    const sidebar = canvas.getByRole("complementary", {name: "Application sidebar"});
+
+    await waitFor(() => {
+      expect(sidebar).toHaveAttribute("data-state", "collapsed");
+      expect(sidebar.parentElement).toHaveStyle({width: "270px"});
+    });
+
+    const main = within(canvas.getByRole("main"));
+
+    await userEvent.click(main.getByRole("button", {name: "Expand sidebar"}));
+    await waitFor(() => expect(sidebar).toHaveAttribute("data-state", "expanded"));
+
+    await userEvent.click(within(sidebar).getByRole("button", {name: "Collapse sidebar"}));
+  },
+};
+
+const NonCollapsibleDemo = (props: SidebarProps) => (
+  <SidebarProvider>
+    <div className="flex min-h-screen">
+      <Sidebar {...props} aria-label="Application sidebar" collapsible="none">
+        <SidebarContents />
+      </Sidebar>
+      <main className="min-w-0 flex-1 p-8">
+        <h1 className="text-2xl font-bold">Content area</h1>
+        <p className="mt-2 text-foreground-600">
+          {'collapsible="none" renders a static column; there is nothing to toggle.'}
+        </p>
+      </main>
+    </div>
+  </SidebarProvider>
+);
+
+export const NonCollapsible = {
+  render: (args: SidebarProps) => <NonCollapsibleDemo {...args} />,
+};
+
+const SidebarContentsWithActions = () => (
+  <>
+    <SidebarHeader>
+      <SidebarBrand />
+    </SidebarHeader>
+    <SidebarContent aria-label="Primary">
+      <SidebarGroup title="Overview">
+        <SidebarItem
+          isActive
+          action={
+            <Button isIconOnly aria-label="More actions" size="sm" variant="light">
+              <MoreIcon />
+            </Button>
+          }
+          href="#dashboard"
+          icon={<Icon />}
+        >
+          Dashboard
+        </SidebarItem>
+        <SidebarItem
+          action={
+            <Button isIconOnly aria-label="More actions" size="sm" variant="light">
+              <MoreIcon />
+            </Button>
+          }
+          href="#activity"
+          icon={<Icon />}
+        >
+          Activity
+        </SidebarItem>
+      </SidebarGroup>
+    </SidebarContent>
+  </>
+);
+
+const ItemActionsDemo = (props: SidebarProps) => (
+  <SidebarProvider>
+    <div className="flex min-h-screen">
+      <Sidebar {...props} aria-label="Application sidebar">
+        <SidebarContentsWithActions />
+      </Sidebar>
+      <main className="min-w-0 flex-1 p-8">
+        <MobileTrigger />
+        <p className="text-foreground-600">Hover or focus an item to reveal its action button.</p>
+      </main>
+    </div>
+  </SidebarProvider>
+);
+
+export const WithItemActions = {
+  render: (args: SidebarProps) => <ItemActionsDemo {...args} />,
+};
+
+const SidebarContentsWithNested = () => (
+  <>
+    <SidebarHeader>
+      <SidebarBrand />
+    </SidebarHeader>
+    <SidebarContent aria-label="Primary">
+      <SidebarGroup title="Overview">
+        <SidebarItem isActive href="#dashboard" icon={<Icon />}>
+          Dashboard
+        </SidebarItem>
+        <SidebarSubmenu icon={<Icon />} label="Settings">
+          <SidebarItem href="#settings-profile">Profile</SidebarItem>
+          <SidebarItem href="#settings-billing">Billing</SidebarItem>
+        </SidebarSubmenu>
+      </SidebarGroup>
+    </SidebarContent>
+  </>
+);
+
+const NestedItemsDemo = ({
+  defaultOpen = true,
+  ...props
+}: SidebarProps & {defaultOpen?: boolean}) => (
+  <SidebarProvider defaultOpen={defaultOpen}>
+    <div className="flex min-h-screen">
+      <Sidebar {...props} aria-label="Application sidebar">
+        <SidebarContentsWithNested />
+      </Sidebar>
+      <main className="min-w-0 flex-1 p-8">
+        <MobileTrigger />
+        <p className="text-foreground-600">
+          Click Settings to expand or collapse its nested items.
+        </p>
+      </main>
+    </div>
+  </SidebarProvider>
+);
+
+export const WithNestedItems = {
+  tags: ["sidebar-browser"],
+  render: (args: SidebarProps) => <NestedItemsDemo {...args} />,
+  play: async ({canvasElement}: {canvasElement: HTMLElement}) => {
+    const canvas = within(canvasElement);
+
+    expect(canvas.queryByRole("link", {name: "Profile"})).not.toBeInTheDocument();
+
+    await userEvent.click(canvas.getByRole("button", {name: "Settings"}));
+    await waitFor(() => {
+      expect(canvas.getByRole("link", {name: "Profile"})).toBeInTheDocument();
+    });
+
+    await userEvent.click(canvas.getByRole("button", {name: "Settings"}));
+    await waitFor(() => {
+      expect(canvas.queryByRole("link", {name: "Profile"})).not.toBeInTheDocument();
+    });
+  },
+};
+
+export const CollapsedNestedItems = {
+  render: (args: SidebarProps) => <NestedItemsDemo {...args} defaultOpen={false} />,
+};
+
+const ScrollableContentDemo = (props: SidebarProps) => (
+  <SidebarProvider>
+    <div className="flex h-screen">
+      <Sidebar {...props} aria-label="Scrollable sidebar">
+        <SidebarHeader>
+          <SidebarBrand />
+        </SidebarHeader>
+        <SidebarContent aria-label="Thirty destinations">
+          <SidebarGroup title="Destinations">
+            {Array.from({length: 30}, (_, index) => (
+              <SidebarItem key={index} href={`#destination-${index + 1}`} icon={<Icon />}>
+                Destination {index + 1}
+              </SidebarItem>
+            ))}
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
+      <main className="min-w-0 flex-1 p-8">Scroll the sidebar to see both edge shadows.</main>
+    </div>
+  </SidebarProvider>
+);
+
+export const ScrollableContent = {
+  render: (args: SidebarProps) => <ScrollableContentDemo {...args} />,
+};
+
+const ReduceMotionDemo = (props: SidebarProps) => {
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  return (
+    <SidebarProvider reduceMotion={reduceMotion}>
+      <div className="flex min-h-screen">
+        <Sidebar {...props} aria-label="Reduced motion sidebar">
+          <SidebarContents />
+        </Sidebar>
+        <main className="min-w-0 flex-1 p-8">
+          <label className="flex items-center gap-2">
+            <input
+              checked={reduceMotion}
+              type="checkbox"
+              onChange={(event) => setReduceMotion(event.target.checked)}
+            />
+            Disable sidebar transitions
+          </label>
+        </main>
+      </div>
+    </SidebarProvider>
+  );
+};
+
+export const ReducedMotion = {
+  render: (args: SidebarProps) => <ReduceMotionDemo {...args} />,
+};
+
+const GuideLinesDemo = (props: SidebarProps) => (
+  <SidebarProvider>
+    <div className="flex min-h-screen">
+      <Sidebar {...props} aria-label="Guide line examples">
+        <SidebarContent>
+          <SidebarGroup title="Guide lines">
+            <SidebarSubmenu defaultOpen showGuideLines icon={<Icon />} label="Always">
+              <SidebarItem href="#always">Visible line</SidebarItem>
+            </SidebarSubmenu>
+            <SidebarSubmenu defaultOpen icon={<Icon />} label="Never" showGuideLines={false}>
+              <SidebarItem href="#never">No line</SidebarItem>
+            </SidebarSubmenu>
+            <SidebarSubmenu defaultOpen icon={<Icon />} label="On hover" showGuideLines="hover">
+              <SidebarItem href="#hover">Hover the group</SidebarItem>
+            </SidebarSubmenu>
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
+      <main className="min-w-0 flex-1 p-8">Compare all three guide-line modes.</main>
+    </div>
+  </SidebarProvider>
+);
+
+export const GuideLines = {
+  render: (args: SidebarProps) => <GuideLinesDemo {...args} />,
+};
+
+export const CSSVariables = {
+  render: (args: SidebarProps) => (
+    <SidebarDemo {...args} style={{"--sidebar-duration": "600ms"} as React.CSSProperties} />
+  ),
+};
+
+const CustomShortcutDemo = (props: SidebarProps) => (
+  <SidebarProvider toggleShortcut="mod+shift+s">
+    <div className="flex min-h-screen">
+      <Sidebar {...props} aria-label="Custom shortcut sidebar">
+        <SidebarContents />
+      </Sidebar>
+      <main className="min-w-0 flex-1 p-8">Press Cmd/Ctrl+Shift+S to toggle the sidebar.</main>
+    </div>
+  </SidebarProvider>
+);
+
+export const CustomShortcut = {
+  render: (args: SidebarProps) => <CustomShortcutDemo {...args} />,
+  play: async ({canvasElement}: {canvasElement: HTMLElement}) => {
+    const sidebar = within(canvasElement).getByRole("complementary", {
+      name: "Custom shortcut sidebar",
+    });
+
+    await userEvent.keyboard("{Meta>}{Shift>}s{/Shift}{/Meta}");
+    await waitFor(() => expect(sidebar).toHaveAttribute("data-state", "collapsed"));
+  },
+};
+
+const PersistentMobileActionDemo = (props: SidebarProps) => (
+  <SidebarProvider>
+    <SidebarTrigger className="m-6" />
+    <Sidebar {...props} aria-label="Persistent mobile sidebar">
+      <SidebarContent>
+        <SidebarGroup title="Workspace">
+          <SidebarItem closeMobileOnAction={false} icon={<Icon />}>
+            Choose workspace
+          </SidebarItem>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+  </SidebarProvider>
+);
+
+export const PersistentMobileAction = {
+  parameters: {viewport: {defaultViewport: "mobile1"}},
+  render: (args: SidebarProps) => <PersistentMobileActionDemo {...args} />,
+};
+
+const FloatingVariantDemo = (props: SidebarProps) => (
+  <SidebarProvider>
+    <div className="flex min-h-screen bg-content2">
+      <Sidebar {...props} aria-label="Application sidebar" variant="floating">
+        <SidebarContents />
+      </Sidebar>
+      <main className="min-w-0 flex-1 p-8">
+        <MobileTrigger />
+        <h1 className="text-2xl font-bold">Content area</h1>
+        <p className="mt-2 text-foreground-600">
+          The floating variant detaches from the edge with rounded corners and a shadow.
+        </p>
+      </main>
+    </div>
+  </SidebarProvider>
+);
+
+export const FloatingVariant = {
+  render: (args: SidebarProps) => <FloatingVariantDemo {...args} />,
+};
+
+const InsetVariantDemo = (props: SidebarProps) => (
+  <SidebarProvider>
+    <div className="flex min-h-screen bg-content2">
+      <Sidebar {...props} aria-label="Application sidebar" variant="inset">
+        <SidebarContents />
+      </Sidebar>
+      <main className="min-w-0 flex-1 p-8">
+        <MobileTrigger />
+        <h1 className="text-2xl font-bold">Content area</h1>
+        <p className="mt-2 text-foreground-600">
+          The inset variant removes the border and shadow, blending into the page background.
+        </p>
+      </main>
+    </div>
+  </SidebarProvider>
+);
+
+export const InsetVariant = {
+  render: (args: SidebarProps) => <InsetVariantDemo {...args} />,
+};

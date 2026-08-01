@@ -13,7 +13,7 @@ const ChevronIcon = ({isOpen, reduceMotion}: {isOpen: boolean; reduceMotion: boo
     aria-hidden="true"
     className={cn(
       "ml-auto shrink-0",
-      !reduceMotion && "transition-transform duration-[var(--sidebar-duration,150ms)]",
+      !reduceMotion && "transition-transform duration-[var(--sidebar-duration,200ms)]",
       isOpen && "rotate-90",
     )}
     fill="none"
@@ -86,16 +86,14 @@ const SidebarSubmenu = ({
       )}
       <span
         className={cn(
-          "flex min-w-0 flex-1 items-center gap-2 truncate py-1.5 pr-3",
+          "flex min-w-0 flex-1 items-center gap-2 truncate whitespace-nowrap py-1.5 pr-3",
           icon == null && "pl-2.5",
-          !reduceMotion && "transition-[opacity,width] duration-[var(--sidebar-duration,150ms)]",
-          isCompact && "w-0 flex-none overflow-hidden p-0 opacity-0",
         )}
         data-slot="label"
       >
         <span className="truncate">{label}</span>
         {badge != null && <span className="shrink-0">{badge}</span>}
-        {!isCompact && <ChevronIcon isOpen={isOpen} reduceMotion={reduceMotion} />}
+        <ChevronIcon isOpen={isOpen} reduceMotion={reduceMotion} />
       </span>
     </Button>
   );

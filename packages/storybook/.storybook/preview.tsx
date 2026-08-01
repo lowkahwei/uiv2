@@ -13,8 +13,12 @@ const decorators: Preview["decorators"] = [
       locale && new Intl.Locale(locale)?.textInfo?.direction === "rtl" ? "rtl" : undefined;
 
     return (
-      <HeroUIProvider locale={locale} disableAnimation={disableAnimation} labelPlacement={labelPlacement}>
-        <div className="bg-dark" lang={locale} dir={direction}>
+      <HeroUIProvider
+        locale={locale}
+        disableAnimation={disableAnimation}
+        labelPlacement={labelPlacement}
+      >
+        <div className="min-h-screen bg-background text-foreground" lang={locale} dir={direction}>
           <Story />
         </div>
       </HeroUIProvider>
@@ -138,7 +142,7 @@ const globalTypes: Preview["globalTypes"] = {
         {value: "outside-left", title: "Outside Left"},
       ],
     },
-  }
+  },
 };
 
 const preview: Preview = {
