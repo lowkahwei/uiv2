@@ -18,6 +18,8 @@ export interface SidebarProviderProps {
   mobileBreakpoint?: number;
   /** Shortcut used to toggle the sidebar. Pass `false` or `null` to disable it. @default "mod+b" */
   toggleShortcut?: string | false | null;
+  /** Disables Sidebar-owned transitions. @default false */
+  reduceMotion?: boolean;
 }
 
 export interface SidebarContextValue {
@@ -31,6 +33,7 @@ export interface SidebarContextValue {
   mobileBreakpoint: number;
   side: SidebarSide;
   collapsible: SidebarCollapsible;
+  reduceMotion: boolean;
   /** @internal Synchronizes layout props owned by `Sidebar`. */
   _setLayout: (layout: {side: SidebarSide; collapsible: SidebarCollapsible}) => void;
 }

@@ -435,3 +435,31 @@ const ScrollableContentDemo = (props: SidebarProps) => (
 export const ScrollableContent = {
   render: (args: SidebarProps) => <ScrollableContentDemo {...args} />,
 };
+
+const ReduceMotionDemo = (props: SidebarProps) => {
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  return (
+    <SidebarProvider reduceMotion={reduceMotion}>
+      <div className="flex min-h-screen">
+        <Sidebar {...props} aria-label="Reduced motion sidebar">
+          <SidebarContents />
+        </Sidebar>
+        <main className="min-w-0 flex-1 p-8">
+          <label className="flex items-center gap-2">
+            <input
+              checked={reduceMotion}
+              type="checkbox"
+              onChange={(event) => setReduceMotion(event.target.checked)}
+            />
+            Disable sidebar transitions
+          </label>
+        </main>
+      </div>
+    </SidebarProvider>
+  );
+};
+
+export const ReducedMotion = {
+  render: (args: SidebarProps) => <ReduceMotionDemo {...args} />,
+};

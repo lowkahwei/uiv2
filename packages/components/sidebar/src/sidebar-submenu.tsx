@@ -8,10 +8,14 @@ import {useState} from "react";
 
 import {SidebarExpandedScope, useSidebar} from "./sidebar-context";
 
-const ChevronIcon = ({isOpen}: {isOpen: boolean}) => (
+const ChevronIcon = ({isOpen, reduceMotion}: {isOpen: boolean; reduceMotion: boolean}) => (
   <svg
     aria-hidden="true"
-    className={cn("ml-auto shrink-0 transition-transform duration-150", isOpen && "rotate-90")}
+    className={cn(
+      "ml-auto shrink-0",
+      !reduceMotion && "transition-transform duration-150",
+      isOpen && "rotate-90",
+    )}
     fill="none"
     height="14"
     viewBox="0 0 24 24"
@@ -38,7 +42,7 @@ const SidebarSubmenu = ({
   className,
   ...props
 }: SidebarSubmenuProps) => {
-  const {state, isMobile} = useSidebar();
+  const {state, isMobile, reduceMotion} = useSidebar();
   const isCompact = state === "collapsed" && !isMobile;
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const [flyoutOpen, setFlyoutOpen] = useState(false);
@@ -51,7 +55,8 @@ const SidebarSubmenu = ({
       fullWidth
       aria-expanded={isCompact ? flyoutOpen : isExpanded}
       className={cn(
-        "relative flex min-h-9 w-full min-w-0 items-center gap-0 overflow-hidden rounded-md px-0 text-left font-medium text-foreground-500 transition-colors hover:bg-content2",
+        "relative flex min-h-9 w-full min-w-0 items-center gap-0 overflow-hidden rounded-md px-0 text-left font-medium text-foreground-500 hover:bg-content2",
+        !reduceMotion && "transition-colors",
         className,
       )}
       data-slot="control"
@@ -71,14 +76,15 @@ const SidebarSubmenu = ({
       )}
       <span
         className={cn(
-          "flex min-w-0 flex-1 items-center gap-2 truncate py-2 pr-3 transition-[opacity,width] duration-150",
+          "flex min-w-0 flex-1 items-center gap-2 truncate py-2 pr-3",
+          !reduceMotion && "transition-[opacity,width] duration-150",
           isCompact && "w-0 flex-none overflow-hidden p-0 opacity-0",
         )}
         data-slot="label"
       >
         <span className="truncate">{label}</span>
         {badge != null && <span className="shrink-0">{badge}</span>}
-        {!isCompact && <ChevronIcon isOpen={isOpen} />}
+        {!isCompact && <ChevronIcon isOpen={isOpen} reduceMotion={reduceMotion} />}
       </span>
     </Button>
   );

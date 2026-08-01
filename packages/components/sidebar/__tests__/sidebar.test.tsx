@@ -265,6 +265,19 @@ describe("Sidebar", () => {
     expect(() => render(<Sidebar />)).toThrow("useSidebar must be used within a SidebarProvider.");
   });
 
+  it("can disable Sidebar-owned transitions", () => {
+    const {getByRole} = render(
+      <SidebarProvider reduceMotion>
+        <SidebarLayout />
+      </SidebarProvider>,
+    );
+
+    const sidebar = getByRole("complementary");
+
+    expect(sidebar).toHaveAttribute("data-reduce-motion", "true");
+    expect(sidebar.parentElement).not.toHaveClass("transition-[width]");
+  });
+
   it("treats a custom mobileBreakpoint as the mobile threshold", async () => {
     setMobile(true);
     const user = userEvent.setup();

@@ -27,7 +27,15 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
     },
     ref,
   ) => {
-    const {state, isMobile, openMobile, setOpenMobile, mobileBreakpoint, _setLayout} = useSidebar();
+    const {
+      state,
+      isMobile,
+      openMobile,
+      setOpenMobile,
+      mobileBreakpoint,
+      reduceMotion,
+      _setLayout,
+    } = useSidebar();
 
     useEffect(() => _setLayout({side, collapsible}), [_setLayout, side, collapsible]);
 
@@ -49,6 +57,7 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
           className,
         )}
         data-mobile={isMobile ? "true" : undefined}
+        data-reduce-motion={reduceMotion ? "true" : undefined}
         data-side={side}
         data-slot="base"
         data-state={isMobile ? "expanded" : state}
@@ -94,7 +103,8 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
         <div
           aria-hidden="true"
           className={cn(
-            "h-screen shrink-0 transition-[width] duration-150 ease-in-out",
+            "h-screen shrink-0",
+            !reduceMotion && "transition-[width] duration-150 ease-in-out",
             desktopVisibilityClassName,
           )}
           data-slot="gap"
@@ -102,7 +112,8 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
         />
         <div
           className={cn(
-            "fixed inset-y-0 z-50 h-screen overflow-hidden transition-[width] duration-150 ease-in-out",
+            "fixed inset-y-0 z-50 h-screen overflow-hidden",
+            !reduceMotion && "transition-[width] duration-150 ease-in-out",
             side === "right" ? "right-0" : "left-0",
             desktopVisibilityClassName,
           )}

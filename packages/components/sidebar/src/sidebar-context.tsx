@@ -15,6 +15,7 @@ export function SidebarProvider({
   onOpenChange,
   mobileBreakpoint = 767,
   toggleShortcut = "mod+b",
+  reduceMotion = false,
 }: SidebarProviderProps) {
   const [open, setOpenState] = useControlledState(openProp, defaultOpen, onOpenChange);
   const [openMobile, setOpenMobileState] = useState(false);
@@ -87,9 +88,20 @@ export function SidebarProvider({
       toggleSidebar,
       mobileBreakpoint,
       ...layout,
+      reduceMotion,
       _setLayout: setLayout,
     }),
-    [open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar, mobileBreakpoint, layout],
+    [
+      open,
+      setOpen,
+      isMobile,
+      openMobile,
+      setOpenMobile,
+      toggleSidebar,
+      mobileBreakpoint,
+      layout,
+      reduceMotion,
+    ],
   );
 
   return <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>;
