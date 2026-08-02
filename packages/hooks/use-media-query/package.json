@@ -35,10 +35,6 @@
     "prepack": "clean-package",
     "postpack": "clean-package restore"
   },
-  "dependencies": {
-    "@sytechui/use-safe-layout-effect": "workspace:*",
-    "@react-aria/ssr": "3.9.10"
-  },
   "peerDependencies": {
     "react": ">=18 || >=19.0.0-rc.0"
   },

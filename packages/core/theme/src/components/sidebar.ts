@@ -5,7 +5,7 @@ import {tv} from "../utils/tv";
 const sidebar = tv({
   slots: {
     base: "group/sidebar-wrapper flex min-h-svh w-full bg-background",
-    sidebar: "group/sidebar peer text-foreground",
+    sidebar: "group/sidebar text-foreground",
     gap: "relative shrink-0 bg-transparent",
     container: "fixed inset-y-0 z-40 flex h-svh",
     inner: "flex size-full min-w-0 flex-col overflow-hidden bg-content1 text-foreground",
@@ -18,11 +18,7 @@ const sidebar = tv({
       "group-data-[side=left]/sidebar:cursor-w-resize group-data-[side=right]/sidebar:cursor-e-resize",
       "group-data-[collapsible=offcanvas]/sidebar:translate-x-0",
     ],
-    inset: [
-      "relative flex min-w-0 flex-1 flex-col bg-background",
-      "md:peer-data-[variant=inset]/sidebar:m-2 md:peer-data-[variant=inset]/sidebar:ml-0",
-      "md:peer-data-[variant=inset]/sidebar:rounded-xl md:peer-data-[variant=inset]/sidebar:shadow-sm",
-    ],
+    inset: "relative flex min-w-0 flex-1 flex-col bg-background",
     input: "h-8 w-full",
     header: "flex shrink-0 flex-col gap-2 p-2",
     footer: "flex shrink-0 flex-col gap-2 p-2",
@@ -84,8 +80,8 @@ const sidebar = tv({
       "data-[active=true]:bg-default data-[active=true]:text-foreground",
     ],
   },
-  // 注意:side/variant 变体只作用于 Sidebar 组件内部使用的 slot(sidebar/gap/container/inner/mobile);
-  // 其余 slot 来自 Provider 级实例,不接收这两个变体,别给 header/menu 等 slot 加 side/variant 样式。
+  // side/variant 是 Provider 级布局配置；只把它们应用到需要联动的布局 slot，
+  // 避免 header/menu 等内容 slot 因布局配置产生无关样式。
   variants: {
     side: {
       left: {container: "left-0"},
@@ -97,7 +93,15 @@ const sidebar = tv({
         container: "p-2",
         inner: "rounded-xl border border-divider shadow-sm",
       },
-      inset: {container: "p-2"},
+      inset: {
+        container: "p-2",
+        inner: "bg-transparent",
+        inset: [
+          "md:m-2 md:rounded-xl md:bg-content1 md:shadow-sm",
+          "md:group-data-[inset-side=left]/sidebar-wrapper:ml-0",
+          "md:group-data-[inset-side=right]/sidebar-wrapper:mr-0",
+        ],
+      },
     },
     disableAnimation: {
       true: {

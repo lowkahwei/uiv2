@@ -20,7 +20,9 @@ export interface SidebarTriggerProps extends Omit<ButtonProps, "isIconOnly" | "o
 
 const SidebarTrigger = forwardRefNative<HTMLButtonElement, SidebarTriggerProps>(
   ({className, onPress, children, ...props}, ref) => {
-    const {classNames, disableAnimation, slots, toggleSidebar} = useSidebarStatic();
+    const {classNames, collapsible, disableAnimation, slots, toggleSidebar} = useSidebarStatic();
+
+    if (collapsible === "none") return null;
 
     return (
       <Button
@@ -49,11 +51,11 @@ SidebarTrigger.displayName = "SytechUI.SidebarTrigger";
 
 const SidebarRail = forwardRef<"button", HTMLHeroUIProps<"button">>(
   ({as, className, ...props}, ref) => {
-    const {classNames, slots, toggleSidebar} = useSidebarStatic();
+    const {classNames, collapsible, slots, toggleSidebar} = useSidebarStatic();
     const {isMobile} = useSidebarState();
     const Component = as || "button";
 
-    if (isMobile) return null;
+    if (isMobile || collapsible === "none") return null;
 
     return (
       <Component

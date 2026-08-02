@@ -1,5 +1,75 @@
 # @sytechui/react
 
+## 2.10.6
+
+### Patch Changes
+
+- 85da7fa: Rebuild Sidebar around a shadcn-style compound API while using Sytech Button, Drawer, Input,
+  Link, Tooltip, and Divider components. Includes responsive mobile navigation, icon and offcanvas
+  collapse modes, inset and floating layouts, menu groups, badges, actions, submenus, and a footer.
+  Adds a Sidebar theme recipe with typed slots, layout variants, `classNames` overrides, and global or
+  component-level animation control.
+
+  Adds `width`/`collapsedWidth` and a configurable `toggleShortcut` (with an editable-target guard) to
+  `SidebarProvider`, a `drawerProps` passthrough on `Sidebar`, and `closeMobileOnPress` on menu
+  buttons. Splits the package into a `use-sidebar` logic layer with render-only component files, and
+  removes the dead `--sidebar-width-mobile` variable (mobile width follows the Drawer size).
+
+- Updated dependencies [85da7fa]
+  - @sytechui/sidebar@2.1.0
+  - @sytechui/theme@3.1.0
+  - @sytechui/accordion@2.2.32
+  - @sytechui/alert@2.3.2
+  - @sytechui/autocomplete@2.3.42
+  - @sytechui/avatar@2.2.26
+  - @sytechui/badge@2.2.18
+  - @sytechui/bottom-bar@2.1.2
+  - @sytechui/breadcrumbs@2.2.27
+  - @sytechui/button@2.2.32
+  - @sytechui/calendar@2.2.34
+  - @sytechui/card@2.2.28
+  - @sytechui/carousel@2.0.4
+  - @sytechui/checkbox@2.3.40
+  - @sytechui/chip@2.2.27
+  - @sytechui/code@2.2.25
+  - @sytechui/date-input@2.3.40
+  - @sytechui/divider@3.0.0
+  - @sytechui/drop-zone@2.0.4
+  - @sytechui/form@2.1.40
+  - @sytechui/image@2.2.19
+  - @sytechui/input@2.4.41
+  - @sytechui/input-otp@2.1.40
+  - @sytechui/kbd@2.2.26
+  - @sytechui/link@2.2.28
+  - @sytechui/listbox@2.3.32
+  - @sytechui/menu@2.2.32
+  - @sytechui/modal@2.2.32
+  - @sytechui/navbar@2.2.30
+  - @sytechui/number-input@2.0.31
+  - @sytechui/pagination@2.2.29
+  - @sytechui/popover@2.3.32
+  - @sytechui/progress@2.2.25
+  - @sytechui/radio@2.3.40
+  - @sytechui/ripple@2.2.21
+  - @sytechui/scroll-area@2.0.0
+  - @sytechui/scroll-shadow@2.3.19
+  - @sytechui/select@2.4.41
+  - @sytechui/shimmer-text@2.1.0
+  - @sytechui/skeleton@2.2.18
+  - @sytechui/slider@2.4.29
+  - @sytechui/snippet@2.2.35
+  - @sytechui/spacer@2.2.25
+  - @sytechui/spinner@2.2.29
+  - @sytechui/stepper@2.0.2
+  - @sytechui/switch@2.2.27
+  - @sytechui/table@2.2.43
+  - @sytechui/tabs@2.2.31
+  - @sytechui/toast@2.0.24
+  - @sytechui/tooltip@2.2.29
+  - @sytechui/user@2.2.26
+  - @sytechui/date-picker@2.3.41
+  - @sytechui/drawer@2.3.2
+
 ## 2.10.5
 
 ### Patch Changes

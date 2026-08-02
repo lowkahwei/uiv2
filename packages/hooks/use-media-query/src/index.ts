@@ -1,53 +1,30 @@
-import {useState, useCallback, useEffect} from "react";
-import {useSafeLayoutEffect} from "@sytechui/use-safe-layout-effect";
+import {useCallback, useSyncExternalStore} from "react";
 
 /**
  * Custom hook that manages media queries.
- * 
+ *
  * @param query The media query string to match.
  * @returns boolean indicating if the media query matches.
  */
 export function useMediaQuery(query: string | number): boolean {
   const actualQuery = typeof query === "number" ? `(min-width: ${query}px)` : query;
 
-  const getMatches = (q: string): boolean => {
-    // Prevents SSR issues
-    if (typeof window !== "undefined") {
-      return window.matchMedia(q).matches;
-    }
+  const subscribe = useCallback(
+    (onStoreChange: () => void) => {
+      const mql = window.matchMedia(actualQuery);
 
-    return false;
-  };
+      mql.addEventListener("change", onStoreChange);
 
-  const [matches, setMatches] = useState<boolean>(() => getMatches(actualQuery));
+      return () => mql.removeEventListener("change", onStoreChange);
+    },
+    [actualQuery],
+  );
 
-  const handleChange = useCallback(() => {
-    setMatches(getMatches(actualQuery));
-  }, [actualQuery]);
-
-  useSafeLayoutEffect(() => {
-    const matchMedia = window.matchMedia(actualQuery);
-
-    // Triggered at the first client-side load and if query changes
-    handleChange();
-
-    // Listen for match changes
-    if (matchMedia.addListener) {
-      matchMedia.addListener(handleChange);
-    } else {
-      matchMedia.addEventListener("change", handleChange);
-    }
-
-    return () => {
-      if (matchMedia.removeListener) {
-        matchMedia.removeListener(handleChange);
-      } else {
-        matchMedia.removeEventListener("change", handleChange);
-      }
-    };
-  }, [query, handleChange]);
-
-  return matches;
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(actualQuery).matches,
+    () => false,
+  );
 }
 
 /**

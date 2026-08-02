@@ -1,16 +1,10 @@
-import type {
-  SidebarCollapsible,
-  SidebarProviderProps,
-  SidebarSide,
-  SidebarVariant,
-} from "./use-sidebar";
+import type {SidebarProviderProps} from "./use-sidebar";
 import type {DrawerProps} from "@sytechui/drawer";
 import type {ComponentPropsWithoutRef, ReactNode} from "react";
 
 import {Drawer, DrawerContent} from "@sytechui/drawer";
 import {forwardRef} from "@sytechui/system";
-import {cn, sidebar as sidebarTheme} from "@sytechui/theme";
-import {useId, useMemo} from "react";
+import {cn} from "@sytechui/theme";
 
 import {
   DEFAULT_MOBILE_BREAKPOINT,
@@ -26,12 +20,18 @@ export type {SidebarProviderProps} from "./use-sidebar";
 export function SidebarProvider({children, ...props}: SidebarProviderProps) {
   const {stateValue, staticValue, wrapperClassName, wrapperStyle, otherProps} =
     useSidebarProvider(props);
+  const insetSide =
+    staticValue.variant === "inset" &&
+    (stateValue.state === "expanded" || staticValue.collapsible !== "offcanvas")
+      ? staticValue.side
+      : undefined;
 
   return (
     <SidebarStaticContext.Provider value={staticValue}>
       <SidebarStateContext.Provider value={stateValue}>
         <div
           className={wrapperClassName}
+          data-inset-side={insetSide}
           data-slot="sidebar-wrapper"
           style={wrapperStyle}
           {...otherProps}
@@ -45,48 +45,35 @@ export function SidebarProvider({children, ...props}: SidebarProviderProps) {
 
 export interface SidebarProps extends Omit<ComponentPropsWithoutRef<"aside">, "children"> {
   children?: ReactNode;
-  /** Which edge the desktop sidebar docks to (and the mobile Drawer placement). @default "left" */
-  side?: SidebarSide;
-  /** Visual style of the sidebar panel. @default "sidebar" */
-  variant?: SidebarVariant;
-  /** How the sidebar collapses on desktop. @default "offcanvas" */
-  collapsible?: SidebarCollapsible;
   /** Props forwarded to the mobile Drawer (e.g. `backdrop`, `size`, `motionProps`, `classNames`). */
   drawerProps?: Omit<DrawerProps, "children" | "isOpen" | "onOpenChange">;
 }
 
 const Sidebar = forwardRef<"aside", SidebarProps>(
-  (
-    {
-      side = "left",
-      variant = "sidebar",
-      collapsible = "offcanvas",
-      drawerProps,
-      className,
-      children,
-      ...props
-    },
-    ref,
-  ) => {
-    const {classNames, disableAnimation, mobileBreakpoint, setOpenMobile} = useSidebarStatic();
+  ({drawerProps, className, children, ...props}, ref) => {
+    const {
+      classNames,
+      collapsible,
+      disableAnimation,
+      mobileBreakpoint,
+      setOpenMobile,
+      side,
+      slots,
+      variant,
+    } = useSidebarStatic();
     const {isMobile, state, openMobile} = useSidebarState();
-    const breakpointId = useId();
     const isCustomBreakpoint = mobileBreakpoint !== DEFAULT_MOBILE_BREAKPOINT;
-    const themedSlots = useMemo(
-      () => sidebarTheme({disableAnimation, side, variant}),
-      [disableAnimation, side, variant],
-    );
     const isCollapsed = state === "collapsed";
     const isOffcanvas = isCollapsed && collapsible === "offcanvas";
-    const isInset = variant === "floating" || variant === "inset";
+    const hasOuterSpacing = variant === "floating" || variant === "inset";
     const panelWidth =
       isCollapsed && collapsible === "icon" ? "var(--sidebar-width-icon)" : "var(--sidebar-width)";
-    const layoutWidth = isInset ? `calc(${panelWidth} + 1rem)` : panelWidth;
+    const layoutWidth = hasOuterSpacing ? `calc(${panelWidth} + 1rem)` : panelWidth;
     const offcanvasTransform = side === "left" ? "translateX(-100%)" : "translateX(100%)";
     const content = (
       <aside
         ref={ref}
-        className={themedSlots.inner({class: cn(classNames?.inner, className)})}
+        className={slots.inner({class: cn(classNames?.inner, className)})}
         data-sidebar="sidebar"
         data-slot="sidebar-inner"
         {...props}
@@ -99,11 +86,18 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
       return (
         <aside
           ref={ref}
-          className={themedSlots.inner({
-            class: cn(classNames?.inner, "h-svh w-[var(--sidebar-width)] shrink-0", className),
+          className={slots.inner({
+            class: cn(
+              classNames?.inner,
+              "h-svh w-[var(--sidebar-width)] shrink-0",
+              hasOuterSpacing && "m-2 h-[calc(100svh-1rem)]",
+              className,
+            ),
           })}
+          data-side={side}
           data-sidebar="sidebar"
           data-slot="sidebar"
+          data-variant={variant}
           {...props}
         >
           {children}
@@ -131,7 +125,7 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
         >
           <DrawerContent>
             <div
-              className={themedSlots.mobile({class: classNames?.mobile})}
+              className={slots.mobile({class: classNames?.mobile})}
               data-mobile="true"
               data-slot="sidebar"
             >
@@ -145,27 +139,27 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
     return (
       <>
         {isCustomBreakpoint && (
-          <style>{`@media (max-width:${mobileBreakpoint}px){[data-sidebar-bp="${breakpointId}"]{display:none}}`}</style>
+          <style>{`@media (max-width:${mobileBreakpoint}px){[data-sidebar-bp="${mobileBreakpoint}"]{display:none}}`}</style>
         )}
         <div
-          className={themedSlots.sidebar({
+          className={slots.sidebar({
             class: cn(isCustomBreakpoint ? undefined : "hidden md:block", classNames?.sidebar),
           })}
           data-collapsible={isCollapsed ? collapsible : undefined}
           data-side={side}
-          data-sidebar-bp={isCustomBreakpoint ? breakpointId : undefined}
+          data-sidebar-bp={isCustomBreakpoint ? mobileBreakpoint : undefined}
           data-slot="sidebar"
           data-state={state}
           data-variant={variant}
         >
           <div
             aria-hidden="true"
-            className={themedSlots.gap({class: classNames?.gap})}
+            className={slots.gap({class: classNames?.gap})}
             data-slot="sidebar-gap"
             style={{width: isOffcanvas ? 0 : layoutWidth}}
           />
           <div
-            className={themedSlots.container({class: classNames?.container})}
+            className={slots.container({class: classNames?.container})}
             data-side={side}
             data-slot="sidebar-container"
             style={{

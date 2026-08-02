@@ -68,7 +68,8 @@ function setViewportWidth(initialWidth: number) {
   Object.defineProperty(window, "matchMedia", {
     configurable: true,
     value: jest.fn().mockImplementation((query: string) => ({
-      addEventListener: (_: string, cb: (event: {matches: boolean}) => void) => subscribe(query, cb),
+      addEventListener: (_: string, cb: (event: {matches: boolean}) => void) =>
+        subscribe(query, cb),
       addListener: (cb: (event: {matches: boolean}) => void) => subscribe(query, cb),
       dispatchEvent: jest.fn(),
       get matches() {
@@ -95,7 +96,7 @@ function setViewportWidth(initialWidth: number) {
 }
 
 const AppSidebar = (props: React.ComponentProps<typeof Sidebar>) => (
-  <Sidebar aria-label="Application sidebar" collapsible="icon" {...props}>
+  <Sidebar aria-label="Application sidebar" {...props}>
     <SidebarHeader>
       <SidebarInput aria-label="Search navigation" />
       <SidebarMenu>
@@ -178,7 +179,7 @@ interface LayoutProps {
 }
 
 const Layout = ({defaultOpen = true, providerProps, sidebarProps}: LayoutProps) => (
-  <SidebarProvider defaultOpen={defaultOpen} {...providerProps}>
+  <SidebarProvider collapsible="icon" defaultOpen={defaultOpen} {...providerProps}>
     <AppSidebar {...sidebarProps} />
     <SidebarInset>
       <SidebarTrigger />
@@ -337,7 +338,7 @@ describe("Sidebar", () => {
   ] as const)("slides an offcanvas sidebar from the %s", async (side, collapsedTransform) => {
     const user = userEvent.setup();
     const {container} = render(
-      <Layout defaultOpen={false} sidebarProps={{collapsible: "offcanvas", side}} />,
+      <Layout defaultOpen={false} providerProps={{collapsible: "offcanvas", side}} />,
     );
     const gap = container.querySelector<HTMLElement>('[data-slot="sidebar-gap"]')!;
     const panel = container.querySelector<HTMLElement>('[data-slot="sidebar-container"]')!;
@@ -361,10 +362,12 @@ describe("Sidebar", () => {
   });
 
   it.each(["floating", "inset"] as const)("applies the %s layout spacing", (variant) => {
-    const {container} = render(<Layout sidebarProps={{variant}} />);
+    const {container} = render(<Layout providerProps={{variant}} />);
+    const wrapper = container.querySelector<HTMLElement>('[data-slot="sidebar-wrapper"]')!;
     const gap = container.querySelector<HTMLElement>('[data-slot="sidebar-gap"]')!;
     const panel = container.querySelector<HTMLElement>('[data-slot="sidebar-container"]')!;
     const inner = container.querySelector<HTMLElement>('[data-slot="sidebar-inner"]')!;
+    const inset = container.querySelector<HTMLElement>('[data-slot="sidebar-inset"]')!;
 
     expect(gap).toHaveStyle({width: "calc(var(--sidebar-width) + 1rem)"});
     expect(panel).toHaveClass("p-2");
@@ -372,16 +375,44 @@ describe("Sidebar", () => {
     if (variant === "floating") {
       expect(inner).toHaveClass("rounded-xl", "border", "shadow-sm");
     } else {
-      expect(inner).not.toHaveClass("rounded-xl");
+      expect(inner).toHaveClass("bg-transparent");
+      expect(wrapper).toHaveAttribute("data-inset-side", "left");
+      expect(inset).toHaveClass(
+        "md:m-2",
+        "md:group-data-[inset-side=left]/sidebar-wrapper:ml-0",
+        "md:rounded-xl",
+        "md:bg-content1",
+      );
     }
   });
 
-  it("renders a static column when collapsing is disabled", () => {
+  it("applies the inset content spacing on the configured side", () => {
+    const {container} = render(<Layout providerProps={{side: "right", variant: "inset"}} />);
+    const wrapper = container.querySelector<HTMLElement>('[data-slot="sidebar-wrapper"]')!;
+    const inset = container.querySelector<HTMLElement>('[data-slot="sidebar-inset"]')!;
+
+    expect(wrapper).toHaveAttribute("data-inset-side", "right");
+    expect(inset).toHaveClass("md:m-2", "md:group-data-[inset-side=right]/sidebar-wrapper:mr-0");
+  });
+
+  it("restores the inset margin when an offcanvas sidebar is collapsed", () => {
+    const {container} = render(
+      <Layout defaultOpen={false} providerProps={{collapsible: "offcanvas", variant: "inset"}} />,
+    );
+    const wrapper = container.querySelector<HTMLElement>('[data-slot="sidebar-wrapper"]')!;
+    const inset = container.querySelector<HTMLElement>('[data-slot="sidebar-inset"]')!;
+
+    expect(wrapper).not.toHaveAttribute("data-inset-side");
+    expect(inset).toHaveClass("md:m-2");
+  });
+
+  it("renders a static column and disables toggles when collapsing is disabled", async () => {
+    const user = userEvent.setup();
+    const onOpenChange = jest.fn();
     const {container, getByRole} = render(
-      <SidebarProvider>
-        <Sidebar aria-label="Static sidebar" collapsible="none">
-          Static content
-        </Sidebar>
+      <SidebarProvider collapsible="none" onOpenChange={onOpenChange}>
+        <Sidebar aria-label="Static sidebar">Static content</Sidebar>
+        <SidebarTrigger />
       </SidebarProvider>,
     );
 
@@ -390,6 +421,26 @@ describe("Sidebar", () => {
     );
     expect(container.querySelector('[data-slot="sidebar-gap"]')).not.toBeInTheDocument();
     expect(container.querySelector("[data-state]")).not.toBeInTheDocument();
+    expect(container.querySelector('[data-slot="sidebar-trigger"]')).not.toBeInTheDocument();
+
+    await user.keyboard("{Meta>}b{/Meta}");
+    expect(onOpenChange).not.toHaveBeenCalled();
+  });
+
+  it("keeps variant styling on a non-collapsible sidebar", () => {
+    const {getByRole} = render(
+      <SidebarProvider collapsible="none" variant="floating">
+        <Sidebar aria-label="Static sidebar">Static content</Sidebar>
+      </SidebarProvider>,
+    );
+
+    expect(getByRole("complementary", {name: "Static sidebar"})).toHaveClass(
+      "m-2",
+      "h-[calc(100svh-1rem)]",
+      "rounded-xl",
+      "border",
+      "shadow-sm",
+    );
   });
 
   it("opens the sidebar in a Sytech drawer on mobile", async () => {
@@ -542,8 +593,8 @@ describe("Sidebar", () => {
 
   it("renders pre-hydration CSS for a custom mobileBreakpoint", () => {
     const {container} = render(
-      <SidebarProvider mobileBreakpoint={900}>
-        <Sidebar collapsible="icon">content</Sidebar>
+      <SidebarProvider collapsible="icon" mobileBreakpoint={900}>
+        <Sidebar>content</Sidebar>
       </SidebarProvider>,
     );
 
@@ -614,8 +665,8 @@ describe("Sidebar", () => {
   it("auto-collapses when crossing collapseBreakpoint, and expands back", async () => {
     const viewport = setViewportWidth(1200);
     const {container} = render(
-      <SidebarProvider collapseBreakpoint={1024}>
-        <Sidebar collapsible="icon">content</Sidebar>
+      <SidebarProvider collapseBreakpoint={1024} collapsible="icon">
+        <Sidebar>content</Sidebar>
       </SidebarProvider>,
     );
     const sidebar = getDesktopSidebar(container);
@@ -632,8 +683,8 @@ describe("Sidebar", () => {
   it("ignores collapseBreakpoint in controlled mode", () => {
     const viewport = setViewportWidth(1200);
     const {container} = render(
-      <SidebarProvider open collapseBreakpoint={1024}>
-        <Sidebar collapsible="icon">content</Sidebar>
+      <SidebarProvider open collapseBreakpoint={1024} collapsible="icon">
+        <Sidebar>content</Sidebar>
       </SidebarProvider>,
     );
     const sidebar = getDesktopSidebar(container);

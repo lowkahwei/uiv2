@@ -37,6 +37,9 @@ interface SidebarStaticContextValue {
   classNames?: SlotsToClasses<SidebarSlots>;
   disableAnimation: boolean;
   mobileBreakpoint: number;
+  side: SidebarSide;
+  variant: SidebarVariant;
+  collapsible: SidebarCollapsible;
 }
 
 export interface SidebarContextValue extends SidebarStateContextValue, SidebarStaticContextValue {}
@@ -90,6 +93,12 @@ export interface SidebarProviderProps extends ComponentPropsWithoutRef<"div"> {
   classNames?: SlotsToClasses<SidebarSlots>;
   /** Disables Sidebar-owned transitions. @default false */
   disableAnimation?: boolean;
+  /** Which edge the sidebar docks to. @default "left" */
+  side?: SidebarSide;
+  /** Visual layout style shared by the sidebar and content area. @default "sidebar" */
+  variant?: SidebarVariant;
+  /** How the sidebar collapses on desktop. @default "offcanvas" */
+  collapsible?: SidebarCollapsible;
   /** Width of the expanded desktop sidebar, applied to the `--sidebar-width` CSS variable. @default "16rem" */
   width?: string | number;
   /** Width of the icon-collapsed desktop sidebar, applied to `--sidebar-width-icon`. @default "3rem" */
@@ -112,6 +121,9 @@ export function useSidebarProvider(props: Omit<SidebarProviderProps, "children">
     mobileBreakpoint = DEFAULT_MOBILE_BREAKPOINT,
     classNames,
     disableAnimation: disableAnimationProp,
+    side = "left",
+    variant = "sidebar",
+    collapsible = "offcanvas",
     width = SIDEBAR_WIDTH,
     collapsedWidth = SIDEBAR_WIDTH_ICON,
     toggleShortcut = "mod+b",
@@ -122,14 +134,15 @@ export function useSidebarProvider(props: Omit<SidebarProviderProps, "children">
   } = props;
 
   const globalContext = useProviderContext();
-  const isMobileQuery = useIsMobile(mobileBreakpoint);
-  const [isMounted, setIsMounted] = useState(false);
-  const isMobile = isMounted && isMobileQuery;
+  const isMobile = useIsMobile(mobileBreakpoint);
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const [openMobile, setOpenMobile] = useState(false);
   const open = openProp ?? uncontrolledOpen;
   const disableAnimation = disableAnimationProp ?? globalContext?.disableAnimation ?? false;
-  const slots = useMemo(() => sidebarTheme({disableAnimation}), [disableAnimation]);
+  const slots = useMemo(
+    () => sidebarTheme({disableAnimation, side, variant}),
+    [disableAnimation, side, variant],
+  );
 
   // 有意不用 @react-stately/utils 的 useControlledState:它的 setter 依赖 currentValue,
   // 每次开合都变引用,会连锁把 staticValue(以及订阅它的全部静态子组件)的稳定性击穿。
@@ -138,13 +151,13 @@ export function useSidebarProvider(props: Omit<SidebarProviderProps, "children">
   const openPropRef = useRef(openProp);
   const onOpenChangeRef = useRef(onOpenChange);
   const isMobileRef = useRef(isMobile);
+  const collapsibleRef = useRef(collapsible);
 
   openRef.current = open;
   openPropRef.current = openProp;
   onOpenChangeRef.current = onOpenChange;
   isMobileRef.current = isMobile;
-
-  useEffect(() => setIsMounted(true), []);
+  collapsibleRef.current = collapsible;
 
   useEffect(() => {
     if (!isMobile) setOpenMobile(false);
@@ -166,6 +179,8 @@ export function useSidebarProvider(props: Omit<SidebarProviderProps, "children">
   }, []);
 
   const toggleSidebar = useCallback(() => {
+    if (collapsibleRef.current === "none") return;
+
     if (isMobileRef.current) {
       setOpenMobile((currentOpen) => !currentOpen);
     } else {
@@ -174,7 +189,7 @@ export function useSidebarProvider(props: Omit<SidebarProviderProps, "children">
   }, [setOpen]);
 
   useEffect(() => {
-    if (!toggleShortcut) return;
+    if (!toggleShortcut || collapsible === "none") return;
 
     const tokens = toggleShortcut
       .toLowerCase()
@@ -183,6 +198,12 @@ export function useSidebarProvider(props: Omit<SidebarProviderProps, "children">
     const modifiers = tokens.slice(0, -1);
     const key = tokens.at(-1);
     const supportedModifiers = new Set(["mod", "shift", "alt"]);
+    // event.key shifts under macOS Option (e.g. Option+B → "∫"); match letters/digits by event.code instead.
+    const expectedCode = /^[a-z]$/.test(key ?? "")
+      ? `Key${key!.toUpperCase()}`
+      : /^[0-9]$/.test(key ?? "")
+        ? `Digit${key}`
+        : null;
 
     if (modifiers.some((modifier) => !supportedModifiers.has(modifier))) {
       if (process.env.NODE_ENV !== "production") {
@@ -204,7 +225,7 @@ export function useSidebarProvider(props: Omit<SidebarProviderProps, "children">
       if (isEditableTarget) return;
 
       if (
-        event.key.toLowerCase() === key &&
+        (expectedCode ? event.code === expectedCode : event.key.toLowerCase() === key) &&
         modifiers.includes("mod") === (event.metaKey || event.ctrlKey) &&
         modifiers.includes("shift") === event.shiftKey &&
         modifiers.includes("alt") === event.altKey
@@ -217,18 +238,20 @@ export function useSidebarProvider(props: Omit<SidebarProviderProps, "children">
     window.addEventListener("keydown", handleKeyDown);
 
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [toggleShortcut, toggleSidebar]);
+  }, [collapsible, toggleShortcut, toggleSidebar]);
 
   const isCollapseRange = useIsMobile(collapseBreakpoint ?? 0);
   const prevCollapseRef = useRef<boolean | null>(null);
 
   useEffect(() => {
-    if (collapseBreakpoint == null || openPropRef.current !== undefined) return;
+    if (collapseBreakpoint == null || collapsible === "none" || openPropRef.current !== undefined) {
+      return;
+    }
     const prev = prevCollapseRef.current;
 
     prevCollapseRef.current = isCollapseRange;
     if (prev !== null && prev !== isCollapseRange) setOpen(!isCollapseRange);
-  }, [isCollapseRange, collapseBreakpoint, setOpen]);
+  }, [isCollapseRange, collapseBreakpoint, collapsible, setOpen]);
 
   const stateValue = useMemo<SidebarStateContextValue>(
     () => ({state: open ? "expanded" : "collapsed", open, openMobile, isMobile}),
@@ -244,8 +267,22 @@ export function useSidebarProvider(props: Omit<SidebarProviderProps, "children">
       classNames,
       disableAnimation,
       mobileBreakpoint,
+      side,
+      variant,
+      collapsible,
     }),
-    [setOpen, setOpenMobile, toggleSidebar, slots, classNames, disableAnimation, mobileBreakpoint],
+    [
+      setOpen,
+      setOpenMobile,
+      toggleSidebar,
+      slots,
+      classNames,
+      disableAnimation,
+      mobileBreakpoint,
+      side,
+      variant,
+      collapsible,
+    ],
   );
 
   return {

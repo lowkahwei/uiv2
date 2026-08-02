@@ -28,6 +28,26 @@ components and theme tokens.
 </SidebarProvider>
 ```
 
+## Layout configuration
+
+Configure the layout once on `SidebarProvider`. `variant` controls appearance, while
+`collapsible` independently controls what happens when the sidebar is closed:
+
+```tsx
+<SidebarProvider variant="floating" collapsible="offcanvas">
+  <Sidebar>{/* navigation */}</Sidebar>
+  <SidebarInset>{/* page content */}</SidebarInset>
+</SidebarProvider>
+```
+
+- `variant`: `"sidebar"` (default), `"floating"`, or `"inset"`.
+- `collapsible`: `"offcanvas"` (default), `"icon"`, or `"none"`.
+- `side`: `"left"` (default) or `"right"`.
+
+These options are orthogonal, so combinations such as `variant="inset"` with
+`collapsible="icon"` work without coordinating slot classes manually. `SidebarInset`,
+`SidebarTrigger`, and `SidebarRail` all consume the same provider configuration.
+
 ## Sidebar widths
 
 `width` and `collapsedWidth` set the `--sidebar-width` and `--sidebar-width-icon` CSS variables on

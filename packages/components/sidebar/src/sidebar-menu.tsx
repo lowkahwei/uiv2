@@ -2,7 +2,7 @@ import type {ButtonProps} from "@sytechui/button";
 import type {LinkProps} from "@sytechui/link";
 import type {HTMLHeroUIProps} from "@sytechui/system";
 import type {TooltipProps} from "@sytechui/tooltip";
-import type {CSSProperties, ReactNode, Ref} from "react";
+import type {ReactNode, Ref} from "react";
 
 import {Button} from "@sytechui/button";
 import {Link} from "@sytechui/link";
@@ -21,6 +21,19 @@ import {
 } from "react";
 
 import {useSidebarState, useSidebarStatic} from "./use-sidebar";
+
+type SidebarLinkBase = Omit<
+  LinkProps,
+  | "anchorIcon"
+  | "as"
+  | "color"
+  | "href"
+  | "isBlock"
+  | "ref"
+  | "showAnchorIcon"
+  | "size"
+  | "underline"
+>;
 
 export interface SidebarMenuItemContextValue {
   isExpanded: boolean;
@@ -142,7 +155,6 @@ const SidebarMenuSkeleton = forwardRef<"li", SidebarMenuSkeletonProps>(
   ({as, showIcon = false, className, ...props}, ref) => {
     const {classNames, slots} = useSidebarStatic();
     const Component = as || "li";
-    const width = useMemo(() => `${Math.floor(Math.random() * 40) + 50}%`, []);
 
     return (
       <Component
@@ -153,10 +165,7 @@ const SidebarMenuSkeleton = forwardRef<"li", SidebarMenuSkeletonProps>(
         {...props}
       >
         {showIcon && <Skeleton className="size-4 rounded-md" />}
-        <Skeleton
-          className="h-4 max-w-[var(--skeleton-width)] flex-1"
-          style={{"--skeleton-width": width} as CSSProperties}
-        />
+        <Skeleton className="h-4 max-w-[75%] flex-1" />
       </Component>
     );
   },
@@ -225,18 +234,7 @@ const SidebarMenuItem = forwardRef<"li", SidebarMenuItemProps>(
 
 SidebarMenuItem.displayName = "SytechUI.SidebarMenuItem";
 
-export interface SidebarMenuButtonProps extends Omit<
-  LinkProps,
-  | "anchorIcon"
-  | "as"
-  | "color"
-  | "href"
-  | "isBlock"
-  | "ref"
-  | "showAnchorIcon"
-  | "size"
-  | "underline"
-> {
+export interface SidebarMenuButtonProps extends SidebarLinkBase {
   /** Renders the item as a link when provided, otherwise as a button. */
   href?: LinkProps["href"];
   /** Marks the item as the current page. @default false */
@@ -315,7 +313,7 @@ const SidebarMenuButton = forwardRefNative<
         fullWidth
         {...(props as ButtonProps)}
         ref={ref as Ref<HTMLButtonElement>}
-        aria-controls={expandItem ? expandItem.subId : undefined}
+        aria-controls={expandItem?.isExpanded ? expandItem.subId : undefined}
         aria-expanded={expandItem ? expandItem.isExpanded : undefined}
         className={classes}
         data-active={isActive || undefined}
@@ -451,18 +449,7 @@ const SidebarMenuSubItem = forwardRef<"li", HTMLHeroUIProps<"li">>(
 
 SidebarMenuSubItem.displayName = "SytechUI.SidebarMenuSubItem";
 
-export interface SidebarMenuSubButtonProps extends Omit<
-  LinkProps,
-  | "anchorIcon"
-  | "as"
-  | "color"
-  | "href"
-  | "isBlock"
-  | "ref"
-  | "showAnchorIcon"
-  | "size"
-  | "underline"
-> {
+export interface SidebarMenuSubButtonProps extends SidebarLinkBase {
   /** Destination for the nested link. */
   href: LinkProps["href"];
   /** Marks the item as the current page. @default false */

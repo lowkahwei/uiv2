@@ -162,7 +162,7 @@ const projects = [
 
 const AppSidebar = () => {
   return (
-    <Sidebar aria-label="Application sidebar" collapsible="icon">
+    <Sidebar aria-label="Application sidebar">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -264,7 +264,7 @@ const AppSidebar = () => {
 };
 
 const SidebarDemo = ({defaultOpen = true}: {defaultOpen?: boolean}) => (
-  <SidebarProvider defaultOpen={defaultOpen}>
+  <SidebarProvider collapsible="icon" defaultOpen={defaultOpen}>
     <AppSidebar />
     <SidebarInset>
       <div className="p-4">
@@ -365,21 +365,14 @@ interface ScenarioDemoProps {
   providerProps?: Omit<SidebarProviderProps, "children">;
   sidebarProps?: SidebarProps;
   note?: string;
-  showTrigger?: boolean;
   children?: ReactNode;
 }
 
-const ScenarioDemo = ({
-  providerProps,
-  sidebarProps,
-  note,
-  showTrigger = true,
-  children,
-}: ScenarioDemoProps) => {
+const ScenarioDemo = ({providerProps, sidebarProps, note, children}: ScenarioDemoProps) => {
   const inset = (
     <SidebarInset>
       <div className="p-6">
-        {showTrigger && <SidebarTrigger />}
+        <SidebarTrigger />
         <h1 className="mt-4 text-2xl font-bold">Content area</h1>
         {note != null && <p className="mt-2 text-foreground-600">{note}</p>}
       </div>
@@ -388,11 +381,11 @@ const ScenarioDemo = ({
 
   return (
     <SidebarProvider {...providerProps}>
-      {sidebarProps?.side === "right" && inset}
+      {providerProps?.side === "right" && inset}
       <Sidebar aria-label="Application sidebar" {...sidebarProps}>
         {children ?? <ScenarioSidebar />}
       </Sidebar>
-      {sidebarProps?.side !== "right" && inset}
+      {providerProps?.side !== "right" && inset}
     </SidebarProvider>
   );
 };
@@ -429,8 +422,7 @@ export const CollapseBreakpoint: Story = {
   render: () => (
     <ScenarioDemo
       note="Below 1024px the sidebar auto-collapses to icons; below 767px it becomes a Drawer."
-      providerProps={{collapseBreakpoint: 1024}}
-      sidebarProps={{collapsible: "icon"}}
+      providerProps={{collapseBreakpoint: 1024, collapsible: "icon"}}
     />
   ),
 };
@@ -447,7 +439,7 @@ export const CustomDrawer: Story = {
 
 export const RightSide: Story = {
   render: () => (
-    <ScenarioDemo note="The sidebar docks to the right edge." sidebarProps={{side: "right"}} />
+    <ScenarioDemo note="The sidebar docks to the right edge." providerProps={{side: "right"}} />
   ),
 };
 
@@ -455,8 +447,7 @@ export const Offcanvas: Story = {
   render: () => (
     <ScenarioDemo
       note="Collapsing hides the sidebar entirely instead of leaving an icon rail."
-      providerProps={{defaultOpen: false}}
-      sidebarProps={{collapsible: "offcanvas"}}
+      providerProps={{collapsible: "offcanvas", defaultOpen: false}}
     />
   ),
 };
@@ -465,8 +456,7 @@ export const NonCollapsible: Story = {
   render: () => (
     <ScenarioDemo
       note='collapsible="none" renders a static column; there is nothing to toggle.'
-      showTrigger={false}
-      sidebarProps={{collapsible: "none"}}
+      providerProps={{collapsible: "none"}}
     />
   ),
 };
@@ -644,8 +634,7 @@ export const FloatingVariant: Story = {
   render: () => (
     <ScenarioDemo
       note="The floating variant detaches from the edge with rounded corners and a shadow."
-      providerProps={{className: "bg-content2"}}
-      sidebarProps={{variant: "floating"}}
+      providerProps={{className: "bg-content2", variant: "floating"}}
     />
   ),
 };
@@ -654,8 +643,7 @@ export const InsetVariant: Story = {
   render: () => (
     <ScenarioDemo
       note="The inset variant blends into the page background."
-      providerProps={{className: "bg-content2"}}
-      sidebarProps={{variant: "inset"}}
+      providerProps={{className: "bg-content2", variant: "inset"}}
     />
   ),
 };
