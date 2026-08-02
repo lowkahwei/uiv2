@@ -28,7 +28,7 @@ const sidebar = tv({
     footer: "flex shrink-0 flex-col gap-2 p-2",
     separator: "mx-2 w-auto",
     content:
-      "flex min-h-0 flex-1 flex-col overflow-auto group-data-[collapsible=icon]/sidebar:overflow-hidden",
+      "scrollbar flex min-h-0 flex-1 flex-col overflow-auto group-data-[collapsible=icon]/sidebar:overflow-hidden",
     group: "relative flex w-full min-w-0 flex-col p-2",
     groupLabel: [
       "flex h-8 shrink-0 items-center overflow-hidden rounded-md px-2 text-xs font-medium",
@@ -40,6 +40,7 @@ const sidebar = tv({
     groupContent: "w-full text-sm",
     menu: "flex w-full min-w-0 flex-col gap-0.5",
     menuItem: "group/menu-item relative",
+    menuSkeleton: "flex h-8 items-center gap-2 rounded-md px-2",
     menuButton: [
       "peer/menu-button flex w-full min-w-0 items-center justify-start gap-2 overflow-hidden",
       "rounded-md px-2 text-left outline-none",

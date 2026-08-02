@@ -6,6 +6,7 @@ import {cn, sidebar as sidebarTheme} from "@sytechui/theme";
 import {useIsMobile} from "@sytechui/use-media-query";
 import {createContext, useCallback, useContext, useEffect, useMemo, useRef, useState} from "react";
 
+/** Cookie persisted by uncontrolled SidebarProvider — read it server-side to set `defaultOpen`. */
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 const SIDEBAR_WIDTH = "16rem";
@@ -73,6 +74,7 @@ export function useSidebar(): SidebarContextValue {
 type SidebarVariables = CSSProperties & {
   "--sidebar-width"?: string;
   "--sidebar-width-icon"?: string;
+  "--sidebar-width-mobile"?: string;
 };
 
 export interface SidebarProviderProps extends ComponentPropsWithoutRef<"div"> {
@@ -94,6 +96,12 @@ export interface SidebarProviderProps extends ComponentPropsWithoutRef<"div"> {
   collapsedWidth?: string | number;
   /** Keyboard shortcut that toggles the sidebar, using `mod`/`shift`/`alt` tokens. Pass `false` or `null` to disable it. @default "mod+b" */
   toggleShortcut?: string | false | null;
+  /**
+   * Viewport width (px) at or below which the sidebar auto-collapses (must be above
+   * `mobileBreakpoint`). Crossing the breakpoint toggles it; initial render and controlled
+   * state (`open` prop set) are unaffected. @default undefined (disabled)
+   */
+  collapseBreakpoint?: number;
 }
 
 export function useSidebarProvider(props: Omit<SidebarProviderProps, "children">) {
@@ -107,6 +115,7 @@ export function useSidebarProvider(props: Omit<SidebarProviderProps, "children">
     width = SIDEBAR_WIDTH,
     collapsedWidth = SIDEBAR_WIDTH_ICON,
     toggleShortcut = "mod+b",
+    collapseBreakpoint,
     className,
     style,
     ...otherProps
@@ -210,6 +219,17 @@ export function useSidebarProvider(props: Omit<SidebarProviderProps, "children">
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [toggleShortcut, toggleSidebar]);
 
+  const isCollapseRange = useIsMobile(collapseBreakpoint ?? 0);
+  const prevCollapseRef = useRef<boolean | null>(null);
+
+  useEffect(() => {
+    if (collapseBreakpoint == null || openPropRef.current !== undefined) return;
+    const prev = prevCollapseRef.current;
+
+    prevCollapseRef.current = isCollapseRange;
+    if (prev !== null && prev !== isCollapseRange) setOpen(!isCollapseRange);
+  }, [isCollapseRange, collapseBreakpoint, setOpen]);
+
   const stateValue = useMemo<SidebarStateContextValue>(
     () => ({state: open ? "expanded" : "collapsed", open, openMobile, isMobile}),
     [open, openMobile, isMobile],
@@ -241,4 +261,4 @@ export function useSidebarProvider(props: Omit<SidebarProviderProps, "children">
   };
 }
 
-export {SidebarStateContext, SidebarStaticContext, DEFAULT_MOBILE_BREAKPOINT};
+export {SidebarStateContext, SidebarStaticContext, DEFAULT_MOBILE_BREAKPOINT, SIDEBAR_COOKIE_NAME};

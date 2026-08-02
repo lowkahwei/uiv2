@@ -2,16 +2,38 @@ import type {ButtonProps} from "@sytechui/button";
 import type {LinkProps} from "@sytechui/link";
 import type {HTMLHeroUIProps} from "@sytechui/system";
 import type {TooltipProps} from "@sytechui/tooltip";
-import type {ReactNode, Ref} from "react";
+import type {CSSProperties, ReactNode, Ref} from "react";
 
 import {Button} from "@sytechui/button";
 import {Link} from "@sytechui/link";
+import {ChevronRightIcon} from "@sytechui/shared-icons";
+import {Skeleton} from "@sytechui/skeleton";
 import {forwardRef} from "@sytechui/system";
 import {cn} from "@sytechui/theme";
 import {Tooltip} from "@sytechui/tooltip";
-import {forwardRef as forwardRefNative} from "react";
+import {
+  createContext,
+  forwardRef as forwardRefNative,
+  useContext,
+  useId,
+  useMemo,
+  useState,
+} from "react";
 
 import {useSidebarState, useSidebarStatic} from "./use-sidebar";
+
+export interface SidebarMenuItemContextValue {
+  isExpanded: boolean;
+  toggle: () => void;
+  subId: string;
+}
+
+const SidebarMenuItemContext = createContext<SidebarMenuItemContextValue | null>(null);
+
+/** Expand state of the nearest `expandable` SidebarMenuItem, or `null` outside one. */
+export function useSidebarMenuItem() {
+  return useContext(SidebarMenuItemContext);
+}
 
 const SidebarGroup = forwardRef<"section", HTMLHeroUIProps<"section">>(
   ({as, className, ...props}, ref) => {
@@ -111,12 +133,79 @@ const SidebarMenu = forwardRef<"ul", HTMLHeroUIProps<"ul">>(({as, className, ...
 
 SidebarMenu.displayName = "SytechUI.SidebarMenu";
 
-const SidebarMenuItem = forwardRef<"li", HTMLHeroUIProps<"li">>(
-  ({as, className, ...props}, ref) => {
+export interface SidebarMenuSkeletonProps extends HTMLHeroUIProps<"li"> {
+  /** Renders a leading icon placeholder. @default false */
+  showIcon?: boolean;
+}
+
+const SidebarMenuSkeleton = forwardRef<"li", SidebarMenuSkeletonProps>(
+  ({as, showIcon = false, className, ...props}, ref) => {
     const {classNames, slots} = useSidebarStatic();
     const Component = as || "li";
+    const width = useMemo(() => `${Math.floor(Math.random() * 40) + 50}%`, []);
 
     return (
+      <Component
+        ref={ref}
+        className={slots.menuSkeleton({class: cn(classNames?.menuSkeleton, className)})}
+        data-sidebar="menu-skeleton"
+        data-slot="sidebar-menu-skeleton"
+        {...props}
+      >
+        {showIcon && <Skeleton className="size-4 rounded-md" />}
+        <Skeleton
+          className="h-4 max-w-[var(--skeleton-width)] flex-1"
+          style={{"--skeleton-width": width} as CSSProperties}
+        />
+      </Component>
+    );
+  },
+);
+
+SidebarMenuSkeleton.displayName = "SytechUI.SidebarMenuSkeleton";
+
+export interface SidebarMenuItemProps extends HTMLHeroUIProps<"li"> {
+  /** Marks the item as a collapsible trigger for a nested `SidebarMenuSub`. @default false */
+  expandable?: boolean;
+  /** Initial expanded state when uncontrolled. @default false */
+  defaultExpanded?: boolean;
+  /** Controlled expanded state. */
+  isExpanded?: boolean;
+  /** Called whenever the expanded state changes. */
+  onExpandedChange?: (isExpanded: boolean) => void;
+}
+
+const SidebarMenuItem = forwardRef<"li", SidebarMenuItemProps>(
+  (
+    {
+      as,
+      className,
+      expandable = false,
+      defaultExpanded = false,
+      isExpanded: isExpandedProp,
+      onExpandedChange,
+      ...props
+    },
+    ref,
+  ) => {
+    const {classNames, slots} = useSidebarStatic();
+    const Component = as || "li";
+    const [uncontrolledExpanded, setUncontrolledExpanded] = useState(defaultExpanded);
+    const isExpanded = isExpandedProp ?? uncontrolledExpanded;
+    const subId = useId();
+    const contextValue = useMemo<SidebarMenuItemContextValue>(
+      () => ({
+        isExpanded,
+        subId,
+        toggle: () => {
+          onExpandedChange?.(!isExpanded);
+          if (isExpandedProp === undefined) setUncontrolledExpanded(!isExpanded);
+        },
+      }),
+      [isExpanded, subId, isExpandedProp, onExpandedChange],
+    );
+
+    const item = (
       <Component
         ref={ref}
         className={slots.menuItem({class: cn(classNames?.menuItem, className)})}
@@ -124,6 +213,12 @@ const SidebarMenuItem = forwardRef<"li", HTMLHeroUIProps<"li">>(
         data-slot="sidebar-menu-item"
         {...props}
       />
+    );
+
+    if (!expandable) return item;
+
+    return (
+      <SidebarMenuItemContext.Provider value={contextValue}>{item}</SidebarMenuItemContext.Provider>
     );
   },
 );
@@ -186,11 +281,13 @@ const SidebarMenuButton = forwardRefNative<
       setOpenMobile,
     } = useSidebarStatic();
     const {isMobile, state} = useSidebarState();
+    const expandItem = useContext(SidebarMenuItemContext);
     const disableAnimation = disableAnimationProp ?? sidebarDisableAnimation;
     const classes = slots.menuButton({class: cn(classNames?.menuButton, className)});
     const shouldCloseMobile = closeMobileOnPress ?? href != null;
     const handlePress: SidebarMenuButtonProps["onPress"] = (event) => {
       onPress?.(event);
+      if (href == null) expandItem?.toggle();
       if (shouldCloseMobile) setOpenMobile(false);
     };
     const control = href ? (
@@ -218,6 +315,8 @@ const SidebarMenuButton = forwardRefNative<
         fullWidth
         {...(props as ButtonProps)}
         ref={ref as Ref<HTMLButtonElement>}
+        aria-controls={expandItem ? expandItem.subId : undefined}
+        aria-expanded={expandItem ? expandItem.isExpanded : undefined}
         className={classes}
         data-active={isActive || undefined}
         data-sidebar="menu-button"
@@ -230,6 +329,15 @@ const SidebarMenuButton = forwardRefNative<
         onPress={handlePress}
       >
         {children}
+        {expandItem && (
+          <ChevronRightIcon
+            className={cn(
+              "ml-auto size-4 shrink-0 group-data-[collapsible=icon]/sidebar:hidden",
+              !disableAnimation && "transition-transform",
+              expandItem.isExpanded && "rotate-90",
+            )}
+          />
+        )}
       </Button>
     );
 
@@ -301,20 +409,26 @@ const SidebarMenuBadge = forwardRef<"div", HTMLHeroUIProps<"div">>(
 
 SidebarMenuBadge.displayName = "SytechUI.SidebarMenuBadge";
 
-const SidebarMenuSub = forwardRef<"ul", HTMLHeroUIProps<"ul">>(({as, className, ...props}, ref) => {
-  const {classNames, slots} = useSidebarStatic();
-  const Component = as || "ul";
+const SidebarMenuSub = forwardRef<"ul", HTMLHeroUIProps<"ul">>(
+  ({as, className, id, ...props}, ref) => {
+    const {classNames, slots} = useSidebarStatic();
+    const Component = as || "ul";
+    const expandItem = useContext(SidebarMenuItemContext);
 
-  return (
-    <Component
-      ref={ref}
-      className={slots.menuSub({class: cn(classNames?.menuSub, className)})}
-      data-sidebar="menu-sub"
-      data-slot="sidebar-menu-sub"
-      {...props}
-    />
-  );
-});
+    if (expandItem && !expandItem.isExpanded) return null;
+
+    return (
+      <Component
+        ref={ref}
+        className={slots.menuSub({class: cn(classNames?.menuSub, className)})}
+        data-sidebar="menu-sub"
+        data-slot="sidebar-menu-sub"
+        id={id ?? expandItem?.subId}
+        {...props}
+      />
+    );
+  },
+);
 
 SidebarMenuSub.displayName = "SytechUI.SidebarMenuSub";
 
@@ -416,6 +530,7 @@ export {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSkeleton,
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,

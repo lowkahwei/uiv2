@@ -119,6 +119,13 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
           placement={side}
           size="sm"
           {...drawerProps}
+          classNames={{
+            ...drawerProps?.classNames,
+            base: cn(
+              "w-[var(--sidebar-width-mobile,18rem)] max-w-[85vw]",
+              drawerProps?.classNames?.base,
+            ),
+          }}
           isOpen={openMobile}
           onOpenChange={setOpenMobile}
         >

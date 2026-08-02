@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import * as React from "react";
-import {render, waitFor} from "@testing-library/react";
+import {act, render, waitFor} from "@testing-library/react";
 import {HeroUIProvider} from "@sytechui/system";
 import userEvent from "@testing-library/user-event";
 import {MotionGlobalConfig} from "framer-motion";
@@ -21,6 +21,7 @@ import {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSkeleton,
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
@@ -28,6 +29,8 @@ import {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
+  SIDEBAR_COOKIE_NAME,
+  useSidebarMenuItem,
 } from "../src";
 
 const originalMatchMedia = window.matchMedia;
@@ -46,6 +49,49 @@ function setMobile(isMobile: boolean) {
       removeListener: jest.fn(),
     })),
   });
+}
+
+/** Mocks matchMedia against a single simulated viewport width, honored per-query. */
+function setViewportWidth(initialWidth: number) {
+  let width = initialWidth;
+  const listeners = new Map<string, Set<(event: {matches: boolean}) => void>>();
+  const matchesQuery = (query: string) => {
+    const match = /\(max-width:\s*(\d+)px\)/.exec(query);
+
+    return match ? width <= Number(match[1]) : false;
+  };
+  const subscribe = (query: string, cb: (event: {matches: boolean}) => void) => {
+    if (!listeners.has(query)) listeners.set(query, new Set());
+    listeners.get(query)!.add(cb);
+  };
+
+  Object.defineProperty(window, "matchMedia", {
+    configurable: true,
+    value: jest.fn().mockImplementation((query: string) => ({
+      addEventListener: (_: string, cb: (event: {matches: boolean}) => void) => subscribe(query, cb),
+      addListener: (cb: (event: {matches: boolean}) => void) => subscribe(query, cb),
+      dispatchEvent: jest.fn(),
+      get matches() {
+        return matchesQuery(query);
+      },
+      media: query,
+      onchange: null,
+      removeEventListener: (_: string, cb: (event: {matches: boolean}) => void) =>
+        listeners.get(query)?.delete(cb),
+      removeListener: (cb: (event: {matches: boolean}) => void) => listeners.get(query)?.delete(cb),
+    })),
+  });
+
+  return {
+    setWidth(nextWidth: number) {
+      width = nextWidth;
+      listeners.forEach((cbs, query) => {
+        const matches = matchesQuery(query);
+
+        cbs.forEach((cb) => cb({matches}));
+      });
+    },
+  };
 }
 
 const AppSidebar = (props: React.ComponentProps<typeof Sidebar>) => (
@@ -114,6 +160,16 @@ const AppSidebar = (props: React.ComponentProps<typeof Sidebar>) => (
     <SidebarRail />
   </Sidebar>
 );
+
+const ExpandAction = () => {
+  const expandItem = useSidebarMenuItem();
+
+  return (
+    <SidebarMenuAction aria-label="Toggle nested items" onPress={() => expandItem?.toggle()}>
+      ▾
+    </SidebarMenuAction>
+  );
+};
 
 interface LayoutProps {
   defaultOpen?: boolean;
@@ -346,6 +402,10 @@ describe("Sidebar", () => {
     await waitFor(async () => {
       expect(await findByRole("complementary", {name: "Application sidebar"})).toBeVisible();
     });
+
+    expect(
+      document.querySelector(".w-\\[var\\(--sidebar-width-mobile\\,18rem\\)\\]"),
+    ).toBeInTheDocument();
   });
 
   it("shows collapsed menu tooltips", async () => {
@@ -551,6 +611,37 @@ describe("Sidebar", () => {
     expect(getDesktopSidebar(container)).toHaveAttribute("data-state", "expanded");
   });
 
+  it("auto-collapses when crossing collapseBreakpoint, and expands back", async () => {
+    const viewport = setViewportWidth(1200);
+    const {container} = render(
+      <SidebarProvider collapseBreakpoint={1024}>
+        <Sidebar collapsible="icon">content</Sidebar>
+      </SidebarProvider>,
+    );
+    const sidebar = getDesktopSidebar(container);
+
+    expect(sidebar).toHaveAttribute("data-state", "expanded");
+
+    act(() => viewport.setWidth(900));
+    expect(sidebar).toHaveAttribute("data-state", "collapsed");
+
+    act(() => viewport.setWidth(1200));
+    expect(sidebar).toHaveAttribute("data-state", "expanded");
+  });
+
+  it("ignores collapseBreakpoint in controlled mode", () => {
+    const viewport = setViewportWidth(1200);
+    const {container} = render(
+      <SidebarProvider open collapseBreakpoint={1024}>
+        <Sidebar collapsible="icon">content</Sidebar>
+      </SidebarProvider>,
+    );
+    const sidebar = getDesktopSidebar(container);
+
+    act(() => viewport.setWidth(900));
+    expect(sidebar).toHaveAttribute("data-state", "expanded");
+  });
+
   it("closes the mobile drawer after pressing a menu button", async () => {
     setMobile(true);
     const user = userEvent.setup();
@@ -587,5 +678,127 @@ describe("Sidebar", () => {
     await waitFor(() => {
       expect(document.querySelector(".custom-drawer-base")).toBeInTheDocument();
     });
+  });
+
+  it("renders SidebarMenuSkeleton with an optional icon placeholder", () => {
+    const {container, rerender} = render(
+      <SidebarProvider>
+        <Sidebar aria-label="Application sidebar">
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuSkeleton />
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </Sidebar>
+      </SidebarProvider>,
+    );
+    const skeletonItem = container.querySelector('[data-slot="sidebar-menu-skeleton"]')!;
+
+    expect(skeletonItem.children).toHaveLength(1);
+    expect(skeletonItem.querySelector(".size-4")).not.toBeInTheDocument();
+
+    rerender(
+      <SidebarProvider>
+        <Sidebar aria-label="Application sidebar">
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuSkeleton showIcon />
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </Sidebar>
+      </SidebarProvider>,
+    );
+    const skeletonItemWithIcon = container.querySelector('[data-slot="sidebar-menu-skeleton"]')!;
+
+    expect(skeletonItemWithIcon.children).toHaveLength(2);
+    expect(skeletonItemWithIcon.querySelector(".size-4")).toBeInTheDocument();
+  });
+
+  it("expands and collapses an expandable menu item uncontrolled", async () => {
+    const user = userEvent.setup();
+    const {getByRole, queryByRole} = render(
+      <SidebarProvider>
+        <Sidebar aria-label="Application sidebar">
+          <SidebarMenu>
+            <SidebarMenuItem expandable>
+              <SidebarMenuButton>Settings</SidebarMenuButton>
+              <SidebarMenuSub>
+                <SidebarMenuSubItem>
+                  <SidebarMenuSubButton href="/settings/profile">Profile</SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+              </SidebarMenuSub>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </Sidebar>
+      </SidebarProvider>,
+    );
+    const trigger = getByRole("button", {name: "Settings"});
+
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+    expect(queryByRole("link", {name: "Profile"})).not.toBeInTheDocument();
+
+    await user.click(trigger);
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
+    expect(getByRole("link", {name: "Profile"})).toBeInTheDocument();
+
+    await user.click(trigger);
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+    expect(queryByRole("link", {name: "Profile"})).not.toBeInTheDocument();
+  });
+
+  it("supports a controlled expanded state via isExpanded and onExpandedChange", async () => {
+    const user = userEvent.setup();
+    const onExpandedChange = jest.fn();
+    const {getByRole, queryByRole} = render(
+      <SidebarProvider>
+        <Sidebar aria-label="Application sidebar">
+          <SidebarMenu>
+            <SidebarMenuItem expandable isExpanded={false} onExpandedChange={onExpandedChange}>
+              <SidebarMenuButton>Settings</SidebarMenuButton>
+              <SidebarMenuSub>
+                <SidebarMenuSubItem>
+                  <SidebarMenuSubButton href="/settings/profile">Profile</SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+              </SidebarMenuSub>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </Sidebar>
+      </SidebarProvider>,
+    );
+
+    await user.click(getByRole("button", {name: "Settings"}));
+
+    expect(onExpandedChange).toHaveBeenCalledWith(true);
+    expect(queryByRole("link", {name: "Profile"})).not.toBeInTheDocument();
+  });
+
+  it("lets an external action toggle expansion via useSidebarMenuItem", async () => {
+    const user = userEvent.setup();
+    const {getByRole, queryByRole} = render(
+      <SidebarProvider>
+        <Sidebar aria-label="Application sidebar">
+          <SidebarMenu>
+            <SidebarMenuItem expandable>
+              <SidebarMenuButton href="/settings">Settings</SidebarMenuButton>
+              <ExpandAction />
+              <SidebarMenuSub>
+                <SidebarMenuSubItem>
+                  <SidebarMenuSubButton href="/settings/profile">Profile</SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+              </SidebarMenuSub>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </Sidebar>
+      </SidebarProvider>,
+    );
+
+    expect(queryByRole("link", {name: "Profile"})).not.toBeInTheDocument();
+
+    await user.click(getByRole("button", {name: "Toggle nested items"}));
+    expect(getByRole("link", {name: "Profile"})).toBeInTheDocument();
+  });
+
+  it("exposes the persisted cookie name", () => {
+    expect(SIDEBAR_COOKIE_NAME).toBe("sidebar_state");
   });
 });

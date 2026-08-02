@@ -6,7 +6,7 @@ export type {
   SidebarState,
   SidebarVariant,
 } from "./use-sidebar";
-export {useSidebar} from "./use-sidebar";
+export {SIDEBAR_COOKIE_NAME, useSidebar} from "./use-sidebar";
 
 export type {SidebarProps} from "./sidebar";
 export {Sidebar, SidebarProvider} from "./sidebar";
@@ -27,6 +27,9 @@ export type {
   SidebarGroupActionProps,
   SidebarMenuActionProps,
   SidebarMenuButtonProps,
+  SidebarMenuItemContextValue,
+  SidebarMenuItemProps,
+  SidebarMenuSkeletonProps,
   SidebarMenuSubButtonProps,
 } from "./sidebar-menu";
 export {
@@ -39,7 +42,9 @@ export {
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSkeleton,
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebarMenuItem,
 } from "./sidebar-menu";

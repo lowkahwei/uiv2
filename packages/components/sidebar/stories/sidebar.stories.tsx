@@ -1,5 +1,6 @@
 import type {Meta, StoryObj} from "@storybook/react";
 import type {ReactNode} from "react";
+import type {SidebarProps, SidebarProviderProps} from "../src";
 
 import {useState} from "react";
 
@@ -14,6 +15,7 @@ import {
   SidebarInset,
   SidebarMenu,
   SidebarMenuAction,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
@@ -21,6 +23,7 @@ import {
   SidebarMenuSubItem,
   SidebarProvider,
   SidebarRail,
+  SidebarSeparator,
   SidebarTrigger,
 } from "../src";
 
@@ -116,23 +119,6 @@ const ProjectIcon = ({kind}: {kind: "frame" | "chart" | "map"}) => (
   </Icon>
 );
 
-const ChevronRightIcon = ({open = false}: {open?: boolean}) => (
-  <svg
-    aria-hidden="true"
-    className={`ml-auto size-4 shrink-0 transition-transform ${open ? "rotate-90" : ""}`}
-    fill="none"
-    viewBox="0 0 24 24"
-  >
-    <path
-      d="m9 18 6-6-6-6"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-    />
-  </svg>
-);
-
 const ChevronsIcon = () => (
   <svg aria-hidden="true" className="ml-auto size-4 shrink-0" fill="none" viewBox="0 0 24 24">
     <path
@@ -175,8 +161,6 @@ const projects = [
 ];
 
 const AppSidebar = () => {
-  const [openItem, setOpenItem] = useState("Playground");
-
   return (
     <Sidebar aria-label="Application sidebar" collapsible="icon">
       <SidebarHeader>
@@ -203,37 +187,29 @@ const AppSidebar = () => {
           <SidebarGroupLabel>Platform</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {navItems.map((item) => {
-                const isOpen = openItem === item.title;
-
-                return (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton
-                      tooltip={item.title}
-                      onPress={() => setOpenItem(isOpen ? "" : item.title)}
-                    >
-                      {item.icon}
-                      <span>{item.title}</span>
-                      <span className="ml-auto">
-                        <ChevronRightIcon open={isOpen} />
-                      </span>
-                    </SidebarMenuButton>
-                    {isOpen && (
-                      <SidebarMenuSub>
-                        {item.items.map((subItem) => (
-                          <SidebarMenuSubItem key={subItem}>
-                            <SidebarMenuSubButton
-                              href={`#${subItem.toLowerCase().replaceAll(" ", "-")}`}
-                            >
-                              <span>{subItem}</span>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        ))}
-                      </SidebarMenuSub>
-                    )}
-                  </SidebarMenuItem>
-                );
-              })}
+              {navItems.map((item) => (
+                <SidebarMenuItem
+                  key={item.title}
+                  expandable
+                  defaultExpanded={item.title === "Playground"}
+                >
+                  <SidebarMenuButton tooltip={item.title}>
+                    {item.icon}
+                    <span>{item.title}</span>
+                  </SidebarMenuButton>
+                  <SidebarMenuSub>
+                    {item.items.map((subItem) => (
+                      <SidebarMenuSubItem key={subItem}>
+                        <SidebarMenuSubButton
+                          href={`#${subItem.toLowerCase().replaceAll(" ", "-")}`}
+                        >
+                          <span>{subItem}</span>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                    ))}
+                  </SidebarMenuSub>
+                </SidebarMenuItem>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -314,4 +290,372 @@ export const Default: Story = {
 
 export const Collapsed: Story = {
   render: () => <SidebarDemo defaultOpen={false} />,
+};
+
+const ScenarioSidebar = () => (
+  <>
+    <SidebarHeader>
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton size="lg" tooltip="Workspace">
+            <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-primary font-bold text-primary-foreground">
+              S
+            </span>
+            <span className="truncate font-bold">Workspace</span>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarHeader>
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarGroupLabel>Overview</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton isActive href="#dashboard" tooltip="Dashboard">
+                <PlaygroundIcon />
+                <span>Dashboard</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton href="#activity" tooltip="Activity">
+                <BotIcon />
+                <span>Activity</span>
+              </SidebarMenuButton>
+              <SidebarMenuBadge>4</SidebarMenuBadge>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+      <SidebarSeparator />
+      <SidebarGroup>
+        <SidebarGroupLabel>Manage</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton href="#projects" tooltip="Projects">
+                <BookIcon />
+                <span>Projects</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton href="#settings" tooltip="Settings">
+                <SettingsIcon />
+                <span>Settings</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarContent>
+    <SidebarFooter>
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton href="#account">
+            <SettingsIcon />
+            <span>Account</span>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarFooter>
+  </>
+);
+
+interface ScenarioDemoProps {
+  providerProps?: Omit<SidebarProviderProps, "children">;
+  sidebarProps?: SidebarProps;
+  note?: string;
+  showTrigger?: boolean;
+  children?: ReactNode;
+}
+
+const ScenarioDemo = ({
+  providerProps,
+  sidebarProps,
+  note,
+  showTrigger = true,
+  children,
+}: ScenarioDemoProps) => {
+  const inset = (
+    <SidebarInset>
+      <div className="p-6">
+        {showTrigger && <SidebarTrigger />}
+        <h1 className="mt-4 text-2xl font-bold">Content area</h1>
+        {note != null && <p className="mt-2 text-foreground-600">{note}</p>}
+      </div>
+    </SidebarInset>
+  );
+
+  return (
+    <SidebarProvider {...providerProps}>
+      {sidebarProps?.side === "right" && inset}
+      <Sidebar aria-label="Application sidebar" {...sidebarProps}>
+        {children ?? <ScenarioSidebar />}
+      </Sidebar>
+      {sidebarProps?.side !== "right" && inset}
+    </SidebarProvider>
+  );
+};
+
+const ControlledDemo = () => {
+  const [open, setOpen] = useState(true);
+
+  return (
+    <ScenarioDemo
+      note="Desktop state is controlled by the application."
+      providerProps={{open, onOpenChange: setOpen}}
+    />
+  );
+};
+
+export const Controlled: Story = {render: () => <ControlledDemo />};
+
+export const Mobile: Story = {
+  parameters: {viewport: {defaultViewport: "mobile1"}},
+  render: () => <ScenarioDemo note="Open the sidebar with the trigger; it renders as a Drawer." />,
+};
+
+export const CustomMobileBreakpoint: Story = {
+  parameters: {viewport: {defaultViewport: "tablet"}},
+  render: () => (
+    <ScenarioDemo
+      note="Switches to the mobile Drawer below 1024px instead of the default 767px."
+      providerProps={{mobileBreakpoint: 1024}}
+    />
+  ),
+};
+
+export const CollapseBreakpoint: Story = {
+  render: () => (
+    <ScenarioDemo
+      note="Below 1024px the sidebar auto-collapses to icons; below 767px it becomes a Drawer."
+      providerProps={{collapseBreakpoint: 1024}}
+      sidebarProps={{collapsible: "icon"}}
+    />
+  ),
+};
+
+export const CustomDrawer: Story = {
+  parameters: {viewport: {defaultViewport: "mobile1"}},
+  render: () => (
+    <ScenarioDemo
+      note="The mobile Drawer opens from the right with an opaque backdrop."
+      sidebarProps={{drawerProps: {placement: "right", backdrop: "opaque"}}}
+    />
+  ),
+};
+
+export const RightSide: Story = {
+  render: () => (
+    <ScenarioDemo note="The sidebar docks to the right edge." sidebarProps={{side: "right"}} />
+  ),
+};
+
+export const Offcanvas: Story = {
+  render: () => (
+    <ScenarioDemo
+      note="Collapsing hides the sidebar entirely instead of leaving an icon rail."
+      providerProps={{defaultOpen: false}}
+      sidebarProps={{collapsible: "offcanvas"}}
+    />
+  ),
+};
+
+export const NonCollapsible: Story = {
+  render: () => (
+    <ScenarioDemo
+      note='collapsible="none" renders a static column; there is nothing to toggle.'
+      showTrigger={false}
+      sidebarProps={{collapsible: "none"}}
+    />
+  ),
+};
+
+const ItemActionsNav = () => (
+  <SidebarContent>
+    <SidebarGroup>
+      <SidebarGroupLabel>Overview</SidebarGroupLabel>
+      <SidebarGroupContent>
+        <SidebarMenu>
+          {["Dashboard", "Activity"].map((label) => (
+            <SidebarMenuItem key={label}>
+              <SidebarMenuButton href={`#${label.toLowerCase()}`} isActive={label === "Dashboard"}>
+                <PlaygroundIcon />
+                <span>{label}</span>
+              </SidebarMenuButton>
+              <SidebarMenuAction showOnHover aria-label={`More actions for ${label}`}>
+                <MoreIcon />
+              </SidebarMenuAction>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarGroupContent>
+    </SidebarGroup>
+  </SidebarContent>
+);
+
+export const WithItemActions: Story = {
+  render: () => (
+    <ScenarioDemo note="Hover or focus an item to reveal its action button.">
+      <ItemActionsNav />
+    </ScenarioDemo>
+  ),
+};
+
+const NestedNav = () => (
+  <SidebarContent>
+    <SidebarGroup>
+      <SidebarGroupLabel>Overview</SidebarGroupLabel>
+      <SidebarGroupContent>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton isActive href="#dashboard">
+              <PlaygroundIcon />
+              <span>Dashboard</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem expandable>
+            <SidebarMenuButton>
+              <SettingsIcon />
+              <span>Settings</span>
+            </SidebarMenuButton>
+            <SidebarMenuSub>
+              {["Profile", "Billing"].map((label) => (
+                <SidebarMenuSubItem key={label}>
+                  <SidebarMenuSubButton href={`#settings-${label.toLowerCase()}`}>
+                    <span>{label}</span>
+                  </SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+              ))}
+            </SidebarMenuSub>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarGroupContent>
+    </SidebarGroup>
+  </SidebarContent>
+);
+
+export const WithNestedItems: Story = {
+  render: () => (
+    <ScenarioDemo note="Click Settings to expand or collapse its nested items.">
+      <NestedNav />
+    </ScenarioDemo>
+  ),
+};
+
+const ScrollableNav = () => (
+  <SidebarContent>
+    <SidebarGroup>
+      <SidebarGroupLabel>Destinations</SidebarGroupLabel>
+      <SidebarGroupContent>
+        <SidebarMenu>
+          {Array.from({length: 30}, (_, index) => (
+            <SidebarMenuItem key={index}>
+              <SidebarMenuButton href={`#destination-${index + 1}`}>
+                <BookIcon />
+                <span>Destination {index + 1}</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarGroupContent>
+    </SidebarGroup>
+  </SidebarContent>
+);
+
+export const ScrollableContent: Story = {
+  render: () => (
+    <ScenarioDemo note="The content area scrolls independently of the header and footer.">
+      <ScrollableNav />
+    </ScenarioDemo>
+  ),
+};
+
+const DisableAnimationDemo = () => {
+  const [disableAnimation, setDisableAnimation] = useState(false);
+
+  return (
+    <SidebarProvider disableAnimation={disableAnimation}>
+      <Sidebar aria-label="Application sidebar">
+        <ScenarioSidebar />
+      </Sidebar>
+      <SidebarInset>
+        <div className="p-6">
+          <SidebarTrigger />
+          <label className="mt-4 flex items-center gap-2">
+            <input
+              checked={disableAnimation}
+              type="checkbox"
+              onChange={(event) => setDisableAnimation(event.target.checked)}
+            />
+            Disable sidebar transitions
+          </label>
+        </div>
+      </SidebarInset>
+    </SidebarProvider>
+  );
+};
+
+export const DisableAnimation: Story = {render: () => <DisableAnimationDemo />};
+
+export const CustomShortcut: Story = {
+  render: () => (
+    <ScenarioDemo
+      note="Press Cmd/Ctrl+Shift+S to toggle the sidebar."
+      providerProps={{toggleShortcut: "mod+shift+s"}}
+    />
+  ),
+};
+
+const PersistentMobileNav = () => (
+  <SidebarContent>
+    <SidebarGroup>
+      <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+      <SidebarGroupContent>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton closeMobileOnPress={false} href="#choose">
+              <BotIcon />
+              <span>Choose workspace (stays open)</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton href="#navigate">
+              <BookIcon />
+              <span>Navigate (closes)</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarGroupContent>
+    </SidebarGroup>
+  </SidebarContent>
+);
+
+export const PersistentMobileAction: Story = {
+  parameters: {viewport: {defaultViewport: "mobile1"}},
+  render: () => (
+    <ScenarioDemo note="Open the drawer: the first item keeps it open, the second closes it.">
+      <PersistentMobileNav />
+    </ScenarioDemo>
+  ),
+};
+
+export const FloatingVariant: Story = {
+  render: () => (
+    <ScenarioDemo
+      note="The floating variant detaches from the edge with rounded corners and a shadow."
+      providerProps={{className: "bg-content2"}}
+      sidebarProps={{variant: "floating"}}
+    />
+  ),
+};
+
+export const InsetVariant: Story = {
+  render: () => (
+    <ScenarioDemo
+      note="The inset variant blends into the page background."
+      providerProps={{className: "bg-content2"}}
+      sidebarProps={{variant: "inset"}}
+    />
+  ),
 };
