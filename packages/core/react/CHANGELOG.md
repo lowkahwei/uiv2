@@ -1,5 +1,12 @@
 # @sytechui/react
 
+## 2.10.7
+
+### Patch Changes
+
+- Updated dependencies
+  - @sytechui/sidebar@3.0.1
+
 ## 2.10.6
 
 ### Patch Changes

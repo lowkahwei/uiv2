@@ -7,7 +7,6 @@ import {forwardRef} from "@sytechui/system";
 import {cn} from "@sytechui/theme";
 
 import {
-  DEFAULT_MOBILE_BREAKPOINT,
   SidebarStateContext,
   SidebarStaticContext,
   useSidebarProvider,
@@ -62,7 +61,6 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
       variant,
     } = useSidebarStatic();
     const {isMobile, state, openMobile} = useSidebarState();
-    const isCustomBreakpoint = mobileBreakpoint !== DEFAULT_MOBILE_BREAKPOINT;
     const isCollapsed = state === "collapsed";
     const isOffcanvas = isCollapsed && collapsible === "offcanvas";
     const hasOuterSpacing = variant === "floating" || variant === "inset";
@@ -83,22 +81,24 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
     );
 
     if (collapsible === "none") {
+      // 尺寸一律走 inline style:消费方只扫描 @sytechui/theme 的 class,
+      // 写在本包 dist 里的 Tailwind 任意值 class 不会被编译进消费方 CSS。
       return (
         <aside
           ref={ref}
-          className={slots.inner({
-            class: cn(
-              classNames?.inner,
-              "h-svh w-[var(--sidebar-width)] shrink-0",
-              hasOuterSpacing && "m-2 h-[calc(100svh-1rem)]",
-              className,
-            ),
-          })}
+          className={slots.inner({class: cn(classNames?.inner, className)})}
           data-side={side}
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-variant={variant}
           {...props}
+          style={{
+            width: "var(--sidebar-width)",
+            height: hasOuterSpacing ? "calc(100svh - 1rem)" : "100svh",
+            flexShrink: 0,
+            margin: hasOuterSpacing ? "0.5rem" : undefined,
+            ...props.style,
+          }}
         >
           {children}
         </aside>
@@ -113,14 +113,13 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
           placement={side}
           size="sm"
           {...drawerProps}
-          classNames={{
-            ...drawerProps?.classNames,
-            base: cn(
-              "w-[var(--sidebar-width-mobile,18rem)] max-w-[85vw]",
-              drawerProps?.classNames?.base,
-            ),
-          }}
+          classNames={drawerProps?.classNames}
           isOpen={openMobile}
+          style={{
+            ...drawerProps?.style,
+            width: drawerProps?.style?.width ?? "18rem",
+            maxWidth: drawerProps?.style?.maxWidth ?? "85vw",
+          }}
           onOpenChange={setOpenMobile}
         >
           <DrawerContent>
@@ -138,16 +137,13 @@ const Sidebar = forwardRef<"aside", SidebarProps>(
 
     return (
       <>
-        {isCustomBreakpoint && (
-          <style>{`@media (max-width:${mobileBreakpoint}px){[data-sidebar-bp="${mobileBreakpoint}"]{display:none}}`}</style>
-        )}
+        {/* 移动端隐藏不依赖 `hidden md:block`(消费方 CSS 未必生成),始终注入媒体查询。 */}
+        <style>{`@media (max-width:${mobileBreakpoint}px){[data-sidebar-bp="${mobileBreakpoint}"]{display:none}}`}</style>
         <div
-          className={slots.sidebar({
-            class: cn(isCustomBreakpoint ? undefined : "hidden md:block", classNames?.sidebar),
-          })}
+          className={slots.sidebar({class: classNames?.sidebar})}
           data-collapsible={isCollapsed ? collapsible : undefined}
           data-side={side}
-          data-sidebar-bp={isCustomBreakpoint ? mobileBreakpoint : undefined}
+          data-sidebar-bp={mobileBreakpoint}
           data-slot="sidebar"
           data-state={state}
           data-variant={variant}

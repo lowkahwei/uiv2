@@ -1,5 +1,14 @@
 # @sytechui/sidebar
 
+## 3.0.1
+
+### Patch Changes
+
+- Stopped relying on Tailwind classes hardcoded in this package's compiled output for layout-critical styles. Consumers following the standard HeroUI setup only scan `@sytechui/theme/dist`, so classes such as `w-[var(--sidebar-width-mobile,18rem)]` were never compiled into the app CSS and the mobile Drawer collapsed to its content width. Fixes:
+  - The mobile Drawer now applies its default `18rem` width and `85vw` max-width inline; `drawerProps.style.width` / `drawerProps.style.maxWidth` remain supported overrides. The unused `--sidebar-width-mobile` CSS variable was removed.
+  - The `collapsible="none"` sidebar now applies its width/height/margin inline instead of via `w-[var(--sidebar-width)]` and friends.
+  - Desktop/mobile visibility no longer depends on `hidden md:block` being present in the consumer CSS; the pre-hydration `@media` style tag is now always rendered (previously only for custom `mobileBreakpoint` values).
+
 ## 3.0.0
 
 ### Minor Changes

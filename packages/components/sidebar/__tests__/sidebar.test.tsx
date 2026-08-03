@@ -416,9 +416,10 @@ describe("Sidebar", () => {
       </SidebarProvider>,
     );
 
-    expect(getByRole("complementary", {name: "Static sidebar"})).toHaveClass(
-      "w-[var(--sidebar-width)]",
-    );
+    expect(getByRole("complementary", {name: "Static sidebar"})).toHaveStyle({
+      width: "var(--sidebar-width)",
+      height: "100svh",
+    });
     expect(container.querySelector('[data-slot="sidebar-gap"]')).not.toBeInTheDocument();
     expect(container.querySelector("[data-state]")).not.toBeInTheDocument();
     expect(container.querySelector('[data-slot="sidebar-trigger"]')).not.toBeInTheDocument();
@@ -434,17 +435,14 @@ describe("Sidebar", () => {
       </SidebarProvider>,
     );
 
-    expect(getByRole("complementary", {name: "Static sidebar"})).toHaveClass(
-      "m-2",
-      "h-[calc(100svh-1rem)]",
-      "rounded-xl",
-      "border",
-      "shadow-sm",
-    );
+    const staticSidebar = getByRole("complementary", {name: "Static sidebar"});
+
+    expect(staticSidebar).toHaveClass("rounded-xl", "border", "shadow-sm");
+    expect(staticSidebar).toHaveStyle({margin: "0.5rem", height: "calc(100svh - 1rem)"});
   });
 
   it("opens the sidebar in a Sytech drawer on mobile", async () => {
-    setMobile(true);
+    setViewportWidth(390);
     const user = userEvent.setup();
     const {findByRole, getByRole} = render(<Layout />);
 
@@ -454,9 +452,7 @@ describe("Sidebar", () => {
       expect(await findByRole("complementary", {name: "Application sidebar"})).toBeVisible();
     });
 
-    expect(
-      document.querySelector(".w-\\[var\\(--sidebar-width-mobile\\,18rem\\)\\]"),
-    ).toBeInTheDocument();
+    expect(await findByRole("dialog")).toHaveStyle({width: "18rem", maxWidth: "85vw"});
   });
 
   it("shows collapsed menu tooltips", async () => {
@@ -589,6 +585,16 @@ describe("Sidebar", () => {
 
     expect(gap).toHaveClass("transition-[width]", "duration-200");
     expect(gap).not.toHaveClass("transition-none");
+  });
+
+  it("renders pre-hydration CSS for the default mobileBreakpoint", () => {
+    const {container} = render(
+      <SidebarProvider collapsible="icon">
+        <Sidebar>content</Sidebar>
+      </SidebarProvider>,
+    );
+
+    expect(container.querySelector("style")).toHaveTextContent("max-width:767px");
   });
 
   it("renders pre-hydration CSS for a custom mobileBreakpoint", () => {

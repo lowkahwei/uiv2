@@ -77,7 +77,6 @@ export function useSidebar(): SidebarContextValue {
 type SidebarVariables = CSSProperties & {
   "--sidebar-width"?: string;
   "--sidebar-width-icon"?: string;
-  "--sidebar-width-mobile"?: string;
 };
 
 export interface SidebarProviderProps extends ComponentPropsWithoutRef<"div"> {
